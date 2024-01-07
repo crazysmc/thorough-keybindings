@@ -1,0 +1,42 @@
+plugins {
+  id 'maven-publish'
+  id 'fabric-loom' version libs.versions.loom
+  id 'ploceus' version libs.versions.loom
+}
+
+version = "$mod_version+mc${libs.versions.minecraft.get()}"
+group = maven_group
+base.archivesName = mod_id
+
+dependencies {
+  minecraft libs.minecraft
+
+  mappings loom.layered {
+    mappings variantOf(libs.feather) { classifier 'v2' }
+    addLayer ploceus.nestedMappings()
+  }
+  nests libs.nests
+
+  modImplementation libs.loader
+  ploceus.addCommonLibraries()
+  ploceus.dependOsl libs.versions.osl.get()
+}
+
+java {
+  sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+  withSourcesJar()
+}
+
+processResources {
+  filesMatching 'fabric.mod.json', { expand project.properties }
+}
+
+tasks.withType Jar configureEach {
+  from rootProject.file('LICENSE')
+}
+
+publishing {
+  publications {
+    mavenJava MavenPublication, { from components.java }
+  }
+}
