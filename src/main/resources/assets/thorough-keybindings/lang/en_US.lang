@@ -1,0 +1,6 @@
+key.hideGui=Hide GUI
+key.screenshot=Screenshot
+key.togglePerspective=Perspective
+
+#overwrite button to instantly see if this was applied
+menu.options=>>OPTIONS<<

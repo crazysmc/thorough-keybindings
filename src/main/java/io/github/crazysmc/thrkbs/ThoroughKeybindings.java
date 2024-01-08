@@ -1,11 +1,16 @@
 package io.github.crazysmc.thrkbs;
 
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.options.KeyBinding;
 import net.ornithemc.osl.entrypoints.api.client.ClientModInitializer;
 import net.ornithemc.osl.keybinds.api.KeyBindingEvents;
+import net.ornithemc.osl.resource.loader.api.ResourceLoaderEvents;
+import org.lwjgl.input.Keyboard;
 
 public class ThoroughKeybindings implements ClientModInitializer
 {
+  public static final String MOD_ID = "thorough-keybindings";
   /*
 key_key.attack:key.mouse.left
 key_key.use:key.mouse.right
@@ -42,9 +47,9 @@ key_key.hotbar.7:key.keyboard.t
 key_key.hotbar.8:key.keyboard.g
 key_key.hotbar.9:key.keyboard.v
    */
-  public static KeyBinding hideGuiKey = new KeyBinding("key.hideGui", 59);
-  public static KeyBinding screenshotKey = new KeyBinding("key.screenshot", 60);
-  public static KeyBinding perspectiveKey = new KeyBinding("key.togglePerspective", 63);
+  public static KeyBinding hideGuiKey = new KeyBinding("key.hideGui", Keyboard.KEY_F1);
+  public static KeyBinding screenshotKey = new KeyBinding("key.screenshot", Keyboard.KEY_F2);
+  public static KeyBinding perspectiveKey = new KeyBinding("key.togglePerspective", Keyboard.KEY_F5);
 
   @Override
   public void initClient()
@@ -55,5 +60,18 @@ key_key.hotbar.9:key.keyboard.v
       registry.register(screenshotKey);
       registry.register(perspectiveKey);
     });
+//    String path = "/assets/" + MOD_ID + "/lang/en_US.lang";
+    ModContainer modContainer = FabricLoader.getInstance().getModContainer(MOD_ID).get();
+//    System.out.println(modContainer.findPath(path).get());
+    BuiltInTexturePackAdditions pack = new BuiltInTexturePackAdditions(modContainer.getMetadata());
+//    try (BufferedReader reader = new BufferedReader(new InputStreamReader(pack.getResource(path))))
+//    {
+//      reader.lines().forEach(System.out::println);
+//    }
+//    catch (IOException e)
+//    {
+//      e.printStackTrace();
+//    }
+    ResourceLoaderEvents.ADD_DEFAULT_TEXTURE_PACKS.register(adder -> adder.accept(pack)); // this should not be necessary
   }
 }

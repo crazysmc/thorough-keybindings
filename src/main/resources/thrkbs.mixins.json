@@ -4,6 +4,7 @@
   "package": "io.github.crazysmc.thrkbs.mixin",
   "compatibilityLevel": "JAVA_8",
   "client": [
+    "ControlsOptionsScreenMixin",
     "MinecraftMixin"
   ],
   "injectors": {
