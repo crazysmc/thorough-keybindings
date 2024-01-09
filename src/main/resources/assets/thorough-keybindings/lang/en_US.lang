@@ -1,6 +1,39 @@
+key.gameMenu=Game Menu
 key.hideGui=Hide GUI
 key.screenshot=Screenshot
+key.debug=Debug Info
 key.togglePerspective=Perspective
+key.smoothCamera=Smooth Camera
+key.fullscreen=Fullscreen
 
-#overwrite button to instantly see if this was applied
-menu.options=>>OPTIONS<<
+key.debug.title=Debug Key Combinations
+key.debug.reloadTextures=Reload Textures
+key.debug.reloadChunks=Reload Chunks
+key.debug.reloadResources=Reload Resources
+key.debug.renderDistance=Change Render Distance
+#key.debug.renderDistance.shift=TODO
+
+#TODO inventory controls
+
+key.hotbar.title=Hotbar Selection
+key.hotbar.1=Slot 1
+key.hotbar.2=Slot 2
+key.hotbar.3=Slot 3
+key.hotbar.4=Slot 4
+key.hotbar.5=Slot 5
+key.hotbar.6=Slot 6
+key.hotbar.7=Slot 7
+key.hotbar.8=Slot 8
+key.hotbar.9=Slot 9
+
+key.profilerChart.title=Profiler Chart Section Selection
+key.profilerChart.back=Parent Section
+key.profilerChart.1=Section 1
+key.profilerChart.2=Section 2
+key.profilerChart.3=Section 3
+key.profilerChart.4=Section 4
+key.profilerChart.5=Section 5
+key.profilerChart.6=Section 6
+key.profilerChart.7=Section 7
+key.profilerChart.8=Section 8
+key.profilerChart.9=Section 9

@@ -4,8 +4,10 @@
   "package": "io.github.crazysmc.thrkbs.mixin",
   "compatibilityLevel": "JAVA_8",
   "client": [
+    "BuiltInModTexturePackMixin",
     "ControlsOptionsScreenMixin",
-    "MinecraftMixin"
+    "MinecraftMixin",
+    "ScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
