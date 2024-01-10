@@ -5,7 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "BuiltInModTexturePackMixin",
-    "ControlsOptionsScreenMixin",
+    "OptionsScreenMixin",
     "MinecraftMixin",
     "ScreenMixin"
   ],

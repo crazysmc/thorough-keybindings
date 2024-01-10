@@ -1,3 +1,6 @@
+controls.default.title=Default Controls
+
+controls.extra.title=Extra Controls
 key.gameMenu=Game Menu
 key.hideGui=Hide GUI
 key.screenshot=Screenshot
@@ -6,7 +9,7 @@ key.togglePerspective=Perspective
 key.smoothCamera=Smooth Camera
 key.fullscreen=Fullscreen
 
-key.debug.title=Debug Key Combinations
+controls.debug.title=Debug Key Combinations
 key.debug.reloadTextures=Reload Textures
 key.debug.reloadChunks=Reload Chunks
 key.debug.reloadResources=Reload Resources
@@ -15,7 +18,7 @@ key.debug.renderDistance=Change Render Distance
 
 #TODO inventory controls
 
-key.hotbar.title=Hotbar Selection
+controls.hotbar.title=Hotbar Selection
 key.hotbar.1=Slot 1
 key.hotbar.2=Slot 2
 key.hotbar.3=Slot 3
@@ -26,7 +29,7 @@ key.hotbar.7=Slot 7
 key.hotbar.8=Slot 8
 key.hotbar.9=Slot 9
 
-key.profilerChart.title=Profiler Chart Section Selection
+controls.profilerChart.title=Profiler Chart Section Selection
 key.profilerChart.back=Parent Section
 key.profilerChart.1=Section 1
 key.profilerChart.2=Section 2

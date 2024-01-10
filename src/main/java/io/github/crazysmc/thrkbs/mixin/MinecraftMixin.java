@@ -19,9 +19,7 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
   public LocalClientPlayerEntity player;
 
   @Shadow
-  private void selectProfilerChartSection(int section)
-  {
-  }
+  protected abstract void selectProfilerChartSection(int section);
 
   @ModifyConstant(method = "tick", constant = {
       @Constant(intValue = Keyboard.KEY_ESCAPE, ordinal = 3),
