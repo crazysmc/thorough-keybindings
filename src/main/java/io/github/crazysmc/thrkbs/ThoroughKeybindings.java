@@ -44,7 +44,6 @@ public class ThoroughKeybindings implements ClientModInitializer
         remap("key.hotbar.9", Keyboard.KEY_9),
     };
 
-    remap("key.profilerChart.back", Keyboard.KEY_0);
     PROFILER_CHART_KEYS = new KeyBinding[] {
         remap("key.profilerChart.1", Keyboard.KEY_1),
         remap("key.profilerChart.2", Keyboard.KEY_2),
@@ -56,6 +55,7 @@ public class ThoroughKeybindings implements ClientModInitializer
         remap("key.profilerChart.8", Keyboard.KEY_8),
         remap("key.profilerChart.9", Keyboard.KEY_9),
     };
+    remap("key.profilerChart.back", Keyboard.KEY_0);
   }
 
   private static KeyBinding remap(String name, int original)

@@ -15,9 +15,6 @@ public class OptionsScreenMixin extends Screen
 {
   @Shadow
   @Final
-  private Screen parent;
-  @Shadow
-  @Final
   private GameOptions options;
 
   @ModifyArg(method = "buttonClicked",
@@ -26,6 +23,6 @@ public class OptionsScreenMixin extends Screen
                       ordinal = 1))
   private Screen buttonClicked(Screen screen)
   {
-    return new ControlsOptionsListScreen(parent, options);
+    return new ControlsOptionsListScreen(this, options);
   }
 }

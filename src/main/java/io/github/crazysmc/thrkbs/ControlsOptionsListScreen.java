@@ -1,67 +1,62 @@
 package io.github.crazysmc.thrkbs;
 
-import com.mojang.blaze3d.vertex.BufferBuilder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ListWidget;
-import net.minecraft.client.gui.widget.OptionButtonWidget;
 import net.minecraft.client.options.GameOptions;
+import net.minecraft.client.options.KeyBinding;
 import net.minecraft.locale.LanguageManager;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ControlsOptionsListScreen extends Screen
 {
-  private static final String[] KEYS = new String[] {
-      "controls.default.title",
-      "key.attack|key.use",
-      "key.forward|key.left",
-      "key.back|key.right",
-      "key.jump|key.sneak",
-      "key.drop|key.inventory",
-      "key.chat|key.playerlist",
-      "key.pickItem|key.command",
-      "controls.extra.title",
-      "key.gameMenu|key.hideGui",
-      "key.screenshot|key.debug",
-      "key.togglePerspective|key.smoothCamera",
-      "key.fullscreen",
-      "controls.debug.title",
-      "key.debug.reloadTextures|key.debug.reloadChunks",
-      "key.debug.reloadResources|key.debug.renderDistance",
-      "controls.hotbar.title",
-      "key.hotbar.1|key.hotbar.2",
-      "key.hotbar.3|key.hotbar.4",
-      "key.hotbar.5|key.hotbar.6",
-      "key.hotbar.7|key.hotbar.8",
-      "key.hotbar.9",
-      "controls.profilerChart.title",
-      "key.profilerChart.1|key.profilerChart.2",
-      "key.profilerChart.3|key.profilerChart.4",
-      "key.profilerChart.5|key.profilerChart.6",
-      "key.profilerChart.7|key.profilerChart.8",
-      "key.profilerChart.9|key.profilerChart.back",
-  };
+  private final Screen parent;
+  private final GameOptions options;
+  private final List<KeyBinding> defaultKeys;
+  private final List<KeyBinding> extraKeys;
+  private final List<KeyBinding> debugKeys;
+  private final List<KeyBinding> hotbarKeys;
+  private final List<KeyBinding> profilerKeys;
+  protected String title = "Options";
 
-  private final GameOptions gameOptions;
-  protected Screen parent;
-  private ControlsOptionsListWidget listWidget;
-
-  public ControlsOptionsListScreen(Screen parent, GameOptions gameOptions)
+  public ControlsOptionsListScreen(Screen parent, GameOptions options)
   {
     this.parent = parent;
-    this.gameOptions = gameOptions;
+    this.options = options;
+    defaultKeys = Arrays.asList(options.keyBindings).subList(0, 14);
+    extraKeys = Arrays.stream(options.keyBindings)
+        .filter(keyBinding -> keyBinding.name.indexOf('.') == keyBinding.name.lastIndexOf('.'))
+        .filter(keyBinding -> !defaultKeys.contains(keyBinding))
+        .collect(Collectors.toList());
+    debugKeys = Arrays.stream(options.keyBindings)
+        .filter(keyBinding -> keyBinding.name.startsWith("key.debug."))
+        .collect(Collectors.toList());
+    hotbarKeys = Arrays.stream(options.keyBindings)
+        .filter(keyBinding -> keyBinding.name.startsWith("key.hotbar."))
+        .collect(Collectors.toList());
+    profilerKeys = Arrays.stream(options.keyBindings)
+        .filter(keyBinding -> keyBinding.name.startsWith("key.profilerChart."))
+        .collect(Collectors.toList());
   }
 
   @Override
   public void init()
   {
-    LanguageManager languageManager = LanguageManager.getInstance();
-    @SuppressWarnings("unchecked") List<ButtonWidget> buttonWidgets = buttons;
-    buttonWidgets.add(
-        new OptionButtonWidget(1, this.width / 2 - 75, this.height - 38, languageManager.translate("gui.done")));
-    listWidget = new ControlsOptionsListScreen.ControlsOptionsListWidget();
-    listWidget.setScrollButtonIds(this.buttons, 2, 3);
+    LanguageManager lm = LanguageManager.getInstance();
+    this.title = lm.translate("options.title");
+    @SuppressWarnings("unchecked") List<ButtonWidget> buttons = this.buttons;
+    int left = width / 2 - 152;
+    int right = width / 2 + 2;
+    int top = height / 6;
+    buttons.add(new ButtonWidget(100, left, top, 150, 20, lm.translate("controls.default.title")));
+    buttons.add(new ButtonWidget(101, left, top + 24, 150, 20, lm.translate("controls.extra.title")));
+    buttons.add(new ButtonWidget(102, left, top + 48, 150, 20, lm.translate("controls.debug.title")));
+    buttons.add(new ButtonWidget(110, right, top, 150, 20, lm.translate("controls.inventory.title")));
+    buttons.add(new ButtonWidget(111, right, top + 24, 150, 20, lm.translate("controls.hotbar.title")));
+    buttons.add(new ButtonWidget(112, right, top + 48, 150, 20, lm.translate("controls.profilerChart.title")));
+    buttons.add(new ButtonWidget(200, width / 2 - 100, top + 168, lm.translate("gui.done")));
   }
 
   @Override
@@ -69,68 +64,38 @@ public class ControlsOptionsListScreen extends Screen
   {
     if (!button.active)
       return;
-    if (button.id == 1)
-      minecraft.openScreen(parent);
-    else
-      listWidget.buttonClicked(button);
+    switch (button.id)
+    {
+      case 100:
+        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.default.title", defaultKeys));
+        break;
+      case 101:
+        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.extra.title", extraKeys));
+        break;
+      case 102:
+        minecraft.openScreen(
+            new ControlsOptionsSubScreen(this, options, "controls.debug.title", debugKeys).setLongNames(true));
+        break;
+      case 110:
+//        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.inventory.title", inventoryKeys));
+        break;
+      case 111:
+        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.hotbar.title", hotbarKeys));
+        break;
+      case 112:
+        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.profilerChart.title", profilerKeys));
+        break;
+      case 200:
+        minecraft.openScreen(parent);
+        break;
+    }
   }
 
   @Override
   public void render(int mouseX, int mouseY, float tickDelta)
   {
-    listWidget.render(mouseX, mouseY, tickDelta);
-    LanguageManager languageManager = LanguageManager.getInstance();
-    drawCenteredString(textRenderer, languageManager.translate("controls.title"), this.width / 2, 16, 0xffffff);
-//    drawCenteredString(textRenderer, "(test)", this.width / 2, this.height - 56, 0x808080);
+    renderBackground();
+    drawCenteredString(textRenderer, title, width / 2, 20, 0xffffff);
     super.render(mouseX, mouseY, tickDelta);
-  }
-
-  class ControlsOptionsListWidget extends ListWidget
-  {
-    public ControlsOptionsListWidget()
-    {
-      super(ControlsOptionsListScreen.this.minecraft, ControlsOptionsListScreen.this.width,
-            ControlsOptionsListScreen.this.height, 32, ControlsOptionsListScreen.this.height - 65 + 4, 18);
-    }
-
-    @Override
-    protected int size()
-    {
-      return KEYS.length;
-    }
-
-    @Override
-    protected void entryClicked(int i, boolean bl)
-    {
-    }
-
-    @Override
-    protected boolean isEntrySelected(int index)
-    {
-      return false;
-    }
-
-    @Override
-    protected void renderBackground()
-    {
-      ControlsOptionsListScreen.this.renderBackground();
-    }
-
-    @Override
-    protected void renderEntry(int i, int j, int k, int l, BufferBuilder tesselator)
-    {
-      LanguageManager languageManager = LanguageManager.getInstance();
-      if (KEYS[i].startsWith("key."))
-      {
-        String[] split = KEYS[i].split("\\|");
-        String text = String.format("[%s] [%s]", languageManager.translate(split[0]),
-                                    split.length > 1 ? languageManager.translate(split[1]) : "--");
-        ControlsOptionsListScreen.this.drawCenteredString(textRenderer, text, ControlsOptionsListScreen.this.width / 2,
-                                                          k + 1, 0xffffff);
-      }
-      else
-        ControlsOptionsListScreen.this.drawCenteredString(textRenderer, languageManager.translate(KEYS[i]),
-                                                          ControlsOptionsListScreen.this.width / 2, k + 1, 0xffffff);
-    }
   }
 }

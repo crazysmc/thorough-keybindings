@@ -29,8 +29,7 @@ key.hotbar.7=Slot 7
 key.hotbar.8=Slot 8
 key.hotbar.9=Slot 9
 
-controls.profilerChart.title=Profiler Chart Section Selection
-key.profilerChart.back=Parent Section
+controls.profilerChart.title=Profiler Chart Selection
 key.profilerChart.1=Section 1
 key.profilerChart.2=Section 2
 key.profilerChart.3=Section 3
@@ -40,3 +39,4 @@ key.profilerChart.6=Section 6
 key.profilerChart.7=Section 7
 key.profilerChart.8=Section 8
 key.profilerChart.9=Section 9
+key.profilerChart.back=Parent Section
