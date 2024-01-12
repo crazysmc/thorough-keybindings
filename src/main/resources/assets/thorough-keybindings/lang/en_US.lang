@@ -14,7 +14,6 @@ key.debug.reloadTextures=Reload Textures
 key.debug.reloadChunks=Reload Chunks
 key.debug.reloadResources=Reload Resources
 key.debug.renderDistance=Change Render Distance
-#key.debug.renderDistance.shift=TODO
 
 #TODO inventory controls
 

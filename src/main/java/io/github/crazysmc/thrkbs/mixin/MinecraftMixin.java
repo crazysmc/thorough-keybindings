@@ -21,25 +21,34 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
   @Shadow
   protected abstract void selectProfilerChartSection(int section);
 
+  @ModifyConstant(method = "runGame", constant = @Constant(intValue = Keyboard.KEY_F7))
+  private int runGameConstant(int constant)
+  {
+    return ThoroughKeybindings.getRemap(constant);
+  }
+
   @ModifyConstant(method = "tick", constant = {
       @Constant(intValue = Keyboard.KEY_ESCAPE, ordinal = 3),
       @Constant(intValue = Keyboard.KEY_0),
       @Constant(intValue = Keyboard.KEY_T),
-      @Constant(intValue = Keyboard.KEY_A),
+      @Constant(intValue = Keyboard.KEY_A, ordinal = 0),
       @Constant(intValue = Keyboard.KEY_S),
+      @Constant(intValue = Keyboard.KEY_F),
+      @Constant(intValue = Keyboard.KEY_LSHIFT),
+      @Constant(intValue = Keyboard.KEY_RSHIFT),
       @Constant(intValue = Keyboard.KEY_F1),
       @Constant(intValue = Keyboard.KEY_F3),
       @Constant(intValue = Keyboard.KEY_F5),
       @Constant(intValue = Keyboard.KEY_F8),
       @Constant(intValue = Keyboard.KEY_F11),
   })
-  private int tick(int constant)
+  private int tickConstant(int constant)
   {
     return ThoroughKeybindings.getRemap(constant);
   }
 
   @Inject(method = "tick", at = @At(value = "CONSTANT", args = "intValue=9", ordinal = 0, shift = At.Shift.BY, by = -2))
-  private void tickHotbar(CallbackInfo ci)
+  private void tickNewSelectedSlot(CallbackInfo ci)
   {
     for (int i = 0; i < 9; i++)
       if (Keyboard.getEventKey() == ThoroughKeybindings.getHotbarRemap(i))
@@ -50,12 +59,12 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
             at = @At(value = "FIELD",
                      target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I",
                      opcode = Opcodes.PUTFIELD))
-  private void tick(PlayerInventory instance, int value)
+  private void tickSelectedSlot(PlayerInventory instance, int value)
   {
   }
 
   @Inject(method = "tick", at = @At(value = "CONSTANT", args = "intValue=9", ordinal = 1, shift = At.Shift.BY, by = -2))
-  private void tickProfiler(CallbackInfo ci)
+  private void tickNewProfiler(CallbackInfo ci)
   {
     for (int i = 0; i < 9; i++)
       if (Keyboard.getEventKey() == ThoroughKeybindings.getProfilerRemap(i))
@@ -66,12 +75,12 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/client/Minecraft;selectProfilerChartSection(I)V",
                      ordinal = 1))
-  private void tick(Minecraft instance, int i)
+  private void tickProfiler(Minecraft instance, int i)
   {
   }
 
   @ModifyConstant(method = "tryTakeScreenshot", constant = @Constant(intValue = Keyboard.KEY_F2))
-  private int tryTakeScreenshot(int constant)
+  private int tryTakeScreenshotConstant(int constant)
   {
     return ThoroughKeybindings.getRemap(constant);
   }
