@@ -6,46 +6,49 @@ import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.locale.LanguageManager;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ControlsOptionsListScreen extends Screen
 {
   private final Screen parent;
   private final GameOptions options;
   private final List<KeyBinding> defaultKeys;
-  private final List<KeyBinding> extraKeys;
-  private final List<KeyBinding> debugKeys;
-  private final List<KeyBinding> hotbarKeys;
-  private final List<KeyBinding> profilerKeys;
-  protected String title = "Options";
+  private final List<KeyBinding> extraKeys = new ArrayList<>();
+  private final List<KeyBinding> debugKeys = new ArrayList<>();
+  private final List<KeyBinding> inventoryKeys = new ArrayList<>();
+  private final List<KeyBinding> hotbarKeys = new ArrayList<>();
+  private final List<KeyBinding> profilerKeys = new ArrayList<>();
+  private final List<KeyBinding> modKeys = new ArrayList<>();
+  protected String title = "Controls";
 
   public ControlsOptionsListScreen(Screen parent, GameOptions options)
   {
     this.parent = parent;
     this.options = options;
     defaultKeys = Arrays.asList(options.keyBindings).subList(0, 14);
-    extraKeys = Arrays.stream(options.keyBindings)
-        .filter(keyBinding -> keyBinding.name.indexOf('.') == keyBinding.name.lastIndexOf('.'))
-        .filter(keyBinding -> !defaultKeys.contains(keyBinding))
-        .collect(Collectors.toList());
-    debugKeys = Arrays.stream(options.keyBindings)
-        .filter(keyBinding -> keyBinding.name.startsWith("key.debug."))
-        .collect(Collectors.toList());
-    hotbarKeys = Arrays.stream(options.keyBindings)
-        .filter(keyBinding -> keyBinding.name.startsWith("key.hotbar."))
-        .collect(Collectors.toList());
-    profilerKeys = Arrays.stream(options.keyBindings)
-        .filter(keyBinding -> keyBinding.name.startsWith("key.profilerChart."))
-        .collect(Collectors.toList());
+    Arrays.stream(options.keyBindings).skip(14).forEach(keyBinding -> {
+      if (keyBinding.name.startsWith("key.extra."))
+        extraKeys.add(keyBinding);
+      else if (keyBinding.name.startsWith("key.debug."))
+        debugKeys.add(keyBinding);
+      else if (keyBinding.name.startsWith("key.inventory."))
+        inventoryKeys.add(keyBinding);
+      else if (keyBinding.name.startsWith("key.hotbar."))
+        hotbarKeys.add(keyBinding);
+      else if (keyBinding.name.startsWith("key.profilerChart."))
+        profilerKeys.add(keyBinding);
+      else if (!keyBinding.name.startsWith("key.hidden."))
+        modKeys.add(keyBinding);
+    });
   }
 
   @Override
   public void init()
   {
     LanguageManager lm = LanguageManager.getInstance();
-    this.title = lm.translate("options.title");
+    this.title = lm.translate("controls.title");
     @SuppressWarnings("unchecked") List<ButtonWidget> buttons = this.buttons;
     int left = width / 2 - 152;
     int right = width / 2 + 2;
@@ -53,6 +56,8 @@ public class ControlsOptionsListScreen extends Screen
     buttons.add(new ButtonWidget(100, left, top, 150, 20, lm.translate("controls.default.title")));
     buttons.add(new ButtonWidget(101, left, top + 24, 150, 20, lm.translate("controls.extra.title")));
     buttons.add(new ButtonWidget(102, left, top + 48, 150, 20, lm.translate("controls.debug.title")));
+    if (!modKeys.isEmpty())
+      buttons.add(new ButtonWidget(103, left, top + 72, 150, 20, lm.translate("controls.mod.title")));
     buttons.add(new ButtonWidget(110, right, top, 150, 20, lm.translate("controls.inventory.title")));
     buttons.add(new ButtonWidget(111, right, top + 24, 150, 20, lm.translate("controls.hotbar.title")));
     buttons.add(new ButtonWidget(112, right, top + 48, 150, 20, lm.translate("controls.profilerChart.title")));
@@ -64,31 +69,37 @@ public class ControlsOptionsListScreen extends Screen
   {
     if (!button.active)
       return;
+    Screen screen;
     switch (button.id)
     {
       case 100:
-        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.default.title", defaultKeys));
+        screen = new ControlsOptionsSubScreen(this, options, "controls.default.title", defaultKeys);
         break;
       case 101:
-        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.extra.title", extraKeys));
+        screen = new ControlsOptionsSubScreen(this, options, "controls.extra.title", extraKeys);
         break;
       case 102:
-        minecraft.openScreen(
-            new ControlsOptionsSubScreen(this, options, "controls.debug.title", debugKeys).setLongNames(true));
+        screen = new ControlsOptionsSubScreen(this, options, "controls.debug.title", debugKeys).setLongNames(true);
+        break;
+      case 103:
+        screen = new ControlsOptionsSubScreen(this, options, "controls.mod.title", modKeys);
         break;
       case 110:
-//        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.inventory.title", inventoryKeys));
+        screen = new ControlsOptionsSubScreen(this, options, "controls.inventory.title", inventoryKeys);
         break;
       case 111:
-        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.hotbar.title", hotbarKeys));
+        screen = new ControlsOptionsSubScreen(this, options, "controls.hotbar.title", hotbarKeys);
         break;
       case 112:
-        minecraft.openScreen(new ControlsOptionsSubScreen(this, options, "controls.profilerChart.title", profilerKeys));
+        screen = new ControlsOptionsSubScreen(this, options, "controls.profilerChart.title", profilerKeys);
         break;
       case 200:
-        minecraft.openScreen(parent);
+        screen = parent;
         break;
+      default:
+        return;
     }
+    minecraft.openScreen(screen);
   }
 
   @Override

@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.mixin;
+package io.github.crazysmc.thrkbs.mixin.screen;
 
 import io.github.crazysmc.thrkbs.ControlsOptionsSubScreen;
 import net.minecraft.client.gui.screen.Screen;

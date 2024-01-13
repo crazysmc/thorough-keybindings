@@ -22,7 +22,7 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
   protected abstract void selectProfilerChartSection(int section);
 
   @ModifyConstant(method = "runGame", constant = @Constant(intValue = Keyboard.KEY_F7))
-  private int runGameConstant(int constant)
+  private int runGameRemap(int constant)
   {
     return ThoroughKeybindings.getRemap(constant);
   }
@@ -42,7 +42,7 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
       @Constant(intValue = Keyboard.KEY_F8),
       @Constant(intValue = Keyboard.KEY_F11),
   })
-  private int tickConstant(int constant)
+  private int tickRemap(int constant)
   {
     return ThoroughKeybindings.getRemap(constant);
   }
@@ -59,7 +59,7 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
             at = @At(value = "FIELD",
                      target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I",
                      opcode = Opcodes.PUTFIELD))
-  private void tickSelectedSlot(PlayerInventory instance, int value)
+  private void tickOldSelectedSlot(PlayerInventory instance, int value)
   {
   }
 
@@ -75,12 +75,12 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/client/Minecraft;selectProfilerChartSection(I)V",
                      ordinal = 1))
-  private void tickProfiler(Minecraft instance, int i)
+  private void tickOldProfiler(Minecraft instance, int i)
   {
   }
 
   @ModifyConstant(method = "tryTakeScreenshot", constant = @Constant(intValue = Keyboard.KEY_F2))
-  private int tryTakeScreenshotConstant(int constant)
+  private int tryTakeScreenshotRemap(int constant)
   {
     return ThoroughKeybindings.getRemap(constant);
   }

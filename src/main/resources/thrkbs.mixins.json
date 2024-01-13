@@ -5,10 +5,14 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "BuiltInModTexturePackMixin",
-    "ControlsOptionsScreenMixin",
     "MinecraftMixin",
-    "OptionsScreenMixin",
-    "ScreenMixin"
+    "screen.ChatScreenMixin",
+    "screen.ControlsOptionsScreenMixin",
+    "screen.CreditsScreenMixin",
+    "screen.InventoryMenuScreenMixin",
+    "screen.OptionsScreenMixin",
+    "screen.ScreenMixin",
+    "screen.SleepingChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

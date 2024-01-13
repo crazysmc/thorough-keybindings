@@ -1,13 +1,13 @@
 controls.default.title=Default Controls
 
 controls.extra.title=Extra Controls
-key.gameMenu=Game Menu
-key.hideGui=Hide GUI
-key.screenshot=Screenshot
-key.debug=Debug Info
-key.togglePerspective=Perspective
-key.smoothCamera=Smooth Camera
-key.fullscreen=Fullscreen
+key.extra.gameMenu=Game Menu
+key.extra.hideGui=Hide GUI
+key.extra.screenshot=Screenshot
+key.extra.debug=Debug Info
+key.extra.togglePerspective=Perspective
+key.extra.smoothCamera=Smooth Camera
+key.extra.fullscreen=Fullscreen
 
 controls.debug.title=Debug Key Combinations
 key.debug.reloadTextures=Reload Textures
@@ -15,6 +15,7 @@ key.debug.reloadChunks=Reload Chunks
 key.debug.reloadResources=Reload Resources
 key.debug.renderDistance=Change Render Distance
 
+controls.inventory.title=Inventory Controls
 #TODO inventory controls
 
 controls.hotbar.title=Hotbar Selection
@@ -39,3 +40,5 @@ key.profilerChart.7=Section 7
 key.profilerChart.8=Section 8
 key.profilerChart.9=Section 9
 key.profilerChart.back=Parent Section
+
+controls.mod.title=Mod Key Bindings

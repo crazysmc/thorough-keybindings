@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.mixin;
+package io.github.crazysmc.thrkbs.mixin.screen;
 
 import io.github.crazysmc.thrkbs.ControlsOptionsListScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(OptionsScreen.class)
-public class OptionsScreenMixin extends Screen
+public abstract class OptionsScreenMixin extends Screen
 {
   @Shadow
   @Final
@@ -21,7 +21,7 @@ public class OptionsScreenMixin extends Screen
              at = @At(value = "INVOKE",
                       target = "Lnet/minecraft/client/Minecraft;openScreen(Lnet/minecraft/client/gui/screen/Screen;)V",
                       ordinal = 1))
-  private Screen buttonClicked(Screen screen)
+  private Screen controlsButtonClicked(Screen screen)
   {
     return new ControlsOptionsListScreen(this, options);
   }

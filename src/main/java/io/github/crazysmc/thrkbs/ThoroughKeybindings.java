@@ -19,13 +19,13 @@ public class ThoroughKeybindings implements ClientModInitializer
 
   static
   {
-    remap("key.gameMenu", Keyboard.KEY_ESCAPE);
-    remap("key.hideGui", Keyboard.KEY_F1);
-    remap("key.screenshot", Keyboard.KEY_F2);
-    remap("key.debug", Keyboard.KEY_F3);
-    remap("key.togglePerspective", Keyboard.KEY_F5);
-    remap("key.smoothCamera", Keyboard.KEY_F8);
-    remap("key.fullscreen", Keyboard.KEY_F11);
+    remap("key.extra.gameMenu", Keyboard.KEY_ESCAPE);
+    remap("key.extra.hideGui", Keyboard.KEY_F1);
+    remap("key.extra.screenshot", Keyboard.KEY_F2);
+    remap("key.extra.debug", Keyboard.KEY_F3);
+    remap("key.extra.togglePerspective", Keyboard.KEY_F5);
+    remap("key.extra.smoothCamera", Keyboard.KEY_F8);
+    remap("key.extra.fullscreen", Keyboard.KEY_F11);
 
     remap("key.debug.reloadTextures", Keyboard.KEY_T);
     remap("key.debug.reloadChunks", Keyboard.KEY_A);
