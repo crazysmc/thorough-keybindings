@@ -58,8 +58,10 @@ public class ThoroughKeybindings implements ClientModInitializer
     remap("key.profilerChart.back", Keyboard.KEY_0);
 
     remap("key.hidden.displayUpdateDelay", Keyboard.KEY_F7);
-    remap("key.hidden.renderDistance.lshift", Keyboard.KEY_LSHIFT);
-    remap("key.hidden.renderDistance.rshift", Keyboard.KEY_RSHIFT);
+    remap("key.hidden.lshift", Keyboard.KEY_LSHIFT);
+    remap("key.hidden.rshift", Keyboard.KEY_RSHIFT);
+    remap("key.hidden.lctrl", Keyboard.KEY_LCONTROL);
+    remap("key.hidden.rctrl", Keyboard.KEY_RCONTROL);
   }
 
   private static KeyBinding remap(String name, int original)

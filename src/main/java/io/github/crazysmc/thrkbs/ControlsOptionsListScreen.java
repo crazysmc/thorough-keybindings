@@ -17,7 +17,6 @@ public class ControlsOptionsListScreen extends Screen
   private final List<KeyBinding> defaultKeys;
   private final List<KeyBinding> extraKeys = new ArrayList<>();
   private final List<KeyBinding> debugKeys = new ArrayList<>();
-  private final List<KeyBinding> inventoryKeys = new ArrayList<>();
   private final List<KeyBinding> hotbarKeys = new ArrayList<>();
   private final List<KeyBinding> profilerKeys = new ArrayList<>();
   private final List<KeyBinding> modKeys = new ArrayList<>();
@@ -33,8 +32,6 @@ public class ControlsOptionsListScreen extends Screen
         extraKeys.add(keyBinding);
       else if (keyBinding.name.startsWith("key.debug."))
         debugKeys.add(keyBinding);
-      else if (keyBinding.name.startsWith("key.inventory."))
-        inventoryKeys.add(keyBinding);
       else if (keyBinding.name.startsWith("key.hotbar."))
         hotbarKeys.add(keyBinding);
       else if (keyBinding.name.startsWith("key.profilerChart."))
@@ -56,11 +53,10 @@ public class ControlsOptionsListScreen extends Screen
     buttons.add(new ButtonWidget(100, left, top, 150, 20, lm.translate("controls.default.title")));
     buttons.add(new ButtonWidget(101, left, top + 24, 150, 20, lm.translate("controls.extra.title")));
     buttons.add(new ButtonWidget(102, left, top + 48, 150, 20, lm.translate("controls.debug.title")));
+    buttons.add(new ButtonWidget(110, right, top, 150, 20, lm.translate("controls.hotbar.title")));
+    buttons.add(new ButtonWidget(111, right, top + 24, 150, 20, lm.translate("controls.profilerChart.title")));
     if (!modKeys.isEmpty())
-      buttons.add(new ButtonWidget(103, left, top + 72, 150, 20, lm.translate("controls.mod.title")));
-    buttons.add(new ButtonWidget(110, right, top, 150, 20, lm.translate("controls.inventory.title")));
-    buttons.add(new ButtonWidget(111, right, top + 24, 150, 20, lm.translate("controls.hotbar.title")));
-    buttons.add(new ButtonWidget(112, right, top + 48, 150, 20, lm.translate("controls.profilerChart.title")));
+      buttons.add(new ButtonWidget(112, right, top + 48, 150, 20, lm.translate("controls.mod.title")));
     buttons.add(new ButtonWidget(200, width / 2 - 100, top + 168, lm.translate("gui.done")));
   }
 
@@ -81,17 +77,14 @@ public class ControlsOptionsListScreen extends Screen
       case 102:
         screen = new ControlsOptionsSubScreen(this, options, "controls.debug.title", debugKeys).setLongNames(true);
         break;
-      case 103:
-        screen = new ControlsOptionsSubScreen(this, options, "controls.mod.title", modKeys);
-        break;
       case 110:
-        screen = new ControlsOptionsSubScreen(this, options, "controls.inventory.title", inventoryKeys);
-        break;
-      case 111:
         screen = new ControlsOptionsSubScreen(this, options, "controls.hotbar.title", hotbarKeys);
         break;
-      case 112:
+      case 111:
         screen = new ControlsOptionsSubScreen(this, options, "controls.profilerChart.title", profilerKeys);
+        break;
+      case 112:
+        screen = new ControlsOptionsSubScreen(this, options, "controls.mod.title", modKeys);
         break;
       case 200:
         screen = parent;

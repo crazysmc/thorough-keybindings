@@ -15,9 +15,6 @@ key.debug.reloadChunks=Reload Chunks
 key.debug.reloadResources=Reload Resources
 key.debug.renderDistance=Change Render Distance
 
-controls.inventory.title=Inventory Controls
-#TODO inventory controls
-
 controls.hotbar.title=Hotbar Selection
 key.hotbar.1=Slot 1
 key.hotbar.2=Slot 2
