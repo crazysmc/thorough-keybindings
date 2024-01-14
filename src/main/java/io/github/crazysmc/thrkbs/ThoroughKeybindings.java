@@ -31,6 +31,8 @@ public class ThoroughKeybindings implements ClientModInitializer
     remap("key.debug.reloadChunks", Keyboard.KEY_A);
     remap("key.debug.reloadResources", Keyboard.KEY_S);
     remap("key.debug.renderDistance", Keyboard.KEY_F);
+    remap("key.debug.pauseOnUnfocus", Keyboard.KEY_P);
+    remap("key.debug.advancedItemTooltips", Keyboard.KEY_H);
 
     HOTBAR_KEYS = new KeyBinding[] {
         remap("key.hotbar.1", Keyboard.KEY_1),

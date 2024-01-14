@@ -14,6 +14,8 @@ key.debug.reloadTextures=Reload Textures
 key.debug.reloadChunks=Reload Chunks
 key.debug.reloadResources=Reload Resources
 key.debug.renderDistance=Change Render Distance
+key.debug.pauseOnUnfocus=Pause on Lost Focus
+key.debug.advancedItemTooltips=Advanced Item Tooltips
 
 controls.hotbar.title=Hotbar Selection
 key.hotbar.1=Slot 1
