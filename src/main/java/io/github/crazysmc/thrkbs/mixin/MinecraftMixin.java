@@ -44,6 +44,7 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
       @Constant(intValue = Keyboard.KEY_P),
       @Constant(intValue = Keyboard.KEY_H),
       @Constant(intValue = Keyboard.KEY_C),
+      @Constant(intValue = Keyboard.KEY_B),
   })
   private int tickRemap(int constant)
   {
