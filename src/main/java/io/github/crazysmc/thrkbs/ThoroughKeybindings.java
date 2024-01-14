@@ -64,6 +64,7 @@ public class ThoroughKeybindings implements ClientModInitializer
     remap("key.hidden.rshift", Keyboard.KEY_RSHIFT);
     remap("key.hidden.lctrl", Keyboard.KEY_LCONTROL);
     remap("key.hidden.rctrl", Keyboard.KEY_RCONTROL);
+    remap("key.hidden.debugCrash", Keyboard.KEY_C);
   }
 
   private static KeyBinding remap(String name, int original)
