@@ -3,14 +3,15 @@ package io.github.crazysmc.thrkbs.mixin;
 import io.github.crazysmc.thrkbs.ThoroughKeybindings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.living.player.LocalClientPlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.snooper.SnooperPopulator;
 import org.lwjgl.input.Keyboard;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin implements Runnable, SnooperPopulator
@@ -51,36 +52,30 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
     return ThoroughKeybindings.getRemap(constant);
   }
 
-  @Inject(method = "tick", at = @At(value = "CONSTANT", args = "intValue=9", ordinal = 0, shift = At.Shift.BY, by = -2))
-  private void tickNewSelectedSlot(CallbackInfo ci)
+  @ModifyConstant(method = "tick",
+                  slice = @Slice(from = @At(value = "FIELD",
+                                            opcode = Opcodes.PUTFIELD,
+                                            target = "Lnet/minecraft/client/options/GameOptions;smoothCamera:Z")),
+                  constant = @Constant(intValue = 9, ordinal = 0))
+  private int tickSelectedSlot(int constant)
   {
     for (int i = 0; i < 9; i++)
       if (Keyboard.getEventKey() == ThoroughKeybindings.getHotbarRemap(i))
         player.inventory.selectedSlot = i;
+    return 0;
   }
 
-  @Redirect(method = "tick",
-            at = @At(value = "FIELD",
-                     target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I",
-                     opcode = Opcodes.PUTFIELD))
-  private void tickOldSelectedSlot(PlayerInventory instance, int value)
-  {
-  }
-
-  @Inject(method = "tick", at = @At(value = "CONSTANT", args = "intValue=9", ordinal = 1, shift = At.Shift.BY, by = -2))
-  private void tickNewProfiler(CallbackInfo ci)
+  @ModifyConstant(method = "tick",
+                  slice = @Slice(from = @At(value = "FIELD",
+                                            opcode = Opcodes.PUTFIELD,
+                                            target = "Lnet/minecraft/client/options/GameOptions;smoothCamera:Z")),
+                  constant = @Constant(intValue = 9, ordinal = 1))
+  private int tickProfilerChart(int constant)
   {
     for (int i = 0; i < 9; i++)
       if (Keyboard.getEventKey() == ThoroughKeybindings.getProfilerRemap(i))
         selectProfilerChartSection(i + 1);
-  }
-
-  @Redirect(method = "tick",
-            at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/Minecraft;selectProfilerChartSection(I)V",
-                     ordinal = 1))
-  private void tickOldProfiler(Minecraft instance, int i)
-  {
+    return 0;
   }
 
   @ModifyConstant(method = "tryTakeScreenshot", constant = @Constant(intValue = Keyboard.KEY_F2))
