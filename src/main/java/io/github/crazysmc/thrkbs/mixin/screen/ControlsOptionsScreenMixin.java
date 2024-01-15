@@ -17,7 +17,8 @@ public abstract class ControlsOptionsScreenMixin extends Screen
 {
   @Redirect(method = "init",
             at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/resource/language/I18n;translate(Ljava/lang/String;)Ljava/lang/String;"))
+                     target = "Lnet/minecraft/client/resource/language/I18n;translate(Ljava/lang/String;)Ljava/lang/String;",
+                     ordinal = 1))
   private String redirectTitle(String key)
   {
     ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
