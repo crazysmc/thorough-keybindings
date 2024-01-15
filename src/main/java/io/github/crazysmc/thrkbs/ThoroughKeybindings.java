@@ -14,63 +14,50 @@ public class ThoroughKeybindings implements ClientModInitializer
 {
   private static final Int2ObjectMap<KeyBinding> KEY_BINDINGS_MAP = new Int2ObjectArrayMap<>();
   private static final List<KeyBinding> KEY_BINDINGS_LIST = new ArrayList<>();
-  private static final KeyBinding[] HOTBAR_KEYS;
   private static final KeyBinding[] PROFILER_CHART_KEYS;
 
   static
   {
-    remap("key.extra.gameMenu", Keyboard.KEY_ESCAPE);
-    remap("key.extra.hideGui", Keyboard.KEY_F1);
-    remap("key.extra.screenshot", Keyboard.KEY_F2);
-    remap("key.extra.debug", Keyboard.KEY_F3);
-    remap("key.extra.togglePerspective", Keyboard.KEY_F5);
-    remap("key.extra.smoothCamera", Keyboard.KEY_F8);
-    remap("key.extra.fullscreen", Keyboard.KEY_F11);
+    String misc = "key.categories.misc";
+    remap("key.gameMenu", Keyboard.KEY_ESCAPE, misc);
+    remap("key.hideGui", Keyboard.KEY_F1, misc);
+    remap("key.debug", Keyboard.KEY_F3, misc);
+    remap("key.fullscreen", Keyboard.KEY_F11, misc);
 
-    remap("key.debug.reloadTextures", Keyboard.KEY_T);
-    remap("key.debug.reloadChunks", Keyboard.KEY_A);
-    remap("key.debug.reloadResources", Keyboard.KEY_S);
-    remap("key.debug.renderDistance", Keyboard.KEY_F);
-    remap("key.debug.pauseOnUnfocus", Keyboard.KEY_P);
-    remap("key.debug.advancedItemTooltips", Keyboard.KEY_H);
-    remap("key.debug.renderHitboxes", Keyboard.KEY_B);
+    String debug = "key.categories.debug";
+    remap("key.reloadTextures", Keyboard.KEY_T, debug);
+    remap("key.reloadChunks", Keyboard.KEY_A, debug);
+    remap("key.reloadResources", Keyboard.KEY_S, debug);
+    remap("key.renderDistance", Keyboard.KEY_F, debug);
+    remap("key.pauseOnUnfocus", Keyboard.KEY_P, debug);
+    remap("key.advancedItemTooltips", Keyboard.KEY_H, debug);
+    remap("key.renderHitboxes", Keyboard.KEY_B, debug);
+    remap("key.debugCrash", Keyboard.KEY_C, debug);
 
-    HOTBAR_KEYS = new KeyBinding[] {
-        remap("key.hotbar.1", Keyboard.KEY_1),
-        remap("key.hotbar.2", Keyboard.KEY_2),
-        remap("key.hotbar.3", Keyboard.KEY_3),
-        remap("key.hotbar.4", Keyboard.KEY_4),
-        remap("key.hotbar.5", Keyboard.KEY_5),
-        remap("key.hotbar.6", Keyboard.KEY_6),
-        remap("key.hotbar.7", Keyboard.KEY_7),
-        remap("key.hotbar.8", Keyboard.KEY_8),
-        remap("key.hotbar.9", Keyboard.KEY_9),
-    };
-
+    String profilerChart = "key.categories.profilerChart";
     PROFILER_CHART_KEYS = new KeyBinding[] {
-        remap("key.profilerChart.1", Keyboard.KEY_1),
-        remap("key.profilerChart.2", Keyboard.KEY_2),
-        remap("key.profilerChart.3", Keyboard.KEY_3),
-        remap("key.profilerChart.4", Keyboard.KEY_4),
-        remap("key.profilerChart.5", Keyboard.KEY_5),
-        remap("key.profilerChart.6", Keyboard.KEY_6),
-        remap("key.profilerChart.7", Keyboard.KEY_7),
-        remap("key.profilerChart.8", Keyboard.KEY_8),
-        remap("key.profilerChart.9", Keyboard.KEY_9),
+        remap("key.profilerChart.1", Keyboard.KEY_1, profilerChart),
+        remap("key.profilerChart.2", Keyboard.KEY_2, profilerChart),
+        remap("key.profilerChart.3", Keyboard.KEY_3, profilerChart),
+        remap("key.profilerChart.4", Keyboard.KEY_4, profilerChart),
+        remap("key.profilerChart.5", Keyboard.KEY_5, profilerChart),
+        remap("key.profilerChart.6", Keyboard.KEY_6, profilerChart),
+        remap("key.profilerChart.7", Keyboard.KEY_7, profilerChart),
+        remap("key.profilerChart.8", Keyboard.KEY_8, profilerChart),
+        remap("key.profilerChart.9", Keyboard.KEY_9, profilerChart),
     };
-    remap("key.profilerChart.back", Keyboard.KEY_0);
+    remap("key.profilerChart.back", Keyboard.KEY_0, profilerChart);
 
-    remap("key.hidden.displayUpdateDelay", Keyboard.KEY_F7);
-    remap("key.hidden.lshift", Keyboard.KEY_LSHIFT);
-    remap("key.hidden.rshift", Keyboard.KEY_RSHIFT);
-    remap("key.hidden.lctrl", Keyboard.KEY_LCONTROL);
-    remap("key.hidden.rctrl", Keyboard.KEY_RCONTROL);
-    remap("key.hidden.debugCrash", Keyboard.KEY_C);
+    String modifier = "key.categories.modifier";
+    remap("key.mod.lshift", Keyboard.KEY_LSHIFT, modifier);
+    remap("key.mod.rshift", Keyboard.KEY_RSHIFT, modifier);
+    remap("key.mod.lctrl", Keyboard.KEY_LCONTROL, modifier);
+    remap("key.mod.rctrl", Keyboard.KEY_RCONTROL, modifier);
   }
 
-  private static KeyBinding remap(String name, int original)
+  private static KeyBinding remap(String name, int original, String category)
   {
-    KeyBinding keyBinding = new KeyBinding(name, original);
+    KeyBinding keyBinding = new KeyBinding(name, original, category);
     KEY_BINDINGS_MAP.put(original, keyBinding);
     KEY_BINDINGS_LIST.add(keyBinding);
     return keyBinding;
@@ -78,17 +65,12 @@ public class ThoroughKeybindings implements ClientModInitializer
 
   public static int getRemap(int original)
   {
-    return KEY_BINDINGS_MAP.get(original).keyCode;
-  }
-
-  public static int getHotbarRemap(int index)
-  {
-    return HOTBAR_KEYS[index].keyCode;
+    return KEY_BINDINGS_MAP.get(original).getKeyCode();
   }
 
   public static int getProfilerRemap(int index)
   {
-    return PROFILER_CHART_KEYS[index].keyCode;
+    return PROFILER_CHART_KEYS[index].getKeyCode();
   }
 
   @Override

@@ -9,7 +9,6 @@
     "screen.ControlsOptionsScreenMixin",
     "screen.CreditsScreenMixin",
     "screen.InventoryMenuScreenMixin",
-    "screen.OptionsScreenMixin",
     "screen.ScreenMixin",
     "screen.SleepingChatScreenMixin"
   ],

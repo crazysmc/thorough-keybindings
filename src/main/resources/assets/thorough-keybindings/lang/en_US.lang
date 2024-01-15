@@ -1,35 +1,19 @@
-controls.default.title=Default Controls
+key.gameMenu=Game Menu
+key.hideGui=Hide GUI
+key.debug=Debug Info
+key.fullscreen=Fullscreen
 
-controls.extra.title=Extra Controls
-key.extra.gameMenu=Game Menu
-key.extra.hideGui=Hide GUI
-key.extra.screenshot=Screenshot
-key.extra.debug=Debug Info
-key.extra.togglePerspective=Perspective
-key.extra.smoothCamera=Smooth Camera
-key.extra.fullscreen=Fullscreen
+key.categories.debug=Debug Key Combinations
+key.reloadTextures=Reload Textures
+key.reloadChunks=Reload Chunks
+key.reloadResources=Reload Resources
+key.renderDistance=Change Render Distance
+key.pauseOnUnfocus=Pause on Lost Focus
+key.advancedItemTooltips=Advanced Item Tooltips
+key.renderHitboxes=Render Hitboxes
+key.debugCrash=Debug Crash (Hold)
 
-controls.debug.title=Debug Key Combinations
-key.debug.reloadTextures=Reload Textures
-key.debug.reloadChunks=Reload Chunks
-key.debug.reloadResources=Reload Resources
-key.debug.renderDistance=Change Render Distance
-key.debug.pauseOnUnfocus=Pause on Lost Focus
-key.debug.advancedItemTooltips=Advanced Item Tooltips
-key.debug.renderHitboxes=Render Hitboxes
-
-controls.hotbar.title=Hotbar Selection
-key.hotbar.1=Slot 1
-key.hotbar.2=Slot 2
-key.hotbar.3=Slot 3
-key.hotbar.4=Slot 4
-key.hotbar.5=Slot 5
-key.hotbar.6=Slot 6
-key.hotbar.7=Slot 7
-key.hotbar.8=Slot 8
-key.hotbar.9=Slot 9
-
-controls.profilerChart.title=Profiler Chart Selection
+key.categories.profilerChart=Profiler Chart Selection
 key.profilerChart.1=Section 1
 key.profilerChart.2=Section 2
 key.profilerChart.3=Section 3
@@ -41,4 +25,8 @@ key.profilerChart.8=Section 8
 key.profilerChart.9=Section 9
 key.profilerChart.back=Parent Section
 
-controls.mod.title=Mod Key Bindings
+key.categories.modifier=Modifier Keys
+key.mod.lshift=Shift 1
+key.mod.rshift=Shift 2
+key.mod.lctrl=Control 1
+key.mod.rctrl=Control 2
