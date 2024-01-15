@@ -4,7 +4,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
-import net.minecraft.locale.LanguageManager;
+import net.minecraft.client.resource.language.I18n;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,20 +44,19 @@ public class ControlsOptionsListScreen extends Screen
   @Override
   public void init()
   {
-    LanguageManager lm = LanguageManager.getInstance();
-    this.title = lm.translate("controls.title");
+    this.title = I18n.translate("controls.title");
     @SuppressWarnings("unchecked") List<ButtonWidget> buttons = this.buttons;
     int left = width / 2 - 152;
     int right = width / 2 + 2;
     int top = height / 6;
-    buttons.add(new ButtonWidget(100, left, top, 150, 20, lm.translate("controls.default.title")));
-    buttons.add(new ButtonWidget(101, left, top + 24, 150, 20, lm.translate("controls.extra.title")));
-    buttons.add(new ButtonWidget(102, left, top + 48, 150, 20, lm.translate("controls.debug.title")));
-    buttons.add(new ButtonWidget(110, right, top, 150, 20, lm.translate("controls.hotbar.title")));
-    buttons.add(new ButtonWidget(111, right, top + 24, 150, 20, lm.translate("controls.profilerChart.title")));
+    buttons.add(new ButtonWidget(100, left, top, 150, 20, I18n.translate("controls.default.title")));
+    buttons.add(new ButtonWidget(101, left, top + 24, 150, 20, I18n.translate("controls.extra.title")));
+    buttons.add(new ButtonWidget(102, left, top + 48, 150, 20, I18n.translate("controls.debug.title")));
+    buttons.add(new ButtonWidget(110, right, top, 150, 20, I18n.translate("controls.hotbar.title")));
+    buttons.add(new ButtonWidget(111, right, top + 24, 150, 20, I18n.translate("controls.profilerChart.title")));
     if (!modKeys.isEmpty())
-      buttons.add(new ButtonWidget(112, right, top + 48, 150, 20, lm.translate("controls.mod.title")));
-    buttons.add(new ButtonWidget(200, width / 2 - 100, top + 168, lm.translate("gui.done")));
+      buttons.add(new ButtonWidget(112, right, top + 48, 150, 20, I18n.translate("controls.mod.title")));
+    buttons.add(new ButtonWidget(200, width / 2 - 100, top + 168, I18n.translate("gui.done")));
   }
 
   @Override

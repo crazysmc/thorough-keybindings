@@ -5,7 +5,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.options.ControlsOptionsScreen;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
-import net.minecraft.locale.LanguageManager;
+import net.minecraft.client.resource.language.I18n;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -17,14 +17,13 @@ public abstract class ControlsOptionsScreenMixin extends Screen
 {
   @Redirect(method = "init",
             at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/locale/LanguageManager;translate(Ljava/lang/String;)Ljava/lang/String;",
-                     ordinal = 1))
-  private String redirectTitle(LanguageManager languageManager, String key)
+                     target = "Lnet/minecraft/client/resource/language/I18n;translate(Ljava/lang/String;)Ljava/lang/String;"))
+  private String redirectTitle(String key)
   {
     ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
     if (instance instanceof ControlsOptionsSubScreen)
-      return languageManager.translate(((ControlsOptionsSubScreen) instance).getTitleKey());
-    return languageManager.translate(key);
+      return I18n.translate(((ControlsOptionsSubScreen) instance).getTitleKey());
+    return I18n.translate(key);
   }
 
   @Redirect(method = "*",
@@ -82,9 +81,8 @@ public abstract class ControlsOptionsScreenMixin extends Screen
   private String translate(GameOptions options, int i)
   {
     ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
-    LanguageManager lm = LanguageManager.getInstance();
     if (instance instanceof ControlsOptionsSubScreen)
-      return lm.translate(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).name);
+      return I18n.translate(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).name);
     return options.translate(i);
   }
 
