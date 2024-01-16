@@ -3,7 +3,7 @@ key.hideGui=Hide GUI
 key.debug=Debug Info
 key.fullscreen=Fullscreen
 
-key.categories.debug=Debug Key Combinations
+key.categories.debug=Key Combinations (Hold Debug Info Key)
 key.reloadTextures=Reload Textures
 key.reloadChunks=Reload Chunks
 key.reloadResources=Reload Resources
