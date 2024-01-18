@@ -23,12 +23,11 @@ public class ThoroughKeybindings implements ClientModInitializer
     remap("key.hideGui", Keyboard.KEY_F1, misc);
     remap("key.debug", Keyboard.KEY_F3, misc);
     remap("key.disableShader", Keyboard.KEY_F4, misc);
-    remap("key.fullscreen", Keyboard.KEY_F11, misc);
 
     String debug = "key.categories.debug";
-    remap("key.reloadTextures", Keyboard.KEY_T, debug);
+    remap("key.reloadResources1", Keyboard.KEY_T, debug);
     remap("key.reloadChunks", Keyboard.KEY_A, debug);
-    remap("key.reloadResources", Keyboard.KEY_S, debug);
+    remap("key.reloadResources2", Keyboard.KEY_S, debug);
     remap("key.renderDistance", Keyboard.KEY_F, debug);
     remap("key.pauseOnUnfocus", Keyboard.KEY_P, debug);
     remap("key.advancedItemTooltips", Keyboard.KEY_H, debug);

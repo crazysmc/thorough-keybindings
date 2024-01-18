@@ -35,6 +35,10 @@ tasks.withType Jar configureEach {
   from rootProject.file('LICENSE')
 }
 
+runClient {
+  args += ['--userProperties', '{}']
+}
+
 publishing {
   publications {
     mavenJava MavenPublication, { from components.java }

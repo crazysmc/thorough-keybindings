@@ -27,12 +27,6 @@ public abstract class ScreenMixin extends GuiElement
     return ThoroughKeybindings.getRemap(constant);
   }
 
-  @ModifyConstant(method = "handleKeyboard", constant = @Constant(intValue = Keyboard.KEY_F11))
-  private int handleKeyboardRemap(int constant)
-  {
-    return ThoroughKeybindings.getRemap(constant);
-  }
-
   @ModifyConstant(method = "keyPressed", constant = @Constant(intValue = Keyboard.KEY_ESCAPE))
   private int keyPressedRemap(int constant)
   {

@@ -2,12 +2,11 @@ key.gameMenu=Game Menu
 key.hideGui=Hide GUI
 key.debug=Debug Info
 key.disableShader=Disable Shader
-key.fullscreen=Fullscreen
 
 key.categories.debug=Key Combinations (Hold Debug Info Key)
-key.reloadTextures=Reload Textures
+key.reloadResources1=Reload Resources 1
+key.reloadResources2=Reload Resources 2
 key.reloadChunks=Reload Chunks
-key.reloadResources=Reload Resources
 key.renderDistance=Change Render Distance
 key.pauseOnUnfocus=Pause on Lost Focus
 key.advancedItemTooltips=Advanced Item Tooltips
