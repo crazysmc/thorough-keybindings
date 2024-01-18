@@ -33,6 +33,7 @@ public abstract class MinecraftMixin implements Runnable, SnooperPopulator
                       @Constant(intValue = Keyboard.KEY_RSHIFT),
                       @Constant(intValue = Keyboard.KEY_F1),
                       @Constant(intValue = Keyboard.KEY_F3),
+                      @Constant(intValue = Keyboard.KEY_F4),
                       @Constant(intValue = Keyboard.KEY_F11),
                       @Constant(intValue = Keyboard.KEY_P),
                       @Constant(intValue = Keyboard.KEY_H),

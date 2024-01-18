@@ -1,6 +1,7 @@
 key.gameMenu=Game Menu
 key.hideGui=Hide GUI
 key.debug=Debug Info
+key.disableShader=Disable Shader
 key.fullscreen=Fullscreen
 
 key.categories.debug=Key Combinations (Hold Debug Info Key)

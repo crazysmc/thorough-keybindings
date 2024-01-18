@@ -22,6 +22,7 @@ public class ThoroughKeybindings implements ClientModInitializer
     remap("key.gameMenu", Keyboard.KEY_ESCAPE, misc);
     remap("key.hideGui", Keyboard.KEY_F1, misc);
     remap("key.debug", Keyboard.KEY_F3, misc);
+    remap("key.disableShader", Keyboard.KEY_F4, misc);
     remap("key.fullscreen", Keyboard.KEY_F11, misc);
 
     String debug = "key.categories.debug";
