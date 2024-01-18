@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(Minecraft.class)
-public abstract class MinecraftMixin implements Runnable, SnooperPopulator
+public abstract class MinecraftMixin implements SnooperPopulator
 {
   @Shadow
   protected abstract void selectProfilerChartSection(int section);
