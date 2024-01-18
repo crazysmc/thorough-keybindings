@@ -38,6 +38,7 @@ public abstract class MinecraftMixin implements SnooperPopulator
                       @Constant(intValue = Keyboard.KEY_H),
                       @Constant(intValue = Keyboard.KEY_C),
                       @Constant(intValue = Keyboard.KEY_B),
+                      @Constant(intValue = Keyboard.KEY_D),
                   })
   private int tickRemap(int constant)
   {

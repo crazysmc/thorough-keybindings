@@ -12,6 +12,7 @@ key.pauseOnUnfocus=Pause on Lost Focus
 key.advancedItemTooltips=Advanced Item Tooltips
 key.renderHitboxes=Render Hitboxes
 key.debugCrash=Debug Crash (Hold)
+key.clearChat=Clear Chat
 
 key.categories.profilerChart=Profiler Chart Selection
 key.profilerChart.1=Section 1

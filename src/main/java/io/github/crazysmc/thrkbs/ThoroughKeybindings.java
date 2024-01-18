@@ -33,6 +33,7 @@ public class ThoroughKeybindings implements ClientModInitializer
     remap("key.advancedItemTooltips", Keyboard.KEY_H, debug);
     remap("key.renderHitboxes", Keyboard.KEY_B, debug);
     remap("key.debugCrash", Keyboard.KEY_C, debug);
+    remap("key.clearChat", Keyboard.KEY_D, debug);
 
     String profilerChart = "key.categories.profilerChart";
     PROFILER_CHART_KEYS = new KeyBinding[] {
