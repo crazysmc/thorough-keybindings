@@ -11,11 +11,11 @@ base.archivesName = mod_id
 dependencies {
   minecraft libs.minecraft
 
-  mappings loom.layered {
+//  mappings loom.layered {
     mappings variantOf(libs.feather) { classifier 'v2' }
-    addLayer ploceus.nestedMappings()
-  }
-  nests libs.nests
+//    addLayer ploceus.nestedMappings()
+//  }
+//  nests libs.nests
 
   modImplementation libs.loader
   ploceus.addCommonLibraries()

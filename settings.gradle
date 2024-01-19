@@ -20,11 +20,11 @@ dependencyResolutionManagement {
   versionCatalogs {
     libs {
       version 'loom', '1.5-SNAPSHOT'
-      def minecraft = '1.8.2-pre4'
+      def minecraft = '1.8.2'
       version 'minecraft', minecraft
       library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
       library 'feather', 'net.ornithemc', 'feather' version "$minecraft+build.25"
-      library 'nests', 'net.ornithemc', 'nests' version "$minecraft+build.1"
+//      library 'nests', 'net.ornithemc', 'nests' version "$minecraft+build.1"
       library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.3'
       version 'osl', '0.12.0'
     }
