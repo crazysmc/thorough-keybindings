@@ -29,8 +29,6 @@ public abstract class MinecraftMixin implements SnooperPopulator
                       @Constant(intValue = Keyboard.KEY_A, ordinal = 0),
                       @Constant(intValue = Keyboard.KEY_S),
                       @Constant(intValue = Keyboard.KEY_F),
-                      @Constant(intValue = Keyboard.KEY_LSHIFT),
-                      @Constant(intValue = Keyboard.KEY_RSHIFT),
                       @Constant(intValue = Keyboard.KEY_F1),
                       @Constant(intValue = Keyboard.KEY_F3),
                       @Constant(intValue = Keyboard.KEY_F4),

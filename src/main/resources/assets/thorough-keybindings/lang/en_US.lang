@@ -31,3 +31,5 @@ key.mod.lshift=Shift 1
 key.mod.rshift=Shift 2
 key.mod.lctrl=Control 1
 key.mod.rctrl=Control 2
+key.mod.lmenu=Alt 1
+key.mod.rmenu=Alt 2

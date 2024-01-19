@@ -27,6 +27,14 @@ public abstract class ScreenMixin extends GuiElement
     return ThoroughKeybindings.getRemap(constant);
   }
 
+  @ModifyConstant(method = "isAltDown", constant = {
+      @Constant(intValue = Keyboard.KEY_LMENU), @Constant(intValue = Keyboard.KEY_RMENU),
+  })
+  private static int isAltDownRemap(int constant)
+  {
+    return ThoroughKeybindings.getRemap(constant);
+  }
+
   @ModifyConstant(method = "keyPressed", constant = @Constant(intValue = Keyboard.KEY_ESCAPE))
   private int keyPressedRemap(int constant)
   {
