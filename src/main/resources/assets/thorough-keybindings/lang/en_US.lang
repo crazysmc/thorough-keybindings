@@ -14,6 +14,7 @@ key.debugCrash=Debug Crash (Hold)
 key.clearChat=Clear Chat
 key.debugHelp=List Debug Combinations
 key.toggleSpectator=Toggle Spectator/Creative
+key.toggleChunkBorders=Toggle Chunk Borders
 
 key.categories.profilerChart=Profiler Chart Selection
 key.profilerChart.1=Section 1

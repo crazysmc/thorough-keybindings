@@ -40,6 +40,7 @@ public abstract class MinecraftMixin implements BlockableEventLoop, SnooperPopul
       @Constant(intValue = Keyboard.KEY_D),
       @Constant(intValue = Keyboard.KEY_Q),
       @Constant(intValue = Keyboard.KEY_N),
+      @Constant(intValue = Keyboard.KEY_G),
   })
   private int handleDebugKeyRemap(int constant)
   {
@@ -51,6 +52,7 @@ public abstract class MinecraftMixin implements BlockableEventLoop, SnooperPopul
       @Constant(stringValue = "F3 + B = Show hitboxes"),
       @Constant(stringValue = "F3 + D = Clear chat"),
       @Constant(stringValue = "F3 + F = Cycle renderdistance (Shift to inverse)"),
+      @Constant(stringValue = "F3 + G = Show chunk boundaries"),
       @Constant(stringValue = "F3 + H = Advanced tooltips"),
       @Constant(stringValue = "F3 + N = Cycle creative <-> spectator"),
       @Constant(stringValue = "F3 + P = Pause on lost focus"),

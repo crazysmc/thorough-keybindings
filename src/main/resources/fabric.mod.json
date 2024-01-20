@@ -19,7 +19,7 @@
     "thrkbs.mixins.json"
   ],
   "depends": {
-    "minecraft": ">=1.9 <1.10",
+    "minecraft": ">=1.10 <1.11",
     "osl-core": ">=0.5.0",
     "osl-entrypoints": ">=0.4.2",
     "osl-keybinds": ">=0.1.2",
