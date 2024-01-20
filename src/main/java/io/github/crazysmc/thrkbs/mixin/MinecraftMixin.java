@@ -59,7 +59,7 @@ public abstract class MinecraftMixin implements BlockableEventLoop, SnooperPopul
       @Constant(stringValue = "F3 + Q = Show this list"),
       @Constant(stringValue = "F3 + T = Reload resourcepacks")
   })
-  private String handleDebugKeyHelpA(String constant)
+  private String handleDebugKeyHelpText(String constant)
   {
     int original = Keyboard.getKeyIndex(String.valueOf(constant.charAt(5)));
     String replacement = String.format("%s + %s", GameOptions.getKeyName(ThoroughKeybindings.getRemap(Keyboard.KEY_F3)),
