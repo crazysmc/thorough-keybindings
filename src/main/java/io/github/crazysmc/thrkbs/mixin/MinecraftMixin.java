@@ -2,14 +2,19 @@ package io.github.crazysmc.thrkbs.mixin;
 
 import io.github.crazysmc.thrkbs.ThoroughKeybindings;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.chat.ChatGui;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.snooper.SnooperPopulator;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.BlockableEventLoop;
 import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin implements BlockableEventLoop, SnooperPopulator
@@ -47,24 +52,18 @@ public abstract class MinecraftMixin implements BlockableEventLoop, SnooperPopul
     return ThoroughKeybindings.getRemap(constant);
   }
 
-  @ModifyConstant(method = "handleDebugKey", constant = {
-      @Constant(stringValue = "F3 + A = Reload chunks"),
-      @Constant(stringValue = "F3 + B = Show hitboxes"),
-      @Constant(stringValue = "F3 + D = Clear chat"),
-      @Constant(stringValue = "F3 + F = Cycle renderdistance (Shift to inverse)"),
-      @Constant(stringValue = "F3 + G = Show chunk boundaries"),
-      @Constant(stringValue = "F3 + H = Advanced tooltips"),
-      @Constant(stringValue = "F3 + N = Cycle creative <-> spectator"),
-      @Constant(stringValue = "F3 + P = Pause on lost focus"),
-      @Constant(stringValue = "F3 + Q = Show this list"),
-      @Constant(stringValue = "F3 + T = Reload resourcepacks")
-  })
-  private String handleDebugKeyHelpA(String constant)
+  @Redirect(method = "handleDebugKey",
+            at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/client/gui/chat/ChatGui;addMessage(Lnet/minecraft/text/Text;)V"))
+  private void constructTranslatableText(ChatGui chatGui, Text message)
   {
-    int original = Keyboard.getKeyIndex(String.valueOf(constant.charAt(5)));
-    String replacement = String.format("%s + %s", GameOptions.getKeyName(ThoroughKeybindings.getRemap(Keyboard.KEY_F3)),
-                                       GameOptions.getKeyName(ThoroughKeybindings.getRemap(original)));
-    return constant.replaceFirst("F3 \\+ .", replacement);
+    String string = message.getContent();
+    if (!string.startsWith("F3 + "))
+      return;
+    String f3Key = GameOptions.getKeyName(ThoroughKeybindings.getRemap(Keyboard.KEY_F3));
+    String comboKey = GameOptions.getKeyName(
+        ThoroughKeybindings.getRemap(Keyboard.getKeyIndex(string.substring(5, 6))));
+    chatGui.addMessage(new LiteralText(String.format("%s + %s%s", f3Key, comboKey, string.substring(6))));
   }
 
   @ModifyConstant(method = "handleKeyboardEvents", constant = @Constant(intValue = 9, ordinal = 0))
