@@ -4,8 +4,7 @@ key.debug=Debug Info
 key.disableShader=Disable Shader
 
 key.categories.debug=Key Combinations (Hold Debug Info Key)
-key.reloadResources1=Reload Resources 1
-key.reloadResources2=Reload Resources 2
+key.reloadResources=Reload Resources
 key.reloadChunks=Reload Chunks
 key.renderDistance=Change Render Distance
 key.pauseOnUnfocus=Pause on Lost Focus
@@ -13,6 +12,8 @@ key.advancedItemTooltips=Advanced Item Tooltips
 key.renderHitboxes=Render Hitboxes
 key.debugCrash=Debug Crash (Hold)
 key.clearChat=Clear Chat
+key.debugHelp=List Debug Combinations
+key.toggleSpectator=Toggle Spectator/Creative
 
 key.categories.profilerChart=Profiler Chart Selection
 key.profilerChart.1=Section 1

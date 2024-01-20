@@ -25,15 +25,16 @@ public class ThoroughKeybindings implements ClientModInitializer
     remap("key.disableShader", Keyboard.KEY_F4, misc);
 
     String debug = "key.categories.debug";
-    remap("key.reloadResources1", Keyboard.KEY_T, debug);
+    remap("key.reloadResources", Keyboard.KEY_T, debug);
     remap("key.reloadChunks", Keyboard.KEY_A, debug);
-    remap("key.reloadResources2", Keyboard.KEY_S, debug);
     remap("key.renderDistance", Keyboard.KEY_F, debug);
     remap("key.pauseOnUnfocus", Keyboard.KEY_P, debug);
     remap("key.advancedItemTooltips", Keyboard.KEY_H, debug);
     remap("key.renderHitboxes", Keyboard.KEY_B, debug);
     remap("key.debugCrash", Keyboard.KEY_C, debug);
     remap("key.clearChat", Keyboard.KEY_D, debug);
+    remap("key.debugHelp", Keyboard.KEY_Q, debug);
+    remap("key.toggleSpectator", Keyboard.KEY_N, debug);
 
     String profilerChart = "key.categories.profilerChart";
     PROFILER_CHART_KEYS = new KeyBinding[] {
