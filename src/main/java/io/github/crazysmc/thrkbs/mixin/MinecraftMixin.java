@@ -23,7 +23,7 @@ public abstract class MinecraftMixin implements BlockableEventLoop, SnooperPopul
   protected abstract void selectProfilerChartSection(int section);
 
   @ModifyConstant(method = "handleKeyboardEvents", constant = {
-      @Constant(intValue = Keyboard.KEY_ESCAPE, ordinal = 0),
+      @Constant(intValue = Keyboard.KEY_ESCAPE, ordinal = 1),
       @Constant(intValue = Keyboard.KEY_0),
       @Constant(intValue = Keyboard.KEY_F1),
       @Constant(intValue = Keyboard.KEY_F3),
