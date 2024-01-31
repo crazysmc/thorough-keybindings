@@ -4,14 +4,6 @@
   "package": "io.github.crazysmc.thrkbs.mixin",
   "compatibilityLevel": "JAVA_8",
   "client": [
-    "MinecraftMixin",
-    "screen.ChatScreenMixin",
-    "screen.ControlsOptionsScreenMixin",
-    "screen.CreditsScreenMixin",
-    "screen.InventoryMenuScreenMixin",
-    "screen.OptionsScreenMixin",
-    "screen.ScreenMixin",
-    "screen.SleepingChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

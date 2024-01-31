@@ -1,5 +1,4 @@
 plugins {
-  id 'maven-publish'
   id 'fabric-loom' version libs.versions.loom
   id 'ploceus' version libs.versions.loom
 }
@@ -33,10 +32,4 @@ processResources {
 
 tasks.withType Jar configureEach {
   from rootProject.file('LICENSE')
-}
-
-publishing {
-  publications {
-    mavenJava MavenPublication, { from components.java }
-  }
 }
