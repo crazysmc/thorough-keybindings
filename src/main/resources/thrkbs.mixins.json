@@ -3,8 +3,7 @@
   "minVersion": "0.8",
   "package": "io.github.crazysmc.thrkbs.mixin",
   "compatibilityLevel": "JAVA_8",
-  "client": [
-  ],
+  "client": [ "ControlsOptionsScreenMixin", "GameOptionsMixin", "KeyboardMixin", "OptionsScreenMixin" ],
   "injectors": {
     "defaultRequire": 1
   }

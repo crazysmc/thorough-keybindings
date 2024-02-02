@@ -14,7 +14,8 @@ dependencies {
     mappings variantOf(libs.feather) { classifier 'v2' }
     addLayer ploceus.nestedMappings()
   }
-  nests libs.nests
+  if (libs.hasProperty 'nests')
+    nests libs.nests
 
   modImplementation libs.loader
   ploceus.addCommonLibraries()
