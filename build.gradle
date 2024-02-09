@@ -20,11 +20,16 @@ dependencies {
   modImplementation libs.loader
   ploceus.addCommonLibraries()
   ploceus.dependOsl libs.versions.osl.get()
+  testImplementation libs.junit
 }
 
 java {
   sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
   withSourcesJar()
+}
+
+test {
+  useJUnitPlatform()
 }
 
 processResources {

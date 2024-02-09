@@ -27,6 +27,7 @@ dependencyResolutionManagement {
       library 'nests', 'net.ornithemc', 'nests' version "$minecraft+build.1"
       library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.5'
       version 'osl', '0.12.1'
+      library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.8.1'
     }
   }
 }

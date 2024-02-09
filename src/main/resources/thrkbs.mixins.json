@@ -3,7 +3,18 @@
   "minVersion": "0.8",
   "package": "io.github.crazysmc.thrkbs.mixin",
   "compatibilityLevel": "JAVA_8",
-  "client": [ "ControlsOptionsScreenMixin", "GameOptionsMixin", "KeyboardMixin", "OptionsScreenMixin" ],
+  "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
+  "client": [
+    "ControlsOptionsScreenMixin",
+    "GameOptionsMixin",
+    "OptionsScreenMixin",
+    "remap.ChatScreenMixin",
+    "remap.CreditsScreenMixin",
+    "remap.InventoryMenuScreenMixin",
+    "remap.MinecraftMixin",
+    "remap.ScreenMixin",
+    "remap.SleepingChatScreenMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

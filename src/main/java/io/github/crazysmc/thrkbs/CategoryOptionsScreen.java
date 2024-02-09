@@ -14,7 +14,7 @@ public class CategoryOptionsScreen extends Screen
 {
   private final Screen parent;
   private final GameOptions options;
-  private final KeyCategory[] categories = KeyCategory.values();
+  private final List<String> categories = CategorizedKeyBinding.getCategories();
   protected String title = "Controls";
 
   public CategoryOptionsScreen(Screen parent, GameOptions options)
@@ -30,9 +30,9 @@ public class CategoryOptionsScreen extends Screen
     @SuppressWarnings("unchecked") List<ButtonWidget> buttons = this.buttons;
     int left = width / 2 - 152;
     int top = height / 6;
-    for (int i = 0; i < categories.length; i++)
-      buttons.add(new ButtonWidget(i, left + i % 2 * 154, top + (i >> 1) * 24, 150, 20,
-                                   I18n.translate(categories[i].getName())));
+    for (int i = 0; i < categories.size(); i++)
+      buttons.add(
+          new ButtonWidget(i, left + i % 2 * 154, top + (i >> 1) * 24, 150, 20, I18n.translate(categories.get(i))));
     buttons.add(new ButtonWidget(200, width / 2 - 100, top + 168, I18n.translate("gui.done")));
   }
 
@@ -46,12 +46,12 @@ public class CategoryOptionsScreen extends Screen
       minecraft.openScreen(parent);
       return;
     }
-    KeyCategory category = categories[button.id];
+    String category = categories.get(button.id);
     List<KeyBinding> list = Arrays.stream(options.keyBindings)
-        .filter(keyBinding -> ThoroughKeybindings.getCategory(keyBinding) == category)
+        .filter(keyBinding -> category.equals(CategorizedKeyBinding.getCategory(keyBinding)))
         .collect(Collectors.toList());
-    ControlsOptionsSubScreen screen = new ControlsOptionsSubScreen(this, options, category.getName(), list);
-    if (category == KeyCategory.DEBUG)
+    ControlsOptionsSubScreen screen = new ControlsOptionsSubScreen(this, options, category, list);
+    if ("key.categories.debug".equals(category))
       screen.setLongNames();
     minecraft.openScreen(screen);
   }
