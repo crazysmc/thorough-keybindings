@@ -15,4 +15,12 @@ public abstract class InventoryMenuScreenMixin
   {
     return CategorizedKeyBinding.getByOriginal(constant).keyCode;
   }
+
+  @ModifyConstant(method = "mouseClicked", constant = {
+      @Constant(intValue = Keyboard.KEY_LSHIFT), @Constant(intValue = Keyboard.KEY_RSHIFT)
+  })
+  private int remapShiftKeys(int constant)
+  {
+    return CategorizedKeyBinding.getByOriginal(constant).keyCode;
+  }
 }

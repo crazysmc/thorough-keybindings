@@ -24,15 +24,29 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.togglePerspective", Keyboard.KEY_F5, misc);
     new PotentialKeyBinding("key.delayDisplayUpdate", Keyboard.KEY_F7, misc);
     new PotentialKeyBinding("key.smoothCamera", Keyboard.KEY_F8, misc);
+    new PotentialKeyBinding("key.fullscreen", Keyboard.KEY_F11, misc);
 
     String profilerChart = "key.categories.profilerChart";
     new PotentialKeyBinding("key.profilerChart.back", Keyboard.KEY_0, profilerChart);
     for (int i = 0; i < 9; i++)
       PROFILER_CHART[i] = new PotentialKeyBinding(String.format("key.profilerChart.%d", i + 1), Keyboard.KEY_1 + i,
                                                   profilerChart);
+
     for (int i = 0; i < 9; i++)
       HOTBAR[i] = new PotentialKeyBinding(String.format("key.hotbar.%d", i + 1), Keyboard.KEY_1 + i,
                                           "key.categories.inventory");
+
+    String debug = "key.categories.debug";
+    new PotentialKeyBinding("key.debug.reloadChunks", Keyboard.KEY_A, debug);
+    new PotentialKeyBinding("key.debug.renderDistance", Keyboard.KEY_F, debug);
+    new PotentialKeyBinding("key.debug.reloadResources", Keyboard.KEY_S, debug);
+    new PotentialKeyBinding("key.debug.reloadTextures", Keyboard.KEY_T, debug);
+
+    String modifier = "key.categories.modifier";
+    new PotentialKeyBinding("key.mod.shift.1", Keyboard.KEY_LSHIFT, modifier);
+    new PotentialKeyBinding("key.mod.shift.2", Keyboard.KEY_RSHIFT, modifier);
+    new PotentialKeyBinding("key.mod.ctrl.1", Keyboard.KEY_LCONTROL, modifier);
+    new PotentialKeyBinding("key.mod.ctrl.2", Keyboard.KEY_RCONTROL, modifier);
   }
 
   private final String name;

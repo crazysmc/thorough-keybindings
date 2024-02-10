@@ -5,7 +5,6 @@ import io.github.crazysmc.thrkbs.PotentialKeyBinding;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.living.player.LocalClientPlayerEntity;
 import org.lwjgl.input.Keyboard;
-import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(Minecraft.class)
-@Debug(export = true)//TODO
 public abstract class MinecraftMixin
 {
   @Shadow
@@ -32,7 +30,14 @@ public abstract class MinecraftMixin
                       @Constant(intValue = Keyboard.KEY_F3),
                       @Constant(intValue = Keyboard.KEY_F5),
                       @Constant(intValue = Keyboard.KEY_F8),
+                      @Constant(intValue = Keyboard.KEY_F11),
                       @Constant(intValue = Keyboard.KEY_0),
+                      @Constant(intValue = Keyboard.KEY_A),
+                      @Constant(intValue = Keyboard.KEY_F),
+                      @Constant(intValue = Keyboard.KEY_S),
+                      @Constant(intValue = Keyboard.KEY_T),
+                      @Constant(intValue = Keyboard.KEY_LSHIFT),
+                      @Constant(intValue = Keyboard.KEY_RSHIFT),
                   })
   private int remapTickKeys(int constant)
   {
