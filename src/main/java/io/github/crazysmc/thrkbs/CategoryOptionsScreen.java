@@ -51,8 +51,6 @@ public class CategoryOptionsScreen extends Screen
         .filter(keyBinding -> category.equals(CategorizedKeyBinding.getCategory(keyBinding)))
         .collect(Collectors.toList());
     ControlsOptionsSubScreen screen = new ControlsOptionsSubScreen(this, options, category, list);
-    if ("key.categories.debug".equals(category))
-      screen.setLongNames();
     minecraft.openScreen(screen);
   }
 

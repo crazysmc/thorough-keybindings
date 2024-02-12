@@ -6,14 +6,11 @@
   "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
   "client": [
     "ControlsOptionsScreenMixin",
-    "GameOptionsMixin",
+    "KeyBindingMixin",
     "OptionsScreenMixin",
-    "remap.ChatScreenMixin",
-    "remap.CreditsScreenMixin",
     "remap.InventoryMenuScreenMixin",
     "remap.MinecraftMixin",
-    "remap.ScreenMixin",
-    "remap.SleepingChatScreenMixin"
+    "remap.ScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

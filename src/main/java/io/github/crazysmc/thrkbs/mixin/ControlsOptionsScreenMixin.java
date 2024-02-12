@@ -87,22 +87,4 @@ public abstract class ControlsOptionsScreenMixin extends Screen
       return I18n.translate(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).name);
     return options.translate(i);
   }
-
-  @ModifyConstant(method = "*", constant = @Constant(intValue = 160))
-  private int longNameX(int constant)
-  {
-    ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
-    if (instance instanceof ControlsOptionsSubScreen && ((ControlsOptionsSubScreen) instance).isLongNames())
-      return 0;
-    return constant;
-  }
-
-  @ModifyConstant(method = "*", constant = @Constant(intValue = 1))
-  private int longNameY(int constant)
-  {
-    ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
-    if (instance instanceof ControlsOptionsSubScreen && ((ControlsOptionsSubScreen) instance).isLongNames())
-      return 0;
-    return constant;
-  }
 }

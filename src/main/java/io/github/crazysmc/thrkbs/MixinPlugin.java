@@ -40,7 +40,7 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo)
   {
-    //TODO
+    BytecodeInspection.acceptClassNode(targetClass);
   }
 
   @Override

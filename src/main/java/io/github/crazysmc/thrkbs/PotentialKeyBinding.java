@@ -1,18 +1,19 @@
 package io.github.crazysmc.thrkbs;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.options.KeyBinding;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class PotentialKeyBinding
 {
-  public static final PotentialKeyBinding[] PROFILER_CHART = new PotentialKeyBinding[9];
-  public static final PotentialKeyBinding[] HOTBAR = new PotentialKeyBinding[9];
   private static final List<PotentialKeyBinding> ALL = new ArrayList<>();
+  private static final Map<Integer, PotentialKeyBinding> BY_KEY = new Int2ObjectOpenHashMap<>();
 
   static
   {
@@ -26,19 +27,16 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.smoothCamera", Keyboard.KEY_F8, misc);
     new PotentialKeyBinding("key.fullscreen", Keyboard.KEY_F11, misc);
 
-    String profilerChart = "key.categories.profilerChart";
-    new PotentialKeyBinding("key.profilerChart.back", Keyboard.KEY_0, profilerChart);
+    String inventory = "key.categories.inventory";
     for (int i = 0; i < 9; i++)
-      PROFILER_CHART[i] = new PotentialKeyBinding(String.format("key.profilerChart.%d", i + 1), Keyboard.KEY_1 + i,
-                                                  profilerChart);
-
-    for (int i = 0; i < 9; i++)
-      HOTBAR[i] = new PotentialKeyBinding(String.format("key.hotbar.%d", i + 1), Keyboard.KEY_1 + i,
-                                          "key.categories.inventory");
+      new PotentialKeyBinding(String.format("key.hotbar.%d", i + 1), Keyboard.KEY_1 + i, inventory);
 
     String debug = "key.categories.debug";
     new PotentialKeyBinding("key.debug.reloadChunks", Keyboard.KEY_A, debug);
+    new PotentialKeyBinding("key.debug.crash", Keyboard.KEY_C, debug);
     new PotentialKeyBinding("key.debug.renderDistance", Keyboard.KEY_F, debug);
+    new PotentialKeyBinding("key.debug.advancedTooltips", Keyboard.KEY_H, debug);
+    new PotentialKeyBinding("key.debug.pauseOnLostFocus", Keyboard.KEY_P, debug);
     new PotentialKeyBinding("key.debug.reloadResources", Keyboard.KEY_S, debug);
     new PotentialKeyBinding("key.debug.reloadTextures", Keyboard.KEY_T, debug);
 
@@ -52,8 +50,7 @@ public class PotentialKeyBinding
   private final String name;
   private final int keyCode;
   private final String category;
-  private boolean missing;
-  private CategorizedKeyBinding keyBinding;
+  private boolean found;
 
   public PotentialKeyBinding(String name, int keyCode, String category)
   {
@@ -61,28 +58,28 @@ public class PotentialKeyBinding
     this.keyCode = keyCode;
     this.category = category;
     ALL.add(this);
+    BY_KEY.put(keyCode, this);
   }
 
-  public static void register(Set<String> keyNames, Consumer<KeyBinding> callback)
+  public static void register(Consumer<KeyBinding> callback)
   {
-    ALL.forEach(binding -> {
-      if (!binding.missing && !keyNames.contains(binding.name))
+    for (PotentialKeyBinding binding : ALL)
+      if (binding.found)
       {
         ThoroughKeybindings.LOGGER.info("Add keybinding for {} as {}", Keyboard.getKeyName(binding.keyCode),
                                         binding.name);
-        callback.accept(
-            binding.keyBinding = new CategorizedKeyBinding(binding.name, binding.keyCode, binding.category));
+        callback.accept(new CategorizedKeyBinding(binding.name, binding.keyCode, binding.category));
       }
-    });
+      else // TODO remove
+        ThoroughKeybindings.LOGGER.warn("{} was not added", binding.name);
   }
 
-  public void setMissing()
+  public static void found(int constant)
   {
-    missing = true;
-  }
-
-  public CategorizedKeyBinding getKeyBinding()
-  {
-    return keyBinding;
+    if (constant == Keyboard.KEY_1)
+      for (int i = 0; i < 9; i++)
+        BY_KEY.get(Keyboard.KEY_1 + i).found = true;
+    else
+      Optional.ofNullable(BY_KEY.get(constant)).ifPresent(binding -> binding.found = true);
   }
 }

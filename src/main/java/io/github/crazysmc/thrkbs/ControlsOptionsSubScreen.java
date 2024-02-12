@@ -11,7 +11,6 @@ public class ControlsOptionsSubScreen extends ControlsOptionsScreen
 {
   private final String titleKey;
   private final List<KeyBinding> keyBindings;
-  private boolean longNames = false;
 
   public ControlsOptionsSubScreen(Screen parent, GameOptions options, String titleKey, List<KeyBinding> keyBindings)
   {
@@ -28,15 +27,5 @@ public class ControlsOptionsSubScreen extends ControlsOptionsScreen
   public List<KeyBinding> getKeyBindings()
   {
     return keyBindings;
-  }
-
-  public boolean isLongNames()
-  {
-    return longNames;
-  }
-
-  public void setLongNames()
-  {
-    longNames = true;
   }
 }
