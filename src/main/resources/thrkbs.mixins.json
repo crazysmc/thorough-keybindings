@@ -6,7 +6,6 @@
   "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
   "client": [
     "ControlsOptionsScreenMixin",
-    "KeyBindingMixin",
     "OptionsScreenMixin",
     "remap.InventoryMenuScreenMixin",
     "remap.MinecraftMixin",

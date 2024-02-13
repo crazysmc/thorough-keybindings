@@ -24,12 +24,13 @@ public class BytecodeInspection
   public static void acceptClassNode(ClassNode classNode)
   {
     for (MethodNode methodNode : classNode.methods)
-      for (AbstractInsnNode insn : methodNode.instructions)
-        if (insn instanceof MethodInsnNode)
-          Optional.ofNullable(MAP.get(((MethodInsnNode) insn).name)).ifPresent(function -> {
-            Object constant = Bytecode.getConstant(function.apply(insn));
-            if (constant instanceof Integer)
-              PotentialKeyBinding.found((Integer) constant);
-          });
+      for (AbstractInsnNode instruction : methodNode.instructions)
+        if (instruction instanceof MethodInsnNode)
+          Optional.ofNullable(MAP.get(((MethodInsnNode) instruction).name))
+              .map(function -> function.apply(instruction))
+              .map(Bytecode::getConstant)
+              .filter(Integer.class::isInstance)
+              .map(Integer.class::cast)
+              .ifPresent(PotentialKeyBinding::found);
   }
 }

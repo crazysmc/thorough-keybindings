@@ -12,22 +12,16 @@ public class CategorizedKeyBinding extends KeyBinding
   private static final Set<String> CATEGORIES = new TreeSet<>();
   private static final Properties DEFAULT_CATEGORIES = new Properties();
   private static final Map<Integer, CategorizedKeyBinding> BY_ORIGINAL = new Int2ObjectOpenHashMap<>();
-  private static final Map<Integer, CategorizedKeyBinding> BY_KEY_CODE = new Int2ObjectOpenHashMap<>();
-  private static final List<CategorizedKeyBinding> ALL = new ArrayList<>();
 
-  private final int originalKeyCode;
   private final String category;
 
   public CategorizedKeyBinding(String name, int keyCode, String category)
   {
     super(name, keyCode);
     KeyBinding.ALL.remove(this);
-    originalKeyCode = keyCode;
     this.category = category;
     CATEGORIES.add(category);
-    ALL.add(this);
     BY_ORIGINAL.put(keyCode, this);
-    BY_KEY_CODE.put(keyCode, this);
   }
 
   public static void initDefaultCategories()
@@ -59,18 +53,5 @@ public class CategorizedKeyBinding extends KeyBinding
   public static int getKeyCodeByOriginal(int keyCode)
   {
     return Optional.ofNullable(BY_ORIGINAL.get(keyCode)).map(binding -> binding.keyCode).orElse(keyCode);
-  }
-
-  public static int getOriginalByKeyCode(int keyCode)
-  {
-    // FIXME this does not work with collisions
-    return Optional.ofNullable(BY_KEY_CODE.get(keyCode)).map(binding -> binding.originalKeyCode).orElse(keyCode);
-  }
-
-  public static void resetMapping()
-  {
-    BY_KEY_CODE.clear();
-    for (CategorizedKeyBinding binding : ALL)
-      BY_KEY_CODE.put(binding.keyCode, binding);
   }
 }

@@ -36,6 +36,10 @@ processResources {
   filesMatching 'fabric.mod.json', { expand project.properties }
 }
 
+runClient {
+  systemProperty 'mixin.debug.export', true
+}
+
 tasks.withType Jar configureEach {
   from rootProject.file('LICENSE')
 }
