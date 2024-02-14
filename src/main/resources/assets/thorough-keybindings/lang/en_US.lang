@@ -2,7 +2,6 @@
 #key.debug.chunkBorders=Toggle Chunk Borders
 #key.debug.clearChat=Clear Chat
 #key.debug.help=List Debug Combinations
-#key.debug.hitboxes=Render Hitboxes
 #key.debug.spectator=Toggle Spectator/Creative
 #key.disableShader=Disable Shader
 #key.mod.menu.1=Alt 1
@@ -16,6 +15,7 @@ key.categories.movement=Movement
 key.categories.multiplayer=Multiplayer
 key.debug.advancedTooltips=Advanced Item Tooltips
 key.debug.crash=Debug Crash (Hold)
+key.debug.hitboxes=Render Hitboxes
 key.debug.pauseOnLostFocus=Pause on Lost Focus
 key.debug.reloadChunks=Reload Chunks
 key.debug.reloadResources=Reload Resources

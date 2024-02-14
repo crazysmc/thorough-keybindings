@@ -33,6 +33,7 @@ public class PotentialKeyBinding
 
     String debug = "key.categories.debug";
     new PotentialKeyBinding("key.debug.reloadChunks", Keyboard.KEY_A, debug);
+    new PotentialKeyBinding("key.debug.hitboxes", Keyboard.KEY_B, debug);
     new PotentialKeyBinding("key.debug.crash", Keyboard.KEY_C, debug);
     new PotentialKeyBinding("key.debug.renderDistance", Keyboard.KEY_F, debug);
     new PotentialKeyBinding("key.debug.advancedTooltips", Keyboard.KEY_H, debug);

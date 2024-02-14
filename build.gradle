@@ -38,6 +38,7 @@ processResources {
 
 runClient {
   systemProperty 'mixin.debug.export', true
+  systemProperty 'mixin.debug.export.filter', 'net.minecraft.**'
 }
 
 tasks.withType Jar configureEach {

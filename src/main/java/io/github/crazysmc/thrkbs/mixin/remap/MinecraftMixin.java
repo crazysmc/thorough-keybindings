@@ -29,7 +29,8 @@ public abstract class MinecraftMixin
   @ModifyConstant(method = "tick",
                   slice = @Slice(from = @At(value = "INVOKE",
                                             target = "Lorg/lwjgl/input/Keyboard;isKeyDown(I)Z",
-                                            remap = false)))
+                                            remap = false)),
+                  constant = @Constant)
   private int remapKeyConstant(int constant)
   {
     if (!gotEventKey)

@@ -20,7 +20,7 @@ dependencyResolutionManagement {
   versionCatalogs {
     libs {
       version 'loom', '1.5-SNAPSHOT'
-      def minecraft = '1.4.2'
+      def minecraft = '1.5.2'
       version 'minecraft', minecraft
       library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
       library 'feather', 'net.ornithemc', 'feather' version "$minecraft+build.26"
