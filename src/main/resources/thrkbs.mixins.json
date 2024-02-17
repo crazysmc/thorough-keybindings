@@ -8,6 +8,7 @@
     "ControlsOptionsScreenMixin",
     "OptionsScreenMixin",
     "remap.InventoryMenuScreenMixin",
+    "remap.KeyboardMixin",
     "remap.MinecraftMixin",
     "remap.ScreenMixin"
   ],

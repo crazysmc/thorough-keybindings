@@ -6,26 +6,25 @@ import net.minecraft.client.gui.screen.options.ControlsOptionsScreen;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.locale.LanguageManager;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ControlsOptionsScreen.class)
 public abstract class ControlsOptionsScreenMixin extends Screen
 {
-  @Redirect(method = "init",
-            at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/locale/LanguageManager;translate(Ljava/lang/String;)Ljava/lang/String;",
-                     ordinal = 1))
-  private String redirectTitle(LanguageManager languageManager, String key)
+  @Shadow
+  protected String title;
+
+  @Inject(method = "init", at = @At("RETURN"))
+  private void changeTitle(CallbackInfo ci)
   {
     ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
     if (instance instanceof ControlsOptionsSubScreen)
-      return languageManager.translate(((ControlsOptionsSubScreen) instance).getTitleKey());
-    return languageManager.translate(key);
+      this.title = I18n.translate(((ControlsOptionsSubScreen) instance).getTitleKey());
   }
 
   @Redirect(method = "*",

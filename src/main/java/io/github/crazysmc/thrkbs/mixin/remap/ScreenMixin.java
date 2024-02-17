@@ -12,13 +12,6 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(Screen.class)
 public abstract class ScreenMixin
 {
-  @ModifyArg(method = "*",
-             at = @At(value = "INVOKE", target = "Lorg/lwjgl/input/Keyboard;isKeyDown(I)Z", remap = false))
-  private static int remapKeyDownArgument(int key)
-  {
-    return CategorizedKeyBinding.getKeyCodeByOriginal(key);
-  }
-
   @ModifyConstant(method = "handleKeyboard", constant = @Constant(intValue = Keyboard.KEY_F11))
   private int remapKeyConstant(int constant)
   {

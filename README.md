@@ -2,13 +2,13 @@
 
 For as many Minecraft versions as possible, this mod makes the keybindings of
 usually fixed mappings rebindable.
-TODO supported versions
+1.3-1.6
 
 For example, this lets you remap F3 or Esc in-game, without external software.
 Also adds rebinding options to earlier game versions, like rebinding F5 or
 hotbar slot keys.
 
-Adding keybindings to versions before TODO causes the configuration menu to
+Adding keybindings to versions before 1.7 causes the configuration menu to
 overflow into the Done button.
 Thus, separate submenus for categories of related options are introduced.
 
@@ -37,9 +37,3 @@ Thus, separate submenus for categories of related options are introduced.
 | (F3 +) Q     | key.debug.help             |
 | (F3 +) S     | key.debug.dumpTextures     |
 | (F3 +) T     | key.debug.reloadTextures   |
-| LSHIFT       | key.modifier.lshift        |
-| RSHIFT       | key.modifier.rshift        |
-| LCTRL        | key.modifier.lctrl         |
-| RCTRL        | key.modifier.rctrl         |
-| LMENU        | key.modifier.lmenu         |
-| RMENU        | key.modifier.rmenu         |

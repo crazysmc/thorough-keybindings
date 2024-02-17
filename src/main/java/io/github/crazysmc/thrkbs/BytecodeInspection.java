@@ -1,19 +1,22 @@
 package io.github.crazysmc.thrkbs;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.spongepowered.asm.util.Bytecode;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
 public class BytecodeInspection
 {
-  private static final Map<String, Function<AbstractInsnNode, AbstractInsnNode>> MAP = new Object2ObjectArrayMap<>(2);
+  private static final Map<String, Function<AbstractInsnNode, AbstractInsnNode>> MAP = new HashMap<>(4);
 
   static
   {
