@@ -1,3 +1,5 @@
+import com.vdurmont.semver4j.Semver
+
 plugins {
   id 'fabric-loom' version libs.versions.loom
   id 'ploceus' version libs.versions.loom
@@ -26,6 +28,15 @@ dependencies {
 java {
   sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
   withSourcesJar()
+}
+
+sourceSets.main {
+  def mc = new Semver(libs.versions.minecraft.get(), Semver.SemverType.LOOSE)
+  def set = 'v1.3'
+  if (mc >= new Semver('1.7.0'))
+    set = 'v1.7'
+  java.srcDir "src/$set/java"
+  resources.srcDir "src/$set/resources"
 }
 
 test {

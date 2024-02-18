@@ -14,6 +14,7 @@ public class PotentialKeyBinding
 {
   private static final List<PotentialKeyBinding> ALL = new ArrayList<>();
   private static final Map<Integer, PotentialKeyBinding> BY_KEY = new Int2ObjectOpenHashMap<>();
+  private static boolean numberKeys;
 
   static
   {
@@ -22,6 +23,7 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.toggleHUD", Keyboard.KEY_F1, misc);
     new PotentialKeyBinding("key.screenshot", Keyboard.KEY_F2, misc);
     new PotentialKeyBinding("key.debugInfo", Keyboard.KEY_F3, misc);
+    new PotentialKeyBinding("key.disableShader", Keyboard.KEY_F4, misc);
     new PotentialKeyBinding("key.togglePerspective", Keyboard.KEY_F5, misc);
     new PotentialKeyBinding("key.delayDisplayUpdate", Keyboard.KEY_F7, misc);
     new PotentialKeyBinding("key.smoothCamera", Keyboard.KEY_F8, misc);
@@ -78,9 +80,14 @@ public class PotentialKeyBinding
   public static void found(int constant)
   {
     if (constant == Keyboard.KEY_1)
-      for (int i = 0; i < 9; i++)
-        BY_KEY.get(Keyboard.KEY_1 + i).found = true;
-    else
-      Optional.ofNullable(BY_KEY.get(constant)).ifPresent(binding -> binding.found = true);
+    {
+      if (!numberKeys)
+        numberKeys = true;
+      else
+        for (int i = 0; i < 9; i++)
+          BY_KEY.get(Keyboard.KEY_1 + i).found = true;
+      return;
+    }
+    Optional.ofNullable(BY_KEY.get(constant)).ifPresent(binding -> binding.found = true);
   }
 }
