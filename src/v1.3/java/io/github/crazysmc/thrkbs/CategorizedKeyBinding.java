@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+import static io.github.crazysmc.thrkbs.ThoroughKeybindings.LOGGER;
+
 public class CategorizedKeyBinding extends KeyBinding
 {
   private static final Set<String> CATEGORIES = new TreeSet<>();
@@ -34,7 +36,7 @@ public class CategorizedKeyBinding extends KeyBinding
     }
     catch (IOException | IllegalArgumentException | NullPointerException e)
     {
-      ThoroughKeybindings.LOGGER.error("Could not read key category asset", e);
+      LOGGER.error("Could not read key category asset", e);
     }
   }
 

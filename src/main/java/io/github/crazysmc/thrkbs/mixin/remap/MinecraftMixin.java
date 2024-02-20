@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import io.github.crazysmc.thrkbs.CategorizedKeyBinding;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -14,19 +15,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MinecraftMixin
 {
   @Inject(method = "tick",
-          slice = @Slice(from = @At(value = "INVOKE",
-                                    target = "Lorg/lwjgl/input/Keyboard;isKeyDown(I)Z",
-                                    remap = false)),
-          at = @At(value = "INVOKE", target = "Lorg/lwjgl/input/Keyboard;getEventKey()I", remap = false))
+          slice = @Slice(from = @At(value = "INVOKE:LAST",
+                                    target = "Lnet/minecraft/client/options/KeyBinding;click(I)V"),
+                         to = @At(value = "INVOKE:FIRST",
+                                  target = "Lnet/minecraft/client/options/KeyBinding;consumeClick()Z")),
+          at = @At(value = "JUMP", opcode = Opcodes.IF_ICMPNE, shift = At.Shift.BY, by = -3),
+          require = 0)
   private void setGotEventKey(CallbackInfo ci, @Share("gotEventKey") LocalBooleanRef gotEventKey)
   {
     gotEventKey.set(true);
   }
 
   @ModifyConstant(method = "tick",
-                  slice = @Slice(from = @At(value = "INVOKE",
-                                            target = "Lorg/lwjgl/input/Keyboard;isKeyDown(I)Z",
-                                            remap = false)),
+                  slice = @Slice(from = @At(value = "INVOKE:LAST",
+                                            target = "Lnet/minecraft/client/options/KeyBinding;click(I)V"),
+                                 to = @At(value = "INVOKE:FIRST",
+                                          target = "Lnet/minecraft/client/options/KeyBinding;consumeClick()Z")),
                   constant = @Constant)
   private int remapKeyConstant(int constant, @Share("gotEventKey") LocalBooleanRef gotEventKey,
                                @Share("index") LocalIntRef index)

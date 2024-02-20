@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+import static io.github.crazysmc.thrkbs.ThoroughKeybindings.LOGGER;
+
 public class PotentialKeyBinding
 {
   private static final List<PotentialKeyBinding> ALL = new ArrayList<>();
@@ -37,6 +39,7 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.debug.reloadChunks", Keyboard.KEY_A, debug);
     new PotentialKeyBinding("key.debug.hitboxes", Keyboard.KEY_B, debug);
     new PotentialKeyBinding("key.debug.crash", Keyboard.KEY_C, debug);
+    new PotentialKeyBinding("key.debug.clearChat", Keyboard.KEY_D, debug);
     new PotentialKeyBinding("key.debug.renderDistance", Keyboard.KEY_F, debug);
     new PotentialKeyBinding("key.debug.advancedTooltips", Keyboard.KEY_H, debug);
     new PotentialKeyBinding("key.debug.pauseOnLostFocus", Keyboard.KEY_P, debug);
@@ -69,16 +72,18 @@ public class PotentialKeyBinding
     for (PotentialKeyBinding binding : ALL)
       if (binding.found)
       {
-        ThoroughKeybindings.LOGGER.info("Add keybinding for {} as {}", Keyboard.getKeyName(binding.keyCode),
-                                        binding.name);
+        LOGGER.info("Add keybinding for {} as {}", Keyboard.getKeyName(binding.keyCode), binding.name);
         callback.accept(new CategorizedKeyBinding(binding.name, binding.keyCode, binding.category));
       }
-      else // TODO remove
-        ThoroughKeybindings.LOGGER.warn("{} was not added", binding.name);
+      else
+        LOGGER.debug("{} was not added", binding.name);
   }
 
   public static void found(int constant)
   {
+    LOGGER.debug("Found constant {} next to key code query", constant);
+    if (constant == 9) // loop condition
+      return;
     if (constant == Keyboard.KEY_1)
     {
       if (!numberKeys)

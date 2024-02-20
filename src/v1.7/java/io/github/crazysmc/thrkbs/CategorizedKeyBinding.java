@@ -1,5 +1,6 @@
 package io.github.crazysmc.thrkbs;
 
+import io.github.crazysmc.thrkbs.mixin.KeyBindingAccessor;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.options.KeyBinding;
 
@@ -13,6 +14,7 @@ public class CategorizedKeyBinding extends KeyBinding
   public CategorizedKeyBinding(String name, int keyCode, String category)
   {
     super(name, keyCode, category);
+    KeyBindingAccessor.getAll().remove(this);
     BY_ORIGINAL.put(keyCode, this);
   }
 

@@ -33,8 +33,10 @@ java {
 sourceSets.main {
   def mc = new Semver(libs.versions.minecraft.get(), Semver.SemverType.LOOSE)
   def set = 'v1.3'
-  if (mc >= new Semver('1.7.0'))
+  if (mc >= new Semver('1.7.0-'))
     set = 'v1.7'
+//  if (mc >= new Semver('1.8.0-'))
+//    set = 'v1.8'
   java.srcDir "src/$set/java"
   resources.srcDir "src/$set/resources"
 }
@@ -50,6 +52,7 @@ processResources {
 runClient {
   systemProperty 'mixin.debug.export', true
   systemProperty 'mixin.debug.export.filter', 'net.minecraft.**'
+  args += ['--userProperties', '{}']
 }
 
 tasks.withType Jar configureEach {

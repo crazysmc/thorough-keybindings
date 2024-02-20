@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(Screen.class)
 public abstract class ScreenMixin
 {
-  @ModifyConstant(method = "handleKeyboard", constant = @Constant(intValue = Keyboard.KEY_F11))
+  @ModifyConstant(method = "handleKeyboard", constant = @Constant(intValue = Keyboard.KEY_F11), require = 0)
   private int remapKeyConstant(int constant)
   {
     return CategorizedKeyBinding.getKeyCodeByOriginal(constant);

@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
   "client": [
+    "KeyBindingAccessor",
+    "KeyBindingEntryMixin",
     "remap.KeyboardMixin",
     "remap.MinecraftMixin",
     "remap.ScreenMixin"

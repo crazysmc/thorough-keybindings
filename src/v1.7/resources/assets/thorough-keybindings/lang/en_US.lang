@@ -1,6 +1,6 @@
 #key.categories.ui=Game Interface
 #key.debug.chunkBorders=Toggle Chunk Borders
-#key.debug.clearChat=Clear Chat
+key.debug.clearChat=Clear Chat
 #key.debug.help=List Debug Combinations
 #key.debug.spectator=Toggle Spectator/Creative
 key.disableShader=Disable Shader

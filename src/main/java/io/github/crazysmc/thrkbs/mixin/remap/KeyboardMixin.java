@@ -12,6 +12,7 @@ public class KeyboardMixin
   @ModifyVariable(method = "isKeyDown", at = @At("LOAD"), argsOnly = true)
   private static int remapKeyDownArgument(int key)
   {
-    return CategorizedKeyBinding.getKeyCodeByOriginal(key);
+    int code = CategorizedKeyBinding.getKeyCodeByOriginal(key);
+    return code < 256 ? code : key;
   }
 }

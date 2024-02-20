@@ -14,7 +14,7 @@ public abstract class InventoryMenuScreenMixin
 {
   @ModifyConstant(method = "moveHoveredSlotToHotbar",
                   constant = @Constant(intValue = Keyboard.KEY_1, ordinal = 0),
-                  require = 0)
+                  require = 0) // FIXME 1.3.1
   private int remapHotbarKeyConstant(int constant, @Share("index") LocalIntRef index)
   {
     int i = index.get();

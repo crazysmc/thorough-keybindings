@@ -41,6 +41,8 @@ public class MixinPlugin implements IMixinConfigPlugin
   public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo)
   {
     BytecodeInspection.acceptClassNode(targetClass);
+    if ("net.minecraft.client.Minecraft".equals(targetClassName))
+      BytecodeInspection.acceptMinecraftClassNode(targetClass);
   }
 
   @Override
