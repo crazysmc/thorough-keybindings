@@ -42,7 +42,9 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.debug.clearChat", Keyboard.KEY_D, debug);
     new PotentialKeyBinding("key.debug.renderDistance", Keyboard.KEY_F, debug);
     new PotentialKeyBinding("key.debug.advancedTooltips", Keyboard.KEY_H, debug);
+    new PotentialKeyBinding("key.debug.spectator", Keyboard.KEY_N, debug);
     new PotentialKeyBinding("key.debug.pauseOnLostFocus", Keyboard.KEY_P, debug);
+    new PotentialKeyBinding("key.debug.help", Keyboard.KEY_Q, debug);
     new PotentialKeyBinding("key.debug.reloadResources", Keyboard.KEY_S, debug);
     new PotentialKeyBinding("key.debug.reloadTextures", Keyboard.KEY_T, debug);
 
@@ -51,6 +53,8 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.mod.shift.2", Keyboard.KEY_RSHIFT, modifier);
     new PotentialKeyBinding("key.mod.ctrl.1", Keyboard.KEY_LCONTROL, modifier);
     new PotentialKeyBinding("key.mod.ctrl.2", Keyboard.KEY_RCONTROL, modifier);
+    new PotentialKeyBinding("key.mod.alt.1", Keyboard.KEY_LMENU, modifier);
+    new PotentialKeyBinding("key.mod.alt.2", Keyboard.KEY_RMENU, modifier);
   }
 
   private final String name;
@@ -81,7 +85,7 @@ public class PotentialKeyBinding
 
   public static void found(int constant)
   {
-    LOGGER.debug("Found constant {} next to key code query", constant);
+    LOGGER.debug(String.format("Found constant %1$d (0x%1$02X) next to key code query", constant));
     if (constant == 9) // loop condition
       return;
     if (constant == Keyboard.KEY_1)

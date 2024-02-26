@@ -26,8 +26,10 @@ necessary) and run `./gradlew build`.
 | F3 + P | 1.4.2                                       |
 | F3 + B | 1.4.4                                       |
 | F4     | 1.7.2                                       |
-| F3 + S | same as F3 + T since 1.8                    |
+| F3 + S | same as F3 + T since 1.8, removed in 1.9    |
 | F3 + D | 1.8                                         |
+| F3 + N | 1.9                                         |
+| F3 + Q | 1.9                                         |
 
 ## Some Missing Identifiers TODO
 
@@ -40,6 +42,4 @@ necessary) and run `./gradlew build`.
 | (F3 +) G     | key.debug.chunkBorders     |
 | (F3 +) I     | key.debug.copyNbt          |
 | (F3 +) L     | key.debug.dumpProfiler     |
-| (F3 +) N     | key.debug.spectator        |
-| (F3 +) Q     | key.debug.help             |
 | (F3 +) S     | key.debug.dumpTextures     |

@@ -1,5 +1,6 @@
 package io.github.crazysmc.thrkbs;
 
+import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -9,6 +10,10 @@ import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin
 {
+  private final String minecraft = FabricLoader.getInstance()
+      .getMappingResolver()
+      .mapClassName("intermediary", "net.minecraft.unmapped.C_8105098");
+
   @Override
   public void onLoad(String mixinPackage)
   {
@@ -41,7 +46,7 @@ public class MixinPlugin implements IMixinConfigPlugin
   public void preApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo)
   {
     BytecodeInspection.acceptClassNode(targetClass);
-    if ("net.minecraft.client.Minecraft".equals(targetClassName))
+    if (minecraft.equals(targetClassName))
       BytecodeInspection.acceptMinecraftClassNode(targetClass);
   }
 
