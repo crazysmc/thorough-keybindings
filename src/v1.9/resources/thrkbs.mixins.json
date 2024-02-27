@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.crazysmc.thrkbs.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
+  "client": [
+    "KeyBindingAccessor",
+    "KeyBindingEntryMixin",
+    "remap.DebugOverlayMixin",
+    "remap.KeyboardMixin",
+    "remap.MinecraftMixin",
+    "remap.ScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1,
+    "injectionPoints": [ "io.github.crazysmc.thrkbs.injector.BeforeIntIfEqual" ]
+  }
+}
