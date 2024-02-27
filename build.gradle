@@ -35,8 +35,8 @@ sourceSets.main {
   def set = 'v1.3'
   if (mc >= new Semver('1.7.0-'))
     set = 'v1.7'
-//  if (mc >= new Semver('1.8.0-'))
-//    set = 'v1.8'
+  if (mc >= new Semver('1.9.0-'))
+    set = 'v1.9'
   java.srcDir "src/$set/java"
   resources.srcDir "src/$set/resources"
 }

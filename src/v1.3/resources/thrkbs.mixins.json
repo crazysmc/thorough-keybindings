@@ -13,6 +13,7 @@
     "remap.ScreenMixin"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 1,
+    "injectionPoints": [ "io.github.crazysmc.thrkbs.injector.BeforeIntIfEqual" ]
   }
 }

@@ -1,22 +1,25 @@
 package io.github.crazysmc.thrkbs;
 
+import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqualInjectionInfo;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.MappingResolver;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import org.spongepowered.asm.mixin.injection.struct.InjectionInfo;
 
 import java.util.List;
 import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin
 {
-  private final String minecraft = FabricLoader.getInstance()
-      .getMappingResolver()
-      .mapClassName("intermediary", "net.minecraft.unmapped.C_8105098");
+  private final MappingResolver resolver = FabricLoader.getInstance().getMappingResolver();
+  private final String minecraft = resolver.mapClassName("intermediary", "net.minecraft.unmapped.C_8105098");
 
   @Override
   public void onLoad(String mixinPackage)
   {
+    InjectionInfo.register(ModifyIntIfEqualInjectionInfo.class);
   }
 
   @Override

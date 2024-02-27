@@ -1,15 +1,16 @@
 package io.github.crazysmc.thrkbs.mixin.remap;
 
 import io.github.crazysmc.thrkbs.CategorizedKeyBinding;
+import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.options.GameOptions;
 import org.lwjgl.input.Keyboard;
-import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.*;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Slice;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,7 @@ import java.util.Map;
 public abstract class MinecraftMixin
 {
   @Unique
-  private static final Map<String, Integer> DEBUG_HELP = new HashMap<>(12);
+  private static final Map<String, Integer> DEBUG_HELP = new HashMap<>(16);
 
   static
   {
@@ -34,9 +35,27 @@ public abstract class MinecraftMixin
   }
 
   @Unique
-  private boolean jumpIfNotEqual = false;
-  @Unique
   private int index;
+
+  /* before 1.9 */
+  @ModifyIntIfEqual(method = "tick",
+                    slice = @Slice(from = @At(value = "INVOKE:LAST",
+                                              target = "Lnet/minecraft/client/options/KeyBinding;click(I)V"),
+                                   to = @At(value = "INVOKE:FIRST",
+                                            target = "Lnet/minecraft/client/options/KeyBinding;consumeClick()Z")),
+                    constant = @Constant,
+                    require = 0)
+  private int remapKeyConstant(int constant)
+  {
+    if (constant != Keyboard.KEY_1)
+      return CategorizedKeyBinding.getKeyCodeByOriginal(constant);
+    int i = index;
+    index = i == 8 ? 0 : i + 1;
+    return CategorizedKeyBinding.getKeyCodeByOriginal(constant + i) - i;
+  }
+
+/*  @Unique
+  private boolean jumpIfNotEqual = false;
 
   @Inject(method = "tick",
           slice = @Slice(from = @At(value = "INVOKE:LAST",
@@ -92,8 +111,9 @@ public abstract class MinecraftMixin
       return constant;
     jumpIfNotEqual = false;
     return CategorizedKeyBinding.getKeyCodeByOriginal(constant);
-  }
+  }*/
 
+  /* since 1.9 */
   @ModifyConstant(method = "handleDebugKey", constant = @Constant, require = 0)
   private String debugHelpText(String constant)
   {
