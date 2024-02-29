@@ -36,4 +36,4 @@ dependencyResolutionManagement {
 }
 
 include ':ap'
-include ':'
+include ':mod'

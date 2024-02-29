@@ -60,4 +60,8 @@ runClient {
 
 tasks.withType Jar configureEach {
   from rootProject.file('LICENSE')
+
+  def ap = (project ':ap' tasks).compileJava
+  dependsOn ap
+  from ap.outputs
 }
