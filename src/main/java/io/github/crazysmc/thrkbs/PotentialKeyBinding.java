@@ -41,6 +41,7 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.debug.crash", Keyboard.KEY_C, debug);
     new PotentialKeyBinding("key.debug.clearChat", Keyboard.KEY_D, debug);
     new PotentialKeyBinding("key.debug.renderDistance", Keyboard.KEY_F, debug);
+    new PotentialKeyBinding("key.debug.chunkBorders", Keyboard.KEY_G, debug);
     new PotentialKeyBinding("key.debug.advancedTooltips", Keyboard.KEY_H, debug);
     new PotentialKeyBinding("key.debug.spectator", Keyboard.KEY_N, debug);
     new PotentialKeyBinding("key.debug.pauseOnLostFocus", Keyboard.KEY_P, debug);

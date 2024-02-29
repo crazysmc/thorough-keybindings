@@ -1,8 +1,7 @@
-#key.categories.ui=Game Interface
-#key.debug.chunkBorders=Toggle Chunk Borders
 key.categories.debug=Debug Key Combinations
 key.categories.modifier=Modifier Keys
 key.debug.advancedTooltips=Advanced Item Tooltips
+key.debug.chunkBorders=Toggle Chunk Borders
 key.debug.clearChat=Clear Chat
 key.debug.crash=Debug Crash (Hold)
 key.debug.help=List Debug Combinations

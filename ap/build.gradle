@@ -1,0 +1,24 @@
+plugins {
+  id 'fabric-loom' version libs.versions.loom
+  id 'ploceus' version libs.versions.loom
+}
+
+version = mod_version
+group = maven_group
+base.archivesName = "$mod_id-ap"
+
+dependencies {
+  minecraft libs.minecraft
+  mappings variantOf(libs.feather) { classifier 'v2' }
+
+  modImplementation libs.loader
+}
+
+java {
+  sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+  withSourcesJar()
+}
+
+tasks.withType Jar configureEach {
+  from rootProject.file('LICENSE')
+}

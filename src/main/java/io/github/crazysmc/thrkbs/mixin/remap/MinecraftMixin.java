@@ -21,6 +21,7 @@ public abstract class MinecraftMixin
       .put("F3 + B = Show hitboxes", Keyboard.KEY_B)
       .put("F3 + D = Clear chat", Keyboard.KEY_D)
       .put("F3 + F = Cycle renderdistance (Shift to inverse)", Keyboard.KEY_F)
+      .put("F3 + G = Show chunk boundaries", Keyboard.KEY_G)
       .put("F3 + H = Advanced tooltips", Keyboard.KEY_H)
       .put("F3 + N = Cycle creative <-> spectator", Keyboard.KEY_N)
       .put("F3 + P = Pause on lost focus", Keyboard.KEY_P)
@@ -39,7 +40,6 @@ public abstract class MinecraftMixin
                                    to = @At(value = "INVOKE:FIRST",
                                             target = "Lnet/minecraft/client/options/KeyBinding;consumeClick()Z")),
                     constant = @Constant)
-
   private int remapKeyConstantTick(int constant)
   {
     if (constant != Keyboard.KEY_1)

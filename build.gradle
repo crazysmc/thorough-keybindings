@@ -22,6 +22,9 @@ dependencies {
   modImplementation libs.loader
   ploceus.addCommonLibraries()
   ploceus.dependOsl libs.versions.osl.get()
+
+  implementation project(':ap')
+  annotationProcessor project(':ap')
   testImplementation libs.junit
 }
 
