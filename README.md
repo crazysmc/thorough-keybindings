@@ -30,6 +30,8 @@ necessary) and run `./gradlew build`.
 | F3 + D | 1.8                                         |
 | F3 + N | 1.9                                         |
 | F3 + Q | 1.9                                         |
+| F3 + G | 1.10                                        |
+|        | 1.11 renames en_US.lang to en_us.lang       |
 
 ## Some Missing Identifiers TODO
 
@@ -39,7 +41,6 @@ necessary) and run `./gradlew build`.
 | (F3 +) 1     | key.debug.profiler         |
 | (F3 +) 2     | key.debug.timeGraph        |
 | (F3 +) 3     | key.debug.networkGraph     |
-| (F3 +) G     | key.debug.chunkBorders     |
 | (F3 +) I     | key.debug.copyNbt          |
 | (F3 +) L     | key.debug.dumpProfiler     |
 | (F3 +) S     | key.debug.dumpTextures     |

@@ -9,6 +9,13 @@ version = "$mod_version+mc${libs.versions.minecraft.get()}"
 group = maven_group
 base.archivesName = mod_id
 
+repositories {
+  maven {
+    name = 'Quilt Releases'
+    url = 'https://maven.quiltmc.org/repository/release'
+  }
+}
+
 dependencies {
   minecraft libs.minecraft
 
@@ -40,6 +47,8 @@ sourceSets.main {
     set = 'v1.7'
   if (mc >= new Semver('1.9.0-'))
     set = 'v1.9'
+  if (mc >= new Semver('1.12.0-'))
+    set = 'v1.12'
   java.srcDir "src/$set/java"
   resources.srcDir "src/$set/resources"
 }

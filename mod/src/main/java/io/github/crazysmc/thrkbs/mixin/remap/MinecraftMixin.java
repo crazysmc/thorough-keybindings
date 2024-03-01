@@ -1,33 +1,25 @@
 package io.github.crazysmc.thrkbs.mixin.remap;
 
-import com.google.common.collect.ImmutableMap;
 import io.github.crazysmc.thrkbs.CategorizedKeyBinding;
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.chat.ChatGui;
 import net.minecraft.client.options.GameOptions;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 
-import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin
 {
   @Unique
-  private static final Map<String, Integer> DEBUG_HELP = ImmutableMap.<String, Integer>builder()
-      .put("F3 + A = Reload chunks", Keyboard.KEY_A)
-      .put("F3 + B = Show hitboxes", Keyboard.KEY_B)
-      .put("F3 + D = Clear chat", Keyboard.KEY_D)
-      .put("F3 + F = Cycle renderdistance (Shift to inverse)", Keyboard.KEY_F)
-      .put("F3 + G = Show chunk boundaries", Keyboard.KEY_G)
-      .put("F3 + H = Advanced tooltips", Keyboard.KEY_H)
-      .put("F3 + N = Cycle creative <-> spectator", Keyboard.KEY_N)
-      .put("F3 + P = Pause on lost focus", Keyboard.KEY_P)
-      .put("F3 + Q = Show this list", Keyboard.KEY_Q)
-      .put("F3 + T = Reload resourcepacks", Keyboard.KEY_T)
-      .build();
+  private static final Pattern F3_PLUS = Pattern.compile("\\bF3 \\+ [A-ZΒ]\\b");
 
   @Unique
   private int index;
@@ -57,15 +49,28 @@ public abstract class MinecraftMixin
     return CategorizedKeyBinding.getKeyCodeByOriginal(constant);
   }
 
-  /* since 1.9 */
-  @ModifyConstant(method = "handleDebugKey", constant = @Constant, require = 0)
-  private String debugHelpText(String constant)
+  /* since 1.9, replace Beta with B, does not work for Upside Down lang */
+  @Redirect(method = "handleDebugKey",
+            at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/client/gui/chat/ChatGui;addMessage(Lnet/minecraft/text/Text;)V"),
+            require = 0)
+  private void debugHelpText(ChatGui instance, Text message)
   {
-    Integer original = DEBUG_HELP.get(constant);
-    if (original == null)
-      return constant;
-    String f3 = GameOptions.getKeyName(CategorizedKeyBinding.getKeyCodeByOriginal(Keyboard.KEY_F3));
-    String key = GameOptions.getKeyName(CategorizedKeyBinding.getKeyCodeByOriginal(original));
-    return String.format("%s + %s%s", f3, key, constant.substring(6));
+    String formatted = message.getFormattedString();
+    Matcher matcher = F3_PLUS.matcher(formatted);
+    if (matcher.find())
+    {
+      int end = matcher.end();
+      char original = formatted.charAt(end - 1);
+      int keyIndex = Keyboard.getKeyIndex(String.valueOf(original == 'Β' ? 'B' : original));
+      StringBuilder sb = new StringBuilder(formatted.length() + 16);
+      sb.append(formatted, 0, matcher.start());
+      sb.append(GameOptions.getKeyName(CategorizedKeyBinding.getKeyCodeByOriginal(Keyboard.KEY_F3)));
+      sb.append(" + ");
+      sb.append(GameOptions.getKeyName(CategorizedKeyBinding.getKeyCodeByOriginal(keyIndex)));
+      sb.append(formatted, end, formatted.length());
+      message = new LiteralText(sb.toString());
+    }
+    instance.addMessage(message);
   }
 }
