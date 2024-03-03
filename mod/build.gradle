@@ -1,4 +1,7 @@
+import com.vdurmont.semver4j.Requirement
 import com.vdurmont.semver4j.Semver
+
+import java.util.regex.Pattern
 
 plugins {
   id 'fabric-loom' version libs.versions.loom
@@ -9,12 +12,12 @@ version = "$mod_version+mc${libs.versions.minecraft.get()}"
 group = maven_group
 base.archivesName = mod_id
 
-repositories {
-  maven {
-    name = 'Quilt Releases'
-    url = 'https://maven.quiltmc.org/repository/release'
-  }
-}
+//repositories { // for osl 0.13.4
+//  maven {
+//    name = 'Quilt Releases'
+//    url = 'https://maven.quiltmc.org/repository/release'
+//  }
+//}
 
 dependencies {
   minecraft libs.minecraft
@@ -40,18 +43,53 @@ java {
   withSourcesJar()
 }
 
-sourceSets.main {
-  def mc = new Semver(libs.versions.minecraft.get(), Semver.SemverType.LOOSE)
-  def set = 'v1.3'
-  if (mc >= new Semver('1.7.0-'))
-    set = 'v1.7'
-  if (mc >= new Semver('1.9.0-'))
-    set = 'v1.9'
-  if (mc >= new Semver('1.12.0-'))
-    set = 'v1.12'
-  java.srcDir "src/$set/java"
-  resources.srcDir "src/$set/resources"
+def generatedJava = layout.buildDirectory.dir 'generated/sources/versioned/java'
+def generatedResources = layout.buildDirectory.dir 'generated/sources/versioned/resources'
+
+sourceSets {
+  versioned {
+    java { compileClasspath += main.compileClasspath + main.runtimeClasspath }
+  }
+  main.java.srcDir generatedJava
+  main.resources.srcDir generatedResources
 }
+idea.module.generatedSourceDirs += generatedJava.get().asFile
+
+def mc = new Semver(libs.versions.skyrising.get(), Semver.SemverType.LOOSE)
+def token = Pattern.compile(/^\s*(\/\/|#)\$/)
+def preprocess = { String task, src, dst ->
+  tasks.register task, Copy, {
+    group = BasePlugin.BUILD_GROUP
+    inputs.property 'mc', mc.toString()
+    from src
+    into dst
+    doFirst { delete dst }
+    eachFile {
+      def inc = true
+      filter { String line ->
+        def matcher = token.matcher line
+        if (matcher.find()) {
+          line = line.substring matcher.end()
+          if (line.startsWith 'if') {
+            inc = Requirement.buildNPM line.substring(2) isSatisfiedBy mc
+            return null
+          }
+        }
+        return inc ? line : null
+      }
+      if (!it.size)
+        it.exclude()
+    }
+  }
+}
+def preprocessJava = preprocess 'preprocessJava', sourceSets.versioned.java, generatedJava
+def preprocessResources = preprocess 'preprocessResources', sourceSets.versioned.resources, generatedResources
+tasks.register 'preprocess', {
+  group = BasePlugin.BUILD_GROUP
+  dependsOn preprocessJava, preprocessResources
+}
+tasks.named 'compileJava', { dependsOn preprocessJava }
+tasks.named 'processResources', { dependsOn preprocessResources }
 
 test {
   useJUnitPlatform()
