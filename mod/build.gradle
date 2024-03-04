@@ -57,7 +57,7 @@ idea.module.generatedSourceDirs += generatedJava.get().asFile
 
 def mc = new Semver(libs.versions.skyrising.get(), Semver.SemverType.LOOSE)
 def token = Pattern.compile(/^\s*(\/\/|#)\$/)
-def preprocess = { String task, src, dst ->
+def preprocessor = { String task, src, dst ->
   tasks.register task, Copy, {
     group = BasePlugin.BUILD_GROUP
     inputs.property 'mc', mc.toString()
@@ -82,13 +82,14 @@ def preprocess = { String task, src, dst ->
     }
   }
 }
-def preprocessJava = preprocess 'preprocessJava', sourceSets.versioned.java, generatedJava
-def preprocessResources = preprocess 'preprocessResources', sourceSets.versioned.resources, generatedResources
-tasks.register 'preprocess', {
+def preprocessJava = preprocessor 'preprocessJava', sourceSets.versioned.java, generatedJava
+def preprocessResources = preprocessor 'preprocessResources', sourceSets.versioned.resources, generatedResources
+def preprocess = tasks.register 'preprocess', {
   group = BasePlugin.BUILD_GROUP
   dependsOn preprocessJava, preprocessResources
 }
-tasks.named 'compileJava', { dependsOn preprocessJava }
+tasks.named 'compileJava', { dependsOn preprocess }
+tasks.named 'sourcesJar', { dependsOn preprocess }
 tasks.named 'processResources', { dependsOn preprocessResources }
 
 test {
@@ -107,8 +108,5 @@ runClient {
 
 tasks.withType Jar configureEach {
   from rootProject.file('LICENSE')
-
-  def ap = (project ':ap' tasks).compileJava
-  dependsOn ap
-  from ap.outputs
+  from project(':ap').tasks.compileJava.outputs
 }

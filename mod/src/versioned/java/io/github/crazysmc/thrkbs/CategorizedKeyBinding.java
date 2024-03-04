@@ -28,8 +28,11 @@ public class CategorizedKeyBinding extends KeyBinding
     CATEGORIES.add(category);
     //$if >=1.7
     super(name, keyCode, category);
-    //$if
+    //$if <1.12
     KeyBindingAccessor.getAll().remove(this);
+    //$if >=1.12
+    KeyBindingAccessor.getAll().remove(name);
+    //$if
     BY_ORIGINAL.put(keyCode, this);
   }
 

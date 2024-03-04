@@ -14,7 +14,7 @@
     //$if >=1.7
     "KeyBindingEntryMixin",
     //$if >=1.9
-    "DebugOverlayMixin",
+    "remap.DebugOverlayMixin",
     //$if
     "remap.KeyboardMixin",
     "remap.MinecraftMixin",
