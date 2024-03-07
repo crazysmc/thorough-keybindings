@@ -92,7 +92,7 @@ public class PotentialKeyBinding
     if (constant == Keyboard.KEY_1)
     {
       if (!numberKeys)
-        numberKeys = true;
+        numberKeys = true; // need twice to have profiler chart AND hotbar keys
       else
         for (int i = 0; i < 9; i++)
           BY_KEY.get(Keyboard.KEY_1 + i).found = true;

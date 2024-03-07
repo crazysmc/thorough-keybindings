@@ -31,7 +31,7 @@ necessary) and run `./gradlew build`.
 | F3 + N | 1.9                                         |
 | F3 + Q | 1.9                                         |
 | F3 + G | 1.10                                        |
-|        | 1.11 renames en_US.lang to en_us.lang       |
+|        | 1.11 renames `en_US.lang` to `en_us.lang`   |
 
 ## Some Missing Identifiers TODO
 

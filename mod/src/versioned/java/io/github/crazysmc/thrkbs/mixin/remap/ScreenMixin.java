@@ -12,11 +12,13 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(Screen.class)
 public abstract class ScreenMixin
 {
+  //$if <1.8
   @ModifyConstant(method = "handleKeyboard", constant = @Constant(intValue = Keyboard.KEY_F11))
   private int remapKeyConstant(int constant)
   {
     return CategorizedKeyBinding.getKeyCodeByOriginal(constant);
   }
+  //$if
 
   @ModifyArg(method = "handleKeyboard",
              at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;keyPressed(CI)V"))
