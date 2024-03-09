@@ -12,12 +12,12 @@ version = "$mod_version+mc${libs.versions.minecraft.get()}"
 group = maven_group
 base.archivesName = mod_id
 
-//repositories { // for osl 0.13.4
-//  maven {
-//    name = 'Quilt Releases'
-//    url = 'https://maven.quiltmc.org/repository/release'
-//  }
-//}
+repositories { // for osl 0.13.4
+  maven {
+    name = 'Quilt Releases'
+    url = 'https://maven.quiltmc.org/repository/release'
+  }
+}
 
 dependencies {
   minecraft libs.minecraft

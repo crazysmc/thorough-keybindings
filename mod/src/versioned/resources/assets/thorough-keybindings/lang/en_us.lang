@@ -1,4 +1,4 @@
-#$if >=1.11
+#$if >=1.11 <1.13
 key.categories.debug=Debug Key Combinations
 key.categories.modifier=Modifier Keys
 key.debug.advancedTooltips=Advanced Item Tooltips

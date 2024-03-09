@@ -1,3 +1,4 @@
+//$if <1.13
 package io.github.crazysmc.thrkbs.mixin.remap;
 
 import io.github.crazysmc.thrkbs.CategorizedKeyBinding;
@@ -16,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//$if >=1.9
-//$import net.minecraft.text.LiteralText;
-//$import net.minecraft.text.Text;
-//$if
+//$if >=1.9 <1.13
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+//$if <1.13
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin
@@ -43,7 +44,7 @@ public abstract class MinecraftMixin
     return CategorizedKeyBinding.getKeyCodeByOriginal(constant + i) - i;
   }
 
-  //$if >=1.9
+  //$if >=1.9 <1.13
   @Unique
   private static final Pattern F3_PLUS = Pattern.compile("\\bF3 \\+ [A-ZΒ]\\b");
 
@@ -76,6 +77,5 @@ public abstract class MinecraftMixin
     }
     instance.addMessage(message);
   }
-
-  //$if
+  //$if <1.13
 }

@@ -1,5 +1,7 @@
 package io.github.crazysmc.thrkbs;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodInsnNode;
@@ -13,6 +15,8 @@ import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin
 {
+  public static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings|Mixin");
+
   @Override
   public void onLoad(String mixinPackage)
   {
@@ -50,17 +54,22 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo)
   {
+    LOGGER.debug("Inspecting class {} for keybindings", targetClassName);
     for (MethodNode method : targetClass.methods)
       for (AbstractInsnNode instruction : method.instructions)
       {
         if (!(instruction instanceof MethodInsnNode))
           continue;
         String name = ((MethodInsnNode) instruction).name;
-        if (!"isKeyDown".equals(name) && !name.startsWith("intIfEqual$"))
+        if (!"isKeyDown".equals(name) && !"getKey".equals(name) && !name.startsWith("intIfEqual$"))
           continue;
         Object constant = Bytecode.getConstant(instruction.getPrevious());
         if (constant instanceof Integer)
-          PotentialKeyBinding.found((Integer) constant);
+        {
+          int i = (Integer) constant;
+          LOGGER.debug(String.format("Found key constant %1$d (0x%1$02X)", i));
+          PotentialKeyBinding.found(i);
+        }
       }
   }
 }

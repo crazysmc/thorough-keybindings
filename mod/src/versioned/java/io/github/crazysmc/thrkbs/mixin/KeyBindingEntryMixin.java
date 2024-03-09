@@ -14,15 +14,10 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(ControlsListWidget.KeyBindingEntry.class)
 public abstract class KeyBindingEntryMixin
 {
+  //$if >=1.7 <1.13
   @Final
   @Shadow
   private KeyBinding keyBinding;
-
-  @Unique
-  private boolean isDebug(KeyBinding keyBinding)
-  {
-    return keyBinding.getName().contains(".debug.");
-  }
 
   @Redirect(method = "render",
             slice = @Slice(from = @At(value = "FIELD",
@@ -31,5 +26,21 @@ public abstract class KeyBindingEntryMixin
   private int separateDebugCombos(KeyBinding keyBinding)
   {
     return isDebug(keyBinding) != isDebug(this.keyBinding) ? 0 : keyBinding.getKeyCode();
+  }
+
+  //$if >=1.13
+  @Redirect(method = "render",
+            at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/client/options/KeyBinding;same(Lnet/minecraft/client/options/KeyBinding;)Z"))
+  private boolean separateDebugCombos(KeyBinding instance, KeyBinding keyBinding)
+  {
+    return isDebug(instance) == isDebug(keyBinding) && instance.same(keyBinding);
+  }
+  //$if >=1.7
+
+  @Unique
+  private boolean isDebug(KeyBinding keyBinding)
+  {
+    return keyBinding.getName().contains(".debug.");
   }
 }

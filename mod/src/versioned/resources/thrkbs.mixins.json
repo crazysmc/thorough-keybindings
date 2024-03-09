@@ -15,9 +15,13 @@
     "KeyBindingEntryMixin",
     //$if >=1.9
     "remap.DebugOverlayMixin",
-    //$if
+    //$if <1.13
     "remap.KeyboardMixin",
     "remap.MinecraftMixin",
+    //$if >=1.13
+    "remap.InputConstantsMixin",
+    "remap.KeyboardHandlerMixin",
+    //$if
     "remap.ScreenMixin"
   ],
   "injectors": { "defaultRequire": 1 }

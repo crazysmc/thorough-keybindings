@@ -27,7 +27,7 @@ public class CategorizedKeyBinding extends KeyBinding
     this.category = category;
     CATEGORIES.add(category);
     //$if >=1.7
-    super(name, keyCode, category);
+    //$  super(name, keyCode, category);
     //$if <1.12
     KeyBindingAccessor.getAll().remove(this);
     //$if >=1.12
@@ -68,10 +68,24 @@ public class CategorizedKeyBinding extends KeyBinding
 
   public static int getKeyCodeByOriginal(int keyCode)
   {
-    //$if <1.7
-    return Optional.ofNullable(BY_ORIGINAL.get(keyCode)).map(binding -> binding.keyCode).orElse(keyCode);
-    //$if >=1.7
-    return Optional.ofNullable(BY_ORIGINAL.get(keyCode)).map(KeyBinding::getKeyCode).orElse(keyCode);
-    //$if
+    return Optional.ofNullable(BY_ORIGINAL.get(keyCode))
+        //$if <1.7
+        .map(binding -> binding.keyCode)
+        //$if >=1.7 <1.13
+        .map(KeyBinding::getKeyCode)
+        //$if >=1.13
+        .map(binding -> ((KeyBindingAccessor) binding).getKey())
+        .map(com.mojang.blaze3d.platform.InputConstants.Key::getValue)
+        //$if
+        .orElse(keyCode);
   }
+
+  //$if >= 1.13
+  public static String getDisplayNameByOriginal(int keyCode)
+  {
+    return Optional.ofNullable(BY_ORIGINAL.get(keyCode))
+        .map(KeyBinding::getDisplayName)
+        .orElse(com.mojang.blaze3d.platform.InputConstants.getKey(keyCode, -1).getDisplayName());
+  }
+  //$if
 }

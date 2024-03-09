@@ -2,7 +2,6 @@ package io.github.crazysmc.thrkbs.mixin.remap;
 
 import io.github.crazysmc.thrkbs.CategorizedKeyBinding;
 import net.minecraft.client.gui.screen.Screen;
-import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -13,17 +12,26 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class ScreenMixin
 {
   //$if <1.8
-  @ModifyConstant(method = "handleKeyboard", constant = @Constant(intValue = Keyboard.KEY_F11))
+  @ModifyConstant(method = "handleKeyboard", constant = @Constant(intValue = org.lwjgl.input.Keyboard.KEY_F11))
   private int remapKeyConstant(int constant)
   {
     return CategorizedKeyBinding.getKeyCodeByOriginal(constant);
   }
-  //$if
 
+  //$if <1.13
   @ModifyArg(method = "handleKeyboard",
              at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;keyPressed(CI)V"))
   private int remapEscape(int key)
   {
-    return key == CategorizedKeyBinding.getKeyCodeByOriginal(Keyboard.KEY_ESCAPE) ? Keyboard.KEY_ESCAPE : key;
+    boolean gameMenu = key == CategorizedKeyBinding.getKeyCodeByOriginal(org.lwjgl.input.Keyboard.KEY_ESCAPE);
+    return gameMenu ? org.lwjgl.input.Keyboard.KEY_ESCAPE : key;
   }
+
+  //$if >=1.13
+  @ModifyConstant(method = "keyPressed", constant = @Constant(intValue = org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE))
+  private int remapEscape(int constant)
+  {
+    return CategorizedKeyBinding.getKeyCodeByOriginal(constant);
+  }
+  //$if
 }
