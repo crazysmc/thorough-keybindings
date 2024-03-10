@@ -2,10 +2,8 @@ package io.github.crazysmc.thrkbs;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.Label;
+import org.objectweb.asm.tree.*;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.util.Bytecode;
@@ -57,19 +55,36 @@ public class MixinPlugin implements IMixinConfigPlugin
     LOGGER.debug("Inspecting class {} for keybindings", targetClassName);
     for (MethodNode method : targetClass.methods)
       for (AbstractInsnNode instruction : method.instructions)
-      {
-        if (!(instruction instanceof MethodInsnNode))
-          continue;
-        String name = ((MethodInsnNode) instruction).name;
-        if (!"isKeyDown".equals(name) && !"getKey".equals(name) && !name.startsWith("intIfEqual$"))
-          continue;
-        Object constant = Bytecode.getConstant(instruction.getPrevious());
-        if (constant instanceof Integer)
-        {
-          int i = (Integer) constant;
-          LOGGER.debug(String.format("Found key constant %1$d (0x%1$02X)", i));
-          PotentialKeyBinding.found(i);
-        }
-      }
+        if (instruction instanceof MethodInsnNode)
+          acceptMethodInsn((MethodInsnNode) instruction);
+        else if (instruction instanceof TableSwitchInsnNode)
+          acceptSwitchInsn((TableSwitchInsnNode) instruction);
+  }
+
+  private void acceptMethodInsn(MethodInsnNode instruction)
+  {
+    if (!"isKeyDown".equals(instruction.name) &&
+        !"getKey".equals(instruction.name) &&
+        !instruction.name.startsWith("intIfEqual$"))
+      return;
+    Object constant = Bytecode.getConstant(instruction.getPrevious());
+    if (!(constant instanceof Integer))
+      return;
+    int i = (Integer) constant;
+    LOGGER.debug(String.format("Found key constant %1$d (0x%1$02X) at %2$s", i, instruction.name));
+    PotentialKeyBinding.found(i);
+  }
+
+  private void acceptSwitchInsn(TableSwitchInsnNode instruction)
+  {
+    Label defaultLabel = instruction.dflt.getLabel();
+    for (int i = 0, size = instruction.labels.size(); i < size; i++)
+    {
+      if (defaultLabel.equals(instruction.labels.get(i).getLabel()))
+        continue;
+      int constant = instruction.min + i;
+      LOGGER.debug(String.format("Found key constant %1$d (0x%1$02X) as switch case", constant));
+      PotentialKeyBinding.found(constant);
+    }
   }
 }

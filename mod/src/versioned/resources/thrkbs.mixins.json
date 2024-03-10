@@ -5,7 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
   "client": [
-    "KeyBindingAccessor",
     //$if <1.7
     "ControlsOptionsScreenMixin",
     "OptionsScreenMixin",
@@ -22,7 +21,8 @@
     "remap.InputConstantsMixin",
     "remap.KeyboardHandlerMixin",
     //$if
-    "remap.ScreenMixin"
+    "remap.ScreenMixin",
+    "KeyBindingAccessor"
   ],
   "injectors": { "defaultRequire": 1 }
 }

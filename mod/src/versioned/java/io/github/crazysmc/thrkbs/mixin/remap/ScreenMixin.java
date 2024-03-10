@@ -26,12 +26,5 @@ public abstract class ScreenMixin
     boolean gameMenu = key == CategorizedKeyBinding.getKeyCodeByOriginal(org.lwjgl.input.Keyboard.KEY_ESCAPE);
     return gameMenu ? org.lwjgl.input.Keyboard.KEY_ESCAPE : key;
   }
-
-  //$if >=1.13
-  @ModifyConstant(method = "keyPressed", constant = @Constant(intValue = org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE))
-  private int remapEscape(int constant)
-  {
-    return CategorizedKeyBinding.getKeyCodeByOriginal(constant);
-  }
   //$if
 }

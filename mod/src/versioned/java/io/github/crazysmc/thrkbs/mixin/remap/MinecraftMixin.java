@@ -17,11 +17,6 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//$if >=1.9 <1.13
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-//$if <1.13
-
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin
 {
@@ -54,11 +49,10 @@ public abstract class MinecraftMixin
     return CategorizedKeyBinding.getKeyCodeByOriginal(constant);
   }
 
-  /* replace Beta with B, does not work for Upside Down lang */
   @Redirect(method = "handleDebugKey",
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/client/gui/chat/ChatGui;addMessage(Lnet/minecraft/text/Text;)V"))
-  private void debugHelpText(ChatGui instance, Text message)
+  private void debugHelpText(ChatGui instance, net.minecraft.text.Text message)
   {
     String formatted = message.getFormattedString();
     Matcher matcher = F3_PLUS.matcher(formatted);
@@ -66,14 +60,14 @@ public abstract class MinecraftMixin
     {
       int end = matcher.end();
       char original = formatted.charAt(end - 1);
-      int keyIndex = Keyboard.getKeyIndex(String.valueOf(original == 'Β' ? 'B' : original));
+      int keyIndex = Keyboard.getKeyIndex(String.valueOf(original == 'Β' ? 'B' : original)); // replace Beta
       StringBuilder sb = new StringBuilder(formatted.length() + 16);
       sb.append(formatted, 0, matcher.start());
       sb.append(GameOptions.getKeyName(CategorizedKeyBinding.getKeyCodeByOriginal(Keyboard.KEY_F3)));
       sb.append(" + ");
       sb.append(GameOptions.getKeyName(CategorizedKeyBinding.getKeyCodeByOriginal(keyIndex)));
       sb.append(formatted, end, formatted.length());
-      message = new LiteralText(sb.toString());
+      message = new net.minecraft.text.LiteralText(sb.toString());
     }
     instance.addMessage(message);
   }

@@ -1,0 +1,27 @@
+//$if >=1.13
+{
+  "key.categories.debug": "Debug Key Combinations",
+  "key.categories.modifier": "Modifier Keys",
+  "key.debug.advanced_tooltips": "Advanced Item Tooltips",
+  "key.debug.chunk_boundaries": "Show Chunk Boundaries",
+  "key.debug.clear_chat": "Clear Chat",
+  "key.debug.copy_location": "Copy Location",
+  "key.debug.creative_spectator": "Cycle Creative <-> Spectator",
+  "key.debug.cycle_renderdistance": "Cycle Render Distance",
+  "key.debug.help": "List Debug Combinations",
+  "key.debug.inspect": "Copy Entity or Block Data",
+  "key.debug.pause_focus": "Pause on Lost Focus",
+  "key.debug.reload_chunks": "Reload Chunks",
+  "key.debug.reload_resourcepacks": "Reload Resource Packs",
+  "key.debug.show_hitboxes": "Show Hitboxes (Ctrl + Narrator)",
+  "key.debugInfo": "Debug Info",
+  "key.disableShader": "Disable Shader",
+  "key.gameMenu": "Game Menu",
+  "key.mod.alt.1": "Alt 1",
+  "key.mod.alt.2": "Alt 2",
+  "key.mod.ctrl.1": "Control 1",
+  "key.mod.ctrl.2": "Control 2",
+  "key.mod.shift.1": "Shift 1",
+  "key.mod.shift.2": "Shift 2",
+  "key.toggleHUD": "Hide GUI"
+}
