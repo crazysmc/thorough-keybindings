@@ -97,7 +97,10 @@ test {
 }
 
 processResources {
-  filesMatching 'fabric.mod.json', { expand project.properties }
+  inputs.property 'properties', project.properties.toString()
+  filesMatching 'fabric.mod.json', {
+    expand project.properties + [range: libs.versions.range.get()]
+  }
 }
 
 runClient {

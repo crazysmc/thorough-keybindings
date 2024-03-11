@@ -77,6 +77,8 @@ public class MixinPlugin implements IMixinConfigPlugin
 
   private void acceptSwitchInsn(TableSwitchInsnNode instruction)
   {
+    if (instruction.min != 'A')
+      return;
     Label defaultLabel = instruction.dflt.getLabel();
     for (int i = 0, size = instruction.labels.size(); i < size; i++)
     {
