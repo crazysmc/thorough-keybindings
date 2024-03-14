@@ -12,6 +12,8 @@ version = "$mod_version+mc${libs.versions.minecraft.get()}"
 group = maven_group
 base.archivesName = mod_id
 
+def ap = project ':ap'
+
 repositories { // for osl 0.13.4
   maven {
     name = 'Quilt Releases'
@@ -33,8 +35,8 @@ dependencies {
   ploceus.addCommonLibraries()
   ploceus.dependOsl libs.versions.osl.get()
 
-  implementation project(':ap')
-  annotationProcessor project(':ap')
+  implementation ap
+  annotationProcessor ap
   testImplementation libs.junit
 }
 
@@ -111,5 +113,5 @@ runClient {
 
 tasks.withType Jar configureEach {
   from rootProject.file('LICENSE')
-  from project(':ap').tasks.compileJava.outputs
+  from ap.tasks.compileJava.outputs
 }
