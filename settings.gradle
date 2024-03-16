@@ -1,1 +1,63 @@
-includeBuild 'ornithe'
+pluginManagement {
+  repositories {
+    maven {
+      name = 'Fabric'
+      url = 'https://maven.fabricmc.net/'
+    }
+    maven {
+      name = 'Ornithe Releases'
+      url = 'https://maven.ornithemc.net/releases'
+    }
+    maven {
+      name = 'Ornithe Snapshots'
+      url = 'https://maven.ornithemc.net/snapshots'
+    }
+    gradlePluginPortal()
+  }
+}
+
+dependencyResolutionManagement {
+  versionCatalogs {
+    ornitheLibs {
+      version 'loom', '1.5-SNAPSHOT'
+
+      def withNests = { v -> [mc: v, f: "$v+build.25", n: "$v+build.1", r: "~$v"] }
+      def withoutNests = { v -> [mc: v, f: "$v+build.25", r: "~$v"] }
+
+      def i = startParameter.projectProperties.preset as Integer ?: 0
+      def conf = [
+          withNests('1.3.1'),
+          withNests('1.4.2'),
+          withNests('1.5.1'),
+          withNests('1.6.1'),
+          withNests('1.7.2'),
+          withNests('1.8'),
+          withoutNests('1.9'),
+          withoutNests('1.10'),
+          withoutNests('1.11'),
+          withoutNests('1.12'),
+          withoutNests('1.13').tap { r = "=$mc" },
+      ][i]
+      println "Minecraft version $conf.mc selected"
+
+      version 'minecraft', conf.mc
+      version 'range', conf.r // '>=min <max'
+      library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
+      library 'feather', 'net.ornithemc', 'feather' version conf.f
+      if (conf.n)
+        library 'nests', 'net.ornithemc', 'nests' version conf.n
+
+      library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.6'
+      version 'osl', '0.13.4'
+    }
+    fabricLibs {
+    }
+    libs {
+      library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
+    }
+  }
+}
+
+include ':ap'
+include ':ornithe'
+//include ':fabric'

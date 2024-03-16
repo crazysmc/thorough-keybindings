@@ -1,14 +1,9 @@
-import com.vdurmont.semver4j.Requirement
-import com.vdurmont.semver4j.Semver
-
-import java.util.regex.Pattern
-
 plugins {
-  id 'fabric-loom' version libs.versions.loom
-  id 'ploceus' version libs.versions.loom
+  id 'fabric-loom' version ornitheLibs.versions.loom
+  id 'ploceus' version ornitheLibs.versions.loom
 }
 
-version = "$mod_version+mc${libs.versions.minecraft.get()}"
+version = "$mod_version+mc${ornitheLibs.versions.minecraft.get()}"
 group = maven_group
 base.archivesName = mod_id
 
@@ -22,18 +17,18 @@ repositories { // for osl 0.13.4
 }
 
 dependencies {
-  minecraft libs.minecraft
+  minecraft ornitheLibs.minecraft
 
   mappings loom.layered {
-    mappings variantOf(libs.feather) { classifier 'v2' }
+    mappings variantOf(ornitheLibs.feather) { classifier 'v2' }
     addLayer ploceus.nestedMappings()
   }
-  if (libs.hasProperty 'nests')
-    nests libs.nests
+  if (ornitheLibs.hasProperty 'nests')
+    nests ornitheLibs.nests
 
-  modImplementation libs.loader
+  modImplementation ornitheLibs.loader
   ploceus.addCommonLibraries()
-  ploceus.dependOsl libs.versions.osl.get()
+  ploceus.dependOsl ornitheLibs.versions.osl.get()
 
   implementation ap
   annotationProcessor ap
@@ -57,39 +52,25 @@ sourceSets {
 }
 idea.module.generatedSourceDirs += generatedJava.get().asFile
 
-def mc = new Semver(libs.versions.skyrising.get(), Semver.SemverType.LOOSE)
-def token = Pattern.compile(/^\s*(\/\/|#)\$/)
-def preprocessor = { String task, src, dst ->
-  tasks.register task, Copy, {
-    group = BasePlugin.BUILD_GROUP
-    inputs.property 'mc', mc.toString()
-    from src
-    into dst
-    doFirst { delete dst }
-    eachFile {
-      def inc = true
-      filter { String line ->
-        def matcher = token.matcher line
-        if (matcher.find()) {
-          line = line.substring matcher.end()
-          if (line.startsWith 'if') {
-            inc = Requirement.buildNPM line.substring(2) isSatisfiedBy mc
-            return null
-          }
-        }
-        return inc ? line : null
-      }
-      if (!it.size)
-        it.exclude()
-    }
-  }
+def preprocessJava = tasks.register 'preprocessJava', PreprocessorTask, {
+  group = BasePlugin.BUILD_GROUP
+  minecraft = ploceus.normalizedMinecraftVersion()
+  from sourceSets.versioned.java
+  into generatedJava
 }
-def preprocessJava = preprocessor 'preprocessJava', sourceSets.versioned.java, generatedJava
-def preprocessResources = preprocessor 'preprocessResources', sourceSets.versioned.resources, generatedResources
+
+def preprocessResources = tasks.register 'preprocessResources', PreprocessorTask, {
+  group = BasePlugin.BUILD_GROUP
+  minecraft = ploceus.normalizedMinecraftVersion()
+  from sourceSets.versioned.resources
+  into generatedResources
+}
+
 def preprocess = tasks.register 'preprocess', {
   group = BasePlugin.BUILD_GROUP
   dependsOn preprocessJava, preprocessResources
 }
+
 tasks.named 'compileJava', { dependsOn preprocess }
 tasks.named 'sourcesJar', { dependsOn preprocess }
 tasks.named 'processResources', { dependsOn preprocessResources }
@@ -101,7 +82,7 @@ test {
 processResources {
   inputs.property 'properties', project.properties.toString()
   filesMatching 'fabric.mod.json', {
-    expand project.properties + [range: libs.versions.range.get()]
+    expand project.properties + [range: ornitheLibs.versions.range.get()]
   }
 }
 

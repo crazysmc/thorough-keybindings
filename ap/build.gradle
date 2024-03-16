@@ -1,6 +1,6 @@
 plugins {
-  id 'fabric-loom' version libs.versions.loom
-  id 'ploceus' version libs.versions.loom
+  id 'fabric-loom' version ornitheLibs.versions.loom
+  id 'ploceus' version ornitheLibs.versions.loom
 }
 
 version = mod_version
@@ -8,10 +8,9 @@ group = maven_group
 base.archivesName = "$mod_id-ap"
 
 dependencies {
-  minecraft libs.minecraft
-  mappings variantOf(libs.feather) { classifier 'v2' }
-
-  modImplementation libs.loader
+  minecraft ornitheLibs.minecraft
+  mappings variantOf(ornitheLibs.feather) { classifier 'v2' }
+  modImplementation ornitheLibs.loader
 }
 
 java {

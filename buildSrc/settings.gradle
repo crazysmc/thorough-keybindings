@@ -1,0 +1,7 @@
+dependencyResolutionManagement {
+  versionCatalogs {
+    libs {
+      library 'semver', 'com.vdurmont', 'semver4j' version '3.1.0'
+    }
+  }
+}
