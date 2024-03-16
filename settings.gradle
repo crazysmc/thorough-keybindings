@@ -18,9 +18,12 @@ pluginManagement {
 
 dependencyResolutionManagement {
   versionCatalogs {
-    ornitheLibs {
+    libs {
       version 'loom', '1.5-SNAPSHOT'
-
+      library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.6'
+      library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
+    }
+    ornitheLibs {
       def withNests = { v -> [mc: v, f: "$v+build.25", n: "$v+build.1", r: "~$v"] }
       def withoutNests = { v -> [mc: v, f: "$v+build.25", r: "~$v"] }
 
@@ -38,7 +41,6 @@ dependencyResolutionManagement {
           withoutNests('1.12'),
           withoutNests('1.13').tap { r = "=$mc" },
       ][i]
-      println "Minecraft version $conf.mc selected"
 
       version 'minecraft', conf.mc
       version 'range', conf.r // '>=min <max'
@@ -47,17 +49,15 @@ dependencyResolutionManagement {
       if (conf.n)
         library 'nests', 'net.ornithemc', 'nests' version conf.n
 
-      library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.6'
       version 'osl', '0.13.4'
     }
     fabricLibs {
-    }
-    libs {
-      library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
+      version 'minecraft', '1.14.4'
+      library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
     }
   }
 }
 
 include ':ap'
 include ':ornithe'
-//include ':fabric'
+include ':fabric'

@@ -1,6 +1,6 @@
 plugins {
-  id 'fabric-loom' version ornitheLibs.versions.loom
-  id 'ploceus' version ornitheLibs.versions.loom
+  id 'fabric-loom' version libs.versions.loom
+  id 'ploceus' version libs.versions.loom
 }
 
 version = "$mod_version+mc${ornitheLibs.versions.minecraft.get()}"
@@ -26,7 +26,7 @@ dependencies {
   if (ornitheLibs.hasProperty 'nests')
     nests ornitheLibs.nests
 
-  modImplementation ornitheLibs.loader
+  modImplementation libs.loader
   ploceus.addCommonLibraries()
   ploceus.dependOsl ornitheLibs.versions.osl.get()
 
@@ -36,7 +36,7 @@ dependencies {
 }
 
 java {
-  sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+  toolchain.languageVersion = JavaLanguageVersion.of 8
   withSourcesJar()
 }
 

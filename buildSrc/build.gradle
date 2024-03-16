@@ -10,3 +10,7 @@ dependencies {
   implementation gradleApi()
   implementation libs.semver
 }
+
+java {
+  toolchain.languageVersion = JavaLanguageVersion.of 17
+}
