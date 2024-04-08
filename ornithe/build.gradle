@@ -9,22 +9,11 @@ base.archivesName = mod_id
 
 def ap = project ':ap'
 
-repositories { // for osl 0.13.4
-  maven {
-    name = 'Quilt Releases'
-    url = 'https://maven.quiltmc.org/repository/release'
-  }
-}
-
 dependencies {
   minecraft ornitheLibs.minecraft
-
-  mappings loom.layered {
-    mappings variantOf(ornitheLibs.feather) { classifier 'v2' }
-    addLayer ploceus.nestedMappings()
-  }
-  if (ornitheLibs.hasProperty 'nests')
-    nests ornitheLibs.nests
+  mappings ploceus.featherMappings(ornitheLibs.versions.feather.get())
+  if (ornitheLibs.versions.hasProperty 'nests')
+    nests ploceus.nests(ornitheLibs.versions.nests.get())
 
   modImplementation libs.loader
   ploceus.addCommonLibraries()

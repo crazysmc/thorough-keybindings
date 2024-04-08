@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "Thorough Keybindings",
+  "description": "Make all keybindings configurable",
+  "authors": [ "crazysmc" ],
+  "contact": {
+    "homepage": "https://github.com/crazysmc/${mod_id}",
+    "sources": "https://github.com/crazysmc/${mod_id}",
+    "issues": "https://github.com/crazysmc/${mod_id}/issues"
+  },
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [ "io.github.crazysmc.thrkbs.ThoroughKeybindings" ]
+  },
+  "mixins": [
+    "thrkbs.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "${range}",
+    "fabricloader": ">=0.15.6"
+  }
+}

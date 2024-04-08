@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.crazysmc.thrkbs.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
+  "client": [
+    "KeyMappingAccessor",
+    "OptionsMixin",
+    "remap.InputConstantsMixin",
+    "remap.KeyboardHandlerMixin",
+    "remap.ScreenMixin"
+  ],
+  "injectors": { "defaultRequire": 1 }
+}

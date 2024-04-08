@@ -11,7 +11,6 @@ def ap = project ':ap'
 
 dependencies {
   minecraft fabricLibs.minecraft
-
   mappings loom.officialMojangMappings()
 
   modImplementation libs.loader
@@ -33,7 +32,7 @@ test {
 processResources {
   inputs.property 'properties', project.properties.toString()
   filesMatching 'fabric.mod.json', {
-    expand project.properties + [range: ornitheLibs.versions.range.get()]
+    expand project.properties + [range: fabricLibs.versions.range.get()]
   }
 }
 

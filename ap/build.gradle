@@ -9,7 +9,7 @@ base.archivesName = "$mod_id-ap"
 
 dependencies {
   minecraft ornitheLibs.minecraft
-  mappings variantOf(ornitheLibs.feather) { classifier 'v2' }
+  mappings ploceus.featherMappings(ornitheLibs.versions.feather.get())
   modImplementation libs.loader
 }
 
