@@ -38,8 +38,12 @@ public class CustomKeyMapping extends KeyMapping
 
   public static String getDisplayNameByOriginal(int keyCode)
   {
-    return Optional.ofNullable(BY_ORIGINAL.get(keyCode))
-        .map(KeyMapping::getTranslatedKeyMessage)
-        .orElse(InputConstants.translateKeyCode(keyCode));
+    return Optional.ofNullable(BY_ORIGINAL.get(keyCode)).map(KeyMapping::getTranslatedKeyMessage)
+        //$if <1.16
+        //$ .orElse(InputConstants.translateKeyCode(keyCode))
+        //$if >=1.16
+        .orElse(InputConstants.Type.KEYSYM.getOrCreate(keyCode).getDisplayName()).getString()
+        //$if
+        ;
   }
 }

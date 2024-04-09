@@ -31,6 +31,7 @@ public abstract class KeyboardHandlerMixin
       GLFW.GLFW_KEY_P,
       GLFW.GLFW_KEY_Q,
       GLFW.GLFW_KEY_T,
+      GLFW.GLFW_KEY_F4,
   };
 
   @Unique
@@ -45,7 +46,8 @@ public abstract class KeyboardHandlerMixin
     return -1;
   }
 
-  @ModifyArg(method = "m_8874045",
+  /* lambda in method keyPress as argument to Screen.wrapScreenError */
+  @ModifyArg(method = "(I[ZLnet/minecraft/client/gui/components/events/ContainerEventHandler;III)V",
              at = @At(value = "INVOKE",
                       target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"),
              index = 0)
@@ -69,7 +71,7 @@ public abstract class KeyboardHandlerMixin
                      target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"))
   private void debugHelpText(ChatComponent instance, Component component)
   {
-    String formatted = component.getColoredString();
+    String formatted = component.getString();
     Matcher matcher = F3_PLUS.matcher(formatted);
     if (matcher.find())
     {

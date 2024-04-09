@@ -54,8 +54,9 @@ dependencyResolutionManagement {
     }
     fabricLibs {
       def mc = [
-          '1.14.4',
-          '1.15', // FIXME
+//          '1.14.4',
+//          '1.15',
+          '1.16',
       ][i]
       // for p in {0..1}; do ./gradlew :fabric:build -Ppreset=$p; done
 
@@ -67,5 +68,5 @@ dependencyResolutionManagement {
 }
 
 include ':ap'
-include ':ornithe'
 include ':fabric'
+//include ':ornithe'

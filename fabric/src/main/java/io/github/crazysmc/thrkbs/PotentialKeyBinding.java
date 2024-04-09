@@ -22,7 +22,7 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.gameMenu", GLFW.GLFW_KEY_ESCAPE, misc);
     new PotentialKeyBinding("key.toggleHUD", GLFW.GLFW_KEY_F1, misc);
     new PotentialKeyBinding("key.debugInfo", GLFW.GLFW_KEY_F3, misc);
-    new PotentialKeyBinding("key.disableShader", GLFW.GLFW_KEY_F4, misc);
+    new PotentialKeyBinding("key.disableShader", GLFW.GLFW_KEY_F4, misc); // TODO also game mode switcher
 
     new PotentialKeyBinding("key.debug.reload_chunks", GLFW.GLFW_KEY_A, debug);
     new PotentialKeyBinding("key.debug.show_hitboxes", GLFW.GLFW_KEY_B, debug);
