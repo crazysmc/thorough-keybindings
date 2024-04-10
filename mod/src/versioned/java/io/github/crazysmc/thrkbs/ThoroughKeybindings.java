@@ -1,9 +1,9 @@
 package io.github.crazysmc.thrkbs;
 
-import net.minecraft.client.options.KeyBinding;
-import net.ornithemc.osl.entrypoints.api.client.ClientModInitializer;
-import net.ornithemc.osl.keybinds.api.KeyBindingEvents;
-import net.ornithemc.osl.keybinds.api.KeyBindingRegistry;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.KeyboardHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,24 +13,20 @@ public class ThoroughKeybindings implements ClientModInitializer
   public static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings");
 
   @Override
-  public void initClient()
+  public void onInitializeClient()
   {
-    CustomKeyBinding.initDefaultCategories();
-    KeyBindingEvents.REGISTER_KEYBINDS.register(this::register);
-    Class<?>[] forceLoad = {
-        //$if >=1.13.0
-        net.minecraft.client.KeyboardHandler.class,
-        //$if
-    };
+    CustomKeyMapping.initCategorySortOrder();
+    Class<?> forceLoad = KeyboardHandler.class;
+    register();
   }
 
-  private void register(KeyBindingRegistry registry)
+  private void register()
   {
     PotentialKeyBinding.getFoundBindings().forEach(binding -> {
       String name = binding.getName();
       LOGGER.info("Add keybinding {}", name);
-      registry.register(new CustomKeyBinding(name, binding.getKeyCode(), binding.getCategory()));
+//      KeyBindingHelper.registerKeyBinding(new CustomKeyMapping(name, binding.getKeyCode(), binding.getCategory()));
     });
-    KeyBinding.resetMapping();
+    KeyMapping.resetMapping();
   }
 }

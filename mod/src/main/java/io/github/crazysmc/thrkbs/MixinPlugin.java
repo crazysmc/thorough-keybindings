@@ -59,6 +59,8 @@ public class MixinPlugin implements IMixinConfigPlugin
           acceptMethodInsn((MethodInsnNode) instruction);
         else if (instruction instanceof TableSwitchInsnNode)
           acceptTableSwitchInsn((TableSwitchInsnNode) instruction);
+        else if (instruction instanceof LookupSwitchInsnNode)
+          acceptLookupSwitchInsn((LookupSwitchInsnNode) instruction);
   }
 
   private void acceptMethodInsn(MethodInsnNode instruction)
@@ -87,6 +89,15 @@ public class MixinPlugin implements IMixinConfigPlugin
       int constant = instruction.min + i;
       LOGGER.debug(String.format("Found key constant %1$d (0x%1$02X) as switch case", constant));
       PotentialKeyBinding.found(constant);
+    }
+  }
+
+  private void acceptLookupSwitchInsn(LookupSwitchInsnNode instruction)
+  {
+    for (int key : instruction.keys)
+    {
+      LOGGER.debug(String.format("Found key constant %1$d (0x%1$02X) as switch case", key));
+      PotentialKeyBinding.found(key);
     }
   }
 }

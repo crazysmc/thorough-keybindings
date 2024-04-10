@@ -1,6 +1,5 @@
 plugins {
   id 'fabric-loom' version libs.versions.loom
-  id 'ploceus' version libs.versions.loom
 }
 
 version = "$mod_version+mc${libs.versions.minecraft.get()}"
@@ -11,12 +10,11 @@ def ap = project ':ap'
 
 dependencies {
   minecraft libs.minecraft
-  mappings ploceus.featherMappings(libs.versions.feather.get())
-  libs.versions.properties.nests?.get()?.each { nests ploceus.nests(it) }
+  mappings loom.officialMojangMappings()
+//  mappings "net.fabricmc:yarn:1.14.4+build.18"
 
   modImplementation libs.loader
-  ploceus.addCommonLibraries()
-  ploceus.dependOsl libs.versions.osl.get()
+  modImplementation libs.fapi
 
   implementation ap
   annotationProcessor ap
@@ -40,7 +38,7 @@ sourceSets {
 }
 idea.module.generatedSourceDirs += generatedJava.get().asFile
 
-def mc = ploceus.normalizedMinecraftVersion()
+def mc = libs.versions.minecraft.get() // TODO semantic version
 println "Minecraft: $mc"
 
 def preprocessJava = tasks.register 'preprocessJava', PreprocessorTask, {

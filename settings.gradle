@@ -23,34 +23,18 @@ dependencyResolutionManagement {
       library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.9'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
 
-      def withNests = { v -> [mc: v, f: '26', n: '1', r: "~$v"] }
-      def withoutNests = { v -> [mc: v, f: '26', r: "~$v"] }
+      def fabric = { v, f -> [mc: v, r: "~$v", fapi: f] }
 
-      def i = startParameter.projectProperties.preset as Integer ?: 11
+      def i = startParameter.projectProperties.preset as Integer ?: 0
       def conf = [
-          withNests('1.3.1'),
-          withNests('1.4.2'),
-          withNests('1.5.1'),
-          withNests('1.6.1'),
-          withNests('1.7.2'),
-          withNests('1.8'),
-          withoutNests('1.9'),
-          withoutNests('1.10'),
-          withoutNests('1.11'),
-          withoutNests('1.12'),
-          withoutNests('1.13').tap { r = "=$mc" },
-          withoutNests('1.13.1'),
+          fabric('1.14.4', '0.28.5+1.14'),
       ][i]
-      // for p in {0..11}; do ./gradlew :mod:build -Ppreset=$p; done
+      // for p in {0..0}; do ./gradlew :mod:build -Ppreset=$p; done
 
       version 'minecraft', conf.mc
       version 'range', conf.r
       library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
-      version 'feather', conf.f
-      if (conf.n)
-        version 'nests', conf.n
-
-      version 'osl', '0.14.2'
+      library 'fapi', 'net.fabricmc.fabric-api', 'fabric-api' version conf.fapi
     }
   }
 }

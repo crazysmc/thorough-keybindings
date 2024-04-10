@@ -1,4 +1,3 @@
-//$if >=1.13.0
 {
   "key.categories.debug": "Debug Key Combinations",
   "key.categories.modifier": "Modifier Keys",
@@ -15,7 +14,11 @@
   "key.debug.reload_resourcepacks": "Reload Resource Packs",
   "key.debug.show_hitboxes": "Show Hitboxes (Ctrl + Narrator)",
   "key.debugInfo": "Debug Info",
+  //$if <1.16.0
   "key.disableShader": "Disable Shader",
+  //$if >=1.16.0
+  "key.disableShader": "Disable Shader (Game Mode Switcher)",
+  //$if
   "key.gameMenu": "Game Menu",
   "key.mod.alt.1": "Alt 1",
   "key.mod.alt.2": "Alt 2",

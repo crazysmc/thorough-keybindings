@@ -5,24 +5,12 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
   "client": [
-    //$if <1.7.0
-    "ControlsOptionsScreenMixin",
-    "OptionsScreenMixin",
-    //$if >=1.4.0-alpha.12.40.a <1.7
-    "remap.InventoryMenuScreenMixin",
-    //$if >=1.7.0
-    "KeyBindingEntryMixin",
-    //$if >=1.9.0
-    "remap.DebugOverlayMixin",
-    //$if <1.13.0
-    "remap.KeyboardMixin",
-    "remap.MinecraftMixin",
-    //$if >=1.13.0
+    "KeyEntryMixin",
+    "remap.DebugScreenOverlayMixin",
     "remap.InputConstantsMixin",
     "remap.KeyboardHandlerMixin",
-    //$if
     "remap.ScreenMixin",
-    "KeyBindingAccessor"
+    "KeyMappingAccessor"
   ],
   "injectors": { "defaultRequire": 1 }
 }

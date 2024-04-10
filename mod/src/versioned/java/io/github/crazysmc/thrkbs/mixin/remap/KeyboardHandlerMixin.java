@@ -1,12 +1,11 @@
-//$if >=1.13.0
 package io.github.crazysmc.thrkbs.mixin.remap;
 
-import io.github.crazysmc.thrkbs.CustomKeyBinding;
+import io.github.crazysmc.thrkbs.CustomKeyMapping;
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
 import net.minecraft.client.KeyboardHandler;
-import net.minecraft.client.gui.chat.ChatGui;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.components.ChatComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -32,27 +31,29 @@ public abstract class KeyboardHandlerMixin
       GLFW.GLFW_KEY_P,
       GLFW.GLFW_KEY_Q,
       GLFW.GLFW_KEY_T,
+      GLFW.GLFW_KEY_F4,
   };
 
   @Unique
-  private static final Pattern F3_PLUS = Pattern.compile("\\bF3 \\+ [A-ZΒ]\\b");
+  private static final Pattern F3_PLUS = Pattern.compile("\\bF3 \\+ (?:[A-ZΒ]|Esc)\\b");
 
   @ModifyVariable(method = "handleDebugKeys", at = @At("LOAD"), argsOnly = true)
   private int remapDebugKeySwitch(int key)
   {
     for (int debugKey : DEBUG_KEYS)
-      if (key == CustomKeyBinding.getKeyCodeByOriginal(debugKey))
+      if (key == CustomKeyMapping.getKeyCodeByOriginal(debugKey))
         return debugKey;
     return -1;
   }
 
   /* lambda in method keyPress as argument to Screen.wrapScreenError */
-  @ModifyArg(method = "(I[ZLnet/minecraft/client/gui/GuiEventListener;III)V",
-             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiEventListener;keyPressed(III)Z"),
+  @ModifyArg(method = "(I[ZLnet/minecraft/client/gui/components/events/ContainerEventHandler;III)V",
+             at = @At(value = "INVOKE",
+                      target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"),
              index = 0)
   private int remapKeyEscape(int key)
   {
-    boolean gameMenu = key == CustomKeyBinding.getKeyCodeByOriginal(GLFW.GLFW_KEY_ESCAPE);
+    boolean gameMenu = key == CustomKeyMapping.getKeyCodeByOriginal(GLFW.GLFW_KEY_ESCAPE);
     return gameMenu ? GLFW.GLFW_KEY_ESCAPE : key;
   }
 
@@ -62,15 +63,15 @@ public abstract class KeyboardHandlerMixin
                     constant = @Constant)
   private int remapKeyConstant(int constant)
   {
-    return CustomKeyBinding.getKeyCodeByOriginal(constant);
+    return CustomKeyMapping.getKeyCodeByOriginal(constant);
   }
 
   @Redirect(method = "handleDebugKeys",
             at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/gui/chat/ChatGui;addMessage(Lnet/minecraft/text/Text;)V"))
-  private void debugHelpText(ChatGui instance, Text message)
+                     target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"))
+  private void debugHelpText(ChatComponent instance, Component component)
   {
-    String formatted = message.getFormattedString();
+    String formatted = component.getString();
     Matcher matcher = F3_PLUS.matcher(formatted);
     if (matcher.find())
     {
@@ -78,12 +79,13 @@ public abstract class KeyboardHandlerMixin
       char original = formatted.charAt(end - 1);
       StringBuilder sb = new StringBuilder(formatted.length() + 16);
       sb.append(formatted, 0, matcher.start());
-      sb.append(CustomKeyBinding.getDisplayNameByOriginal(GLFW.GLFW_KEY_F3));
+      sb.append(CustomKeyMapping.getDisplayNameByOriginal(GLFW.GLFW_KEY_F3));
       sb.append(" + ");
-      sb.append(CustomKeyBinding.getDisplayNameByOriginal(original == 'Β' ? 'B' : original)); // replace Beta
+      sb.append(CustomKeyMapping.getDisplayNameByOriginal(
+          original == 'c' ? GLFW.GLFW_KEY_ESCAPE : original == /* Beta */ 'Β' ? 'B' : original));
       sb.append(formatted, end, formatted.length());
-      message = new LiteralText(sb.toString());
+      component = new TextComponent(sb.toString());
     }
-    instance.addMessage(message);
+    instance.addMessage(component);
   }
 }

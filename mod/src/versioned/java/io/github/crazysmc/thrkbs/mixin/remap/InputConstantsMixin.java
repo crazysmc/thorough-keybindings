@@ -1,8 +1,7 @@
-//$if >=1.13.0
 package io.github.crazysmc.thrkbs.mixin.remap;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import io.github.crazysmc.thrkbs.CustomKeyBinding;
+import io.github.crazysmc.thrkbs.CustomKeyMapping;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -10,9 +9,9 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(InputConstants.class)
 public abstract class InputConstantsMixin
 {
-  @ModifyVariable(method = "getKey(I)Z", at = @At("LOAD"), argsOnly = true)
+  @ModifyVariable(method = "isKeyDown", at = @At("LOAD"), argsOnly = true)
   private static int remapKeyDownArgument(int key)
   {
-    return CustomKeyBinding.getKeyCodeByOriginal(key);
+    return CustomKeyMapping.getKeyCodeByOriginal(key);
   }
 }
