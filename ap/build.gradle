@@ -1,6 +1,6 @@
 plugins {
   id 'fabric-loom' version libs.versions.loom
-//  id 'ploceus' version libs.versions.loom
+  id 'ploceus' version libs.versions.loom
 }
 
 version = mod_version
@@ -8,8 +8,8 @@ group = maven_group
 base.archivesName = "$mod_id-ap"
 
 dependencies {
-  minecraft group: 'com.mojang', name: 'minecraft', version: '1.14.4'
-  mappings loom.officialMojangMappings()
+  minecraft libs.minecraft
+  mappings ploceus.featherMappings(libs.versions.feather.get())
   modImplementation libs.loader
 }
 
