@@ -47,7 +47,7 @@ public abstract class KeyboardHandlerMixin
   }
 
   /* lambda in method keyPress as argument to Screen.wrapScreenError */
-  @ModifyArg(method = "(I[ZLnet/minecraft/client/gui/GuiEventListener;III)V",
+  @ModifyArg(method = "m_8874045",
              at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiEventListener;keyPressed(III)Z"),
              index = 0)
   private int remapKeyEscape(int key)

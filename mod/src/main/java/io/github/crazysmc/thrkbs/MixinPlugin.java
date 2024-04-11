@@ -1,5 +1,7 @@
 package io.github.crazysmc.thrkbs;
 
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.MappingResolver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Label;
@@ -14,6 +16,18 @@ import java.util.Set;
 public class MixinPlugin implements IMixinConfigPlugin
 {
   public static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings|Mixin");
+  private static final MappingResolver RESOLVER = FabricLoader.getInstance().getMappingResolver();
+  private static final MethodInsnNode IS_KEY_DOWN = new MethodInsnNode(0, "org/lwjgl/input/Keyboard", "isKeyDown",
+                                                                       "(I)Z");
+  // com/mojang/blaze3d/platform/InputConstants.getKey (I)Z
+  private static final MethodInsnNode GET_KEY = new MethodInsnNode(0, "net.minecraft.unmapped.C_8881785", "m_3545877",
+                                                                   "(I)Z");
+
+  static
+  {
+    GET_KEY.name = RESOLVER.mapMethodName("intermediary", GET_KEY.owner, GET_KEY.name, GET_KEY.desc);
+    GET_KEY.owner = RESOLVER.mapClassName("intermediary", GET_KEY.owner).replace('.', '/');
+  }
 
   @Override
   public void onLoad(String mixinPackage)
@@ -61,11 +75,14 @@ public class MixinPlugin implements IMixinConfigPlugin
           acceptTableSwitchInsn((TableSwitchInsnNode) instruction);
   }
 
+  private boolean match(MethodInsnNode a, MethodInsnNode b)
+  {
+    return a.owner.equals(b.owner) && a.name.equals(b.name) && a.desc.equals(b.desc);
+  }
+
   private void acceptMethodInsn(MethodInsnNode instruction)
   {
-    if (!"isKeyDown".equals(instruction.name) &&
-        !"getKey".equals(instruction.name) &&
-        !instruction.name.startsWith("intIfEqual$"))
+    if (!match(IS_KEY_DOWN, instruction) && !match(GET_KEY, instruction) && !instruction.name.startsWith("intIfEqual$"))
       return;
     Object constant = Bytecode.getConstant(instruction.getPrevious());
     if (!(constant instanceof Integer))

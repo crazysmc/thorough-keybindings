@@ -2,7 +2,7 @@
 
 For as many Minecraft versions as possible, this mod makes the keybindings of
 usually fixed mappings rebindable.
-Currently, supports release 1.3 through 1.13.
+This project branch supports releases 1.3 through 1.13.
 
 For example, this lets you remap F3 or Esc in-game, without external software.
 Also adds rebinding options to earlier game versions, like rebinding F5 or
@@ -15,7 +15,8 @@ Thus, separate submenus for categories of related options are introduced.
 ## Building & Usage
 
 Edit the version in `settings.gradle` (adapt the feather/nest build if
-necessary) and run `./gradlew build`.
+necessary) and run `./gradlew build` or choose a preset setting with
+`-Ppreset=NUM`.
 
 This mod uses [Ornithe](https://ornithemc.net/) and requires the
 [Ornithe Standard Libraries](https://modrinth.com/mod/osl) to run.
@@ -38,15 +39,3 @@ This mod uses [Ornithe](https://ornithemc.net/) and requires the
 |        | 1.11 renames `en_US.lang` to `en_us.lang`   |
 | F3 + C | 1.13, without hold                          |
 | F3 + I | 1.13                                        |
-
-<!--## Some Missing Identifiers TODO
-
-| Original Key | New Identifier             |
-|--------------|----------------------------|
-| (F3 +) F4    | key.debug.gameModeSwitcher |
-| (F3 +) 1     | key.debug.profiler         |
-| (F3 +) 2     | key.debug.timeGraph        |
-| (F3 +) 3     | key.debug.networkGraph     |
-| (F3 +) I     | key.debug.inspect          |
-| (F3 +) L     | key.debug.dumpProfiler     |
-| (F3 +) S     | key.debug.dumpTextures     |-->
