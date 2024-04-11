@@ -1,11 +1,11 @@
 package io.github.crazysmc.thrkbs.mixin.remap;
 
-import io.github.crazysmc.thrkbs.CustomKeyMapping;
+import io.github.crazysmc.thrkbs.CustomKeyBinding;
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
-import net.minecraft.client.KeyboardHandler;
-import net.minecraft.client.gui.components.ChatComponent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.client.Keyboard;
+import net.minecraft.client.gui.hud.ChatHud;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Mixin(KeyboardHandler.class)
-public abstract class KeyboardHandlerMixin
+@Mixin(Keyboard.class)
+public abstract class KeyboardMixin
 {
   @Unique
   private static final int[] DEBUG_KEYS = new int[] {
@@ -37,41 +37,40 @@ public abstract class KeyboardHandlerMixin
   @Unique
   private static final Pattern F3_PLUS = Pattern.compile("\\bF3 \\+ (?:[A-ZΒ]|Esc)\\b");
 
-  @ModifyVariable(method = "handleDebugKeys", at = @At("LOAD"), argsOnly = true)
+  @ModifyVariable(method = "processF3", at = @At("LOAD"), argsOnly = true)
   private int remapDebugKeySwitch(int key)
   {
     for (int debugKey : DEBUG_KEYS)
-      if (key == CustomKeyMapping.getKeyCodeByOriginal(debugKey))
+      if (key == CustomKeyBinding.getKeyCodeByOriginal(debugKey))
         return debugKey;
     return -1;
   }
 
-  /* lambda in method keyPress as argument to Screen.wrapScreenError */
-  @ModifyArg(method = "(I[ZLnet/minecraft/client/gui/components/events/ContainerEventHandler;III)V",
-             at = @At(value = "INVOKE",
-                      target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"),
+  /* lambda in method keyPress (onKey) as argument to Screen.wrapScreenError */
+  @ModifyArg(method = "method_1454",
+             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/ParentElement;keyPressed(III)Z"),
              index = 0)
   private int remapKeyEscape(int key)
   {
-    boolean gameMenu = key == CustomKeyMapping.getKeyCodeByOriginal(GLFW.GLFW_KEY_ESCAPE);
+    boolean gameMenu = key == CustomKeyBinding.getKeyCodeByOriginal(GLFW.GLFW_KEY_ESCAPE);
     return gameMenu ? GLFW.GLFW_KEY_ESCAPE : key;
   }
 
-  @ModifyIntIfEqual(method = "keyPress",
+  @ModifyIntIfEqual(method = "onKey",
                     slice = @Slice(from = @At(value = "INVOKE",
-                                              target = "Lcom/mojang/blaze3d/platform/InputConstants;getKey(II)Lcom/mojang/blaze3d/platform/InputConstants$Key;")),
+                                              target = "Lnet/minecraft/client/util/InputUtil;getKeyCode(II)Lnet/minecraft/client/util/InputUtil$KeyCode;")),
                     constant = @Constant)
   private int remapKeyConstant(int constant)
   {
-    return CustomKeyMapping.getKeyCodeByOriginal(constant);
+    return CustomKeyBinding.getKeyCodeByOriginal(constant);
   }
 
-  @Redirect(method = "handleDebugKeys",
+  @Redirect(method = "processF3",
             at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"))
-  private void debugHelpText(ChatComponent instance, Component component)
+                     target = "Lnet/minecraft/client/gui/hud/ChatHud;addMessage(Lnet/minecraft/text/Text;)V"))
+  private void debugHelpText(ChatHud instance, Text text)
   {
-    String formatted = component.getString();
+    String formatted = text.asString();
     Matcher matcher = F3_PLUS.matcher(formatted);
     if (matcher.find())
     {
@@ -79,13 +78,13 @@ public abstract class KeyboardHandlerMixin
       char original = formatted.charAt(end - 1);
       StringBuilder sb = new StringBuilder(formatted.length() + 16);
       sb.append(formatted, 0, matcher.start());
-      sb.append(CustomKeyMapping.getDisplayNameByOriginal(GLFW.GLFW_KEY_F3));
+      sb.append(CustomKeyBinding.getDisplayNameByOriginal(GLFW.GLFW_KEY_F3));
       sb.append(" + ");
-      sb.append(CustomKeyMapping.getDisplayNameByOriginal(
+      sb.append(CustomKeyBinding.getDisplayNameByOriginal(
           original == 'c' ? GLFW.GLFW_KEY_ESCAPE : original == /* Beta */ 'Β' ? 'B' : original));
       sb.append(formatted, end, formatted.length());
-      component = new TextComponent(sb.toString());
+      text = new LiteralText(sb.toString());
     }
-    instance.addMessage(component);
+    instance.addMessage(text);
   }
 }

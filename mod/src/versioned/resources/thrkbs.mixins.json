@@ -5,12 +5,12 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
   "client": [
-    "KeyEntryMixin",
-    "remap.DebugScreenOverlayMixin",
-    "remap.InputConstantsMixin",
-    "remap.KeyboardHandlerMixin",
+    "KeyBindingEntryMixin",
+    "remap.DebugHudMixin",
+    "remap.InputUtilMixin",
+    "remap.KeyboardMixin",
     "remap.ScreenMixin",
-    "KeyMappingAccessor"
+    "KeyBindingAccessor"
   ],
   "injectors": { "defaultRequire": 1 }
 }

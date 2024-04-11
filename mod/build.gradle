@@ -10,8 +10,7 @@ def ap = project ':ap'
 
 dependencies {
   minecraft libs.minecraft
-  mappings loom.officialMojangMappings()
-//  mappings "net.fabricmc:yarn:1.14.4+build.18"
+  mappings libs.yarn
 
   modImplementation libs.loader
   modImplementation libs.fapi

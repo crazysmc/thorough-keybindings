@@ -5,7 +5,11 @@
   "key.debug.chunk_boundaries": "Show Chunk Boundaries",
   "key.debug.clear_chat": "Clear Chat",
   "key.debug.copy_location": "Copy Location",
+  //$if <1.16.0
   "key.debug.creative_spectator": "Cycle Creative <-> Spectator",
+  //$if >=1.16.0
+  "key.debug.creative_spectator": "Toggle Spectator",
+  //$if
   "key.debug.cycle_renderdistance": "Cycle Render Distance",
   "key.debug.help": "List Debug Combinations",
   "key.debug.inspect": "Copy Entity or Block Data",

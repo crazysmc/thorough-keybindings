@@ -1,27 +1,27 @@
 package io.github.crazysmc.thrkbs;
 
-import com.mojang.blaze3d.platform.InputConstants;
-import io.github.crazysmc.thrkbs.mixin.KeyMappingAccessor;
+import io.github.crazysmc.thrkbs.mixin.KeyBindingAccessor;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.client.KeyMapping;
+import net.minecraft.client.options.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 
 import java.util.Map;
 import java.util.Optional;
 
-public class CustomKeyMapping extends KeyMapping
+public class CustomKeyBinding extends KeyBinding
 {
-  private static final Map<Integer, CustomKeyMapping> BY_ORIGINAL = new Int2ObjectOpenHashMap<>();
+  private static final Map<Integer, CustomKeyBinding> BY_ORIGINAL = new Int2ObjectOpenHashMap<>();
 
-  public CustomKeyMapping(String name, int keyCode, String category)
+  public CustomKeyBinding(String name, int keyCode, String category)
   {
     super(name, keyCode, category);
-    KeyMappingAccessor.getAll().remove(name);
+    KeyBindingAccessor.getAll().remove(name);
     BY_ORIGINAL.put(keyCode, this);
   }
 
   public static void initCategorySortOrder()
   {
-    Map<String, Integer> categorySortOrder = KeyMappingAccessor.getCategorySortOrder();
+    Map<String, Integer> categorySortOrder = KeyBindingAccessor.getCategorySortOrder();
     int i = categorySortOrder.values().stream().mapToInt(Integer::intValue).max().orElse(0);
     categorySortOrder.put("key.categories.debug", i + 1);
     categorySortOrder.put("key.categories.modifier", i + 2);
@@ -30,16 +30,16 @@ public class CustomKeyMapping extends KeyMapping
   public static int getKeyCodeByOriginal(int keyCode)
   {
     return Optional.ofNullable(BY_ORIGINAL.get(keyCode))
-        .map(binding -> ((KeyMappingAccessor) binding).getKey())
-        .map(InputConstants.Key::getValue)
+        .map(binding -> ((KeyBindingAccessor) binding).getKey())
+        .map(InputUtil.KeyCode::getKeyCode)
         .orElse(keyCode);
   }
 
   public static String getDisplayNameByOriginal(int keyCode)
   {
-    return Optional.ofNullable(BY_ORIGINAL.get(keyCode)).map(KeyMapping::getTranslatedKeyMessage)
+    return Optional.ofNullable(BY_ORIGINAL.get(keyCode)).map(KeyBinding::getLocalizedName)
         //$if <1.16
-        .orElse(InputConstants.translateKeyCode(keyCode))
+        .orElse(InputUtil.getKeycodeName(keyCode))
         //$if >=1.16
         //$ .orElse(InputConstants.Type.KEYSYM.getOrCreate(keyCode).getDisplayName()).getString()
         //$if

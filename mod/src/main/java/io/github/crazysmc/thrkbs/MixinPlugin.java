@@ -65,10 +65,11 @@ public class MixinPlugin implements IMixinConfigPlugin
 
   private void acceptMethodInsn(MethodInsnNode instruction)
   {
-    if (!"isKeyDown".equals(instruction.name) &&
+    if (!"isKeyPressed".equals(instruction.name) && // FIXME
         !"getKey".equals(instruction.name) &&
         !instruction.name.startsWith("intIfEqual$"))
       return;
+    LOGGER.warn(instruction.name);
     Object constant = Bytecode.getConstant(instruction.getPrevious());
     if (!(constant instanceof Integer))
       return;
