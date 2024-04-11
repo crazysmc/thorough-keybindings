@@ -56,10 +56,7 @@ public abstract class KeyboardMixin
     return gameMenu ? GLFW.GLFW_KEY_ESCAPE : key;
   }
 
-  @ModifyIntIfEqual(method = "onKey",
-                    slice = @Slice(from = @At(value = "INVOKE",
-                                              target = "Lnet/minecraft/client/util/InputUtil;getKeyCode(II)Lnet/minecraft/client/util/InputUtil$KeyCode;")),
-                    constant = @Constant)
+  @ModifyIntIfEqual(method = "onKey", constant = @Constant)
   private int remapKeyConstant(int constant)
   {
     return CustomKeyBinding.getKeyCodeByOriginal(constant);

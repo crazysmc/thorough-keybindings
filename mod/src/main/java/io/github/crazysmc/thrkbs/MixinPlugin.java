@@ -1,5 +1,7 @@
 package io.github.crazysmc.thrkbs;
 
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.MappingResolver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.objectweb.asm.Label;
@@ -14,6 +16,17 @@ import java.util.Set;
 public class MixinPlugin implements IMixinConfigPlugin
 {
   public static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings|Mixin");
+  private static final MappingResolver RESOLVER = FabricLoader.getInstance().getMappingResolver();
+  // net/minecraft/client/util/InputUtil.isKeyPressed (JI)Z
+  private static final MethodInsnNode IS_KEY_PRESSED = new MethodInsnNode(0, "net.minecraft.class_3675", "method_15987",
+                                                                          "(JI)Z");
+
+  static
+  {
+    IS_KEY_PRESSED.name = RESOLVER.mapMethodName("intermediary", IS_KEY_PRESSED.owner, IS_KEY_PRESSED.name,
+                                                 IS_KEY_PRESSED.desc);
+    IS_KEY_PRESSED.owner = RESOLVER.mapClassName("intermediary", IS_KEY_PRESSED.owner).replace('.', '/');
+  }
 
   @Override
   public void onLoad(String mixinPackage)
@@ -63,13 +76,15 @@ public class MixinPlugin implements IMixinConfigPlugin
           acceptLookupSwitchInsn((LookupSwitchInsnNode) instruction);
   }
 
+  private boolean match(MethodInsnNode a, MethodInsnNode b)
+  {
+    return a.owner.equals(b.owner) && a.name.equals(b.name) && a.desc.equals(b.desc);
+  }
+
   private void acceptMethodInsn(MethodInsnNode instruction)
   {
-    if (!"isKeyPressed".equals(instruction.name) && // FIXME
-        !"getKey".equals(instruction.name) &&
-        !instruction.name.startsWith("intIfEqual$"))
+    if (!match(IS_KEY_PRESSED, instruction) && !instruction.name.startsWith("intIfEqual$"))
       return;
-    LOGGER.warn(instruction.name);
     Object constant = Bytecode.getConstant(instruction.getPrevious());
     if (!(constant instanceof Integer))
       return;
