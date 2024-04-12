@@ -10,10 +10,11 @@ def ap = project ':ap'
 
 dependencies {
   minecraft libs.minecraft
-  mappings libs.yarn
+  mappings loom.officialMojangMappings()
 
   modImplementation libs.loader
-  modImplementation libs.fapi
+  modImplementation fabricApi.module('fabric-resource-loader-v0', libs.versions.fapi.get())
+  modImplementation fabricApi.module('fabric-key-binding-api-v1', libs.versions.fapi.get())
 
   implementation ap
   annotationProcessor ap
@@ -37,7 +38,7 @@ sourceSets {
 }
 idea.module.generatedSourceDirs += generatedJava.get().asFile
 
-def mc = libs.versions.minecraft.get() // TODO semantic version
+def mc = libs.versions.minecraft.get()
 println "Minecraft: $mc"
 
 def preprocessJava = tasks.register 'preprocessJava', PreprocessorTask, {
@@ -77,7 +78,6 @@ processResources {
 runClient {
   systemProperty 'mixin.debug.export', true
   systemProperty 'mixin.debug.export.filter', 'net.minecraft.**'
-  args += ['--userProperties', '{}']
 }
 
 tasks.withType Jar configureEach {

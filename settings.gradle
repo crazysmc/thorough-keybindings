@@ -23,26 +23,20 @@ dependencyResolutionManagement {
       library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.9'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
 
-      def fabric = { v, y, f -> [mc: v, r: "~$v", yarn: "$v+build.$y", fapi: f] }
-      def fabricExact = { v, y, f -> [mc: v, r: "=$v", yarn: "$v+build.$y", fapi: f] }
+      def fabric = { v, f -> [mc: v, r: "~$v", fapi: f] }
 
       def i = startParameter.projectProperties.preset as Integer ?: 0
       def conf = [
-////          fabricExact('1.14', 21, '0.28.5+1.14'),
-////          fabricExact('1.14.1', 10, '0.28.5+1.14'),
-////          fabricExact('1.14.2', 7, '0.28.5+1.14'),
-//          fabric('1.14.3', 13, '0.28.5+1.14'),
-////          fabric('1.14.4', 18, '0.28.5+1.14'),
-//          fabric('1.15', 2, '0.28.5+1.15'),
-          fabric('1.16', 4, '0.42.0+1.16'),
+          fabric('1.14.4', '0.28.5+1.14'),
+          fabric('1.15', '0.28.5+1.15'),
+          fabric('1.16', '0.13.1+build.370-1.16'),
       ][i]
-      // for p in {0..0}; do ./gradlew :mod:build -Ppreset=$p; done
+      // for p in {0..2}; do ./gradlew :mod:build -Ppreset=$p; done
 
       version 'minecraft', conf.mc
       version 'range', conf.r
       library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
-      library 'yarn', 'net.fabricmc', 'yarn' version conf.yarn
-      library 'fapi', 'net.fabricmc.fabric-api', 'fabric-api' version conf.fapi
+      version 'fapi', conf.fapi
     }
   }
 }

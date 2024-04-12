@@ -1,14 +1,15 @@
 {
+  "debug.gamemodes.press_key": "[ %s ]",
   "key.categories.debug": "Debug Key Combinations",
   "key.categories.modifier": "Modifier Keys",
   "key.debug.advanced_tooltips": "Advanced Item Tooltips",
   "key.debug.chunk_boundaries": "Show Chunk Boundaries",
   "key.debug.clear_chat": "Clear Chat",
   "key.debug.copy_location": "Copy Location",
-  //$if <1.16.0
+  //$if <1.16
   "key.debug.creative_spectator": "Cycle Creative <-> Spectator",
-  //$if >=1.16.0
-  "key.debug.creative_spectator": "Toggle Spectator",
+  //$if >=1.16
+  "key.debug.creative_spectator": "Cycle Game Mode <-> Spectator",
   //$if
   "key.debug.cycle_renderdistance": "Cycle Render Distance",
   "key.debug.help": "List Debug Combinations",
@@ -18,10 +19,10 @@
   "key.debug.reload_resourcepacks": "Reload Resource Packs",
   "key.debug.show_hitboxes": "Show Hitboxes (Ctrl + Narrator)",
   "key.debugInfo": "Debug Info",
-  //$if <1.16.0
+  //$if <1.16
   "key.disableShader": "Disable Shader",
-  //$if >=1.16.0
-  "key.disableShader": "Disable Shader (Game Mode Switcher)",
+  //$if >=1.16
+  "key.disableShader": "Next Game Mode/Disable Shader",
   //$if
   "key.gameMenu": "Game Menu",
   "key.mod.alt.1": "Alt 1",
