@@ -5,12 +5,11 @@ usually fixed mappings rebindable.
 This project branch supports releases 1.14.4 through 1.20.
 
 For example, this lets you remap F3 or Esc in-game, without external software.
-Also adds rebinding options to earlier game versions, like rebinding F5 or
-hotbar slot keys.
+Also adds rebinding options for debug key combinations like F3 + Q.
 
 ## Building & Usage
 
-Edit the version in `settings.gradle` (adapt the feather/nest build if
+Edit the version in `settings.gradle` (adapt the fabric-api version if
 necessary) and run `./gradlew build` or choose a preset setting with
 `-Ppreset=NUM`.
 
@@ -19,9 +18,10 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 
 ## Some History
 
-| Key     | Version |
-|---------|---------|
-| F3 + F4 | 1.16    |
+| Key     | Version         |
+|---------|-----------------|
+| F3 + F4 | 1.16            |
+| F3 + F  | removed in 1.19 |
 
 <!--## Some Missing Identifiers TODO
 

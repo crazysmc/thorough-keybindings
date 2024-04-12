@@ -23,20 +23,24 @@ dependencyResolutionManagement {
       library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.9'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
 
-      def fabric = { v, f -> [mc: v, r: "~$v", fapi: f] }
+      def fabric = { v, f, j = 8 -> [mc: v, r: "~$v", fapi: f, java: j] }
 
       def i = startParameter.projectProperties.preset as Integer ?: 0
       def conf = [
           fabric('1.14.4', '0.28.5+1.14'),
           fabric('1.15', '0.28.5+1.15'),
           fabric('1.16', '0.13.1+build.370-1.16'),
+          fabric('1.17', '0.46.1+1.17', 16),
+          fabric('1.18', '0.44.0+1.18', 17),
+          fabric('1.19', '0.58.0+1.19', 17),
       ][i]
-      // for p in {0..2}; do ./gradlew :mod:build -Ppreset=$p; done
+      // for p in {0..5}; do ./gradlew :mod:build -Ppreset=$p; done
 
       version 'minecraft', conf.mc
       version 'range', conf.r
       library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
       version 'fapi', conf.fapi
+      version 'java', "$conf.java"
     }
   }
 }

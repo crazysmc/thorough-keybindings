@@ -7,7 +7,6 @@ import it.unimi.dsi.fastutil.chars.Char2CharOpenHashMap;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -54,10 +53,13 @@ public abstract class KeyboardHandlerMixin
   }
 
   /* lambda in method keyPress as argument to Screen.wrapScreenError */
-  @ModifyArg(method = "method_1454",
-             at = @At(value = "INVOKE",
-                      target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"),
-             index = 0)
+  @ModifyArg(method = "method_1454", at = @At(value = "INVOKE",
+                                              //$if <1.17
+                                              target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"
+                                              //$if >=1.17
+                                              target= "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"
+                                              //$if
+                                              ), index = 0)
   private int remapKeyEscape(int key)
   {
     boolean gameMenu = key == CustomKeyMapping.getKeyCodeByOriginal(GLFW.GLFW_KEY_ESCAPE);
@@ -88,7 +90,11 @@ public abstract class KeyboardHandlerMixin
       sb.append(" + ");
       sb.append(CustomKeyMapping.getDisplayNameByOriginal(original));
       sb.append(formatted, end, formatted.length());
-      component = new TextComponent(sb.toString());
+      //$if <1.19
+      component = new net.minecraft.network.chat.TextComponent(sb.toString());
+      //$if >=1.19
+      component = Component.literal(sb.toString());
+      //$if
     }
     instance.addMessage(component);
   }
