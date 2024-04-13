@@ -6,7 +6,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.KeyMapping;
 
 import java.util.Map;
-import java.util.Optional;
 
 public class CustomKeyMapping extends KeyMapping
 {
@@ -29,21 +28,27 @@ public class CustomKeyMapping extends KeyMapping
 
   public static int getKeyCodeByOriginal(int keyCode)
   {
-    return Optional.ofNullable(BY_ORIGINAL.get(keyCode))
-        .map(binding -> ((KeyMappingAccessor) binding).getKey())
-        .map(InputConstants.Key::getValue)
-        .orElse(keyCode);
+    KeyMapping keyMapping = BY_ORIGINAL.get(keyCode);
+    if (keyMapping == null)
+      return keyCode;
+    return ((KeyMappingAccessor) keyMapping).getKey().getValue();
   }
 
   public static String getDisplayNameByOriginal(int keyCode)
   {
-    return Optional.ofNullable(BY_ORIGINAL.get(keyCode)).map(KeyMapping::getTranslatedKeyMessage)
-        //$if <1.16
-        .orElse(InputConstants.translateKeyCode(keyCode))
+    KeyMapping keyMapping = BY_ORIGINAL.get(keyCode);
+    if (keyMapping == null)
+    {
+      //$if <1.16
+      return InputConstants.translateKeyCode(keyCode);
+      //$if >=1.16
+      return InputConstants.Type.KEYSYM.getOrCreate(keyCode).getDisplayName().getString();
+      //$if
+    }
+    return keyMapping.getTranslatedKeyMessage()
         //$if >=1.16
-        .orElse(InputConstants.Type.KEYSYM.getOrCreate(keyCode).getDisplayName()).getString()
+        .getString()
         //$if
         ;
   }
-
 }
