@@ -24,6 +24,10 @@ public interface KeyBindingAccessor
     throw new AssertionError();
   }
 
+  //$if <1.13.0
+  @Accessor("keyCode")
+  int getKeyCode();
+
   //$if >=1.13.0
   @Accessor("key")
   com.mojang.blaze3d.platform.InputConstants.Key getKey();

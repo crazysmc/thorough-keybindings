@@ -15,10 +15,12 @@ public class CustomKeyBinding extends KeyBinding
   //$if <1.7.0
   private static final Set<String> CATEGORIES = new TreeSet<>();
   private static final Properties DEFAULT_CATEGORIES = new Properties();
-
-  private final String category;
   //$if
   private static final Map<Integer, CustomKeyBinding> BY_ORIGINAL = new Int2ObjectOpenHashMap<>();
+
+  //$if <1.7.0
+  private final String category;
+  //$if
 
   public CustomKeyBinding(String name, int keyCode, String category)
   {
@@ -68,24 +70,23 @@ public class CustomKeyBinding extends KeyBinding
 
   public static int getKeyCodeByOriginal(int keyCode)
   {
-    return Optional.ofNullable(BY_ORIGINAL.get(keyCode))
-        //$if <1.7.0
-        .map(binding -> binding.keyCode)
-        //$if >=1.7.0 <1.13.0
-        .map(KeyBinding::getKeyCode)
-        //$if >=1.13.0
-        .map(binding -> ((KeyBindingAccessor) binding).getKey())
-        .map(com.mojang.blaze3d.platform.InputConstants.Key::getValue)
-        //$if
-        .orElse(keyCode);
+    KeyBinding keyBinding = BY_ORIGINAL.get(keyCode);
+    if (keyBinding == null)
+      return keyCode;
+    //$if <1.13.0
+    return ((KeyBindingAccessor) keyBinding).getKeyCode();
+    //$if >=1.13.0
+    return ((KeyBindingAccessor) keyBinding).getKey().getValue();
+    //$if
   }
 
   //$if >=1.13.0
   public static String getDisplayNameByOriginal(int keyCode)
   {
-    return Optional.ofNullable(BY_ORIGINAL.get(keyCode))
-        .map(KeyBinding::getDisplayName)
-        .orElse(com.mojang.blaze3d.platform.InputConstants.getKey(keyCode, -1).getDisplayName());
+    KeyBinding keyBinding = BY_ORIGINAL.get(keyCode);
+    if (keyBinding != null)
+      return keyBinding.getDisplayName();
+    return com.mojang.blaze3d.platform.InputConstants.Type.KEYSYM.getOrCreate(keyCode).getDisplayName();
   }
   //$if
 }

@@ -12,7 +12,8 @@ def ap = project ':ap'
 dependencies {
   minecraft libs.minecraft
   mappings ploceus.featherMappings(libs.versions.feather.get())
-  libs.versions.properties.nests?.get()?.each { nests ploceus.nests(it) }
+  if (libs.versions.nests.get())
+    nests ploceus.nests(libs.versions.nests.get())
 
   modImplementation libs.loader
   ploceus.addCommonLibraries()

@@ -47,8 +47,7 @@ dependencyResolutionManagement {
       version 'range', conf.r
       library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
       version 'feather', conf.f
-      if (conf.n)
-        version 'nests', conf.n
+      version 'nests', (conf.n ?: '')
 
       version 'osl', '0.14.2'
     }
