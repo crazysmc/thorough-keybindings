@@ -13,12 +13,16 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 //$if
 public abstract class KeyEntryMixin
 {
-  @Redirect(method = "render",
-            at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/KeyMapping;same(Lnet/minecraft/client/KeyMapping;)Z"))
+  @Redirect(
+      //$if <1.20
+      method = "render",
+      //$if >=1.20
+      method = "refreshEntry",
+      //$if
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyMapping;same(Lnet/minecraft/client/KeyMapping;)Z"))
   private boolean separateDebugCombos(KeyMapping instance, KeyMapping keyMapping)
   {
-    return isDebug(instance) == isDebug(keyMapping) && instance.equals(keyMapping);
+    return isDebug(instance) == isDebug(keyMapping) && instance.same(keyMapping);
   }
 
   @Unique

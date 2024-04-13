@@ -20,6 +20,9 @@ public abstract class KeyboardHandlerMixin
 {
   @Unique
   private static final int[] DEBUG_KEYS = new int[] {
+      GLFW.GLFW_KEY_1,
+      GLFW.GLFW_KEY_2,
+      GLFW.GLFW_KEY_3,
       GLFW.GLFW_KEY_A,
       GLFW.GLFW_KEY_B,
       GLFW.GLFW_KEY_C,
@@ -28,9 +31,11 @@ public abstract class KeyboardHandlerMixin
       GLFW.GLFW_KEY_G,
       GLFW.GLFW_KEY_H,
       GLFW.GLFW_KEY_I,
+      GLFW.GLFW_KEY_L,
       GLFW.GLFW_KEY_N,
       GLFW.GLFW_KEY_P,
       GLFW.GLFW_KEY_Q,
+      GLFW.GLFW_KEY_S,
       GLFW.GLFW_KEY_T,
       GLFW.GLFW_KEY_F4,
   };
@@ -43,15 +48,6 @@ public abstract class KeyboardHandlerMixin
                                                                             GLFW.GLFW_KEY_F4, GLFW.GLFW_KEY_ESCAPE, 'B'
                                                                         });
 
-  @ModifyVariable(method = "handleDebugKeys", at = @At("LOAD"), argsOnly = true)
-  private int remapDebugKeySwitch(int key)
-  {
-    for (int debugKey : DEBUG_KEYS)
-      if (key == CustomKeyMapping.getKeyCodeByOriginal(debugKey))
-        return debugKey;
-    return -1;
-  }
-
   /* lambda in method keyPress as argument to Screen.wrapScreenError */
   @ModifyArg(method = "method_1454", at = @At(value = "INVOKE",
                                               //$if <1.17
@@ -60,10 +56,23 @@ public abstract class KeyboardHandlerMixin
                                               target= "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"
                                               //$if
                                               ), index = 0)
-  private int remapKeyEscape(int key)
+  private
+  //$if >=1.19.3
+  static
+  //$if
+  int remapKeyEscape(int key)
   {
     boolean gameMenu = key == CustomKeyMapping.getKeyCodeByOriginal(GLFW.GLFW_KEY_ESCAPE);
     return gameMenu ? GLFW.GLFW_KEY_ESCAPE : key;
+  }
+
+  @ModifyVariable(method = "handleDebugKeys", at = @At("LOAD"), argsOnly = true)
+  private int remapDebugKeySwitch(int key)
+  {
+    for (int debugKey : DEBUG_KEYS)
+      if (key == CustomKeyMapping.getKeyCodeByOriginal(debugKey))
+        return debugKey;
+    return -1;
   }
 
   @ModifyIntIfEqual(method = "keyPress", constant = @Constant)

@@ -24,6 +24,9 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.debugInfo", GLFW.GLFW_KEY_F3, misc);
     new PotentialKeyBinding("key.disableShader", GLFW.GLFW_KEY_F4, misc);
 
+    new PotentialKeyBinding("key.debug.charts.profiler", GLFW.GLFW_KEY_1, debug);
+    new PotentialKeyBinding("key.debug.charts.fps", GLFW.GLFW_KEY_2, debug);
+    new PotentialKeyBinding("key.debug.charts.network", GLFW.GLFW_KEY_3, debug);
     new PotentialKeyBinding("key.debug.reload_chunks", GLFW.GLFW_KEY_A, debug);
     new PotentialKeyBinding("key.debug.show_hitboxes", GLFW.GLFW_KEY_B, debug);
     new PotentialKeyBinding("key.debug.copy_location", GLFW.GLFW_KEY_C, debug);
@@ -32,9 +35,11 @@ public class PotentialKeyBinding
     new PotentialKeyBinding("key.debug.chunk_boundaries", GLFW.GLFW_KEY_G, debug);
     new PotentialKeyBinding("key.debug.advanced_tooltips", GLFW.GLFW_KEY_H, debug);
     new PotentialKeyBinding("key.debug.inspect", GLFW.GLFW_KEY_I, debug);
+    new PotentialKeyBinding("key.debug.profiling", GLFW.GLFW_KEY_L, debug);
     new PotentialKeyBinding("key.debug.creative_spectator", GLFW.GLFW_KEY_N, debug);
     new PotentialKeyBinding("key.debug.pause_focus", GLFW.GLFW_KEY_P, debug);
     new PotentialKeyBinding("key.debug.help", GLFW.GLFW_KEY_Q, debug);
+    new PotentialKeyBinding("key.debug.dump_dynamic_textures", GLFW.GLFW_KEY_S, debug);
     new PotentialKeyBinding("key.debug.reload_resourcepacks", GLFW.GLFW_KEY_T, debug);
 
     new PotentialKeyBinding("key.mod.shift.1", GLFW.GLFW_KEY_LEFT_SHIFT, modifier);

@@ -18,10 +18,13 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 
 ## Some History
 
-| Key     | Version         |
-|---------|-----------------|
-| F3 + F4 | 1.16            |
-| F3 + F  | removed in 1.19 |
+| Key        | Version                                  |
+|------------|------------------------------------------|
+| F3 + F4    | 1.16                                     |
+| F3 + L     | 1.17                                     |
+| F3 + F     | removed in 1.19                          |
+| F3 + S     | 1.19.4 reintroduced since removal in 1.9 |
+| F3 + 1/2/3 | 1.20.2                                   |
 
 <!--## Some Missing Identifiers TODO
 
