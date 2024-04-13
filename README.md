@@ -5,21 +5,24 @@ usually fixed mappings rebindable.
 This project branch supports releases 1.3 through 1.13.
 
 For example, this lets you remap F3 or Esc in-game, without external software.
-Also adds rebinding options to earlier game versions, like rebinding F5 or
-hotbar slot keys.
+Furthermore, backports rebinding options to earlier game versions, like
+rebinding F5 or hotbar slot keys.
 
 Adding keybindings to versions before 1.7 causes the configuration menu to
 overflow into the Done button.
 Thus, separate submenus for categories of related options are introduced.
 
-## Building & Usage
+## Usage
+
+This mod uses [Ornithe](https://ornithemc.net/) with the Fabric Mod Loader and
+requires the [Ornithe Standard Libraries](https://modrinth.com/mod/osl) to
+run.
+
+## Building
 
 Edit the version in `settings.gradle` (adapt the feather/nest build if
 necessary) and run `./gradlew build` or choose a preset setting with
 `-Ppreset=NUM`.
-
-This mod uses [Ornithe](https://ornithemc.net/) and requires the
-[Ornithe Standard Libraries](https://modrinth.com/mod/osl) to run.
 
 ## Some History
 

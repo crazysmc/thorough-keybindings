@@ -10,6 +10,7 @@
     "sources": "https://github.com/crazysmc/${mod_id}",
     "issues": "https://github.com/crazysmc/${mod_id}/issues"
   },
+  "icon": "assets/${mod_id}/icon.png",
   "license": "MIT",
   "environment": "client",
   "entrypoints": {
