@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class KeyEntryMixin
 {
   @Redirect(
-      //$if <1.20
+      //$if <1.19.4
       method = "render",
-      //$if >=1.20
+      //$if >=1.19.4
       method = "refreshEntry",
       //$if
       at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyMapping;same(Lnet/minecraft/client/KeyMapping;)Z"))
