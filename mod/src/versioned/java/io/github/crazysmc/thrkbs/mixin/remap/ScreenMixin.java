@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(Screen.class)
 public abstract class ScreenMixin
 {
-  //$if <1.7.10
+  //$if <1.7.4
   @ModifyConstant(method = "handleKeyboard", constant = @Constant(intValue = org.lwjgl.input.Keyboard.KEY_F11))
   private int remapKeyConstant(int constant)
   {
