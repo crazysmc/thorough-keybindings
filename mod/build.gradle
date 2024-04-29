@@ -1,3 +1,5 @@
+import net.ornithemc.ploceus.api.GameSide
+
 plugins {
   id 'fabric-loom' version libs.versions.loom
   id 'ploceus' version libs.versions.loom
@@ -9,9 +11,11 @@ base.archivesName = mod_id
 
 def ap = project ':ap'
 
+def side = GameSide.MERGED
 if (libs.versions.hasProperty 'split') {
   loom.clientOnlyMinecraftJar()
   ploceus.clientOnlyMappings()
+  side = GameSide.CLIENT
 }
 
 dependencies {
@@ -22,7 +26,7 @@ dependencies {
 
   modImplementation libs.loader
   ploceus.addCommonLibraries()
-  ploceus.dependOsl libs.versions.osl.get()
+  ploceus.dependOsl libs.versions.osl.get(), side
 
   implementation ap
   annotationProcessor ap

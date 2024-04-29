@@ -5,11 +5,16 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
-import net.minecraft.client.resource.language.I18n;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+
+//$if <1.3.0
+//$ import net.minecraft.resource.language.I18n;
+//$if >=1.3.0 <1.7.0
+//$ import net.minecraft.client.resource.language.I18n;
+//$if <1.7.0
 
 public class CategoryOptionsScreen extends Screen
 {

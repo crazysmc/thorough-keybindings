@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
   "client": [
+    //$if <1.3.0
+    "GameOptionsMixin",
     //$if <1.7.0
     "ControlsOptionsScreenMixin",
     "OptionsScreenMixin",

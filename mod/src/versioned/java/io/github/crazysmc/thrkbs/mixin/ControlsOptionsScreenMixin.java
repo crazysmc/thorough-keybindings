@@ -6,13 +6,18 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.options.ControlsOptionsScreen;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
-import net.minecraft.client.resource.language.I18n;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+//$if <1.3.0
+//$ import net.minecraft.resource.language.I18n;
+//$if >=1.3.0 <1.7.0
+//$ import net.minecraft.client.resource.language.I18n;
+//$if <1.7.0
 
 @Mixin(ControlsOptionsScreen.class)
 public abstract class ControlsOptionsScreenMixin extends Screen
@@ -52,6 +57,32 @@ public abstract class ControlsOptionsScreenMixin extends Screen
     return keyBindings[i];
   }
 
+  //$if <1.3.0
+
+  @Redirect(method = "*",
+            at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/client/options/GameOptions;getKeyNameFromBinding(I)Ljava/lang/String;"))
+  private String getKeyNameFromBinding(GameOptions options, int i)
+  {
+    ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
+    if (instance instanceof ControlsOptionsSubScreen)
+      return GameOptions.getKeyNameFromCode(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).keyCode);
+    return options.getKeyNameFromBinding(i);
+  }
+
+  @Redirect(method = "render",
+            at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/client/options/GameOptions;getKeyBindingName(I)Ljava/lang/String;"))
+  private String getKeyBindingName(GameOptions options, int i)
+  {
+    ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
+    if (instance instanceof ControlsOptionsSubScreen)
+      return I18n.translate(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).name);
+    return options.getKeyBindingName(i);
+  }
+
+  //$if >=1.3.0 <1.7.0
+
   @Redirect(method = "*",
             at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/client/options/GameOptions;getOptionName(I)Ljava/lang/String;"))
@@ -62,6 +93,19 @@ public abstract class ControlsOptionsScreenMixin extends Screen
       return GameOptions.getKeyName(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).keyCode);
     return options.getOptionName(i);
   }
+
+  @Redirect(method = "render",
+            at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/client/options/GameOptions;translate(I)Ljava/lang/String;"))
+  private String translate(GameOptions options, int i)
+  {
+    ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
+    if (instance instanceof ControlsOptionsSubScreen)
+      return I18n.translate(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).name);
+    return options.translate(i);
+  }
+
+  //$if <1.7.0
 
   @Redirect(method = "*",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/GameOptions;setKeyBinding(II)V"))
@@ -75,16 +119,5 @@ public abstract class ControlsOptionsScreenMixin extends Screen
       return;
     }
     options.setKeyBinding(i, keyCode);
-  }
-
-  @Redirect(method = "render",
-            at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/options/GameOptions;translate(I)Ljava/lang/String;"))
-  private String translate(GameOptions options, int i)
-  {
-    ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
-    if (instance instanceof ControlsOptionsSubScreen)
-      return I18n.translate(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).name);
-    return options.translate(i);
   }
 }

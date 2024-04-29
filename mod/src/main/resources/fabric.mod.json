@@ -21,8 +21,6 @@
   ],
   "depends": {
     "minecraft": "${range}",
-    "osl-entrypoints": ">=0.4.2",
-    "osl-keybinds": ">=0.1.2",
-    "osl-resource-loader": ">=0.3.1"
+    "osl": ">=0.12.0"
   }
 }
