@@ -3,11 +3,16 @@ plugins {
   id 'ploceus' version libs.versions.loom
 }
 
-version = "$mod_version+mc${libs.versions.minecraft.get()}"
+version = "$mod_version+${libs.versions.minecraft.get()}"
 group = maven_group
 base.archivesName = mod_id
 
 def ap = project ':ap'
+
+if (libs.versions.hasProperty 'split') {
+  loom.clientOnlyMinecraftJar()
+  ploceus.clientOnlyMappings()
+}
 
 dependencies {
   minecraft libs.minecraft
