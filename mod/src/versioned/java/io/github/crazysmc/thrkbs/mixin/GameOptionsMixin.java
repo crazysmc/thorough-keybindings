@@ -35,6 +35,8 @@ public abstract class GameOptionsMixin
       ThoroughKeybindings.LOGGER.info("Add keybinding {}", name);
       keyBindings[i++] = new CustomKeyBinding(name, binding.getKeyCode(), binding.getCategory());
     }
+    //$if >=1.0.0-beta.1.8.0.z <1.3.0
     KeyBinding.updateKeyCodeMap();
+    //$if <1.3.0
   }
 }

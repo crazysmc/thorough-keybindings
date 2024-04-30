@@ -27,7 +27,14 @@ public abstract class MinecraftMixin
   private int index;
 
   @ModifyIntIfEqual(method = "tick",
-                    //$if <1.3.0
+                    //$if <1.0.0-beta.1.8.0.z
+                    slice = @Slice(from = @At(value = "INVOKE:LAST",
+                                              target = "Lorg/lwjgl/input/Keyboard;getEventKeyState()Z",
+                                              remap = false),
+                                   to = @At(value = "INVOKE:FIRST",
+                                            target = "Lorg/lwjgl/input/Mouse;isButtonDown(I)Z",
+                                            remap = false)),
+                    //$if >=1.0.0-beta.1.8.0.z <1.3.0
                     slice = @Slice(from = @At(value = "INVOKE:LAST",
                                               target = "Lnet/minecraft/client/options/KeyBinding;onKeyPressed(I)V"),
                                    to = @At(value = "INVOKE:FIRST",

@@ -2,7 +2,7 @@
 
 For as many Minecraft versions as possible, this mod makes the keybindings of
 usually fixed mappings rebindable.
-This project branch supports releases 1.3 through 1.13.
+This project branch supports releases 1.0 through 1.13.
 
 For example, this lets you remap F3 or Esc in-game, without external software.
 Furthermore, backports rebinding options to earlier game versions, like

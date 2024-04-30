@@ -10,7 +10,7 @@ import java.util.Map;
 @Mixin(KeyBinding.class)
 public interface KeyBindingAccessor
 {
-  //$if <1.12.0
+  //$if >=1.0.0-beta.1.8.0.z <1.12.0
   @Accessor("ALL")
   static List<KeyBinding> getAllList()
   {

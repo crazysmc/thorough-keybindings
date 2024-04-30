@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.options.ControlsOptionsScreen;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
+import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -45,6 +46,7 @@ public abstract class ControlsOptionsScreenMixin extends Screen
     return keyBindings.length;
   }
 
+  //$if >=1.0.0-beta.1.8.0.z <1.7.0
   @Redirect(method = "render",
             at = @At(value = "FIELD",
                      target = "Lnet/minecraft/client/options/GameOptions;keyBindings:[Lnet/minecraft/client/options/KeyBinding;",
@@ -66,7 +68,14 @@ public abstract class ControlsOptionsScreenMixin extends Screen
   {
     ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
     if (instance instanceof ControlsOptionsSubScreen)
+    //$if <1.0.0
+    {
+      int keyCode = ((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).keyCode;
+      return keyCode < 0 ? I18n.translate("key.mouseButton", keyCode + 101) : Keyboard.getKeyName(keyCode);
+    }
+    //$if >=1.0.0 <1.3.0
       return GameOptions.getKeyNameFromCode(((ControlsOptionsSubScreen) instance).getKeyBindings().get(i).keyCode);
+    //$if <1.3.0
     return options.getKeyNameFromBinding(i);
   }
 

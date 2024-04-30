@@ -30,7 +30,7 @@ public class CustomKeyBinding extends KeyBinding
     CATEGORIES.add(category);
     //$if >=1.7.0
     super(name, keyCode, category);
-    //$if <1.12.0
+    //$if >=1.0.0-beta.1.8.0.z <1.12.0
     KeyBindingAccessor.getAllList().remove(this);
     //$if >=1.12.0
     KeyBindingAccessor.getAllMap().remove(name);
