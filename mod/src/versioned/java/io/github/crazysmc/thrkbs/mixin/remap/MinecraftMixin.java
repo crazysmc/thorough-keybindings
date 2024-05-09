@@ -39,7 +39,7 @@ public abstract class MinecraftMixin
                                               target = "Lnet/minecraft/client/options/KeyBinding;onKeyPressed(I)V"),
                                    to = @At(value = "INVOKE:FIRST",
                                             target = "Lnet/minecraft/client/options/KeyBinding;wasPressed()Z")),
-                    //$if >=1.3.0
+                    //$if >=1.3.0 <1.13.0
                     slice = @Slice(from = @At(value = "INVOKE:LAST",
                                               target = "Lnet/minecraft/client/options/KeyBinding;click(I)V"),
                                    to = @At(value = "INVOKE:FIRST",

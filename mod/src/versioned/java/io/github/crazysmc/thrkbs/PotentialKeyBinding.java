@@ -5,7 +5,7 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 public class PotentialKeyBinding
 {
@@ -98,9 +98,9 @@ public class PotentialKeyBinding
     BY_KEY.put(keyCode, this);
   }
 
-  public static Stream<PotentialKeyBinding> getFoundBindings()
+  public static List<PotentialKeyBinding> getFoundBindings()
   {
-    return ALL.stream().filter(binding -> binding.found);
+    return ALL.stream().filter(binding -> binding.found).collect(Collectors.toList());
   }
 
   public static void found(int constant)

@@ -1,4 +1,3 @@
-//$if <1.3.0
 package io.github.crazysmc.thrkbs.mixin;
 
 import io.github.crazysmc.thrkbs.CustomKeyBinding;
@@ -14,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin
@@ -26,7 +24,7 @@ public abstract class GameOptionsMixin
           at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/GameOptions;load()V"))
   private void onLoad(CallbackInfo ci)
   {
-    List<PotentialKeyBinding> list = PotentialKeyBinding.getFoundBindings().collect(Collectors.toList());
+    List<PotentialKeyBinding> list = PotentialKeyBinding.getFoundBindings();
     int i = keyBindings.length;
     keyBindings = Arrays.copyOf(keyBindings, i + list.size());
     for (PotentialKeyBinding binding : list)
@@ -37,6 +35,8 @@ public abstract class GameOptionsMixin
     }
     //$if >=1.0.0-beta.1.8.0.z <1.3.0
     KeyBinding.updateKeyCodeMap();
-    //$if <1.3.0
+    //$if >=1.3.0
+    KeyBinding.resetMapping();
+    //$if
   }
 }

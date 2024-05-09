@@ -5,12 +5,13 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//$if <1.3.0
+//$if >=1.0.0-beta.1.4.0 <1.3.0
 //$ import net.minecraft.resource.language.I18n;
 //$if >=1.3.0 <1.7.0
 //$ import net.minecraft.client.resource.language.I18n;
@@ -18,6 +19,11 @@ import java.util.stream.Collectors;
 
 public class CategoryOptionsScreen extends Screen
 {
+  //$if <1.0.0-beta.1.4.0
+  @Unique
+  private static final net.minecraft.locale.LanguageManager I18n = net.minecraft.locale.LanguageManager.getInstance();
+  //$if <1.7.0
+
   private final Screen parent;
   private final GameOptions options;
   private final List<String> categories = CustomKeyBinding.getCategories();

@@ -5,12 +5,12 @@
   "compatibilityLevel": "JAVA_8",
   "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
   "client": [
-    //$if <1.3.0
-    "GameOptionsMixin",
+    //$if <1.0.0-beta.1.3.0.z
+    "remap.GameRendererMixin",
     //$if <1.7.0
     "ControlsOptionsScreenMixin",
     "OptionsScreenMixin",
-    //$if >=1.4.0-alpha.12.40.a <1.7
+    //$if >=1.4.0-alpha.12.40.a <1.7.0
     "remap.InventoryMenuScreenMixin",
     //$if >=1.7.0
     "KeyBindingEntryMixin",
@@ -23,8 +23,9 @@
     "remap.InputConstantsMixin",
     "remap.KeyboardHandlerMixin",
     //$if
-    "remap.ScreenMixin",
-    "KeyBindingAccessor"
+    "GameOptionsMixin",
+    "KeyBindingAccessor",
+    "remap.ScreenMixin"
   ],
   "injectors": { "defaultRequire": 1 }
 }

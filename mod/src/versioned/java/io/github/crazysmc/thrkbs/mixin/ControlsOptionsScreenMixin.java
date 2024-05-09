@@ -9,12 +9,13 @@ import net.minecraft.client.options.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-//$if <1.3.0
+//$if >=1.0.0-beta.1.4.0 <1.3.0
 //$ import net.minecraft.resource.language.I18n;
 //$if >=1.3.0 <1.7.0
 //$ import net.minecraft.client.resource.language.I18n;
@@ -23,6 +24,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ControlsOptionsScreen.class)
 public abstract class ControlsOptionsScreenMixin extends Screen
 {
+  //$if <1.0.0-beta.1.4.0
+  @Unique
+  private static final net.minecraft.locale.LanguageManager I18n = net.minecraft.locale.LanguageManager.getInstance();
+  //$if <1.7.0
+
   @Shadow
   protected String title;
 
@@ -31,7 +37,7 @@ public abstract class ControlsOptionsScreenMixin extends Screen
   {
     ControlsOptionsScreen instance = (ControlsOptionsScreen) (Object) this;
     if (instance instanceof ControlsOptionsSubScreen)
-      this.title = I18n.translate(((ControlsOptionsSubScreen) instance).getTitleKey());
+      title = I18n.translate(((ControlsOptionsSubScreen) instance).getTitleKey());
   }
 
   @Redirect(method = "*",

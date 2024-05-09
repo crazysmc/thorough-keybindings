@@ -26,7 +26,10 @@ dependencies {
 
   modImplementation libs.loader
   ploceus.addCommonLibraries()
-  ploceus.dependOsl libs.versions.osl.get(), side
+  ploceus.dependOslModule 'core', libs.versions.osl.core.get(), side
+  ploceus.dependOslModule 'entrypoints', libs.versions.osl.entrypoints.get(), side
+  ploceus.dependOslModule 'lifecycle-events', libs.versions.osl.lifecycle.events.get(), side
+  ploceus.dependOslModule 'resource-loader', libs.versions.osl.resource.loader.get(), side
 
   implementation ap
   annotationProcessor ap
