@@ -4,14 +4,6 @@ pluginManagement {
       name = 'Fabric'
       url = 'https://maven.fabricmc.net/'
     }
-    maven {
-      name = 'Ornithe Releases'
-      url = 'https://maven.ornithemc.net/releases'
-    }
-    maven {
-      name = 'Ornithe Snapshots'
-      url = 'https://maven.ornithemc.net/snapshots'
-    }
     gradlePluginPortal()
   }
 }
@@ -23,27 +15,25 @@ dependencyResolutionManagement {
       library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.9'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
 
-      def fabric = { v, f, j = 8 -> [mc: v, r: "~$v".toString(), fapi: f, java: j] }
-
       def i = startParameter.projectProperties.preset as Integer ?: 0
-      def conf = [
-          fabric('1.14.4', '0.28.5+1.14'),
-          fabric('1.15', '0.28.5+1.15'),
-          fabric('1.16', '0.13.1+build.370-1.16'),
-          fabric('1.17', '0.46.1+1.17', 16),
-          fabric('1.18', '0.44.0+1.18', 17),
-          fabric('1.19', '0.58.0+1.19', 17).tap { r = "$r <1.19.3" },
-          fabric('1.19.3', '0.76.1+1.19.3', 17).tap { r = '=1.19.3' },
-          fabric('1.19.4', '0.87.2+1.19.4', 17),
-          fabric('1.20', '0.83.0+1.20', 17),
-      ][i]
-      // for p in {0..8}; do ./gradlew :mod:build -Ppreset=$p; done
+      def presets = [
+          [mc: '1.14.4', fapi: '0.28.5+1.14', label: '1.14-1.15', range: '>=1.14 <1.16'],
+          [mc: '1.16', fapi: '0.13.1+build.370-1.16'],
+          [mc: '1.17', fapi: '0.46.1+1.17', java: '16'],
+          [mc: '1.18', fapi: '0.44.0+1.18', java: '17'],
+          [mc: '1.19', fapi: '0.58.0+1.19', label: '1.19-1.19.2', range: '>=1.19 <1.19.3', java: '17'],
+          [mc: '1.19.3', fapi: '0.76.1+1.19.3', range: '=1.19.3', java: '17'],
+          [mc: '1.19.4', fapi: '0.87.2+1.19.4', java: '17'],
+          [mc: '1.20', fapi: '0.83.0+1.20', java: '17'],
+      ]
+      def conf = presets[i]
+      // for p in {0..7}; do ./gradlew -U :mod:build -Ppreset=$p || break; done
 
-      version 'minecraft', conf.mc
-      version 'range', conf.r
-      library 'minecraft', 'com.mojang', 'minecraft' versionRef 'minecraft'
+      version 'minecraft', (conf.label ?: conf.mc)
+      version 'range', (conf.range ?: "~$conf.mc")
+      library 'minecraft', 'com.mojang', 'minecraft' version conf.mc
       version 'fapi', conf.fapi
-      version 'java', "$conf.java"
+      version 'java', (conf.java ?: '8')
     }
   }
 }

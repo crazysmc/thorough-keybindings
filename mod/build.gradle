@@ -2,7 +2,7 @@ plugins {
   id 'fabric-loom' version libs.versions.loom
 }
 
-version = "$mod_version+mc${libs.versions.minecraft.get()}"
+version = "$mod_version+${libs.versions.minecraft.get()}"
 group = maven_group
 base.archivesName = mod_id
 
@@ -38,8 +38,8 @@ sourceSets {
 }
 idea.module.generatedSourceDirs += generatedJava.get().asFile
 
-def mc = libs.versions.minecraft.get()
-println "Minecraft: $mc"
+println "Minecraft: ${libs.minecraft.get().version}"
+def mc = loom.minecraftVersion
 
 def preprocessJava = tasks.register 'preprocessJava', PreprocessorTask, {
   group = BasePlugin.BUILD_GROUP
@@ -83,4 +83,5 @@ runClient {
 tasks.withType Jar configureEach {
   from rootProject.file('LICENSE')
   from ap.tasks.compileJava.outputs
+  exclude 'previous-compilation-data.bin'
 }

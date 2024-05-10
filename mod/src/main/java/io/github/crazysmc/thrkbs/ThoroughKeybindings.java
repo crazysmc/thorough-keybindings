@@ -15,7 +15,6 @@ public class ThoroughKeybindings implements ClientModInitializer
   @Override
   public void onInitializeClient()
   {
-    CustomKeyMapping.initCategorySortOrder();
     Class<?> forceLoad = KeyboardHandler.class;
     registerKeyBindings();
   }

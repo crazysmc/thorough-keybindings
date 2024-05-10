@@ -49,13 +49,14 @@ public abstract class KeyboardHandlerMixin
                                                                         });
 
   /* lambda in method keyPress as argument to Screen.wrapScreenError */
-  @ModifyArg(method = "method_1454", at = @At(value = "INVOKE",
-                                              //$if <1.17
-                                              target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"
-                                              //$if >=1.17
-                                              target= "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"
-                                              //$if
-                                              ), index = 0)
+  @ModifyArg(method = "method_1454",
+             //$if <1.17
+             at = @At(value = "INVOKE",
+                      target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"),
+             //$if >=1.17
+             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"),
+             //$if
+             index = 0)
   private
   //$if >=1.19.3
   static
@@ -86,23 +87,22 @@ public abstract class KeyboardHandlerMixin
                      target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"))
   private void debugHelpText(ChatComponent instance, Component component)
   {
-    String formatted = component.getString();
-    Matcher matcher = F3_PLUS.matcher(formatted);
+    String string = component.getString();
+    Matcher matcher = F3_PLUS.matcher(string);
     if (matcher.find())
     {
+      int start = matcher.start();
       int end = matcher.end();
-      char original = formatted.charAt(end - 1);
+      char original = string.charAt(end - 1);
       original = CHAR_MAP.getOrDefault(original, original);
-      StringBuilder sb = new StringBuilder(formatted.length() + 16);
-      sb.append(formatted, 0, matcher.start());
-      sb.append(CustomKeyMapping.getDisplayNameByOriginal(GLFW.GLFW_KEY_F3));
-      sb.append(" + ");
-      sb.append(CustomKeyMapping.getDisplayNameByOriginal(original));
-      sb.append(formatted, end, formatted.length());
+      String replace = String.format("%s + %s", CustomKeyMapping.getDisplayNameByOriginal(GLFW.GLFW_KEY_F3),
+                                     CustomKeyMapping.getDisplayNameByOriginal(original));
+      String text = string.substring(0, start) + replace + string.substring(end);
+      text = text.replace(string.substring(start, end), replace); // duplicate "F3 + C"
       //$if <1.19
-      component = new net.minecraft.network.chat.TextComponent(sb.toString());
+      component = new net.minecraft.network.chat.TextComponent(text);
       //$if >=1.19
-      component = Component.literal(sb.toString());
+      component = Component.literal(text);
       //$if
     }
     instance.addMessage(component);

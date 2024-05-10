@@ -18,14 +18,6 @@ public class CustomKeyMapping extends KeyMapping
     BY_ORIGINAL.put(keyCode, this);
   }
 
-  public static void initCategorySortOrder()
-  {
-    Map<String, Integer> categorySortOrder = KeyMappingAccessor.getCategorySortOrder();
-    int i = categorySortOrder.values().stream().mapToInt(Integer::intValue).max().orElse(0);
-    categorySortOrder.put("key.categories.debug", i + 1);
-    categorySortOrder.put("key.categories.modifier", i + 2);
-  }
-
   public static int getKeyCodeByOriginal(int keyCode)
   {
     KeyMapping keyMapping = BY_ORIGINAL.get(keyCode);
