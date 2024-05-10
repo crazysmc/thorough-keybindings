@@ -99,4 +99,5 @@ runClient {
 tasks.withType Jar configureEach {
   from rootProject.file('LICENSE')
   from ap.tasks.compileJava.outputs
+  exclude 'previous-compilation-data.bin'
 }

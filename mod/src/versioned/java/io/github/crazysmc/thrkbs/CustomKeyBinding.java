@@ -34,6 +34,8 @@ public class CustomKeyBinding extends KeyBinding
     KeyBindingAccessor.getAllList().remove(this);
     //$if >=1.12.0
     KeyBindingAccessor.getAllMap().remove(name);
+    Map<String, Integer> categorySortOrder = KeyBindingAccessor.getCategorySortOrder();
+    categorySortOrder.computeIfAbsent(category, key -> categorySortOrder.size() + 1);
     //$if
     BY_ORIGINAL.put(keyCode, this);
   }

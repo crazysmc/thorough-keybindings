@@ -25,7 +25,7 @@ dependencyResolutionManagement {
 
       def i = startParameter.projectProperties.preset as Integer ?: 0
       def presets = [
-          [mc: 'b1.2', nests: '2', split: '1', range: '>=1.0.0-beta.2 <1.0.0-beta.3'],
+          [mc: 'b1.0', nests: '2', split: '1', label: 'b1.0-b1.2', range: '>=1.0.0-beta.0 <1.0.0-beta.3'],
           [mc: 'b1.3-1750', nests: '2', split: '1', label: 'b1.3', range: '>=1.0.0-beta.3 <1.0.0-beta.4'],
           [mc: 'b1.4-1634', nests: '2', split: '1', label: 'b1.4-b1.7', range: '>=1.0.0-beta.4 <1.0.0-beta.8'],
           [mc: 'b1.8', nests: '1', split: '1', range: '>=1.0.0-beta.8 <1.0.0'],
@@ -41,10 +41,11 @@ dependencyResolutionManagement {
           [mc: '1.9', label: '1.9-1.10', range: '>=1.9 <1.11'],
           [mc: '1.11'],
           [mc: '1.12'],
-          [mc: '1.13'],
+          [mc: '1.13', range: '=1.13'],
+          [mc: '1.13.1', label: '1.13.1-1.13.2'],
       ]
       def conf = presets[i]
-      // for p in {0..16}; do ./gradlew :mod:build -Ppreset=$p || break; done
+      // for p in {0..17}; do ./gradlew -U :mod:build -Ppreset=$p || break; done
 
       version 'minecraft', (conf.label ?: conf.mc)
       version 'range', (conf.range ?: "~$conf.mc")

@@ -70,19 +70,19 @@ public abstract class KeyboardHandlerMixin
                      target = "Lnet/minecraft/client/gui/chat/ChatGui;addMessage(Lnet/minecraft/text/Text;)V"))
   private void debugHelpText(ChatGui instance, Text message)
   {
-    String formatted = message.getFormattedString();
-    Matcher matcher = F3_PLUS.matcher(formatted);
+    String string = message.getString();
+    Matcher matcher = F3_PLUS.matcher(string);
     if (matcher.find())
     {
+      int start = matcher.start();
       int end = matcher.end();
-      char original = formatted.charAt(end - 1);
-      StringBuilder sb = new StringBuilder(formatted.length() + 16);
-      sb.append(formatted, 0, matcher.start());
-      sb.append(CustomKeyBinding.getDisplayNameByOriginal(GLFW.GLFW_KEY_F3));
-      sb.append(" + ");
-      sb.append(CustomKeyBinding.getDisplayNameByOriginal(original == 'Β' ? 'B' : original)); // replace Beta
-      sb.append(formatted, end, formatted.length());
-      message = new LiteralText(sb.toString());
+      char original = string.charAt(end - 1);
+      if (original == 'Β') // Beta
+        original = 'B';
+      String replace = String.format("%s + %s", CustomKeyBinding.getDisplayNameByOriginal(GLFW.GLFW_KEY_F3),
+                                     CustomKeyBinding.getDisplayNameByOriginal(original));
+      String text = string.substring(0, start) + replace + string.substring(end);
+      message = new LiteralText(text.replace(string.substring(start, end), replace)); // duplicate "F3 + C"
     }
     instance.addMessage(message);
   }

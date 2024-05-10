@@ -24,6 +24,12 @@ public interface KeyBindingAccessor
     throw new AssertionError();
   }
 
+  @Accessor("CATEGORY_SORT_ORDER")
+  static Map<String, Integer> getCategorySortOrder()
+  {
+    throw new AssertionError();
+  }
+
   //$if <1.13.0
   @Accessor("keyCode")
   int getKeyCode();
