@@ -12,6 +12,7 @@ public class PotentialKeyBinding
 {
   private static final List<PotentialKeyBinding> ALL = new ArrayList<>();
   private static final Map<Integer, PotentialKeyBinding> BY_KEY = new Int2ObjectOpenHashMap<>();
+  private static int f3num;
 
   static
   {
@@ -66,16 +67,26 @@ public class PotentialKeyBinding
 
   public static Stream<PotentialKeyBinding> getFoundBindings()
   {
+    if (f3num > 0 && f3num < 3)
+    {
+      BY_KEY.get(GLFW.GLFW_KEY_1).found = false;
+      BY_KEY.get(GLFW.GLFW_KEY_2).found = false;
+      BY_KEY.get(GLFW.GLFW_KEY_3).found = false;
+    }
     return ALL.stream().filter(binding -> binding.found);
   }
 
   public static void found(int constant)
   {
-    if (constant == 9) // loop condition
+    if (constant < GLFW.GLFW_KEY_SPACE)
       return;
     PotentialKeyBinding binding = BY_KEY.get(constant);
     if (binding != null)
+    {
+      if (constant >= GLFW.GLFW_KEY_1 && constant <= GLFW.GLFW_KEY_3 && !binding.found)
+        f3num++;
       binding.found = true;
+    }
   }
 
   public String getName()
