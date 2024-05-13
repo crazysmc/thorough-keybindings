@@ -6,6 +6,7 @@ import it.unimi.dsi.fastutil.chars.Char2CharMap;
 import it.unimi.dsi.fastutil.chars.Char2CharOpenHashMap;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.gui.components.ChatComponent;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
@@ -49,22 +50,30 @@ public abstract class KeyboardHandlerMixin
                                                                         });
 
   /* lambda in method keyPress as argument to Screen.wrapScreenError */
-  @ModifyArg(method = "method_1454",
-             //$if <1.17
-             at = @At(value = "INVOKE",
-                      target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"),
-             //$if >=1.17
-             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"),
-             //$if
-             index = 0)
+  @Redirect(method = "method_1454", //
+            at = @At(value = "INVOKE",
+                     //$if <1.17
+                     target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"
+                     //$if <0
+                     $,
+                     //$if >=1.17
+                     target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"
+                     //$if
+                     ))
   private
   //$if >=1.19.3
   static
   //$if
-  int remapKeyEscape(int key)
+  boolean remapKeyEscape(@Coerce GuiEventListener instance, int key, int scancode, int action)
   {
-    boolean gameMenu = key == CustomKeyMapping.getKeyCodeByOriginal(GLFW.GLFW_KEY_ESCAPE);
-    return gameMenu ? GLFW.GLFW_KEY_ESCAPE : key;
+    boolean gameMenu = key == CustomKeyMapping.getKeyCodeByOriginal(GLFW.GLFW_KEY_ESCAPE)
+        //$if <1.18
+        && !(instance instanceof net.minecraft.client.gui.screens.controls.ControlsScreen)
+        //$if >=1.18
+        && !(instance instanceof net.minecraft.client.gui.screens.controls.KeyBindsScreen)
+        //$if
+        ;
+    return instance.keyPressed(gameMenu ? GLFW.GLFW_KEY_ESCAPE : key, scancode, action);
   }
 
   @ModifyVariable(method = "handleDebugKeys", at = @At("LOAD"), argsOnly = true)
