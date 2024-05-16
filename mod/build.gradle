@@ -19,6 +19,7 @@ dependencies {
   implementation ap
   annotationProcessor ap
   testImplementation libs.junit
+  testImplementation libs.mockito
 }
 
 java {

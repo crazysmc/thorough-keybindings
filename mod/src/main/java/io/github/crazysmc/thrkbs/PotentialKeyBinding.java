@@ -56,7 +56,7 @@ public class PotentialKeyBinding
   private final String category;
   private boolean found;
 
-  public PotentialKeyBinding(String name, int keyCode, String category)
+  private PotentialKeyBinding(String name, int keyCode, String category)
   {
     this.name = name;
     this.keyCode = keyCode;

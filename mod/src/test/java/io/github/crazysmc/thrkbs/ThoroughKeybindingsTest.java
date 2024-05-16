@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 class ThoroughKeybindingsTest
 {
   @Test
-  void initClient()
+  void onInitializeClient()
   {
     new ThoroughKeybindings().onInitializeClient();
   }

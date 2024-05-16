@@ -14,6 +14,7 @@ dependencyResolutionManagement {
       version 'loom', '1.6-SNAPSHOT'
       library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.9'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
+      library 'mockito', 'org.mockito', 'mockito-inline' version '3.+'
 
       def i = startParameter.projectProperties.preset as Integer ?: 0
       def presets = [
