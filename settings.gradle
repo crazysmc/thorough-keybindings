@@ -12,32 +12,34 @@ dependencyResolutionManagement {
   versionCatalogs {
     libs {
       version 'loom', '1.6-SNAPSHOT'
-      library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.9'
+      plugin 'loom', 'fabric-loom' versionRef 'loom'
+      library 'minecraft', 'com.mojang', 'minecraft' version '1.14.4'
+      library 'loader', 'net.fabricmc', 'fabric-loader' version '0.15.11'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
       library 'mockito', 'org.mockito', 'mockito-inline' version '3.+'
 
-      def i = startParameter.projectProperties.preset as Integer ?: 0
-      def presets = [
-          [mc: '1.14.4', fapi: '0.28.5+1.14', label: '1.14-1.15', range: '>=1.14 <1.16', java: '8'],
-          [mc: '1.16', fapi: '0.13.1+build.370-1.16', java: '8'],
-          [mc: '1.17', fapi: '0.46.1+1.17', java: '16'],
-          [mc: '1.18', fapi: '0.44.0+1.18', java: '17'],
-          [mc: '1.19', fapi: '0.58.0+1.19', label: '1.19-1.19.2', range: '>=1.19 <1.19.3', java: '17'],
-          [mc: '1.19.3', fapi: '0.76.1+1.19.3', range: '=1.19.3', java: '17'],
-          [mc: '1.19.4', fapi: '0.87.2+1.19.4', java: '17'],
-          [mc: '1.20', fapi: '0.83.0+1.20', java: '17'],
-      ]
-      def conf = presets[i]
-      // for p in {0..7}; do ./gradlew -U :mod:build -Ppreset=$p || break; done
-
-      version 'minecraft', (conf.label ?: conf.mc)
-      version 'range', (conf.range ?: "~$conf.mc")
-      library 'minecraft', 'com.mojang', 'minecraft' version conf.mc
-      version 'fapi', conf.fapi
-      version 'java', conf.java
+//      def i = startParameter.projectProperties.preset as Integer ?: 0
+//      def presets = [
+//          [mc: '1.14.4', fapi: '0.28.5+1.14', label: '1.14-1.15', range: '>=1.14 <1.16', java: '8'],
+//          [mc: '1.16', fapi: '0.13.1+build.370-1.16', java: '8'],
+//          [mc: '1.17', fapi: '0.46.1+1.17', java: '16'],
+//          [mc: '1.18', fapi: '0.44.0+1.18', java: '17'],
+//          [mc: '1.19', fapi: '0.58.0+1.19', label: '1.19-1.19.2', range: '>=1.19 <1.19.3', java: '17'],
+//          [mc: '1.19.3', fapi: '0.76.1+1.19.3', range: '=1.19.3', java: '17'],
+//          [mc: '1.19.4', fapi: '0.87.2+1.19.4', java: '17'],
+//          [mc: '1.20', fapi: '0.83.0+1.20', java: '17'],
+//      ]
+//      def conf = presets[i]
+//      // for p in {0..7}; do ./gradlew -U :mod:build -Ppreset=$p || break; done
+//
+//      version 'minecraft', (conf.label ?: conf.mc)
+//      version 'range', (conf.range ?: "~$conf.mc")
+//      library 'minecraft', 'com.mojang', 'minecraft' version conf.mc
+//      version 'fapi', conf.fapi
+//      version 'java', conf.java
     }
   }
 }
 
 include ':ap'
-include ':mod'
+include ':mod:v1.14'

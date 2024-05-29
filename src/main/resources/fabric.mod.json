@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "thorough-keybindings",
+  "version": "${version}",
+  "name": "Thorough Keybindings",
+  "description": "Make all keybindings configurable",
+  "authors": [ "crazysmc" ],
+  "contact": {
+    "homepage": "https://github.com/crazysmc/thorough-keybindings",
+    "sources": "https://github.com/crazysmc/thorough-keybindings",
+    "issues": "https://github.com/crazysmc/thorough-keybindings/issues"
+  },
+  "icon": "assets/thorough-keybindings/icon.png",
+  "license": "MIT",
+  "environment": "client",
+  "depends": {
+    "fabricloader": ">=0.15.9"
+  }
+}

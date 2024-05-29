@@ -1,0 +1,48 @@
+plugins {
+  alias libs.plugins.loom
+}
+
+allprojects {
+  version = mod_version
+  group = maven_group
+
+  test.useJUnitPlatform()
+
+  processResources {
+    inputs.property 'properties', project.properties.toString()
+    filesMatching 'fabric.mod.json', { // TODO only version?
+      expand project.properties
+    }
+  }
+
+  tasks.withType Jar configureEach {
+    from rootProject.file('LICENSE')
+  }
+}
+
+base.archivesName = mod_id
+
+def commonConfig(Project project) {
+  project.java {
+    toolchain.languageVersion = JavaLanguageVersion.of 21 // java_version
+    withSourcesJar()
+  }
+
+  project.dependencies {
+    minecraft libs.minecraft // minecraft_version
+    mappings loom.officialMojangMappings()
+    modImplementation libs.loader
+    testImplementation libs.junit
+    testImplementation libs.mockito
+  }
+}
+
+commonConfig project
+
+dependencies {
+  project ':ap' with {
+    compileOnly it
+    include it
+  }
+  include project(':mod:v1.14')
+}
