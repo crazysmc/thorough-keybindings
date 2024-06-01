@@ -13,7 +13,13 @@
   "icon": "assets/thorough-keybindings/icon.png",
   "license": "MIT",
   "environment": "client",
+  "entrypoints": {
+    "client": [ "io.github.crazysmc.thrkbs.ThoroughKeybindings" ]
+  },
+  "mixins": [ "thrkbs.mixins.json" ],
   "depends": {
-    "fabricloader": ">=0.15.9"
+    "fabricloader": ">=0.15.9",
+    "fabric-resource-loader-v0": "*",
+    "fabric-key-binding-api-v1": "*"
   }
 }

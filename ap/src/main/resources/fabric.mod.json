@@ -4,11 +4,12 @@
   "version": "${version}",
   "name": "Thorough Keybindings Annotation Processor",
   "authors": [ "crazysmc" ],
-  "contact": {
-    "homepage": "https://github.com/crazysmc/thorough-keybindings",
-    "sources": "https://github.com/crazysmc/thorough-keybindings",
-    "issues": "https://github.com/crazysmc/thorough-keybindings/issues"
-  },
   "license": "MIT",
-  "environment": "client"
+  "environment": "client",
+  "custom": {
+    "modmenu": {
+      "badges": [ "library" ],
+      "parent": "thorough-keybindings"
+    }
+  }
 }

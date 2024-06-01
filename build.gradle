@@ -6,13 +6,10 @@ allprojects {
   version = mod_version
   group = maven_group
 
-  test.useJUnitPlatform()
-
-  processResources {
-    inputs.property 'properties', project.properties.toString()
-    filesMatching 'fabric.mod.json', { // TODO only version?
-      expand project.properties
-    }
+  test {
+    useJUnitPlatform()
+    workingDir = rootProject.layout.buildDirectory.file 'test-run'
+    workingDir.mkdir()
   }
 
   tasks.withType Jar configureEach {
@@ -20,29 +17,40 @@ allprojects {
   }
 }
 
-base.archivesName = mod_id
-
 def commonConfig(Project project) {
   project.java {
-    toolchain.languageVersion = JavaLanguageVersion.of 21 // java_version
+    toolchain.languageVersion = JavaLanguageVersion.of project.java_version
     withSourcesJar()
   }
 
   project.dependencies {
-    minecraft libs.minecraft // minecraft_version
-    mappings loom.officialMojangMappings()
+    minecraft group: 'com.mojang', name: 'minecraft', version: project.minecraft_version
+    mappings project.loom.officialMojangMappings()
     modImplementation libs.loader
+    modImplementation fabricApi.module('fabric-resource-loader-v0', project.fabric_api_version)
+    modImplementation fabricApi.module('fabric-key-binding-api-v1', project.fabric_api_version)
     testImplementation libs.junit
+    testImplementation libs.loader.junit
     testImplementation libs.mockito
+    testImplementation libs.mojang.logging
+  }
+
+  project.processResources {
+    inputs.property 'properties', project.properties.toString()
+    filesMatching 'fabric.mod.json', {
+      expand project.properties
+    }
   }
 }
 
 commonConfig project
 
+base.archivesName = mod_id
+
 dependencies {
   project ':ap' with {
-    compileOnly it
+    modImplementation it
     include it
   }
-  include project(':mod:v1.14')
+//  include project(':mod:v1.14')
 }
