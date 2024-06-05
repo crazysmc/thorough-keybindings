@@ -41,16 +41,20 @@ def commonConfig(Project project) {
       expand project.properties
     }
   }
+
+  if (project != rootProject)
+    rootProject.dependencies {
+      include project
+      modImplementation project
+    }
+
+  def core = rootProject.project(':modules:core')
+  if (project != core)
+    project.dependencies {
+      compileOnly core
+    }
 }
 
 commonConfig project
 
 base.archivesName = mod_id
-
-dependencies {
-  project ':ap' with {
-    modImplementation it
-    include it
-  }
-//  include project(':mod:v1.14')
-}

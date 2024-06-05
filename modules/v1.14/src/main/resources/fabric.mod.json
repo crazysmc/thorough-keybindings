@@ -1,11 +1,14 @@
 {
   "schemaVersion": 1,
-  "id": "thorough-keybindings-ap",
+  "id": "thorough-keybindings-module",
   "version": "${version}",
-  "name": "Thorough Keybindings Annotation Processor",
+  "name": "Thorough Keybindings Version-Dependent Module",
   "authors": [ "crazysmc" ],
   "license": "MIT",
   "environment": "client",
+  "entrypoints": {
+    "client": [ "io.github.crazysmc.thrkbs.SimpleKeyDisplay" ]
+  },
   "custom": {
     "modmenu": {
       "parent": "thorough-keybindings"

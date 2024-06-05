@@ -1,0 +1,7 @@
+plugins {
+  alias libs.plugins.loom
+}
+
+commonConfig project
+
+base.archivesName = "$mod_id-core"

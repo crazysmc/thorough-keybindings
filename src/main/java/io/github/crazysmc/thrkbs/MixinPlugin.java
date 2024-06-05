@@ -32,7 +32,7 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void onLoad(String mixinPackage)
   {
-    AnnotationProcessor.init();
+//    AnnotationProcessor.init();
   }
 
   @Override

@@ -23,9 +23,11 @@ public class ThoroughKeybindings implements ClientModInitializer
     for (HardcodedMapping mapping : MAPPING_REGISTRY.getRegisteredMappings())
     {
       String name = mapping.getName();
-      LOGGER.debug("Add keybinding {}", name);
-      KeyBindingHelper.registerKeyBinding(new KeyMapping(name, mapping.getKeyCode(), mapping.getCategory()));
+      LOGGER.info("Add keybinding {}", name);
+      KeyMapping keyMapping = new KeyMapping(name, mapping.getKeyCode(), mapping.getCategory());
+      KeyBindingHelper.registerKeyBinding(keyMapping);
       KeyMappingAccessor.getAll().remove(name);
+      MAPPING_REGISTRY.registerMapping(keyMapping);
     }
     KeyMapping.resetMapping();
   }

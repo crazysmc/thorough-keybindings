@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "thorough-keybindings-ap",
+  "id": "thorough-keybindings-core",
   "version": "${version}",
-  "name": "Thorough Keybindings Annotation Processor",
+  "name": "Thorough Keybindings Core Module",
   "authors": [ "crazysmc" ],
   "license": "MIT",
   "environment": "client",
