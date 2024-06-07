@@ -27,7 +27,7 @@ public class ThoroughKeybindings implements ClientModInitializer
       KeyMapping keyMapping = new KeyMapping(name, mapping.getKeyCode(), mapping.getCategory());
       KeyBindingHelper.registerKeyBinding(keyMapping);
       KeyMappingAccessor.getAll().remove(name);
-      MAPPING_REGISTRY.registerMapping(keyMapping);
+      MAPPING_REGISTRY.registerMapping(keyMapping.getDefaultKey().getValue(), keyMapping);
     }
     KeyMapping.resetMapping();
   }

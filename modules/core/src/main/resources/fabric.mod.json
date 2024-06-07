@@ -3,7 +3,14 @@
   "id": "thorough-keybindings-core",
   "version": "${version}",
   "name": "Thorough Keybindings Core Module",
-  "authors": [ "crazysmc" ],
+  "authors": [
+    "crazysmc"
+  ],
+  "contact": {
+    "homepage": "https://github.com/crazysmc/thorough-keybindings",
+    "sources": "https://github.com/crazysmc/thorough-keybindings",
+    "issues": "https://github.com/crazysmc/thorough-keybindings/issues"
+  },
   "license": "MIT",
   "environment": "client",
   "custom": {
@@ -12,9 +19,13 @@
     }
   },
   "entrypoints": {
-    "client": [ "io.github.crazysmc.thrkbs.core.ThoroughKeybindings" ]
+    "client": [
+      "io.github.crazysmc.thrkbs.core.ThoroughKeybindings"
+    ]
   },
-  "mixins": [ "thrkbs.mixins.json" ],
+  "mixins": [
+    "core.mixins.json"
+  ],
   "depends": {
     "fabric-resource-loader-v0": "*",
     "fabric-key-binding-api-v1": "*"

@@ -6,9 +6,8 @@
   "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
   "injectors": { "defaultRequire": 1 },
   "client": [
+    "InputConstantsMixin",
     "KeyMappingAccessor",
-    "remap.DebugScreenOverlayMixin",
-    "remap.InputConstantsMixin",
-    "remap.ScreenMixin"
+    "ScreenMixin"
   ]
 }

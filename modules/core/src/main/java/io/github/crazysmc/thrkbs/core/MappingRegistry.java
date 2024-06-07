@@ -48,19 +48,19 @@ public class MappingRegistry
     return registeredMappings.add(mapping);
   }
 
-  public void registerMapping(KeyMapping mapping)
+  public void registerMapping(int defaultKey, KeyMapping mapping)
   {
-    keyMappings.put(mapping.getDefaultKey().getValue(), mapping);
+    keyMappings.put(defaultKey, mapping);
   }
 
-  public int remapKeyCode(int original)
+  public int remapKeyCode(int defaultKey)
   {
-    KeyMapping mapping = keyMappings.get(original);
-    return mapping == null ? original : ((KeyMappingAccessor) mapping).getKey().getValue();
+    KeyMapping mapping = keyMappings.get(defaultKey);
+    return mapping == null ? defaultKey : ((KeyMappingAccessor) mapping).getKey().getValue();
   }
 
-  public KeyMapping getMapping(int original)
+  public KeyMapping getMapping(int defaultKey)
   {
-    return keyMappings.get(original);
+    return keyMappings.get(defaultKey);
   }
 }

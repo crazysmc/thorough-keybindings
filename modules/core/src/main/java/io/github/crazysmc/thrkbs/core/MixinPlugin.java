@@ -32,6 +32,7 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void onLoad(String mixinPackage)
   {
+    throw new IllegalStateException("DEBUG");
 //    AnnotationProcessor.init(); TODO fix me
   }
 
@@ -66,6 +67,7 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo)
   {
+    System.err.printf("Inspecting class %s for keybindings%n", targetClassName);
     LOGGER.debug("Inspecting class {} for keybindings", targetClassName);
     for (MethodNode method : targetClass.methods)
       for (AbstractInsnNode instruction : method.instructions)

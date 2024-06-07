@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.core.mixin.remap;
+package io.github.crazysmc.thrkbs.core.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import io.github.crazysmc.thrkbs.core.ThoroughKeybindings;
