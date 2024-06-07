@@ -32,8 +32,6 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void onLoad(String mixinPackage)
   {
-    throw new IllegalStateException("DEBUG");
-//    AnnotationProcessor.init(); TODO fix me
   }
 
   @Override
