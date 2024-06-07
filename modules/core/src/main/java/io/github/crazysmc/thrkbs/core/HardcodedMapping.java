@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs;
+package io.github.crazysmc.thrkbs.core;
 
 import org.lwjgl.glfw.GLFW;
 

@@ -1,8 +1,8 @@
-package io.github.crazysmc.thrkbs.mixin.remap;
+package io.github.crazysmc.thrkbs.core.mixin.remap;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import io.github.crazysmc.thrkbs.MappingRegistry;
-import io.github.crazysmc.thrkbs.ThoroughKeybindings;
+import io.github.crazysmc.thrkbs.core.ThoroughKeybindings;
+import io.github.crazysmc.thrkbs.core.MappingRegistry;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;

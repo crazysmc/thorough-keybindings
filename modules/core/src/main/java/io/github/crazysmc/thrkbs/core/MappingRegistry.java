@@ -1,6 +1,6 @@
-package io.github.crazysmc.thrkbs;
+package io.github.crazysmc.thrkbs.core;
 
-import io.github.crazysmc.thrkbs.mixin.KeyMappingAccessor;
+import io.github.crazysmc.thrkbs.core.mixin.KeyMappingAccessor;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.KeyMapping;
@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
+import static io.github.crazysmc.thrkbs.core.HardcodedMapping.*;
 
 public class MappingRegistry
 {
@@ -23,7 +23,9 @@ public class MappingRegistry
 
   public MappingRegistry()
   {
-    Arrays.stream(HardcodedMapping.values()).forEach(mapping -> hardcodedMappings.put(mapping.getKeyCode(), mapping));
+    Arrays.stream(HardcodedMapping.values())
+        .unordered()
+        .forEach(mapping -> hardcodedMappings.put(mapping.getKeyCode(), mapping));
   }
 
   public Set<HardcodedMapping> getRegisteredMappings()
@@ -55,5 +57,10 @@ public class MappingRegistry
   {
     KeyMapping mapping = keyMappings.get(original);
     return mapping == null ? original : ((KeyMappingAccessor) mapping).getKey().getValue();
+  }
+
+  public KeyMapping getMapping(int original)
+  {
+    return keyMappings.get(original);
   }
 }

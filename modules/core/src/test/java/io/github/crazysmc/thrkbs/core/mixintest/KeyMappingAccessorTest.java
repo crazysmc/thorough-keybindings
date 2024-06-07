@@ -1,7 +1,7 @@
-package io.github.crazysmc.thrkbs;
+package io.github.crazysmc.thrkbs.core.mixintest;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import io.github.crazysmc.thrkbs.mixin.KeyMappingAccessor;
+import io.github.crazysmc.thrkbs.core.mixin.KeyMappingAccessor;
 import net.minecraft.client.KeyMapping;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -10,5 +10,13 @@
     "modmenu": {
       "parent": "thorough-keybindings"
     }
+  },
+  "entrypoints": {
+    "client": [ "io.github.crazysmc.thrkbs.core.ThoroughKeybindings" ]
+  },
+  "mixins": [ "thrkbs.mixins.json" ],
+  "depends": {
+    "fabric-resource-loader-v0": "*",
+    "fabric-key-binding-api-v1": "*"
   }
 }

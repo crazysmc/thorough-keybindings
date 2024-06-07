@@ -6,12 +6,12 @@
   "authors": [ "crazysmc" ],
   "license": "MIT",
   "environment": "client",
-  "entrypoints": {
-    "client": [ "io.github.crazysmc.thrkbs.SimpleKeyDisplay" ]
-  },
   "custom": {
     "modmenu": {
       "parent": "thorough-keybindings"
     }
+  },
+  "depends": {
+    "thorough-keybindings-core": "*"
   }
 }

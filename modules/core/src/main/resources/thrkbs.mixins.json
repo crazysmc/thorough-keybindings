@@ -1,9 +1,9 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.github.crazysmc.thrkbs.mixin",
+  "package": "io.github.crazysmc.thrkbs.core.mixin",
   "compatibilityLevel": "JAVA_8",
-  "plugin": "io.github.crazysmc.thrkbs.MixinPlugin",
+  "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
   "injectors": { "defaultRequire": 1 },
   "client": [
     "KeyMappingAccessor",

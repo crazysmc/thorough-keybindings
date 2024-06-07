@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs;
+package io.github.crazysmc.thrkbs.core;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
@@ -32,7 +32,7 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void onLoad(String mixinPackage)
   {
-//    AnnotationProcessor.init();
+//    AnnotationProcessor.init(); TODO fix me
   }
 
   @Override

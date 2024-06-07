@@ -1,6 +1,6 @@
-package io.github.crazysmc.thrkbs;
+package io.github.crazysmc.thrkbs.core;
 
-import io.github.crazysmc.thrkbs.mixin.KeyMappingAccessor;
+import io.github.crazysmc.thrkbs.core.mixin.KeyMappingAccessor;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;

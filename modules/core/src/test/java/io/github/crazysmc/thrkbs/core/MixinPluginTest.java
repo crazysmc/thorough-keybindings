@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs;
+package io.github.crazysmc.thrkbs.core;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
