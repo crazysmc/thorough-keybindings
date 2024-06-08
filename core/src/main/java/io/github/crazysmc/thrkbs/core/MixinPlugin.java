@@ -1,5 +1,6 @@
 package io.github.crazysmc.thrkbs.core;
 
+import io.github.crazysmc.thrkbs.AnnotationProcessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 import org.apache.logging.log4j.LogManager;
@@ -32,6 +33,7 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void onLoad(String mixinPackage)
   {
+    AnnotationProcessor.init();
   }
 
   @Override

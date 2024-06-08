@@ -38,6 +38,6 @@ dependencyResolutionManagement {
 rootProject.name = 'thrkbs'
 
 include ':ap'
-include ':modules:core'
+include ':core'
 include ':modules:v1.14'
 include ':modules:v1.16'

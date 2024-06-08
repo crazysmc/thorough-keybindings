@@ -31,9 +31,14 @@ def commonConfig(Project project) {
       testImplementation libs.mockito
       testImplementation libs.mojang.logging
 
-      def core = rootProject.project(':modules:core')
-      if (project != core) {
-        implementation core
+      def ap = rootProject.project(':ap')
+      if (project != ap) {
+        modImplementation ap
+
+        def core = rootProject.project(':core')
+        if (project != core) {
+          implementation core
+        }
       }
     }
   }
