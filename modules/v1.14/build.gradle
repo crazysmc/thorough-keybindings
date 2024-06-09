@@ -5,3 +5,5 @@ plugins {
 commonConfig project
 
 base.archivesName = "$mod_id-module-$name"
+
+sourceSets.main.resources.srcDirs += file '../src/main/resources'
