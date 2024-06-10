@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public abstract class InputConstantsMixin
 {
   @Unique
-  private static final MappingRegistry mappingRegistry = ThoroughKeybindings.getMappingRegistry();
+  private static final MappingRegistry MAPPING_REGISTRY = ThoroughKeybindings.getMappingRegistry();
 
   @ModifyVariable(method = "isKeyDown", at = @At("LOAD"), argsOnly = true)
   private static int remapKeyDownArgument(int key)
   {
-    return mappingRegistry.remapKeyCode(key);
+    return MAPPING_REGISTRY.remapKeyCode(key);
   }
 }

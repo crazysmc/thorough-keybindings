@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "injectors": { "defaultRequire": 1 },
   "client": [
-    "DebugScreenOverlayMixin"
+    "DebugScreenOverlayMixin",
+    "KeyboardHandlerMixin"
   ]
 }

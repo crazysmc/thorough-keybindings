@@ -6,4 +6,5 @@ commonConfig project
 
 base.archivesName = "$mod_id-module-$name"
 
+sourceSets.main.java.srcDirs += file '../src/main/java'
 sourceSets.main.resources.srcDirs += file '../src/main/resources'

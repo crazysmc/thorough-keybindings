@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public abstract class DebugScreenOverlayMixin
 {
   @Unique
-  private static final MappingRegistry mappingRegistry = ThoroughKeybindings.getMappingRegistry();
+  private final MappingRegistry mappingRegistry = ThoroughKeybindings.getMappingRegistry();
   @Unique
-  private static final KeyDisplay keyDisplay = KeyDisplay.getProvider();
+  private final KeyDisplay keyDisplay = KeyDisplay.getProvider();
 
   @ModifyConstant(method = "drawGameInformation", constant = @Constant(stringValue = "For help: press F3 + Q"))
   private String debugHelpText(String constant)
