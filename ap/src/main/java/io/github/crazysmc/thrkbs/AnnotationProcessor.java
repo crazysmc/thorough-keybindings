@@ -1,8 +1,6 @@
 package io.github.crazysmc.thrkbs;
 
-import io.github.crazysmc.thrkbs.injector.BeforeIntIfEqual;
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqualInjectionInfo;
-import org.spongepowered.asm.mixin.injection.InjectionPoint;
 import org.spongepowered.asm.mixin.injection.struct.InjectionInfo;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -20,20 +18,15 @@ public class AnnotationProcessor extends AbstractProcessor
     InjectionInfo.register(ModifyIntIfEqualInjectionInfo.class);
   }
 
-  public static void init()
+  @Override
+  public SourceVersion getSupportedSourceVersion()
   {
-    InjectionPoint.register(BeforeIntIfEqual.class, "THRKBS");
+    return SourceVersion.latestSupported();
   }
 
   @Override
   public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment)
   {
     return false;
-  }
-
-  @Override
-  public SourceVersion getSupportedSourceVersion()
-  {
-    return SourceVersion.latestSupported();
   }
 }

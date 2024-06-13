@@ -19,9 +19,11 @@
     }
   },
   "mixins": [
-    "module.mixins.json"
+    "module.mixins.json",
+    "module.${name}.mixins.json"
   ],
   "depends": {
-    "thorough-keybindings-core": "*"
+    "thorough-keybindings-core": "*",
+    "minecraft": "${minecraft_range}"
   }
 }

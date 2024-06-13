@@ -4,7 +4,13 @@
   "package": "io.github.crazysmc.thrkbs.core.mixin",
   "compatibilityLevel": "JAVA_8",
   "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
-  "injectors": { "defaultRequire": 1 },
+  "injectors": {
+    "defaultRequire": 1,
+    "namespace": "THRKBS",
+    "injectionPoints": [
+      "io.github.crazysmc.thrkbs.injector.BeforeIntIfEqual"
+    ]
+  },
   "client": [
     "InputConstantsMixin",
     "KeyMappingAccessor",

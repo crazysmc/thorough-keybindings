@@ -39,7 +39,8 @@ public enum HardcodedMapping
   ALT_2("key.mod.alt.2", GLFW.GLFW_KEY_RIGHT_ALT, "key.categories.modifier"),
   ;
 
-  private static final EnumSet<HardcodedMapping> DEBUG_KEYS = EnumSet.range(CHARTS_PROFILER, RELOAD_RESOURCEPACKS);
+  private static final Set<HardcodedMapping> DEBUG_KEYS = Collections.unmodifiableSet(
+      EnumSet.range(CHARTS_PROFILER, RELOAD_RESOURCEPACKS));
 
   private final String name;
   private final int keyCode;
@@ -54,7 +55,7 @@ public enum HardcodedMapping
 
   public static Set<HardcodedMapping> getDebugKeys()
   {
-    return Collections.unmodifiableSet(DEBUG_KEYS);
+    return DEBUG_KEYS;
   }
 
   public String getName()

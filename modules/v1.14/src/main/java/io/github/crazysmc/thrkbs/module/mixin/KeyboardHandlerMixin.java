@@ -1,11 +1,9 @@
 package io.github.crazysmc.thrkbs.module.mixin;
 
 import io.github.crazysmc.thrkbs.core.DynamicTextReplacer;
-import io.github.crazysmc.thrkbs.core.HardcodedMapping;
 import io.github.crazysmc.thrkbs.core.MappingRegistry;
 import io.github.crazysmc.thrkbs.core.ThoroughKeybindings;
 import io.github.crazysmc.thrkbs.core.api.KeyDisplay;
-import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.client.gui.components.events.ContainerEventHandler;
@@ -16,8 +14,6 @@ import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(KeyboardHandler.class)
@@ -27,11 +23,6 @@ public abstract class KeyboardHandlerMixin
   private final MappingRegistry mappingRegistry = ThoroughKeybindings.getMappingRegistry();
   @Unique
   private final DynamicTextReplacer textReplacer = new DynamicTextReplacer(mappingRegistry, KeyDisplay.getProvider());
-  @Unique
-  private final int[] debugKeys = HardcodedMapping.getDebugKeys()
-      .stream()
-      .mapToInt(HardcodedMapping::getKeyCode)
-      .toArray();
 
   @Redirect(method = "method_1454",
             at = @At(value = "INVOKE",
@@ -40,21 +31,6 @@ public abstract class KeyboardHandlerMixin
   {
     boolean keepKey = key != mappingRegistry.remapKeyCode(GLFW.GLFW_KEY_ESCAPE) || instance instanceof ControlsScreen;
     return instance.keyPressed(keepKey ? key : GLFW.GLFW_KEY_ESCAPE, scancode, action);
-  }
-
-  @ModifyVariable(method = "handleDebugKeys", at = @At("LOAD"), argsOnly = true)
-  private int remapDebugKeySwitch(int key)
-  {
-    for (int debugKey : debugKeys)
-      if (key == mappingRegistry.remapKeyCode(debugKey))
-        return debugKey;
-    return -1;
-  }
-
-  @ModifyIntIfEqual(method = "keyPress", constant = @Constant)
-  private int remapKeyConstant(int constant)
-  {
-    return mappingRegistry.remapKeyCode(constant);
   }
 
   @Redirect(method = "handleDebugKeys",
