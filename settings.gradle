@@ -25,7 +25,7 @@ dependencyResolutionManagement {
           [mc: '1.19', fapi: '0.58.0+1.19', label: '1.19-1.19.2', range: '>=1.19 <1.19.3', java: '17'],
           [mc: '1.19.3', fapi: '0.76.1+1.19.3', range: '=1.19.3', java: '17'],
           [mc: '1.19.4', fapi: '0.87.2+1.19.4', java: '17'],
-          [mc: '1.20', fapi: '0.83.0+1.20', java: '17'],
+          [mc: '1.20', fapi: '0.83.0+1.20', label: '1.20-1.21', range: '>=1.20', java: '17'],
       ]
       def conf = presets[i]
       // for p in {0..7}; do ./gradlew -U :mod:build -Ppreset=$p || break; done
