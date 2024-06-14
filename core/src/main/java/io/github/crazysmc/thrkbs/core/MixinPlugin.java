@@ -1,6 +1,5 @@
 package io.github.crazysmc.thrkbs.core;
 
-import io.github.crazysmc.thrkbs.AnnotationProcessor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +12,8 @@ import org.spongepowered.asm.util.Bytecode;
 
 import java.util.List;
 import java.util.Set;
+
+import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.MAPPING_REGISTRY;
 
 public class MixinPlugin implements IMixinConfigPlugin
 {
@@ -27,8 +28,6 @@ public class MixinPlugin implements IMixinConfigPlugin
     IS_KEY_DOWN.name = RESOLVER.mapMethodName("intermediary", IS_KEY_DOWN.owner, IS_KEY_DOWN.name, IS_KEY_DOWN.desc);
     IS_KEY_DOWN.owner = RESOLVER.mapClassName("intermediary", IS_KEY_DOWN.owner).replace('.', '/');
   }
-
-  private final MappingRegistry mappingRegistry = ThoroughKeybindings.getMappingRegistry();
 
   @Override
   public void onLoad(String mixinPackage)
@@ -66,7 +65,6 @@ public class MixinPlugin implements IMixinConfigPlugin
   @Override
   public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo)
   {
-    System.err.printf("Inspecting class %s for keybindings%n", targetClassName);
     LOGGER.debug("Inspecting class {} for keybindings", targetClassName);
     for (MethodNode method : targetClass.methods)
       for (AbstractInsnNode instruction : method.instructions)
@@ -92,7 +90,7 @@ public class MixinPlugin implements IMixinConfigPlugin
       return;
     int i = (Integer) constant;
     LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) at %2$s", i, instruction.name));
-    if (mappingRegistry.registerKeyCode(i))
+    if (MAPPING_REGISTRY.registerKeyCode(i))
       LOGGER.trace("Registered key code {} at method call", i);
   }
 
@@ -107,7 +105,7 @@ public class MixinPlugin implements IMixinConfigPlugin
         continue;
       int constant = instruction.min + i;
       LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) as table switch case", constant));
-      if (mappingRegistry.registerKeyCode(constant))
+      if (MAPPING_REGISTRY.registerKeyCode(constant))
         LOGGER.trace("Registered key code {} at table switch", constant);
     }
   }
@@ -117,7 +115,7 @@ public class MixinPlugin implements IMixinConfigPlugin
     for (int constant : instruction.keys)
     {
       LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) as lookup switch case", constant));
-      if (mappingRegistry.registerKeyCode(constant))
+      if (MAPPING_REGISTRY.registerKeyCode(constant))
         LOGGER.trace("Registered key code {} at lookup switch", constant);
     }
   }

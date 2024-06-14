@@ -6,6 +6,7 @@ import org.objectweb.asm.tree.AnnotationNode;
 import org.objectweb.asm.tree.InsnList;
 import org.spongepowered.asm.mixin.injection.InjectionPoint.AtCode;
 import org.spongepowered.asm.mixin.injection.points.BeforeConstant;
+import org.spongepowered.asm.mixin.injection.struct.InjectionPointData;
 import org.spongepowered.asm.mixin.refmap.IMixinContext;
 
 import java.util.ArrayList;
@@ -19,6 +20,11 @@ public class BeforeIntIfEqual extends BeforeConstant
     super(context, node, returnType);
   }
 
+  public BeforeIntIfEqual(InjectionPointData data)
+  {
+    super(data);
+  }
+
   @Override
   public boolean find(String desc, InsnList insns, Collection<AbstractInsnNode> nodes)
   {
@@ -28,7 +34,7 @@ public class BeforeIntIfEqual extends BeforeConstant
     boolean found = false;
     for (AbstractInsnNode insn : list)
     {
-      AbstractInsnNode next = insn.getNext();
+      AbstractInsnNode next = insn.getNext(); // TODO format nicer
       if (next == null)
         continue;
       int opcode = next.getOpcode();

@@ -2,9 +2,7 @@ package io.github.crazysmc.thrkbs.core;
 
 import org.lwjgl.glfw.GLFW;
 
-import java.util.Collections;
 import java.util.EnumSet;
-import java.util.Set;
 
 public enum HardcodedMapping
 {
@@ -39,8 +37,10 @@ public enum HardcodedMapping
   ALT_2("key.mod.alt.2", GLFW.GLFW_KEY_RIGHT_ALT, "key.categories.modifier"),
   ;
 
-  private static final Set<HardcodedMapping> DEBUG_KEYS = Collections.unmodifiableSet(
-      EnumSet.range(CHARTS_PROFILER, RELOAD_RESOURCEPACKS));
+  public static final int[] DEBUG_KEYS = EnumSet.range(CHARTS_PROFILER, RELOAD_RESOURCEPACKS)
+      .stream()
+      .mapToInt(HardcodedMapping::getKeyCode)
+      .toArray();
 
   private final String name;
   private final int keyCode;
@@ -51,11 +51,6 @@ public enum HardcodedMapping
     this.name = name;
     this.keyCode = keyCode;
     this.category = category;
-  }
-
-  public static Set<HardcodedMapping> getDebugKeys()
-  {
-    return DEBUG_KEYS;
   }
 
   public String getName()
