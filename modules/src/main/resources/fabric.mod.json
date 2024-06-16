@@ -11,6 +11,7 @@
     "sources": "https://github.com/crazysmc/thorough-keybindings",
     "issues": "https://github.com/crazysmc/thorough-keybindings/issues"
   },
+  "icon": "assets/thorough-keybindings/icon.png",
   "license": "MIT",
   "environment": "client",
   "custom": {
