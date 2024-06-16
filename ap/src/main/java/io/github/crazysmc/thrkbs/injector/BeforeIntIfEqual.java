@@ -34,20 +34,21 @@ public class BeforeIntIfEqual extends BeforeConstant
     boolean found = false;
     for (AbstractInsnNode insn : list)
     {
-      AbstractInsnNode next = insn.getNext(); // TODO format nicer
-      if (next == null)
-        continue;
-      int opcode = next.getOpcode();
-      if (opcode == Opcodes.IF_ICMPNE ||
-          (opcode == Opcodes.ILOAD &&
-              (next = next.getNext()) != null &&
-              next.getOpcode() == Opcodes.IADD &&
-              (next = next.getNext()) != null &&
-              next.getOpcode() == Opcodes.IF_ICMPNE))
-      {
-        nodes.add(insn);
-        found = true;
-      }
+      AbstractInsnNode next = insn.getNext();
+      if (next != null)
+        switch (next.getOpcode())
+        {
+          case Opcodes.ILOAD:
+            next = next.getNext();
+            if (next == null || next.getOpcode() != Opcodes.IADD)
+              break;
+            next = next.getNext();
+            if (next == null || next.getOpcode() != Opcodes.IF_ICMPNE)
+              break;
+          case Opcodes.IF_ICMPNE:
+            nodes.add(insn);
+            found = true;
+        }
     }
     return found;
   }

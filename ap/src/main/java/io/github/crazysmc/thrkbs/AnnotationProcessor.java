@@ -16,6 +16,14 @@ public class AnnotationProcessor extends AbstractProcessor
 {
   private static boolean registered;
 
+  public static void registerInjectionPoints()
+  {
+    if (registered)
+      return;
+    InjectionInfo.register(ModifyIntIfEqualInjectionInfo.class);
+    registered = true;
+  }
+
   @Override
   public SourceVersion getSupportedSourceVersion()
   {
@@ -26,11 +34,7 @@ public class AnnotationProcessor extends AbstractProcessor
   public synchronized void init(ProcessingEnvironment processingEnvironment)
   {
     super.init(processingEnvironment);
-    if (!registered)
-    {
-      InjectionInfo.register(ModifyIntIfEqualInjectionInfo.class);
-      registered = true;
-    }
+    registerInjectionPoints();
   }
 
   @Override
