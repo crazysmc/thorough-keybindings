@@ -21,7 +21,9 @@ def commonConfig(Project project) {
 
   project.dependencies {
     minecraft group: 'com.mojang', name: 'minecraft', version: project.minecraft_version
-    mappings project.loom.officialMojangMappings()
+    mappings project.loom.layered {
+      officialMojangMappings { nameSyntheticMembers = true }
+    }
     modImplementation libs.loader
     if (!isRoot) {
       testImplementation libs.junit

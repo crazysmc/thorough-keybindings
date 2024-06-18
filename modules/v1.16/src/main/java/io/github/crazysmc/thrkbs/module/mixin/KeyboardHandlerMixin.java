@@ -34,6 +34,6 @@ public abstract class KeyboardHandlerMixin
                      target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"))
   private void debugHelpText(ChatComponent instance, Component component)
   {
-    instance.addMessage(new TextComponent(DYNAMIC_TEXT_REPLACER.replaceF3Combos(component.getString())));
+    instance.addMessage(new TextComponent(DYNAMIC_TEXT_REPLACER.debugHelpList(component.getString())));
   }
 }

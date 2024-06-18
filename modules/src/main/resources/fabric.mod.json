@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "thorough-keybindings-module",
+  "id": "${rootProject.name}-${parent.name}",
   "version": "${version}",
-  "name": "Thorough Keybindings Version-Dependent Module",
+  "name": "Thorough Keybindings ${parent.name} Module",
   "authors": [
     "crazysmc"
   ],
@@ -18,11 +18,8 @@
     "modmenu": {
       "parent": "thorough-keybindings"
     }
-  },
-  "mixins": [
-    "module.mixins.json",
-    "module.${name}.mixins.json"
-  ],
+  },<% if (!parent.hasProperty('no_module_mixins')) { %>
+  "mixins": [ "${parent.name}.mixins.json" ],<% } %>
   "depends": {
     "thorough-keybindings-core": "*",
     "minecraft": "${minecraft_range}"

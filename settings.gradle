@@ -39,5 +39,20 @@ rootProject.name = 'thrkbs'
 
 include ':ap'
 include ':core'
-include ':modules:v1.14'
-include ':modules:v1.16'
+
+include ':modules:chat-components:before-22w16a'
+include ':modules:chat-components:since-22w16a'
+
+include ':modules:debug-screen:before-1.15-pre4'
+include ':modules:debug-screen:before-1.15-pre7'
+include ':modules:debug-screen:before-20w17a'
+include ':modules:debug-screen:before-23w16a'
+include ':modules:debug-screen:since-23w16a'
+
+include ':modules:key-display:before-20w17a'
+include ':modules:key-display:since-20w17a'
+
+include ':modules:remap-escape:before-21w20a'
+include ':modules:remap-escape:before-21w37a'
+include ':modules:remap-escape:before-22w46a'
+include ':modules:remap-escape:since-22w46a'

@@ -1,5 +1,6 @@
 package io.github.crazysmc.thrkbs.core;
 
+import io.github.crazysmc.thrkbs.core.api.ChatComponents;
 import io.github.crazysmc.thrkbs.core.api.KeyDisplay;
 import io.github.crazysmc.thrkbs.core.mixin.KeyMappingAccessor;
 import net.fabricmc.api.ClientModInitializer;
@@ -17,24 +18,23 @@ import java.util.ServiceLoader;
 public class ThoroughKeybindings implements ClientModInitializer
 {
   public static final MappingRegistry MAPPING_REGISTRY = new MappingRegistry();
-  public static final KeyDisplay KEY_DISPLAY;
-  public static final DynamicTextReplacer DYNAMIC_TEXT_REPLACER;
+  public static final KeyDisplay KEY_DISPLAY = providerOrNull(KeyDisplay.class);
+  public static final ChatComponents CHAT_COMPONENTS = providerOrNull(ChatComponents.class);
+  public static final DynamicTextReplacer DYNAMIC_TEXT_REPLACER = new DynamicTextReplacer(MAPPING_REGISTRY,
+                                                                                          KEY_DISPLAY);
   private static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings");
 
-  static
+  private static <T> T providerOrNull(Class<T> service)
   {
-    Iterator<KeyDisplay> iterator = ServiceLoader.load(KeyDisplay.class).iterator();
-    KEY_DISPLAY = iterator.hasNext() ? iterator.next() : null;
-    DYNAMIC_TEXT_REPLACER = new DynamicTextReplacer(MAPPING_REGISTRY, KEY_DISPLAY);
+    Iterator<T> iterator = ServiceLoader.load(service).iterator();
+    return iterator.hasNext() ? iterator.next() : null;
   }
 
   @Override
   public void onInitializeClient()
   {
     @SuppressWarnings("unused") Class<?>[] forceLoad = new Class[] {
-        KeyboardHandler.class,
-        Screen.class,
-        DebugScreenOverlay.class,
+        KeyboardHandler.class, Screen.class, DebugScreenOverlay.class,
     };
     for (HardcodedMapping mapping : MAPPING_REGISTRY.getRegisteredMappings())
     {
