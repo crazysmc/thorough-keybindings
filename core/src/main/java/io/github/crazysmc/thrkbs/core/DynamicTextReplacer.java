@@ -62,8 +62,9 @@ public class DynamicTextReplacer
       String f3 = keyDisplay.getDisplayName(mappingRegistry.getMapping(GLFW.GLFW_KEY_F3));
       String key = keyDisplay.getDisplayName(mappingRegistry.getMapping(original));
       String replace = String.format("%s + %s", f3, key);
-      String text = string.substring(0, start) + replace + string.substring(end);
-      string = text.replace(matcher.group(), replace); // duplicate "F3 + C"
+      string = string.substring(0, start) +
+          replace +
+          string.substring(end).replace(matcher.group(), replace); // duplicate "F3 + C"
     }
     return string;
   }
