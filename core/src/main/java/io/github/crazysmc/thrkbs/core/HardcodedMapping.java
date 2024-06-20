@@ -37,6 +37,7 @@ public enum HardcodedMapping
   ALT_2("key.mod.alt.2", GLFW.GLFW_KEY_RIGHT_ALT, "key.categories.modifier"),
   ;
 
+  public static final String DEBUG_CATEGORY = "key.categories.debug";
   public static final int[] DEBUG_KEYS = EnumSet.range(DISABLE_SHADER, RELOAD_RESOURCEPACKS)
       .stream()
       .mapToInt(HardcodedMapping::getKeyCode)

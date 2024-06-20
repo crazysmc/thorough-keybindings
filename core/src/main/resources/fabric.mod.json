@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "thorough-keybindings-core",
+  "id": "${rootProject.name}-core",
   "version": "${version}",
   "name": "Thorough Keybindings Core Module",
   "authors": [

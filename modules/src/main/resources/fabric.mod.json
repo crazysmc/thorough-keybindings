@@ -21,7 +21,7 @@
   },<% if (!parent.hasProperty('no_module_mixins')) { %>
   "mixins": [ "${parent.name}.mixins.json" ],<% } %>
   "depends": {
-    "thorough-keybindings-core": "*",
+    "${rootProject.name}-core": "*",
     "minecraft": "${minecraft_range}"
   }
 }

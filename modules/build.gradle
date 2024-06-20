@@ -1,5 +1,5 @@
 def moduleConfig(Project project) {
-  project.base.archivesName = "$project.rootProject.name-$project.parent.name-$project.name"
+  project.base.archivesName = "$project.rootProject.name-$project.name"
 
   project.sourceSets.main.java.srcDirs += project.file '../src/main/java'
   project.sourceSets.main.java.srcDirs += project.file '../../src/main/java'

@@ -19,18 +19,6 @@ dependencyResolutionManagement {
       library 'loader-junit', 'net.fabricmc', 'fabric-loader-junit' versionRef 'loader'
       library 'mockito', 'org.mockito', 'mockito-junit-jupiter' version '3.+'
       library 'mojang-logging', 'com.mojang', 'logging' version '1.0.0' // work around FabricMC/fabric-loader#817
-
-//      def i = startParameter.projectProperties.preset as Integer ?: 0
-//      def presets = [
-//          [mc: '1.14.4', fapi: '0.28.5+1.14', label: '1.14-1.15', range: '>=1.14 <1.16', java: '8'],
-//          [mc: '1.16', fapi: '0.13.1+build.370-1.16', java: '8'],
-//          [mc: '1.17', fapi: '0.46.1+1.17', java: '16'],
-//          [mc: '1.18', fapi: '0.44.0+1.18', java: '17'],
-//          [mc: '1.19', fapi: '0.58.0+1.19', label: '1.19-1.19.2', range: '>=1.19 <1.19.3', java: '17'],
-//          [mc: '1.19.3', fapi: '0.76.1+1.19.3', range: '=1.19.3', java: '17'],
-//          [mc: '1.19.4', fapi: '0.87.2+1.19.4', java: '17'],
-//          [mc: '1.20', fapi: '0.83.0+1.20', java: '17'],
-//      ]
     }
   }
 }
@@ -40,19 +28,26 @@ rootProject.name = 'thrkbs'
 include ':ap'
 include ':core'
 
-include ':modules:chat-components:before-22w16a'
-include ':modules:chat-components:since-22w16a'
+include ':modules:chat-components:chat-components-before-20w17a'
+include ':modules:chat-components:chat-components-before-22w16a'
+include ':modules:chat-components:chat-components-since-22w16a'
 
-include ':modules:debug-screen:before-1.15-pre4'
-include ':modules:debug-screen:before-1.15-pre7'
-include ':modules:debug-screen:before-20w17a'
-include ':modules:debug-screen:before-23w16a'
-include ':modules:debug-screen:since-23w16a'
+include ':modules:debug-screen:debug-screen-before-1.15-pre4'
+include ':modules:debug-screen:debug-screen-before-1.15-pre7'
+include ':modules:debug-screen:debug-screen-before-20w17a'
+include ':modules:debug-screen:debug-screen-before-23w16a'
+include ':modules:debug-screen:debug-screen-since-23w16a'
 
-include ':modules:key-display:before-20w17a'
-include ':modules:key-display:since-20w17a'
+include ':modules:game-mode-switcher:game-mode-switcher-before-20w20a'
+include ':modules:game-mode-switcher:game-mode-switcher-before-1.16-pre1'
+include ':modules:game-mode-switcher:game-mode-switcher-before-23w16a'
+include ':modules:game-mode-switcher:game-mode-switcher-since-23w16a'
 
-include ':modules:remap-escape:before-21w20a'
-include ':modules:remap-escape:before-21w37a'
-include ':modules:remap-escape:before-22w46a'
-include ':modules:remap-escape:since-22w46a'
+include ':modules:key-display:key-display-before-20w17a'
+include ':modules:key-display:key-display-since-20w17a'
+
+include ':modules:remap-escape:remap-escape-before-20w10a'
+include ':modules:remap-escape:remap-escape-before-21w20a'
+include ':modules:remap-escape:remap-escape-before-21w37a'
+include ':modules:remap-escape:remap-escape-before-22w46a'
+include ':modules:remap-escape:remap-escape-since-22w46a'

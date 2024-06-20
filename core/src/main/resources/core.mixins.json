@@ -15,6 +15,7 @@
     "InputConstantsMixin",
     "KeyboardHandlerMixin",
     "KeyMappingAccessor",
+    "KeyMappingMixin",
     "ScreenMixin"
   ]
 }

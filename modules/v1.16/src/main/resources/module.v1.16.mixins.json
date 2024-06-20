@@ -1,9 +1,0 @@
-{
-  "parent": "module.mixins.json",
-  "package": "io.github.crazysmc.thrkbs.module.mixin",
-  "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
-  "client": [
-    "ControlsScreenMixin",
-    "GameModeSwitcherScreenMixin"
-  ]
-}

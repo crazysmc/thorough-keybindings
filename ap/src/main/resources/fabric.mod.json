@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "thorough-keybindings-ap",
+  "id": "${rootProject.name}-ap",
   "version": "${version}",
   "name": "Thorough Keybindings Annotation Processor",
   "authors": [

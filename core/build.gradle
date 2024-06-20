@@ -4,4 +4,4 @@ plugins {
 
 commonConfig project
 
-base.archivesName = "$mod_id-core"
+base.archivesName = "$rootProject.name-core"
