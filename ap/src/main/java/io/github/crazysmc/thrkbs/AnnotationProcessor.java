@@ -1,11 +1,10 @@
 package io.github.crazysmc.thrkbs;
 
-import io.github.crazysmc.thrkbs.injector.BeforeIntIfEqual;
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqualInjectionInfo;
-import org.spongepowered.asm.mixin.injection.InjectionPoint;
 import org.spongepowered.asm.mixin.injection.struct.InjectionInfo;
 
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.SourceVersion;
@@ -15,25 +14,32 @@ import java.util.Set;
 @SupportedAnnotationTypes({})
 public class AnnotationProcessor extends AbstractProcessor
 {
-  static
+  private static boolean registered;
+
+  public static void registerInjectionPoints()
   {
+    if (registered)
+      return;
     InjectionInfo.register(ModifyIntIfEqualInjectionInfo.class);
-  }
-
-  public static void init()
-  {
-    InjectionPoint.register(BeforeIntIfEqual.class, "THRKBS");
-  }
-
-  @Override
-  public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment)
-  {
-    return false;
+    registered = true;
   }
 
   @Override
   public SourceVersion getSupportedSourceVersion()
   {
     return SourceVersion.latestSupported();
+  }
+
+  @Override
+  public synchronized void init(ProcessingEnvironment processingEnvironment)
+  {
+    super.init(processingEnvironment);
+    registerInjectionPoints();
+  }
+
+  @Override
+  public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnvironment)
+  {
+    return false;
   }
 }

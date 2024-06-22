@@ -1,0 +1,67 @@
+plugins {
+  alias libs.plugins.loom
+}
+
+allprojects {
+  version = mod_version
+  group = maven_group
+
+  tasks.withType Jar configureEach {
+    from rootProject.file('LICENSE')
+  }
+}
+
+def commonConfig(Project project) {
+  def isRoot = project == rootProject
+
+  project.java {
+    toolchain.languageVersion = JavaLanguageVersion.of project.java_version
+    withSourcesJar()
+  }
+
+  project.dependencies {
+    minecraft group: 'com.mojang', name: 'minecraft', version: project.minecraft_version
+    mappings project.loom.layered {
+      officialMojangMappings { nameSyntheticMembers = true }
+    }
+    modImplementation libs.loader
+    if (!isRoot) {
+      testImplementation libs.junit
+      testImplementation libs.loader.junit
+      testImplementation libs.mockito
+      testImplementation libs.mojang.logging
+
+      if (project != rootProject.project(':ap')) {
+        modImplementation fabricApi.module('fabric-resource-loader-v0', project.fabric_api_version)
+        modImplementation fabricApi.module('fabric-key-binding-api-v1', project.fabric_api_version)
+        annotationProcessor implementation(it.project(path: ':ap', configuration: 'namedElements'))
+
+        if (project != rootProject.project(':core')) {
+          implementation it.project(path: ':core', configuration: 'namedElements')
+        }
+      }
+    }
+  }
+
+  project.test {
+    useJUnitPlatform()
+    workingDir = rootProject.layout.buildDirectory.file 'test-run'
+    workingDir.mkdir()
+  }
+
+  project.processResources {
+    inputs.property 'properties', project.properties.toString()
+    filesMatching 'fabric.mod.json', {
+      expand project.properties
+    }
+  }
+
+  if (!isRoot)
+    rootProject.dependencies {
+      include project
+    }
+}
+
+commonConfig project
+
+base.archivesName = mod_id

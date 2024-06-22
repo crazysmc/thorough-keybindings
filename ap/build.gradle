@@ -1,22 +1,7 @@
 plugins {
-  id 'fabric-loom' version libs.versions.loom
+  alias libs.plugins.loom
 }
 
-version = mod_version
-group = maven_group
-base.archivesName = "$mod_id-ap"
+commonConfig project
 
-dependencies {
-  minecraft libs.minecraft
-  mappings loom.officialMojangMappings()
-  modImplementation libs.loader
-}
-
-java {
-  toolchain.languageVersion = JavaLanguageVersion.of libs.versions.java.get()
-  withSourcesJar()
-}
-
-tasks.withType Jar configureEach {
-  from rootProject.file('LICENSE')
-}
+base.archivesName = "$rootProject.name-ap"

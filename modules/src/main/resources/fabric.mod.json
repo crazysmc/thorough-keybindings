@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "${rootProject.name}-${parent.name}",
+  "version": "${version}",
+  "name": "Thorough Keybindings ${parent.name} Module",
+  "authors": [
+    "crazysmc"
+  ],
+  "contact": {
+    "homepage": "https://github.com/crazysmc/thorough-keybindings",
+    "sources": "https://github.com/crazysmc/thorough-keybindings",
+    "issues": "https://github.com/crazysmc/thorough-keybindings/issues"
+  },
+  "icon": "assets/thorough-keybindings/icon.png",
+  "license": "MIT",
+  "environment": "client",
+  "custom": {
+    "modmenu": {
+      "parent": "thorough-keybindings"
+    }
+  },<% if (!parent.hasProperty('no_module_mixins')) { %>
+  "mixins": [ "${parent.name}.mixins.json" ],<% } %>
+  "depends": {
+    "${rootProject.name}-core": "*",
+    "minecraft": "${minecraft_range}"
+  }
+}
