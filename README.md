@@ -18,6 +18,38 @@ Edit the version in `settings.gradle` (adapt the fabric-api version if
 necessary) and run `./gradlew build` or choose a preset setting with
 `-Ppreset=NUM`.
 
+## List of Keybindings
+
+| Category | Default       | Keybinding                                         |
+|----------|---------------|----------------------------------------------------|
+| misc     | ESCAPE        | gameMenu                                           |
+| misc     | F1            | toggleHUD                                          |
+| misc     | F3            | debugInfo                                          |
+| misc     | F4            | disableShader (with debugInfo: game mode switcher) |
+| debug    | 1             | debug.charts.profiler                              |
+| debug    | 2             | debug.charts.fps                                   |
+| debug    | 3             | debug.charts.network                               |
+| debug    | A             | debug.reload_chunks                                |
+| debug    | B             | debug.show_hitboxes (with ctrl: toggle narrator)   |
+| debug    | C             | debug.copy_location                                |
+| debug    | D             | debug.clear_chat                                   |
+| debug    | F             | debug.cycle_renderdistance                         |
+| debug    | G             | debug.chunk_boundaries                             |
+| debug    | H             | debug.advanced_tooltips                            |
+| debug    | I             | debug.inspect                                      |
+| debug    | L             | debug.profiling                                    |
+| debug    | N             | debug.creative_spectator                           |
+| debug    | P             | debug.pause_focus                                  |
+| debug    | Q             | debug.help                                         |
+| debug    | S             | debug.dump_dynamic_textures                        |
+| debug    | T             | debug.reload_resourcepacks                         |
+| modifier | LEFT_SHIFT    | mod.shift.1                                        |
+| modifier | RIGHT_SHIFT   | mod.shift.2                                        |
+| modifier | LEFT_CONTROL  | mod.ctrl.1                                         |
+| modifier | RIGHT_CONTROL | mod.ctrl.2                                         |
+| modifier | LEFT_ALT      | mod.alt.1                                          |
+| modifier | RIGHT_ALT     | mod.alt.2                                          |
+
 ## Some History
 
 | Key        | Version                                  |
