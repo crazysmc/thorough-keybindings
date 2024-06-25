@@ -2,8 +2,8 @@ package io.github.crazysmc.thrkbs.core.mixin;
 
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
 import net.minecraft.client.KeyboardHandler;
-import net.minecraft.client.gui.components.ChatComponent;
-import net.minecraft.network.chat.Component;
+import net.minecraft.client.gui.chat.ChatGui;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
@@ -27,8 +27,8 @@ public abstract class KeyboardHandlerMixin
 
   @Redirect(method = "handleDebugKeys",
             at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"))
-  private void replaceDebugHelpListText(ChatComponent instance, Component component)
+                     target = "Lnet/minecraft/client/gui/chat/ChatGui;addMessage(Lnet/minecraft/text/Text;)V"))
+  private void replaceDebugHelpListText(ChatGui instance, Text component)
   {
     instance.addMessage(CHAT_COMPONENTS.literal(DYNAMIC_TEXT_REPLACER.debugHelpList(component.getString())));
   }

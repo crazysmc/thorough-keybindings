@@ -4,6 +4,14 @@ pluginManagement {
       name = 'Fabric'
       url = 'https://maven.fabricmc.net/'
     }
+    maven {
+      name = 'Ornithe Releases'
+      url = 'https://maven.ornithemc.net/releases'
+    }
+    maven {
+      name = 'Ornithe Snapshots'
+      url = 'https://maven.ornithemc.net/snapshots'
+    }
     gradlePluginPortal()
   }
 }
@@ -13,8 +21,13 @@ dependencyResolutionManagement {
     libs {
       version 'loom', '1.6-SNAPSHOT'
       plugin 'loom', 'fabric-loom' versionRef 'loom'
+      plugin 'ploceus', 'ploceus' versionRef 'loom'
       version 'loader', '0.15.11'
       library 'loader', 'net.fabricmc', 'fabric-loader' versionRef 'loader'
+      version 'osl-core', '0.5.1'
+      version 'osl-entrypoints', '0.4.3'
+      version 'osl-lifecycle-events', '0.5.3'
+      version 'osl-resource-loader', '0.5.0'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
       library 'loader-junit', 'net.fabricmc', 'fabric-loader-junit' versionRef 'loader'
       library 'mockito', 'org.mockito', 'mockito-junit-jupiter' version '3.+'
@@ -29,25 +42,11 @@ include ':ap'
 include ':core'
 
 include ':modules:chat-components:chat-components-before-20w17a'
-include ':modules:chat-components:chat-components-before-22w16a'
-include ':modules:chat-components:chat-components-since-22w16a'
 
 include ':modules:debug-screen:debug-screen-before-1.15-pre4'
-include ':modules:debug-screen:debug-screen-before-1.15-pre7'
-include ':modules:debug-screen:debug-screen-before-20w17a'
-include ':modules:debug-screen:debug-screen-before-23w16a'
-include ':modules:debug-screen:debug-screen-since-23w16a'
 
 include ':modules:game-mode-switcher:game-mode-switcher-before-20w20a'
-include ':modules:game-mode-switcher:game-mode-switcher-before-1.16-pre1'
-include ':modules:game-mode-switcher:game-mode-switcher-before-23w16a'
-include ':modules:game-mode-switcher:game-mode-switcher-since-23w16a'
 
 include ':modules:key-display:key-display-before-20w17a'
-include ':modules:key-display:key-display-since-20w17a'
 
 include ':modules:remap-escape:remap-escape-before-20w10a'
-include ':modules:remap-escape:remap-escape-before-21w20a'
-include ':modules:remap-escape:remap-escape-before-21w37a'
-include ':modules:remap-escape:remap-escape-before-22w46a'
-include ':modules:remap-escape:remap-escape-since-22w46a'

@@ -1,13 +1,13 @@
 package io.github.crazysmc.thrkbs.core.api;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
+import net.minecraft.text.Formatting;
+import net.minecraft.text.Text;
 
 public interface ChatComponents
 {
-  Component literal(String string);
+  Text literal(String string);
 
-  Component translatable(String string, Object... objects);
+  Text translatable(String string, Object... objects);
 
-  Component translatableWithStyle(ChatFormatting style, String string, Object... objects);
+  Text translatableWithStyle(Formatting style, String string, Object... objects);
 }

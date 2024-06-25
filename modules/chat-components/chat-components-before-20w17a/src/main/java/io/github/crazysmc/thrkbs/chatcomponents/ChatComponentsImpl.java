@@ -1,28 +1,28 @@
 package io.github.crazysmc.thrkbs.chatcomponents;
 
 import io.github.crazysmc.thrkbs.core.api.ChatComponents;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.text.Formatting;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 public class ChatComponentsImpl implements ChatComponents
 {
   @Override
-  public Component literal(String string)
+  public Text literal(String string)
   {
-    return new TextComponent(string);
+    return new LiteralText(string);
   }
 
   @Override
-  public Component translatable(String string, Object... objects)
+  public Text translatable(String string, Object... objects)
   {
-    return new TranslatableComponent(string, objects);
+    return new TranslatableText(string, objects);
   }
 
   @Override
-  public Component translatableWithStyle(ChatFormatting style, String string, Object... objects)
+  public Text translatableWithStyle(Formatting style, String string, Object... objects)
   {
-    return new TranslatableComponent(string, objects).withStyle(style);
+    return new TranslatableText(string, objects).setFormatting(style);
   }
 }

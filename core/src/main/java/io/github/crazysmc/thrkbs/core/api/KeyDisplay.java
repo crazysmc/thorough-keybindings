@@ -1,8 +1,8 @@
 package io.github.crazysmc.thrkbs.core.api;
 
-import net.minecraft.client.KeyMapping;
+import net.minecraft.client.options.KeyBinding;
 
 public interface KeyDisplay
 {
-  String getDisplayName(KeyMapping mapping);
+  String getDisplayName(KeyBinding mapping);
 }

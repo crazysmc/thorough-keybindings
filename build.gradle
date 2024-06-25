@@ -1,5 +1,8 @@
+import net.ornithemc.ploceus.api.GameSide
+
 plugins {
   alias libs.plugins.loom
+  alias libs.plugins.ploceus
 }
 
 allprojects {
@@ -15,16 +18,17 @@ def commonConfig(Project project) {
   def isRoot = project == rootProject
 
   project.java {
-    toolchain.languageVersion = JavaLanguageVersion.of project.java_version
+    toolchain.languageVersion = JavaLanguageVersion.of 8
     withSourcesJar()
   }
 
   project.dependencies {
     minecraft group: 'com.mojang', name: 'minecraft', version: project.minecraft_version
-    mappings project.loom.layered {
-      officialMojangMappings { nameSyntheticMembers = true }
-    }
+    mappings project.ploceus.featherMappings(project.feather_build)
+    if (project.hasProperty 'nests_build')
+      nests project.ploceus.nests(project.nests_build)
     modImplementation libs.loader
+    project.ploceus.addCommonLibraries()
     if (!isRoot) {
       testImplementation libs.junit
       testImplementation libs.loader.junit
@@ -32,8 +36,17 @@ def commonConfig(Project project) {
       testImplementation libs.mojang.logging
 
       if (project != rootProject.project(':ap')) {
-        modImplementation fabricApi.module('fabric-resource-loader-v0', project.fabric_api_version)
-        modImplementation fabricApi.module('fabric-key-binding-api-v1', project.fabric_api_version)
+        def side = GameSide.MERGED
+        switch (project.findProperty('environment')) {
+          case 'client':
+            project.loom.clientOnlyMinecraftJar()
+            project.ploceus.clientOnlyMappings()
+            side = GameSide.CLIENT
+        }
+        project.ploceus.dependOslModule 'core', libs.versions.osl.core.get(), side
+        project.ploceus.dependOslModule 'entrypoints', libs.versions.osl.entrypoints.get(), side
+        project.ploceus.dependOslModule 'lifecycle-events', libs.versions.osl.lifecycle.events.get(), side
+        project.ploceus.dependOslModule 'resource-loader', libs.versions.osl.resource.loader.get(), side
         annotationProcessor implementation(it.project(path: ':ap', configuration: 'namedElements'))
 
         if (project != rootProject.project(':core')) {

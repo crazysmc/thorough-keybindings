@@ -3,7 +3,7 @@ package io.github.crazysmc.thrkbs.core;
 import io.github.crazysmc.thrkbs.core.mixin.KeyMappingAccessor;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import net.minecraft.client.KeyMapping;
+import net.minecraft.client.options.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class MappingRegistry
 {
   private static final Set<HardcodedMapping> CHARTS_SET = EnumSet.of(CHARTS_PROFILER, CHARTS_FPS, CHARTS_NETWORK);
   private final Int2ObjectMap<HardcodedMapping> hardcodedMappings = new Int2ObjectOpenHashMap<>();
-  private final Int2ObjectMap<KeyMapping> keyMappings = new Int2ObjectOpenHashMap<>();
+  private final Int2ObjectMap<KeyBinding> keyMappings = new Int2ObjectOpenHashMap<>();
   private final Set<HardcodedMapping> registeredMappings = EnumSet.noneOf(HardcodedMapping.class);
   private int debugCharts;
 
@@ -48,18 +48,18 @@ public class MappingRegistry
     return registeredMappings.add(mapping);
   }
 
-  public void registerMapping(int defaultKey, KeyMapping mapping)
+  public void registerMapping(int defaultKey, KeyBinding mapping)
   {
     keyMappings.put(defaultKey, mapping);
   }
 
   public int remapKeyCode(int defaultKey)
   {
-    KeyMapping mapping = keyMappings.get(defaultKey);
+    KeyBinding mapping = keyMappings.get(defaultKey);
     return mapping == null ? defaultKey : ((KeyMappingAccessor) mapping).getKey().getValue();
   }
 
-  public KeyMapping getMapping(int defaultKey)
+  public KeyBinding getMapping(int defaultKey)
   {
     return keyMappings.get(defaultKey);
   }
