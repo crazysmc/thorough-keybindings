@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import org.spongepowered.asm.util.Bytecode;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -20,14 +21,21 @@ public class MixinPlugin implements IMixinConfigPlugin
 {
   private static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings/Mixin");
   private static final MappingResolver RESOLVER = FabricLoader.getInstance().getMappingResolver();
-  private static final MethodInsnNode IS_KEY_DOWN;
 
-  static
+  private static final MethodInsnNode[] IS_KEY_DOWN = new MethodInsnNode[] {
+      // com/mojang/blaze3d/platform/InputConstants.getKey (JI)Z
+      fromIntermediary("net.minecraft.unmapped.C_8881785", "m_3545877", "(JI)Z"),
+      // com/mojang/blaze3d/platform/InputConstants.getKey (I)Z
+      fromIntermediary("net.minecraft.unmapped.C_8881785", "m_3545877", "(I)Z"),
+      // not obfuscated
+      new MethodInsnNode(0, "org/lwjgl/input/Keyboard", "isKeyDown", "(I)Z"),
+  };
+
+  private static MethodInsnNode fromIntermediary(String owner, String name, String descriptor)
   {
-    // com/mojang/blaze3d/platform/InputConstants.isKeyDown (JI)Z
-    IS_KEY_DOWN = new MethodInsnNode(0, "net.minecraft.class_3675", "method_15987", "(JI)Z");
-    IS_KEY_DOWN.name = RESOLVER.mapMethodName("intermediary", IS_KEY_DOWN.owner, IS_KEY_DOWN.name, IS_KEY_DOWN.desc);
-    IS_KEY_DOWN.owner = RESOLVER.mapClassName("intermediary", IS_KEY_DOWN.owner).replace('.', '/');
+    name = RESOLVER.mapMethodName("intermediary", owner, name, descriptor);
+    owner = RESOLVER.mapClassName("intermediary", owner).replace('.', '/');
+    return new MethodInsnNode(0, owner, name, descriptor);
   }
 
   @Override
@@ -85,7 +93,8 @@ public class MixinPlugin implements IMixinConfigPlugin
 
   private void acceptMethodInsn(MethodInsnNode instruction)
   {
-    if (!match(IS_KEY_DOWN, instruction) && !instruction.name.startsWith("intIfEqual$"))
+    if (Arrays.stream(IS_KEY_DOWN).noneMatch(method -> match(method, instruction)) &&
+        !instruction.name.startsWith("intIfEqual$"))
       return;
     Object constant = Bytecode.getConstant(instruction.getPrevious());
     if (!(constant instanceof Integer))

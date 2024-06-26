@@ -10,8 +10,14 @@ import java.util.Map;
 @Mixin(KeyBinding.class)
 public interface KeyMappingAccessor
 {
-  @Accessor("ALL")
+  @Accessor("ALL") // TODO
   static Map<String, KeyBinding> getAll()
+  {
+    throw new AssertionError();
+  }
+
+  @Accessor("CATEGORY_SORT_ORDER") // TODO
+  static Map<String, Integer> getCategorySortOrder()
   {
     throw new AssertionError();
   }

@@ -31,25 +31,6 @@ public class DynamicTextReplacer
     return f3 == null || q == null ? string : String.format("For help: press %s + %s", f3, q);
   }
 
-  public String debugChartsKeys(String string)
-  {
-    if (!string.startsWith("Debug charts: "))
-      return string;
-    String f3 = keyDisplay.getDisplayName(mappingRegistry.getMapping(GLFW.GLFW_KEY_F3));
-    if (f3 == null)
-      return string;
-    String key1 = keyDisplay.getDisplayName(mappingRegistry.getMapping(GLFW.GLFW_KEY_1));
-    if (key1 != null)
-      string = string.replace("[F3+1]", String.format("[%s+%s]", f3, key1));
-    String key2 = keyDisplay.getDisplayName(mappingRegistry.getMapping(GLFW.GLFW_KEY_2));
-    if (key2 != null)
-      string = string.replace("[F3+2]", String.format("[%s+%s]", f3, key2));
-    String key3 = keyDisplay.getDisplayName(mappingRegistry.getMapping(GLFW.GLFW_KEY_3));
-    if (key3 != null)
-      string = string.replace("[F3+3]", String.format("[%s+%s]", f3, key3));
-    return string;
-  }
-
   public String debugHelpList(String string)
   {
     Matcher matcher = f3PlusKey.matcher(string);

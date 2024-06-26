@@ -45,7 +45,7 @@ include ':modules:chat-components:chat-components-before-20w17a'
 
 include ':modules:debug-screen:debug-screen-before-1.15-pre4'
 
-include ':modules:game-mode-switcher:game-mode-switcher-before-20w20a'
+include ':modules:game-options:game-options-since-todo'
 
 include ':modules:key-display:key-display-before-20w17a'
 

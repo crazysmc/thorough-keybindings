@@ -15,7 +15,7 @@ public abstract class KeyMappingMixin
 {
   @Shadow
   @Final
-  private String category;
+  private String category; // TODO
 
   @Inject(method = "same", at = @At("HEAD"), cancellable = true)
   private void separateDebugCombos(KeyBinding keyMapping, CallbackInfoReturnable<Boolean> cir)
