@@ -12,12 +12,6 @@ Also adds rebinding options for debug key combinations like F3 + Q.
 This mod uses [Fabric](https://fabricmc.net/) and requires the
 [Fabric API](https://modrinth.com/mod/fabric-api) to run.
 
-## Building
-
-Edit the version in `settings.gradle` (adapt the fabric-api version if
-necessary) and run `./gradlew build` or choose a preset setting with
-`-Ppreset=NUM`.
-
 ## List of Keybindings
 
 | Category | Default       | Keybinding                                         |

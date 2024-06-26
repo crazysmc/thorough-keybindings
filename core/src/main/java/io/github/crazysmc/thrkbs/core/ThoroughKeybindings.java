@@ -7,7 +7,6 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyboardHandler;
-import net.minecraft.client.gui.screens.Screen;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,9 +31,7 @@ public class ThoroughKeybindings implements ClientModInitializer
   @Override
   public void onInitializeClient()
   {
-    @SuppressWarnings("unused") Class<?>[] forceLoad = new Class[] {
-        KeyboardHandler.class, Screen.class,
-    };
+    @SuppressWarnings("unused") Class<?> forceLoad = KeyboardHandler.class;
     for (HardcodedMapping mapping : MAPPING_REGISTRY.getRegisteredMappings())
     {
       String name = mapping.getName();
