@@ -13,13 +13,13 @@ class MappingRegistryTest
   @Test
   void getRegisteredMappingsEmpty()
   {
-    assertTrue(new MappingRegistry().getRegisteredMappings().isEmpty());
+    assertTrue(new MappingRegistry(null).getRegisteredMappings().isEmpty());
   }
 
   @Test
   void getRegisteredMappingsAfterRegisterKeyCode()
   {
-    MappingRegistry mappingRegistry = new MappingRegistry();
+    MappingRegistry mappingRegistry = new MappingRegistry(null);
     assertTrue(mappingRegistry.registerKeyCode(GLFW.GLFW_KEY_F3));
     assertIterableEquals(Collections.singleton(HardcodedMapping.DEBUG_INFO), mappingRegistry.getRegisteredMappings());
   }

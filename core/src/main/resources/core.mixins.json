@@ -12,10 +12,6 @@
     ]
   },
   "client": [
-    "InputConstantsMixin",
-    "KeyboardHandlerMixin",
-    "KeyMappingAccessor",
-    "KeyMappingMixin",
     "ScreenMixin"
   ]
 }

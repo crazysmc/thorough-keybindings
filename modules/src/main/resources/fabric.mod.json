@@ -18,7 +18,12 @@
     "modmenu": {
       "parent": "thorough-keybindings"
     }
-  },<% if (!parent.hasProperty('no_module_mixins')) { %>
+  },<% if (project.hasProperty('entrypoint_client')) { %>
+  "entrypoints": {
+    "client": [
+      "${entrypoint_client}"
+    ]
+  },<% } %><% if (!parent.hasProperty('no_module_mixins')) { %>
   "mixins": [ "${parent.name}.mixins.json" ],<% } %>
   "depends": {
     "${rootProject.name}-core": "*",

@@ -1,6 +1,6 @@
 package io.github.crazysmc.thrkbs.core;
 
-import io.github.crazysmc.thrkbs.core.mixin.KeyMappingAccessor;
+import io.github.crazysmc.thrkbs.core.api.KeyDisplay;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.options.KeyBinding;
@@ -19,10 +19,12 @@ public class MappingRegistry
   private final Int2ObjectMap<HardcodedMapping> hardcodedMappings = new Int2ObjectOpenHashMap<>();
   private final Int2ObjectMap<KeyBinding> keyMappings = new Int2ObjectOpenHashMap<>();
   private final Set<HardcodedMapping> registeredMappings = EnumSet.noneOf(HardcodedMapping.class);
+  private final KeyDisplay keyDisplay;
   private int debugCharts;
 
-  public MappingRegistry()
+  public MappingRegistry(KeyDisplay keyDisplay)
   {
+    this.keyDisplay = keyDisplay;
     Arrays.stream(HardcodedMapping.values())
         .unordered()
         .forEach(mapping -> hardcodedMappings.put(mapping.getKeyCode(), mapping));
@@ -48,15 +50,15 @@ public class MappingRegistry
     return registeredMappings.add(mapping);
   }
 
-  public void registerMapping(int defaultKey, KeyBinding mapping)
+  public void registerMapping(KeyBinding mapping)
   {
-    keyMappings.put(defaultKey, mapping);
+    keyMappings.put(keyDisplay.getDefaultKeyCode(mapping), mapping);
   }
 
   public int remapKeyCode(int defaultKey)
   {
     KeyBinding mapping = keyMappings.get(defaultKey);
-    return mapping == null ? defaultKey : ((KeyMappingAccessor) mapping).getKey().getValue();
+    return mapping == null ? defaultKey : keyDisplay.getKeyCode(mapping);
   }
 
   public KeyBinding getMapping(int defaultKey)
