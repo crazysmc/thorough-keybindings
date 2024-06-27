@@ -1,9 +1,0 @@
-{
-  "parent": "core.mixins.json",
-  "package": "io.github.crazysmc.thrkbs.keydisplay.mixin",
-  "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
-  "client": [
-    "KeyMappingAccessor",
-    "KeyMappingMixin"
-  ]
-}

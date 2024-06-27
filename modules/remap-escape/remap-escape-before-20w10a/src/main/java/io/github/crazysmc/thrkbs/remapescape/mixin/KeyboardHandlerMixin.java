@@ -11,7 +11,6 @@ import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 
-import static io.github.crazysmc.thrkbs.core.HardcodedMapping.DEBUG_KEYS;
 import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.*;
 
 @Mixin(KeyboardHandler.class)
@@ -20,7 +19,7 @@ public abstract class KeyboardHandlerMixin
   @ModifyVariable(method = "handleDebugKeys", at = @At("LOAD"), argsOnly = true)
   private int remapDebugKeySwitch(int keyCode)
   {
-    for (int debugKey : DEBUG_KEYS)
+    for (int debugKey : KEY_CODES.getDebugKeys())
       if (keyCode == MAPPING_REGISTRY.remapKeyCode(debugKey))
         return debugKey;
     return -1;

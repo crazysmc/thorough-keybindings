@@ -1,6 +1,6 @@
 package io.github.crazysmc.thrkbs.gameoptions.mixin;
 
-import io.github.crazysmc.thrkbs.core.HardcodedMapping;
+import io.github.crazysmc.thrkbs.core.api.HardcodedMapping;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
 import org.spongepowered.asm.mixin.Final;
@@ -31,7 +31,7 @@ public abstract class GameOptionsMixin
   private void onLoad(CallbackInfo ci)
   {
     Map<String, Integer> categorySortOrder = KeyMappingAccessor.getCategorySortOrder();
-    Set<HardcodedMapping> mappings = MAPPING_REGISTRY.getRegisteredMappings();
+    Set<? extends HardcodedMapping> mappings = MAPPING_REGISTRY.getRegisteredMappings();
     int i = keyBindings.length;
     keyBindings = Arrays.copyOf(keyBindings, i + mappings.size());
     for (HardcodedMapping mapping : mappings)

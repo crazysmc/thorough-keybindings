@@ -52,8 +52,8 @@ include ':modules:input-constants:input-constants-before-17w43a'
 include ':modules:input-constants:input-constants-before-18w44a'
 include ':modules:input-constants:input-constants-since-18w44a'
 
-include ':modules:key-display:key-display-before-17w43a'
-include ':modules:key-display:key-display-before-20w17a'
+include ':modules:key-codes:key-codes-before-17w43a'
+include ':modules:key-codes:key-codes-before-20w17a'
 
 include ':modules:remap-escape:remap-escape-before-17w43a'
 include ':modules:remap-escape:remap-escape-before-19w13a'

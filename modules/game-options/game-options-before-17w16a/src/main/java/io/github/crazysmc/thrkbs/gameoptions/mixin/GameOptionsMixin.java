@@ -1,6 +1,6 @@
 package io.github.crazysmc.thrkbs.gameoptions.mixin;
 
-import io.github.crazysmc.thrkbs.core.HardcodedMapping;
+import io.github.crazysmc.thrkbs.core.api.HardcodedMapping;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,7 +25,7 @@ public abstract class GameOptionsMixin
           at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/GameOptions;load()V"))
   private void onLoad(CallbackInfo ci)
   {
-    Set<HardcodedMapping> mappings = MAPPING_REGISTRY.getRegisteredMappings();
+    Set<? extends HardcodedMapping> mappings = MAPPING_REGISTRY.getRegisteredMappings();
     int i = keyBindings.length;
     keyBindings = Arrays.copyOf(keyBindings, i + mappings.size());
     for (HardcodedMapping mapping : mappings)

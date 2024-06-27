@@ -1,6 +1,7 @@
 package io.github.crazysmc.thrkbs.core;
 
 import io.github.crazysmc.thrkbs.core.api.KeyDisplay;
+import io.github.crazysmc.thrkbs.core.api.MappingRegistry;
 import it.unimi.dsi.fastutil.chars.Char2CharArrayMap;
 import it.unimi.dsi.fastutil.chars.Char2CharMap;
 import org.lwjgl.glfw.GLFW;
