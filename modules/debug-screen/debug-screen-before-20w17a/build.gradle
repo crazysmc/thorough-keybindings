@@ -1,7 +1,1 @@
-plugins {
-  alias libs.plugins.loom
-}
-
-commonConfig project
-
-moduleConfig project
+../../module.gradle
