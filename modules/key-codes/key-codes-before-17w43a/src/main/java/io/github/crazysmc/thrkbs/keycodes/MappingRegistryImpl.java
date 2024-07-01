@@ -5,7 +5,6 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.options.KeyBinding;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
@@ -17,23 +16,26 @@ import static org.lwjgl.input.Keyboard.KEY_1;
 public class MappingRegistryImpl implements MappingRegistry
 {
   private static final Set<HardcodedMappingImpl> HOTBAR_SET = EnumSet.range(HOTBAR_1, HOTBAR_9);
-  private final Int2ObjectMap<HardcodedMappingImpl> hardcodedMappings = new Int2ObjectOpenHashMap<>();
+
+  private final Int2ObjectMap<HardcodedMappingImpl> hardcodedMappings;
   private final Int2ObjectMap<KeyBinding> keyMappings = new Int2ObjectOpenHashMap<>();
   private final Set<HardcodedMappingImpl> registeredMappings = EnumSet.noneOf(HardcodedMappingImpl.class);
+
   private boolean numberKeys;
 
   public MappingRegistryImpl()
   {
-    Arrays.stream(HardcodedMappingImpl.values())
-        .unordered()
-        .forEach(mapping -> hardcodedMappings.put(mapping.getKeyCode(), mapping));
+    HardcodedMappingImpl[] mappings = HardcodedMappingImpl.values();
+    hardcodedMappings = new Int2ObjectOpenHashMap<>(mappings.length);
+    for (HardcodedMappingImpl mapping : mappings)
+      hardcodedMappings.put(mapping.getKeyCode(), mapping);
   }
 
   @Override
   public boolean registerKeyCode(int constant)
   {
     HardcodedMappingImpl mapping = hardcodedMappings.get(constant);
-    if (mapping == null)
+    if (mapping == null || constant == 9)
       return false;
     if (constant == KEY_1 && registeredMappings.contains(mapping))
       numberKeys = true;

@@ -92,12 +92,12 @@ class MixinPluginTest
     ClassNode classNode = new ClassNode();
     MethodNode methodNode = new MethodNode();
     classNode.methods.add(methodNode);
-    methodNode.instructions.add(new LookupSwitchInsnNode(null, new int[] { 'B', 'D' }, null));
+    methodNode.instructions.add(new LookupSwitchInsnNode(null, new int[] { 'B', 'A' }, null));
 
     MappingRegistry mock = mock(MappingRegistry.class);
     mappingRegistry.set(null, mock);
     mixinPlugin.postApply("test-target", classNode, null, null);
     verify(mock).registerKeyCode('B');
-    verify(mock).registerKeyCode('D');
+    verify(mock).registerKeyCode('A');
   }
 }

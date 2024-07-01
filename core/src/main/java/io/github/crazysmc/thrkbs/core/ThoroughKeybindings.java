@@ -18,8 +18,8 @@ public class ThoroughKeybindings implements ClientModInitializer
   public static final KeyDisplay KEY_DISPLAY = providerOrNull(KeyDisplay.class);
   public static final KeyCodes KEY_CODES = providerOrNull(KeyCodes.class);
   public static final MappingRegistry MAPPING_REGISTRY = providerOrNull(MappingRegistry.class);
-  public static final DynamicTextReplacer DYNAMIC_TEXT_REPLACER = new DynamicTextReplacer(MAPPING_REGISTRY,
-                                                                                          KEY_DISPLAY);
+  public static final DynamicTextReplacer DYNAMIC_TEXT_REPLACER =
+      new DynamicTextReplacer(MAPPING_REGISTRY, KEY_DISPLAY, KEY_CODES);
 
   private static <T> T providerOrNull(Class<T> service)
   {
@@ -30,6 +30,6 @@ public class ThoroughKeybindings implements ClientModInitializer
   @Override
   public void onInitializeClient()
   {
-    LOGGER.error("DEBUG Fabric init ran");
+    LOGGER.error("DEBUG Fabric init ran"); // TODO
   }
 }

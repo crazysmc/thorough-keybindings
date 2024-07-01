@@ -123,6 +123,8 @@ public class MixinPlugin implements IMixinConfigPlugin
 
   private void acceptLookupSwitchInsn(LookupSwitchInsnNode instruction)
   {
+    if (!instruction.keys.contains((int) 'A'))
+      return;
     for (int constant : instruction.keys)
     {
       LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) as lookup switch case", constant));
