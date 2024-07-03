@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.keycodes.mixin;
+package io.github.crazysmc.thrkbs.optionsscreen.mixin;
 
 import net.minecraft.client.gui.screen.options.ControlsListWidget;
 import net.minecraft.client.options.KeyBinding;
