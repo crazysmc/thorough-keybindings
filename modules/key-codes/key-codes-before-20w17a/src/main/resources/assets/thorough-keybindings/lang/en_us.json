@@ -1,5 +1,4 @@
 {
-  "debug.gamemodes.press_key": "[ %s ]",
   "key.categories.debug": "Debug Key Combinations",
   "key.categories.modifier": "Modifier Keys",
   "key.debug.advanced_tooltips": "Advanced Item Tooltips",
