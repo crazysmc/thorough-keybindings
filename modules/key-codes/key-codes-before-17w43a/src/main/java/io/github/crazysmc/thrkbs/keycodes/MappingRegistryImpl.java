@@ -9,8 +9,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import static io.github.crazysmc.thrkbs.keycodes.HardcodedMappingImpl.HOTBAR_1;
-import static io.github.crazysmc.thrkbs.keycodes.HardcodedMappingImpl.HOTBAR_9;
+import static io.github.crazysmc.thrkbs.keycodes.HardcodedMappingImpl.*;
 import static org.lwjgl.input.Keyboard.KEY_1;
 
 public class MappingRegistryImpl implements MappingRegistry
@@ -25,7 +24,7 @@ public class MappingRegistryImpl implements MappingRegistry
 
   public MappingRegistryImpl()
   {
-    HardcodedMappingImpl[] mappings = HardcodedMappingImpl.values();
+    HardcodedMappingImpl[] mappings = values();
     hardcodedMappings = new Int2ObjectOpenHashMap<>(mappings.length);
     for (HardcodedMappingImpl mapping : mappings)
       hardcodedMappings.put(mapping.getKeyCode(), mapping);

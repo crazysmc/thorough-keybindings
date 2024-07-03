@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
+import static io.github.crazysmc.thrkbs.keycodes.HardcodedMappingImpl.DEBUG_INFO;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.lwjgl.input.Keyboard.KEY_F3;
@@ -23,7 +24,6 @@ class MappingRegistryImplTest
   {
     MappingRegistry mappingRegistry = new MappingRegistryImpl();
     assertTrue(mappingRegistry.registerKeyCode(KEY_F3));
-    assertIterableEquals(Collections.singleton(HardcodedMappingImpl.DEBUG_INFO),
-                         mappingRegistry.getRegisteredMappings());
+    assertIterableEquals(Collections.singleton(DEBUG_INFO), mappingRegistry.getRegisteredMappings());
   }
 }

@@ -49,10 +49,8 @@ public enum HardcodedMappingImpl implements HardcodedMapping
   ALT_2("key.mod.alt.2", KEY_RMENU, "key.categories.modifier"),
   ;
 
-  public static final int[] DEBUG_KEYS = EnumSet.range(RELOAD_CHUNKS, RELOAD_TEXTURES)
-      .stream()
-      .mapToInt(HardcodedMappingImpl::getKeyCode)
-      .toArray();
+  public static final int[] DEBUG_KEYS =
+      EnumSet.range(RELOAD_CHUNKS, RELOAD_TEXTURES).stream().mapToInt(HardcodedMappingImpl::getKeyCode).toArray();
 
   private final String name;
   private final int keyCode;

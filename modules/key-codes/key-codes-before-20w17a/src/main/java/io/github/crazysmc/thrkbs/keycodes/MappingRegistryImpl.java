@@ -26,7 +26,7 @@ public class MappingRegistryImpl implements MappingRegistry
 
   public MappingRegistryImpl()
   {
-    HardcodedMappingImpl[] mappings = HardcodedMappingImpl.values();
+    HardcodedMappingImpl[] mappings = values();
     hardcodedMappings = new Int2ObjectOpenHashMap<>(mappings.length);
     for (HardcodedMappingImpl mapping : mappings)
       hardcodedMappings.put(mapping.getKeyCode(), mapping);

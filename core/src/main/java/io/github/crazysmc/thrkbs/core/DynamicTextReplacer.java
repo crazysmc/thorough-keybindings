@@ -57,7 +57,7 @@ public class DynamicTextReplacer
       case 'c': // Esc
         return keyCodes.getEscKeyCode();
       case 'Β': // Beta
-        return keyCodes.getEscKeyCode();
+        return keyCodes.getLetterKeyCode('B');
       default:
         return keyCodes.getLetterKeyCode(original);
     }
