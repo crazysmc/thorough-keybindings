@@ -4,28 +4,31 @@ import io.github.crazysmc.thrkbs.core.mixin.KeyMappingAccessor;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.KeyMapping;
-import org.lwjgl.glfw.GLFW;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
 import static io.github.crazysmc.thrkbs.core.HardcodedMapping.*;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_1;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_3;
 
 public class MappingRegistry
 {
   private static final Set<HardcodedMapping> CHARTS_SET = EnumSet.of(CHARTS_PROFILER, CHARTS_FPS, CHARTS_NETWORK);
-  private final Int2ObjectMap<HardcodedMapping> hardcodedMappings = new Int2ObjectOpenHashMap<>();
+
+  private final Int2ObjectMap<HardcodedMapping> hardcodedMappings;
   private final Int2ObjectMap<KeyMapping> keyMappings = new Int2ObjectOpenHashMap<>();
   private final Set<HardcodedMapping> registeredMappings = EnumSet.noneOf(HardcodedMapping.class);
+
   private int debugCharts;
 
   public MappingRegistry()
   {
-    Arrays.stream(HardcodedMapping.values())
-        .unordered()
-        .forEach(mapping -> hardcodedMappings.put(mapping.getKeyCode(), mapping));
+    HardcodedMapping[] mappings = values();
+    hardcodedMappings = new Int2ObjectOpenHashMap<>(mappings.length);
+    for (HardcodedMapping mapping : mappings)
+      hardcodedMappings.put(mapping.getKeyCode(), mapping);
   }
 
   public Set<HardcodedMapping> getRegisteredMappings()
@@ -43,7 +46,7 @@ public class MappingRegistry
     HardcodedMapping mapping = hardcodedMappings.get(constant);
     if (mapping == null)
       return false;
-    if (constant >= GLFW.GLFW_KEY_1 && constant <= GLFW.GLFW_KEY_3 && !registeredMappings.contains(mapping))
+    if (constant >= GLFW_KEY_1 && constant <= GLFW_KEY_3 && !registeredMappings.contains(mapping))
       debugCharts++;
     return registeredMappings.add(mapping);
   }

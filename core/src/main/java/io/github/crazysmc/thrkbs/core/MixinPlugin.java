@@ -20,14 +20,16 @@ public class MixinPlugin implements IMixinConfigPlugin
 {
   private static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings/Mixin");
   private static final MappingResolver RESOLVER = FabricLoader.getInstance().getMappingResolver();
-  private static final MethodInsnNode IS_KEY_DOWN;
 
-  static
+  private static final MethodInsnNode IS_KEY_DOWN =
+      // com/mojang/blaze3d/platform/InputConstants.isKeyDown (JI)Z
+      fromIntermediary("net.minecraft.class_3675", "method_15987", "(JI)Z");
+
+  private static MethodInsnNode fromIntermediary(String owner, String name, String descriptor)
   {
-    // com/mojang/blaze3d/platform/InputConstants.isKeyDown (JI)Z
-    IS_KEY_DOWN = new MethodInsnNode(0, "net.minecraft.class_3675", "method_15987", "(JI)Z");
-    IS_KEY_DOWN.name = RESOLVER.mapMethodName("intermediary", IS_KEY_DOWN.owner, IS_KEY_DOWN.name, IS_KEY_DOWN.desc);
-    IS_KEY_DOWN.owner = RESOLVER.mapClassName("intermediary", IS_KEY_DOWN.owner).replace('.', '/');
+    name = RESOLVER.mapMethodName("intermediary", owner, name, descriptor);
+    owner = RESOLVER.mapClassName("intermediary", owner).replace('.', '/');
+    return new MethodInsnNode(0, owner, name, descriptor);
   }
 
   @Override
@@ -114,6 +116,8 @@ public class MixinPlugin implements IMixinConfigPlugin
 
   private void acceptLookupSwitchInsn(LookupSwitchInsnNode instruction)
   {
+    if (!instruction.keys.contains((int) 'A'))
+      return;
     for (int constant : instruction.keys)
     {
       LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) as lookup switch case", constant));
