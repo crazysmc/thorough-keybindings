@@ -28,7 +28,8 @@
     "${parent.name}.mixins.json"
   ],
   "<% } %>depends": {
-    "${rootProject.name}-core": "*",
-    "minecraft": "${minecraft_range}"
+    "<% if (minecraft_range.contains ',') { %>minecraft": ["${minecraft_range}"],
+    "<% } else { %>minecraft": "${minecraft_range}",
+    "<% } %>${rootProject.name}-core": "*"
   }
 }
