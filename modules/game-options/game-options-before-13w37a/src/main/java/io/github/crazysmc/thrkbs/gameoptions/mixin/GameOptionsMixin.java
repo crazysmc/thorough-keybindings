@@ -3,16 +3,13 @@ package io.github.crazysmc.thrkbs.gameoptions.mixin;
 import io.github.crazysmc.thrkbs.core.api.HardcodedMapping;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
 
 import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.LOGGER;
@@ -21,8 +18,6 @@ import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.MAPPING_REGISTR
 @Mixin(GameOptions.class)
 public abstract class GameOptionsMixin
 {
-  @Mutable
-  @Final
   @Shadow
   public KeyBinding[] keyBindings;
 
@@ -30,7 +25,6 @@ public abstract class GameOptionsMixin
           at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/GameOptions;load()V"))
   private void onLoad(CallbackInfo ci)
   {
-    Map<String, Integer> categorySortOrder = KeyMappingAccessor.getCategorySortOrder();
     Set<? extends HardcodedMapping> mappings = MAPPING_REGISTRY.getRegisteredMappings();
     int i = keyBindings.length;
     keyBindings = Arrays.copyOf(keyBindings, i + mappings.size());
@@ -38,11 +32,9 @@ public abstract class GameOptionsMixin
     {
       String name = mapping.getName();
       int keyCode = mapping.getKeyCode();
-      String category = mapping.getCategory();
       LOGGER.info("Add keybinding {}", name);
-      KeyBinding keyMapping = new KeyBinding(name, keyCode, category);
-      categorySortOrder.computeIfAbsent(category, s -> categorySortOrder.size() + 1);
-      KeyMappingAccessor.getAll().remove(name);
+      KeyBinding keyMapping = new KeyBinding(name, keyCode);
+      KeyMappingAccessor.getAll().remove(keyMapping);
       keyBindings[i++] = keyMapping;
       MAPPING_REGISTRY.registerMapping(keyCode, keyMapping);
     }

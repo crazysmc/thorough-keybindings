@@ -10,7 +10,7 @@ public interface MappingRegistry
 
   Set<? extends HardcodedMapping> getRegisteredMappings();
 
-  void registerMapping(KeyBinding mapping);
+  void registerMapping(int defaultKey, KeyBinding mapping);
 
   int remapKeyCode(int defaultKey);
 

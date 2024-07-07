@@ -55,9 +55,9 @@ public class MappingRegistryImpl implements MappingRegistry
   }
 
   @Override
-  public void registerMapping(KeyBinding mapping)
+  public void registerMapping(int defaultKey, KeyBinding mapping)
   {
-    keyMappings.put(mapping.getDefaultKey().getValue(), mapping);
+    keyMappings.put(defaultKey, mapping);
   }
 
   @Override

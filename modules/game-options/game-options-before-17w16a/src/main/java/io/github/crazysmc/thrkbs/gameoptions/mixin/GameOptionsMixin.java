@@ -31,12 +31,12 @@ public abstract class GameOptionsMixin
     for (HardcodedMapping mapping : mappings)
     {
       String name = mapping.getName();
-      String category = mapping.getCategory();
+      int keyCode = mapping.getKeyCode();
       LOGGER.info("Add keybinding {}", name);
-      KeyBinding keyMapping = new KeyBinding(name, mapping.getKeyCode(), category);
+      KeyBinding keyMapping = new KeyBinding(name, keyCode, mapping.getCategory());
       KeyMappingAccessor.getAll().remove(keyMapping);
       keyBindings[i++] = keyMapping;
-      MAPPING_REGISTRY.registerMapping(keyMapping);
+      MAPPING_REGISTRY.registerMapping(keyCode, keyMapping);
     }
     KeyBinding.resetMapping();
   }

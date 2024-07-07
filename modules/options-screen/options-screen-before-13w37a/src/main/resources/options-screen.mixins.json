@@ -3,5 +3,7 @@
   "package": "io.github.crazysmc.thrkbs.optionsscreen.mixin",
   "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
   "client": [
+    "ControlsOptionsScreenMixin",
+    "OptionsScreenMixin"
   ]
 }

@@ -27,7 +27,7 @@ dependencyResolutionManagement {
       version 'osl-core', '0.5.1'
       version 'osl-entrypoints', '0.4.3'
       version 'osl-lifecycle-events', '0.5.4'
-      version 'osl-resource-loader', '0.5.2'
+      version 'osl-resource-loader', '0.5.3'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
       library 'loader-junit', 'net.fabricmc', 'fabric-loader-junit' versionRef 'loader'
       library 'mockito', 'org.mockito', 'mockito-junit-jupiter' version '3.+'
@@ -41,10 +41,12 @@ rootProject.name = 'thrkbs'
 include ':ap'
 include ':core'
 
+include ':modules:chat-components:chat-components-before-13w37a'
 include ':modules:chat-components:chat-components-before-20w17a'
 
 include ':modules:debug-screen:debug-screen-before-1.15-pre4'
 
+include ':modules:game-options:game-options-before-13w37a'
 include ':modules:game-options:game-options-before-17w16a'
 include ':modules:game-options:game-options-since-17w16a'
 
@@ -62,6 +64,7 @@ include ':modules:options-screen:options-screen-before-1.8.2-pre5'
 include ':modules:options-screen:options-screen-before-17w13a'
 include ':modules:options-screen:options-screen-before-17w43a'
 
+include ':modules:remap-escape:remap-escape-before-13w37a'
 include ':modules:remap-escape:remap-escape-only-1.7.10-before-pre3'
 include ':modules:remap-escape:remap-escape-only-1.7.10-since-pre3'
 include ':modules:remap-escape:remap-escape-before-15w43a'
