@@ -4,6 +4,7 @@
   "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
   "client": [
     "ControlsScreenMixin",
+    "InventoryMenuScreenMixin",
     "MinecraftMixin"
   ]
 }

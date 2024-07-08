@@ -24,7 +24,7 @@ dependencyResolutionManagement {
       plugin 'ploceus', 'ploceus' versionRef 'loom'
       version 'loader', '0.15.11'
       library 'loader', 'net.fabricmc', 'fabric-loader' versionRef 'loader'
-      version 'osl-core', '0.5.1'
+      version 'osl-core', '0.6.0'
       version 'osl-entrypoints', '0.4.3'
       version 'osl-lifecycle-events', '0.5.4'
       version 'osl-resource-loader', '0.5.3'
