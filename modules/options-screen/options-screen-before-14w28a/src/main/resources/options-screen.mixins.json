@@ -1,8 +1,0 @@
-{
-  "parent": "core.mixins.json",
-  "package": "io.github.crazysmc.thrkbs.optionsscreen.mixin",
-  "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
-  "client": [
-    "KeyBindingEntryMixin"
-  ]
-}

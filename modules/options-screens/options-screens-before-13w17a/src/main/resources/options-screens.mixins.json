@@ -1,0 +1,9 @@
+{
+  "parent": "core.mixins.json",
+  "package": "io.github.crazysmc.thrkbs.optionsscreens.mixin",
+  "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
+  "client": [
+    "ControlsOptionsScreenMixin",
+    "OptionsScreenMixin"
+  ]
+}

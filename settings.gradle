@@ -46,6 +46,7 @@ include ':modules:chat-components:chat-components-before-20w17a'
 
 include ':modules:debug-screen:debug-screen-before-1.15-pre4'
 
+include ':modules:game-options:game-options-before-13w17a'
 include ':modules:game-options:game-options-before-13w37a'
 include ':modules:game-options:game-options-before-17w16a'
 include ':modules:game-options:game-options-since-17w16a'
@@ -57,13 +58,15 @@ include ':modules:input-constants:input-constants-since-18w44a'
 include ':modules:key-codes:key-codes-before-17w43a'
 include ':modules:key-codes:key-codes-before-20w17a'
 
-include ':modules:options-screen:options-screen-before-13w37a'
-include ':modules:options-screen:options-screen-before-14w02a'
-include ':modules:options-screen:options-screen-before-14w28a'
 include ':modules:options-screen:options-screen-before-1.8.2-pre5'
+include ':modules:options-screen:options-screen-before-14w28a'
 include ':modules:options-screen:options-screen-before-17w13a'
 include ':modules:options-screen:options-screen-before-17w43a'
 
+include ':modules:options-screens:options-screens-before-13w17a'
+include ':modules:options-screens:options-screens-before-13w37a'
+
+// TODO rename to remap-keys or something
 include ':modules:remap-escape:remap-escape-before-13w37a'
 include ':modules:remap-escape:remap-escape-only-1.7.10-before-pre3'
 include ':modules:remap-escape:remap-escape-only-1.7.10-since-pre3'
