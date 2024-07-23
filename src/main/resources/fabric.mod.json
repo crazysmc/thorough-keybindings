@@ -16,8 +16,7 @@
   "license": "MIT",
   "environment": "client",
   "depends": {
-    "fabricloader": ">=0.15.9",
-    "osl-entrypoints": "*"
+    "fabricloader": ">=0.15.9"
   },
   "recommends": {
     "osl-resource-loader": "*"

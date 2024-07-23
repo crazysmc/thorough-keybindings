@@ -67,6 +67,7 @@ include ':modules:options-screens:options-screens-before-13w17a'
 include ':modules:options-screens:options-screens-before-13w37a'
 
 // TODO rename to remap-keys or something
+include ':modules:remap-escape:remap-escape-before-13w16a'
 include ':modules:remap-escape:remap-escape-before-13w37a'
 include ':modules:remap-escape:remap-escape-only-1.7.10-before-pre3'
 include ':modules:remap-escape:remap-escape-only-1.7.10-since-pre3'

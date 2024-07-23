@@ -30,6 +30,5 @@ public class ThoroughKeybindings implements ClientModInitializer
   @Override
   public void onInitializeClient()
   {
-    LOGGER.error("DEBUG Fabric init ran"); // TODO
   }
 }
