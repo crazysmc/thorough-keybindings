@@ -1,9 +1,8 @@
 {
   "parent": "core.mixins.json",
-  "package": "io.github.crazysmc.thrkbs.remapkeys.mixin",
+  "package": "io.github.crazysmc.thrkbs.remapinventory.mixin",
   "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
   "client": [
-    "ControlsScreenMixin",
-    "MinecraftMixin"
+    "InventoryMenuScreenMixin"
   ]
 }

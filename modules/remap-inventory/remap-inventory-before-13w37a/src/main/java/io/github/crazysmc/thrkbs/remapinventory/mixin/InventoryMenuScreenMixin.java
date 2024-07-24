@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.remapkeys.mixin;
+package io.github.crazysmc.thrkbs.remapinventory.mixin;
 
 import net.minecraft.client.gui.screen.inventory.menu.InventoryMenuScreen;
 import net.minecraft.inventory.slot.InventorySlot;
@@ -18,7 +18,7 @@ public abstract class InventoryMenuScreenMixin
   private InventorySlot hoveredSlot;
 
   @Shadow
-  protected abstract void clickSlot(InventorySlot par1, int par2, int par3, int par4);
+  protected abstract void clickSlot(InventorySlot invSlot, int slotId, int clickData, int actionType);
 
   @Inject(method = "moveHoveredSlotToHotbar", at = @At(value = "CONSTANT", args = "intValue=9"), cancellable = true)
   private void remapHotbarKeys(int keyCode, CallbackInfoReturnable<Boolean> cir)
