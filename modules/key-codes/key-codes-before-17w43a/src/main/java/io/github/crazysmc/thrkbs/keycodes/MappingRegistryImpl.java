@@ -11,7 +11,6 @@ import java.util.EnumSet;
 import java.util.Set;
 
 import static io.github.crazysmc.thrkbs.keycodes.HardcodedMappingImpl.*;
-import static org.lwjgl.input.Keyboard.KEY_1;
 
 public class MappingRegistryImpl implements MappingRegistry
 {
@@ -20,8 +19,6 @@ public class MappingRegistryImpl implements MappingRegistry
   private final Int2ObjectMap<HardcodedMappingImpl> hardcodedMappings;
   private final Int2ObjectMap<KeyBinding> keyMappings = new Int2ObjectOpenHashMap<>();
   private final Set<HardcodedMappingImpl> registeredMappings = EnumSet.noneOf(HardcodedMappingImpl.class);
-
-  private boolean numberKeys;
 
   public MappingRegistryImpl()
   {
@@ -35,17 +32,16 @@ public class MappingRegistryImpl implements MappingRegistry
   public boolean registerKeyCode(int constant)
   {
     HardcodedMappingImpl mapping = hardcodedMappings.get(constant);
-    if (mapping == null || constant == 9)
+    if (mapping == null)
       return false;
-    if (constant == KEY_1 && registeredMappings.contains(mapping))
-      numberKeys = true;
     return registeredMappings.add(mapping);
   }
 
   @Override
   public Set<HardcodedMappingImpl> getRegisteredMappings()
   {
-    if (numberKeys)
+    /* rebinding of hotbar hotkeys was added at the same time as the togglePerspective key, 13w37a */
+    if (registeredMappings.contains(TOGGLE_PERSPECTIVE))
       registeredMappings.addAll(HOTBAR_SET);
     else
       registeredMappings.removeAll(HOTBAR_SET);
