@@ -31,11 +31,9 @@ public abstract class GameOptionsMixin
     {
       String name = mapping.getName();
       int keyCode = mapping.getKeyCode();
-      KeyBinding keyMapping = new KeyBinding(name, keyCode, mapping.getCategory());
-      KeyMappingAccessor.getAll().remove(keyMapping);
+      KeyBinding keyMapping = new KeyBinding(name, keyCode);
       keyBindings[i++] = keyMapping;
       MAPPING_REGISTRY.registerMapping(keyCode, name, keyMapping);
     }
-    KeyBinding.resetMapping();
   }
 }

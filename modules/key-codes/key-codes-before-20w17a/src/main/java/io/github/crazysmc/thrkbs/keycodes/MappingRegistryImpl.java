@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
+import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.LOGGER;
 import static io.github.crazysmc.thrkbs.keycodes.HardcodedMappingImpl.*;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_1;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_3;
@@ -55,8 +56,9 @@ public class MappingRegistryImpl implements MappingRegistry
   }
 
   @Override
-  public void registerMapping(int defaultKey, KeyBinding mapping)
+  public void registerMapping(int defaultKey, String name, KeyBinding mapping)
   {
+    LOGGER.info("Add keybinding {}", name); // TODO make debug level
     keyMappings.put(defaultKey, mapping);
   }
 

@@ -42,6 +42,7 @@ include ':modules:chat-components:chat-components-before-20w17a'
 
 include ':modules:debug-screen:debug-screen-before-1.15-pre4'
 
+include ':modules:game-options:game-options-before-b1.8'
 include ':modules:game-options:game-options-before-13w17a'
 include ':modules:game-options:game-options-before-13w37a'
 include ':modules:game-options:game-options-before-17w16a'
@@ -65,6 +66,7 @@ include ':modules:options-screens:options-screens-before-13w37a'
 
 include ':modules:remap-inventory:remap-inventory-before-13w37a'
 
+include ':modules:remap-keys:remap-keys-before-b1.8'
 include ':modules:remap-keys:remap-keys-before-12w18a'
 include ':modules:remap-keys:remap-keys-before-13w16a'
 include ':modules:remap-keys:remap-keys-before-13w37a'

@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Arrays;
 import java.util.Set;
 
-import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.LOGGER;
 import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.MAPPING_REGISTRY;
 
 @Mixin(GameOptions.class)
@@ -32,11 +31,10 @@ public abstract class GameOptionsMixin
     {
       String name = mapping.getName();
       int keyCode = mapping.getKeyCode();
-      LOGGER.info("Add keybinding {}", name);
       KeyBinding keyMapping = new KeyBinding(name, keyCode);
       KeyBinding.ALL.remove(keyMapping);
       keyBindings[i++] = keyMapping;
-      MAPPING_REGISTRY.registerMapping(keyCode, keyMapping);
+      MAPPING_REGISTRY.registerMapping(keyCode, name, keyMapping);
     }
     KeyBinding.resetMapping();
   }
