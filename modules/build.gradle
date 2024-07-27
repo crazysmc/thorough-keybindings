@@ -5,4 +5,7 @@ def moduleConfig(Project project) {
   project.sourceSets.main.java.srcDirs += project.file '../../src/main/java'
   project.sourceSets.main.resources.srcDirs += project.file '../src/main/resources'
   project.sourceSets.main.resources.srcDirs += project.file '../../src/main/resources'
+
+  if (project.hasProperty 'access_widener')
+    project.loom.accessWidenerPath = project.file "src/main/resources/$project.access_widener"
 }

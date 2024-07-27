@@ -1,6 +1,7 @@
 package io.github.crazysmc.thrkbs.core;
 
 import io.github.crazysmc.thrkbs.AnnotationProcessor;
+import io.github.crazysmc.thrkbs.core.api.MappingRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.MappingResolver;
 import org.apache.logging.log4j.LogManager;
@@ -15,8 +16,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.MAPPING_REGISTRY;
-
 public class MixinPlugin implements IMixinConfigPlugin
 {
   private static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings/Mixin");
@@ -30,6 +29,8 @@ public class MixinPlugin implements IMixinConfigPlugin
       // not obfuscated
       new MethodInsnNode(0, "org/lwjgl/input/Keyboard", "isKeyDown", "(I)Z"),
   };
+
+  private final MappingRegistry mappingRegistry = ThoroughKeybindings.MAPPING_REGISTRY;
 
   private static MethodInsnNode fromIntermediary(String owner, String name, String descriptor)
   {
@@ -101,7 +102,7 @@ public class MixinPlugin implements IMixinConfigPlugin
       return;
     int i = (Integer) constant;
     LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) at %2$s", i, instruction.name));
-    if (MAPPING_REGISTRY.registerKeyCode(i))
+    if (mappingRegistry.registerKeyCode(i))
       LOGGER.trace("Registered key code {} at method call", i);
   }
 
@@ -116,7 +117,7 @@ public class MixinPlugin implements IMixinConfigPlugin
         continue;
       int constant = instruction.min + i;
       LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) as table switch case", constant));
-      if (MAPPING_REGISTRY.registerKeyCode(constant))
+      if (mappingRegistry.registerKeyCode(constant))
         LOGGER.trace("Registered key code {} at table switch", constant);
     }
   }
@@ -128,7 +129,7 @@ public class MixinPlugin implements IMixinConfigPlugin
     for (int constant : instruction.keys)
     {
       LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) as lookup switch case", constant));
-      if (MAPPING_REGISTRY.registerKeyCode(constant))
+      if (mappingRegistry.registerKeyCode(constant))
         LOGGER.trace("Registered key code {} at lookup switch", constant);
     }
   }

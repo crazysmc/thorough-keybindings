@@ -1,7 +1,6 @@
 package io.github.crazysmc.thrkbs.keycodes;
 
 import io.github.crazysmc.thrkbs.core.api.MappingRegistry;
-import io.github.crazysmc.thrkbs.keycodes.mixin.KeyMappingAccessor;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.options.KeyBinding;
@@ -60,7 +59,7 @@ public class MappingRegistryImpl implements MappingRegistry
   public int remapKeyCode(int defaultKey)
   {
     KeyBinding mapping = keyMappings.get(defaultKey);
-    return mapping == null ? defaultKey : ((KeyMappingAccessor) mapping).getKeyCode();
+    return mapping == null ? defaultKey : mapping.keyCode;
   }
 
   @Override

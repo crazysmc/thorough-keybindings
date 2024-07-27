@@ -24,6 +24,7 @@
       "${entrypoint_client}"
     ]
   },
+  "<% } %><% if (project.hasProperty('access_widener')) { %>accessWidener": "${access_widener}",
   "<% } %><% if (!parent.hasProperty('no_module_mixins')) { %>mixins": [
     "${parent.name}.mixins.json"
   ],

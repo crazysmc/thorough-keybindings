@@ -19,7 +19,7 @@ pluginManagement {
 dependencyResolutionManagement {
   versionCatalogs {
     libs {
-      version 'loom', '1.6-SNAPSHOT'
+      version 'loom', '1.7-SNAPSHOT'
       plugin 'loom', 'fabric-loom' versionRef 'loom'
       plugin 'ploceus', 'ploceus' versionRef 'loom'
       version 'loader', '0.16.0'

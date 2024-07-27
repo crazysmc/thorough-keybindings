@@ -59,7 +59,9 @@ def commonConfig(Project project) {
   }
 
   project.processResources {
-    inputs.property 'properties', project.properties.toString()
+    def f = project.file('gradle.properties')
+    if (f.exists())
+      inputs.file(f)
     filesMatching 'fabric.mod.json', {
       expand project.properties
     }

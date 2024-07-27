@@ -3,6 +3,5 @@
   "package": "io.github.crazysmc.thrkbs.keycodes.mixin",
   "plugin": "io.github.crazysmc.thrkbs.core.MixinPlugin",
   "client": [
-    "KeyMappingAccessor"
   ]
 }
