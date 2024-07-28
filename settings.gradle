@@ -60,6 +60,7 @@ include ':modules:options-screen:options-screen-before-14w28a'
 include ':modules:options-screen:options-screen-before-17w13a'
 include ':modules:options-screen:options-screen-before-17w43a'
 
+include ':modules:options-screens:options-screens-before-b1.8'
 include ':modules:options-screens:options-screens-before-1.0.0-rc1'
 include ':modules:options-screens:options-screens-before-13w17a'
 include ':modules:options-screens:options-screens-before-13w37a'
