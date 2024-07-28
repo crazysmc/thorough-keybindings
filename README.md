@@ -2,12 +2,16 @@
 
 For as many Minecraft versions as possible, this mod makes the keybindings of
 usually fixed mappings rebindable.
-This project branch supports releases 1.14 through 1.20.
+This project branch supports releases 1.14 through 1.21.
+Check out the Ornithe version for legacy support!
 
 For example, this lets you remap F3 or Esc in-game, without external software.
 Also adds rebinding options for debug key combinations like F3 + Q.
 
 ## Usage
+
+The latest release can also be found
+on [Modrinth](https://modrinth.com/mod/thorough-keybindings).
 
 This mod uses [Fabric](https://fabricmc.net/) and requires the
 [Fabric API](https://modrinth.com/mod/fabric-api) to run.

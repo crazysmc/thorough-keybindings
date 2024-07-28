@@ -1,14 +1,11 @@
 package io.github.crazysmc.thrkbs.remapescape.mixin;
 
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import net.minecraft.client.gui.screens.controls.ControlsScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.MAPPING_REGISTRY;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
@@ -22,11 +19,11 @@ public abstract class KeyBindsScreenMixin
     return MAPPING_REGISTRY.remapKeyCode(constant);
   }
 
-  @Inject(method = "keyPressed", at = @At(value = "RETURN", ordinal = 1))
-  private void remapEscapeKeySuper(CallbackInfoReturnable<Boolean> cir,
-                                   @Local(ordinal = 0, argsOnly = true) LocalIntRef keyCode)
+  @ModifyArg(method = "keyPressed",
+             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/OptionsSubScreen;keyPressed(III)Z"),
+             index = 0)
+  private int remapEscapeKeySuper(int keyCode)
   {
-    if (keyCode.get() == MAPPING_REGISTRY.remapKeyCode(GLFW_KEY_ESCAPE))
-      keyCode.set(GLFW_KEY_ESCAPE);
+    return keyCode == MAPPING_REGISTRY.remapKeyCode(GLFW_KEY_ESCAPE) ? GLFW_KEY_ESCAPE : keyCode;
   }
 }

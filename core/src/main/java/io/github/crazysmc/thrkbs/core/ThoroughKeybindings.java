@@ -18,8 +18,8 @@ public class ThoroughKeybindings implements ClientModInitializer
   public static final MappingRegistry MAPPING_REGISTRY = new MappingRegistry();
   public static final KeyDisplay KEY_DISPLAY = providerOrNull(KeyDisplay.class);
   public static final ChatComponents CHAT_COMPONENTS = providerOrNull(ChatComponents.class);
-  public static final DynamicTextReplacer DYNAMIC_TEXT_REPLACER = new DynamicTextReplacer(MAPPING_REGISTRY,
-                                                                                          KEY_DISPLAY);
+  public static final DynamicTextReplacer DYNAMIC_TEXT_REPLACER =
+      new DynamicTextReplacer(MAPPING_REGISTRY, KEY_DISPLAY);
   private static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings");
 
   private static <T> T providerOrNull(Class<T> service)
@@ -35,7 +35,7 @@ public class ThoroughKeybindings implements ClientModInitializer
     for (HardcodedMapping mapping : MAPPING_REGISTRY.getRegisteredMappings())
     {
       String name = mapping.getName();
-      LOGGER.info("Add keybinding {}", name);
+      LOGGER.debug("Add keybinding {}", name);
       KeyMapping keyMapping = new KeyMapping(name, mapping.getKeyCode(), mapping.getCategory());
       KeyBindingHelper.registerKeyBinding(keyMapping);
       KeyMappingAccessor.getAll().remove(name);

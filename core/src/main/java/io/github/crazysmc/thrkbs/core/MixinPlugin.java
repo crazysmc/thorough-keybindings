@@ -14,8 +14,6 @@ import org.spongepowered.asm.util.Bytecode;
 import java.util.List;
 import java.util.Set;
 
-import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.MAPPING_REGISTRY;
-
 public class MixinPlugin implements IMixinConfigPlugin
 {
   private static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings/Mixin");
@@ -24,6 +22,8 @@ public class MixinPlugin implements IMixinConfigPlugin
   private static final MethodInsnNode IS_KEY_DOWN =
       // com/mojang/blaze3d/platform/InputConstants.isKeyDown (JI)Z
       fromIntermediary("net.minecraft.class_3675", "method_15987", "(JI)Z");
+
+  private final MappingRegistry mappingRegistry = ThoroughKeybindings.MAPPING_REGISTRY;
 
   private static MethodInsnNode fromIntermediary(String owner, String name, String descriptor)
   {
@@ -94,7 +94,7 @@ public class MixinPlugin implements IMixinConfigPlugin
       return;
     int i = (Integer) constant;
     LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) at %2$s", i, instruction.name));
-    if (MAPPING_REGISTRY.registerKeyCode(i))
+    if (mappingRegistry.registerKeyCode(i))
       LOGGER.trace("Registered key code {} at method call", i);
   }
 
@@ -109,7 +109,7 @@ public class MixinPlugin implements IMixinConfigPlugin
         continue;
       int constant = instruction.min + i;
       LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) as table switch case", constant));
-      if (MAPPING_REGISTRY.registerKeyCode(constant))
+      if (mappingRegistry.registerKeyCode(constant))
         LOGGER.trace("Registered key code {} at table switch", constant);
     }
   }
@@ -121,7 +121,7 @@ public class MixinPlugin implements IMixinConfigPlugin
     for (int constant : instruction.keys)
     {
       LOGGER.debug(() -> String.format("Found key constant %1$d (0x%1$02X) as lookup switch case", constant));
-      if (MAPPING_REGISTRY.registerKeyCode(constant))
+      if (mappingRegistry.registerKeyCode(constant))
         LOGGER.trace("Registered key code {} at lookup switch", constant);
     }
   }
