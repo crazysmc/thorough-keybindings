@@ -32,6 +32,10 @@ def commonConfig(Project project) {
   project.dependencies {
     minecraft group: 'com.mojang', name: 'minecraft', version: project.minecraft_version
     mappings project.ploceus.featherMappings(project.feather_build)
+    if (project.hasProperty 'raven_build')
+      exceptions project.ploceus.raven(project.raven_build)
+    if (project.hasProperty 'sparrow_build')
+      signatures project.ploceus.sparrow(project.sparrow_build)
     if (project.hasProperty 'nests_build')
       nests project.ploceus.nests(project.nests_build)
     modImplementation libs.loader
