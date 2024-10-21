@@ -38,6 +38,7 @@ public enum HardcodedMapping
   ;
 
   public static final String DEBUG_CATEGORY = "key.categories.debug";
+  public static final String MODIFIER_CATEGORY = "key.categories.modifier";
   public static final int[] DEBUG_KEYS =
       EnumSet.range(DISABLE_SHADER, RELOAD_RESOURCEPACKS).stream().mapToInt(HardcodedMapping::getKeyCode).toArray();
 

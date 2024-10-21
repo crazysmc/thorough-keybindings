@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static io.github.crazysmc.thrkbs.core.HardcodedMapping.DEBUG_CATEGORY;
+import static io.github.crazysmc.thrkbs.core.HardcodedMapping.MODIFIER_CATEGORY;
 
 @Mixin(KeyMapping.class)
 public abstract class KeyMappingMixin
@@ -20,7 +21,8 @@ public abstract class KeyMappingMixin
   @Inject(method = "same", at = @At("HEAD"), cancellable = true)
   private void separateDebugCombos(KeyMapping keyMapping, CallbackInfoReturnable<Boolean> cir)
   {
-    if (DEBUG_CATEGORY.equals(category) != DEBUG_CATEGORY.equals(keyMapping.getCategory()))
+    if (DEBUG_CATEGORY.equals(category) != DEBUG_CATEGORY.equals(keyMapping.getCategory()) ||
+        MODIFIER_CATEGORY.equals(category) != MODIFIER_CATEGORY.equals(keyMapping.getCategory()))
       cir.setReturnValue(false);
   }
 }
