@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.Slice;
 
 import static io.github.crazysmc.thrkbs.core.api.KeyCodes.DEBUG_CATEGORY;
+import static io.github.crazysmc.thrkbs.core.api.KeyCodes.MODIFIER_CATEGORY;
 
 @Mixin(ControlsListWidget.KeyBindingEntry.class)
 public abstract class KeyBindingEntryMixin
@@ -24,7 +25,9 @@ public abstract class KeyBindingEntryMixin
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/KeyBinding;getKeyCode()I", ordinal = 0))
   private int separateDebugCombos(KeyBinding keyBinding)
   {
-    return DEBUG_CATEGORY.equals(keyBinding.getCategory()) !=
-        DEBUG_CATEGORY.equals(this.keyBinding.getCategory()) ? 0 : keyBinding.getKeyCode();
+    String thisCategory = this.keyBinding.getCategory();
+    String thatCategory = keyBinding.getCategory();
+    return DEBUG_CATEGORY.equals(thisCategory) != DEBUG_CATEGORY.equals(thatCategory) ||
+        MODIFIER_CATEGORY.equals(thisCategory) != MODIFIER_CATEGORY.equals(thatCategory) ? 0 : keyBinding.getKeyCode();
   }
 }
