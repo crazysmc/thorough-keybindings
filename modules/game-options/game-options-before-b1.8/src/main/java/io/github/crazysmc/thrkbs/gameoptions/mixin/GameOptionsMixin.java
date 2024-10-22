@@ -4,7 +4,6 @@ import io.github.crazysmc.thrkbs.core.api.HardcodedMapping;
 import io.github.crazysmc.thrkbs.core.api.MappingRegistry;
 import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
-import net.minecraft.unmapped.C_7778778;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -25,7 +25,8 @@ public abstract class GameOptionsMixin
 
   @Inject(method = "<init>(Lnet/minecraft/client/Minecraft;Ljava/io/File;)V",
           at = @At(value = "INVOKE", target = "Lnet/minecraft/client/options/GameOptions;load()V"))
-  private void onLoad(CallbackInfo ci) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException
+  private void onLoad(CallbackInfo ci)
+      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException
   {
     Set<? extends HardcodedMapping> mappings = MAPPING_REGISTRY.getRegisteredMappings();
     int i = keyBindings.length;
@@ -34,15 +35,20 @@ public abstract class GameOptionsMixin
     {
       String name = mapping.getName();
       int keyCode = mapping.getKeyCode();
-      C_7778778 keyMapping = new C_7778778(name, keyCode);
-      keyBindings[i++] = keyMapping;
       /*
-       * Work around the fact that gen1 calamus maps net/minecraft/client/options/KeyBinding
+       * Work around the fact that gen1 calamus (already fixed in gen2)
+       * maps net/minecraft/client/options/KeyBinding
        * - in b1.7.3- as C_3543146
        * - in b1.8+   as C_7778778
        */
-      MappingRegistry.class.getDeclaredMethod("registerMapping", int.class, String.class, C_7778778.class)
-          .invoke(MAPPING_REGISTRY, keyCode, name, keyMapping);
+      Method registerMapping = Arrays.stream(MappingRegistry.class.getDeclaredMethods())
+          .filter(method -> "registerMapping".equals(method.getName()))
+          .findAny()
+          .orElseThrow(NoSuchMethodException::new);
+      Class<?> keyBindingType = registerMapping.getParameterTypes()[2];
+      Object keyMapping = keyBindingType.getConstructor(String.class, int.class).newInstance(name, keyCode);
+      keyBindings[i++] = (KeyBinding) keyMapping;
+      registerMapping.invoke(MAPPING_REGISTRY, keyCode, name, keyMapping);
     }
   }
 }
