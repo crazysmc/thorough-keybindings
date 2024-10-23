@@ -15,6 +15,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_3;
 
 public class MappingRegistry
 {
+  public static final MappingRegistry MAPPING_REGISTRY = new MappingRegistry();
   private static final Set<HardcodedMapping> CHARTS_SET = EnumSet.of(CHARTS_PROFILER, CHARTS_FPS, CHARTS_NETWORK);
 
   private final Int2ObjectMap<HardcodedMapping> hardcodedMappings;

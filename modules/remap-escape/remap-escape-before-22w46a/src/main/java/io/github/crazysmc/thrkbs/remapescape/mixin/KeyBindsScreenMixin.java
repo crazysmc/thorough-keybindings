@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
-import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.MAPPING_REGISTRY;
+import static io.github.crazysmc.thrkbs.core.MappingRegistry.MAPPING_REGISTRY;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 @Mixin(KeyBindsScreen.class)

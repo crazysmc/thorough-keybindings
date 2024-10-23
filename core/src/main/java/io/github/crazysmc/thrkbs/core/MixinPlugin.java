@@ -14,6 +14,8 @@ import org.spongepowered.asm.util.Bytecode;
 import java.util.List;
 import java.util.Set;
 
+import static io.github.crazysmc.thrkbs.core.MappingRegistry.MAPPING_REGISTRY;
+
 public class MixinPlugin implements IMixinConfigPlugin
 {
   private static final Logger LOGGER = LogManager.getLogger("Thorough Keybindings/Mixin");
@@ -23,7 +25,7 @@ public class MixinPlugin implements IMixinConfigPlugin
       // com/mojang/blaze3d/platform/InputConstants.isKeyDown (JI)Z
       fromIntermediary("net.minecraft.class_3675", "method_15987", "(JI)Z");
 
-  private final MappingRegistry mappingRegistry = ThoroughKeybindings.MAPPING_REGISTRY;
+  private final MappingRegistry mappingRegistry = MAPPING_REGISTRY;
 
   private static MethodInsnNode fromIntermediary(String owner, String name, String descriptor)
   {

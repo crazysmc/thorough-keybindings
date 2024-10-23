@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.MAPPING_REGISTRY;
+import static io.github.crazysmc.thrkbs.core.MappingRegistry.MAPPING_REGISTRY;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 @Mixin(KeyboardHandler.class)

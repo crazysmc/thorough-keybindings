@@ -13,9 +13,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 
+import static io.github.crazysmc.thrkbs.core.MappingRegistry.MAPPING_REGISTRY;
+
 public class ThoroughKeybindings implements ClientModInitializer
 {
-  public static final MappingRegistry MAPPING_REGISTRY = new MappingRegistry();
   public static final KeyDisplay KEY_DISPLAY = providerOrNull(KeyDisplay.class);
   public static final ChatComponents CHAT_COMPONENTS = providerOrNull(ChatComponents.class);
   public static final DynamicTextReplacer DYNAMIC_TEXT_REPLACER =

@@ -10,7 +10,9 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.*;
+import static io.github.crazysmc.thrkbs.core.MappingRegistry.MAPPING_REGISTRY;
+import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.CHAT_COMPONENTS;
+import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.KEY_DISPLAY;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F4;
 
 @Mixin(GameModeSwitcherScreen.class)
