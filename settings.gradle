@@ -11,7 +11,7 @@ pluginManagement {
 dependencyResolutionManagement {
   versionCatalogs {
     libs {
-      version 'loom', '1.7-SNAPSHOT'
+      version 'loom', '1.9-SNAPSHOT'
       plugin 'loom', 'fabric-loom' versionRef 'loom'
       version 'loader', '0.16.7'
       library 'loader', 'net.fabricmc', 'fabric-loader' versionRef 'loader'

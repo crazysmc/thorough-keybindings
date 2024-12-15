@@ -1,69 +1,75 @@
 plugins {
-  alias libs.plugins.loom
+  alias libs.plugins.loom apply false
 }
 
 allprojects {
+  if (project.path.startsWith(':modules') && project.path.count(':') < 3)
+    return
+
+  apply plugin: libs.plugins.loom.get().pluginId
+
   version = mod_version
   group = maven_group
+  base.archivesName = "$rootProject.name-$name"
 
-  tasks.withType Jar configureEach {
-    from rootProject.file('LICENSE')
-  }
-}
-
-def commonConfig(Project project) {
-  def isRoot = project == rootProject
-
-  project.java {
-    toolchain.languageVersion = JavaLanguageVersion.of project.java_version
-    withSourcesJar()
-  }
-
-  project.dependencies {
-    minecraft group: 'com.mojang', name: 'minecraft', version: project.minecraft_version
-    mappings project.loom.layered {
+  dependencies {
+    minecraft group: 'com.mojang', name: 'minecraft', version: minecraft_version
+    println "Minecraft: $minecraft_version"
+    mappings loom.layered {
       officialMojangMappings { nameSyntheticMembers = true }
     }
     modImplementation libs.loader
-    if (!isRoot) {
-      testImplementation libs.junit
-      testImplementation libs.loader.junit
-      testImplementation libs.mockito
-      testImplementation libs.mojang.logging
 
-      if (project != rootProject.project(':ap')) {
-        modImplementation fabricApi.module('fabric-resource-loader-v0', project.fabric_api_version)
-        modImplementation fabricApi.module('fabric-key-binding-api-v1', project.fabric_api_version)
-        annotationProcessor implementation(it.project(path: ':ap', configuration: 'namedElements'))
+    if (project == rootProject)
+      return
 
-        if (project != rootProject.project(':core')) {
-          implementation it.project(path: ':core', configuration: 'namedElements')
-        }
-      }
-    }
+    testImplementation libs.junit
+    testImplementation libs.loader.junit
+    testImplementation libs.mockito
+    testImplementation libs.mojang.logging
+
+    if (project.path == ':ap')
+      return
+
+    modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
+    modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
+    annotationProcessor implementation(project(path: ':ap', configuration: 'namedElements'))
+
+    if (project.path == ':core')
+      return
+
+    implementation project(path: ':core', configuration: 'namedElements')
   }
 
-  project.test {
-    useJUnitPlatform()
-    workingDir = rootProject.layout.buildDirectory.file 'test-run'
-    workingDir.mkdir()
+  java {
+    toolchain.languageVersion = JavaLanguageVersion.of java_version
+    println "Java: $java_version"
+    withSourcesJar()
   }
 
-  project.processResources {
-    def f = project.file('gradle.properties')
+  processResources {
+    def f = file 'gradle.properties'
     if (f.exists())
-      inputs.file(f)
+      inputs.file f
     filesMatching 'fabric.mod.json', {
       expand project.properties
     }
   }
 
-  if (!isRoot)
+  tasks.withType Jar configureEach {
+    from rootProject.file('LICENSE')
+  }
+
+  test {
+    useJUnitPlatform()
+    workingDir = rootProject.layout.buildDirectory.file 'test-run'
+    workingDir.mkdir()
+  }
+
+  if (project != rootProject)
     rootProject.dependencies {
       include project
     }
 }
-
-commonConfig project
 
 base.archivesName = mod_id
