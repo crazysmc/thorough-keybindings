@@ -1,11 +1,13 @@
-def moduleConfig(Project project) {
-  project.base.archivesName = "$project.rootProject.name-$project.name"
+allprojects {
+  if (project.path.count(':') < 3)
+    return
 
-  project.sourceSets.main.java.srcDirs += project.file '../src/main/java'
-  project.sourceSets.main.java.srcDirs += project.file '../../src/main/java'
-  project.sourceSets.main.resources.srcDirs += project.file '../src/main/resources'
-  project.sourceSets.main.resources.srcDirs += project.file '../../src/main/resources'
+  base.archivesName = "$rootProject.name-$parent.name"
 
-  if (project.hasProperty 'access_widener')
-    project.loom.accessWidenerPath = project.file "src/main/resources/$project.access_widener"
+  sourceSets.main {
+    java.srcDirs += project.file '../src/main/java'
+    java.srcDirs += project.file '../../src/main/java'
+    resources.srcDirs += project.file '../src/main/resources'
+    resources.srcDirs += project.file '../../src/main/resources'
+  }
 }

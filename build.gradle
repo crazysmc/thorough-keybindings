@@ -1,82 +1,88 @@
 import net.ornithemc.ploceus.api.GameSide
 
 plugins {
-  alias libs.plugins.loom
-  alias libs.plugins.ploceus
+  alias libs.plugins.loom apply false
+  alias libs.plugins.ploceus apply false
 }
 
 allprojects {
+  if (project.path.startsWith(':modules') && project.path.count(':') < 3)
+    return
+
+  apply plugin: libs.plugins.loom.get().pluginId
+  apply plugin: libs.plugins.ploceus.get().pluginId
+
   version = mod_version
   group = maven_group
+  base.archivesName = "$rootProject.name-$name"
 
-  tasks.withType Jar configureEach {
-    from rootProject.file('LICENSE')
+//  project.ploceus.generation = 2
+  switch (project.findProperty('environment')) {
+    case 'client':
+      loom.clientOnlyMinecraftJar()
+      ploceus.clientOnlyMappings()
+      ploceus.side = GameSide.CLIENT
   }
-}
 
-def commonConfig(Project project) {
-  def isRoot = project == rootProject
+  dependencies {
+    minecraft group: 'com.mojang', name: 'minecraft', version: minecraft_version
+    println "Minecraft: $minecraft_version"
+    mappings ploceus.featherMappings(feather_build /*'3'*/)
+    if (project.hasProperty 'raven_build')
+      exceptions ploceus.raven(raven_build)
+    if (project.hasProperty 'sparrow_build')
+      signatures ploceus.sparrow(sparrow_build)
+    if (project.hasProperty 'nests_build')
+      nests ploceus.nests(nests_build)
+    modImplementation libs.loader
 
-  project.java {
+    if (project == rootProject)
+      return
+
+    testImplementation libs.junit
+    testImplementation libs.loader.junit
+    testImplementation libs.mockito
+    testImplementation libs.mojang.logging
+
+    if (project.path == ':ap')
+      return
+
+    annotationProcessor implementation(project(path: ':ap', configuration: 'namedElements'))
+
+    if (project.path == ':core')
+      return
+
+    implementation project(path: ':core', configuration: 'namedElements')
+  }
+
+  java {
     toolchain.languageVersion = JavaLanguageVersion.of 8
     withSourcesJar()
   }
 
-  switch (project.findProperty('environment')) {
-    case 'client':
-      project.loom.clientOnlyMinecraftJar()
-      project.ploceus.clientOnlyMappings()
-      project.ploceus.side = GameSide.CLIENT
-  }
-
-  project.dependencies {
-    minecraft group: 'com.mojang', name: 'minecraft', version: project.minecraft_version
-    mappings project.ploceus.featherMappings(project.feather_build)
-    if (project.hasProperty 'raven_build')
-      exceptions project.ploceus.raven(project.raven_build)
-    if (project.hasProperty 'sparrow_build')
-      signatures project.ploceus.sparrow(project.sparrow_build)
-    if (project.hasProperty 'nests_build')
-      nests project.ploceus.nests(project.nests_build)
-    modImplementation libs.loader
-    project.ploceus.addCommonLibraries()
-    if (!isRoot) {
-      testImplementation libs.junit
-      testImplementation libs.loader.junit
-      testImplementation libs.mockito
-      testImplementation libs.mojang.logging
-
-      if (project != rootProject.project(':ap')) {
-        annotationProcessor implementation(it.project(path: ':ap', configuration: 'namedElements'))
-
-        if (project != rootProject.project(':core')) {
-          implementation it.project(path: ':core', configuration: 'namedElements')
-        }
-      }
-    }
-  }
-
-  project.test {
-    useJUnitPlatform()
-    workingDir = rootProject.layout.buildDirectory.file 'test-run'
-    workingDir.mkdir()
-  }
-
-  project.processResources {
-    def f = project.file('gradle.properties')
+  processResources {
+    def f = file 'gradle.properties'
     if (f.exists())
-      inputs.file(f)
+      inputs.file f
     filesMatching 'fabric.mod.json', {
       expand project.properties
     }
   }
 
-  if (!isRoot)
+  tasks.withType Jar configureEach {
+    from rootProject.file('LICENSE')
+  }
+
+  test {
+    useJUnitPlatform()
+    workingDir = rootProject.layout.buildDirectory.file 'test-run'
+    workingDir.mkdir()
+  }
+
+  if (project != rootProject)
     rootProject.dependencies {
       include project
     }
 }
-
-commonConfig project
 
 base.archivesName = mod_id
