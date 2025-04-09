@@ -28,6 +28,7 @@ public enum HardcodedMapping
   HELP("key.debug.help", GLFW_KEY_Q, "key.categories.debug"),
   DUMP_DYNAMIC_TEXTURES("key.debug.dump_dynamic_textures", GLFW_KEY_S, "key.categories.debug"),
   RELOAD_RESOURCEPACKS("key.debug.reload_resourcepacks", GLFW_KEY_T, "key.categories.debug"),
+  CLIENT_VERSION("key.debug.client_version", GLFW_KEY_V, "key.categories.debug"),
 
   SHIFT_1("key.mod.shift.1", GLFW_KEY_LEFT_SHIFT, "key.categories.modifier"),
   SHIFT_2("key.mod.shift.2", GLFW_KEY_RIGHT_SHIFT, "key.categories.modifier"),
@@ -40,7 +41,7 @@ public enum HardcodedMapping
   public static final String DEBUG_CATEGORY = "key.categories.debug";
   public static final String MODIFIER_CATEGORY = "key.categories.modifier";
   public static final int[] DEBUG_KEYS =
-      EnumSet.range(DISABLE_SHADER, RELOAD_RESOURCEPACKS).stream().mapToInt(HardcodedMapping::getKeyCode).toArray();
+      EnumSet.range(DISABLE_SHADER, CLIENT_VERSION).stream().mapToInt(HardcodedMapping::getKeyCode).toArray();
 
   private final String name;
   private final int keyCode;

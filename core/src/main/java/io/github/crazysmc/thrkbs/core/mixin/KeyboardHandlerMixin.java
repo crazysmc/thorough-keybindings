@@ -29,7 +29,8 @@ public abstract class KeyboardHandlerMixin
 
   @Redirect(method = "handleDebugKeys",
             at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"))
+                     target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"),
+            require = 0)//FIXME 25w15a showDebugChat(Component)
   private void replaceDebugHelpListText(ChatComponent instance, Component component)
   {
     instance.addMessage(CHAT_COMPONENTS.literal(DYNAMIC_TEXT_REPLACER.debugHelpList(component.getString())));

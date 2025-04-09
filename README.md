@@ -57,3 +57,4 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 | F3 + F     | removed in 1.19                          |
 | F3 + S     | 1.19.4 reintroduced since removal in 1.9 |
 | F3 + 1/2/3 | 1.20.2                                   |
+| F3 + V     | 1.21.6                                   |

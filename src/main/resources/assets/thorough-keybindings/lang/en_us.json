@@ -8,6 +8,7 @@
   "key.debug.charts.network": "Network Chart",
   "key.debug.chunk_boundaries": "Show Chunk Boundaries",
   "key.debug.clear_chat": "Clear Chat",
+  "key.debug.client_version": "Print Client Version Information",
   "key.debug.copy_location": "Copy Location",
   "key.debug.creative_spectator": "Toggle Game Mode Spectator",
   "key.debug.cycle_renderdistance": "Cycle Render Distance",
