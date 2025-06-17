@@ -2,7 +2,7 @@ allprojects {
   if (project.path.count(':') < 3)
     return
 
-  base.archivesName = "$rootProject.name-$parent.name"
+  base.archivesName = "$rootProject.name-$name"
 
   sourceSets.main {
     java.srcDirs += project.file '../src/main/java'

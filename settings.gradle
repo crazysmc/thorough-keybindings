@@ -46,6 +46,9 @@ include ':modules:game-mode-switcher:game-mode-switcher-since-23w16a'
 include ':modules:key-display:key-display-before-20w17a'
 include ':modules:key-display:key-display-since-20w17a'
 
+include ':modules:keyboard-handler:keyboard-handler-before-25w15a'
+include ':modules:keyboard-handler:keyboard-handler-since-25w15a'
+
 include ':modules:remap-escape:remap-escape-before-20w10a'
 include ':modules:remap-escape:remap-escape-before-21w20a'
 include ':modules:remap-escape:remap-escape-before-21w37a'

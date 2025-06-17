@@ -41,6 +41,7 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 | debug    | Q             | debug.help                                         |
 | debug    | S             | debug.dump_dynamic_textures                        |
 | debug    | T             | debug.reload_resourcepacks                         |
+| debug    | V             | debug.client_version                               |
 | modifier | LEFT_SHIFT    | mod.shift.1                                        |
 | modifier | RIGHT_SHIFT   | mod.shift.2                                        |
 | modifier | LEFT_CONTROL  | mod.ctrl.1                                         |

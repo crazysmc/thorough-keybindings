@@ -1,14 +1,11 @@
-package io.github.crazysmc.thrkbs.core.mixin;
+package io.github.crazysmc.thrkbs.keyboardhandler.mixin;
 
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.gui.components.ChatComponent;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 
 import static io.github.crazysmc.thrkbs.core.HardcodedMapping.DEBUG_KEYS;
 import static io.github.crazysmc.thrkbs.core.MappingRegistry.MAPPING_REGISTRY;
@@ -27,10 +24,14 @@ public abstract class KeyboardHandlerMixin
     return -1;
   }
 
-  @Redirect(method = "handleDebugKeys",
-            at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/client/gui/components/ChatComponent;addMessage(Lnet/minecraft/network/chat/Component;)V"),
-            require = 0)//FIXME 25w15a showDebugChat(Component)
+  @Redirect(
+      method = "handleDebugKeys",
+      at = @At(
+          value = "INVOKE",
+          target = "Lnet/minecraft/client/gui/components/ChatComponent;" +
+              "addMessage(Lnet/minecraft/network/chat/Component;)V"
+      )
+  )
   private void replaceDebugHelpListText(ChatComponent instance, Component component)
   {
     instance.addMessage(CHAT_COMPONENTS.literal(DYNAMIC_TEXT_REPLACER.debugHelpList(component.getString())));
