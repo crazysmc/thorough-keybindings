@@ -49,7 +49,7 @@ include ':modules:key-display:key-display-since-20w17a'
 include ':modules:keyboard-handler:keyboard-handler-before-25w15a'
 include ':modules:keyboard-handler:keyboard-handler-since-25w15a'
 
-include ':modules:remap-escape:remap-escape-before-20w10a'
+include ':modules:remap-escape:remap-escape-before-19w41a'
 include ':modules:remap-escape:remap-escape-before-21w20a'
 include ':modules:remap-escape:remap-escape-before-21w37a'
 include ':modules:remap-escape:remap-escape-before-22w46a'
