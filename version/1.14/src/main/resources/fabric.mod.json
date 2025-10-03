@@ -1,9 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "thorough-keybindings",
-  "version": "${version}",
-  "name": "Thorough Keybindings",
-  "description": "Make all keybindings configurable",
+  "id": "thorough-keybindings-version",
+  "version": "${version}-${name}",
+  "name": "Thorough Keybindings ${name} Module",
   "authors": [ "crazysmc" ],
   "contact": {
     "homepage": "https://github.com/crazysmc/thorough-keybindings",
@@ -13,15 +12,17 @@
   "icon": "assets/thorough-keybindings/icon.png",
   "license": "MIT",
   "environment": "client",
-  "depends": {
-    "fabricloader": "*",
-    "fabric-key-binding-api-v1": "*"
+  "custom": {
+    "modmenu": {
+      "parent": "thorough-keybindings"
+    }
   },
-  "recommends": {
-    "fabric-resource-loader-v0": "*"
+  "depends": {
+    "minecraft": "${minecraft_range}",
+    "thorough-keybindings": "*"
   },
   "entrypoints": {
-    "client": [ "io.github.crazysmc.thrkbs.ThoroughKeybindings" ]
+    "client": [ "io.github.crazysmc.thrkbs.InitVersion" ]
   },
-  "mixins": [ "thrkbs.mixins.json" ]
+  "mixins": [ "version.mixins.json" ]
 }

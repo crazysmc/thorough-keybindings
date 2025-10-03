@@ -3,7 +3,7 @@ plugins {
 }
 
 allprojects {
-  if (project.path.startsWith(':modules') && project.path.count(':') < 3)
+  if (project.path == ':version')
     return
 
   apply plugin: libs.plugins.loom.get().pluginId
@@ -13,15 +13,12 @@ allprojects {
   base.archivesName = "$rootProject.name-$name"
 
   dependencies {
-    minecraft group: 'com.mojang', name: 'minecraft', version: minecraft_version
     println "Minecraft: $minecraft_version"
+    minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered {
       officialMojangMappings { nameSyntheticMembers = true }
     }
     modImplementation libs.loader
-
-    if (project == rootProject)
-      return
 
     testImplementation libs.junit
     testImplementation libs.loader.junit
@@ -35,15 +32,22 @@ allprojects {
     modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
     annotationProcessor implementation(project(path: ':ap', configuration: 'namedElements'))
 
-    if (project.path == ':core')
+    if (project == rootProject)
       return
 
-    implementation project(path: ':core', configuration: 'namedElements')
+    implementation project(path: ':', configuration: 'namedElements')
+  }
+
+  loom {
+    log4jConfigs.from project.rootProject.file('src/test/resources/log4j.xml')
+    runs {
+      remove server
+    }
   }
 
   java {
-    toolchain.languageVersion = JavaLanguageVersion.of java_version
     println "Java: $java_version"
+    toolchain.languageVersion = JavaLanguageVersion.of java_version
     withSourcesJar()
   }
 

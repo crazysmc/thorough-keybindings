@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "package": "io.github.crazysmc.thrkbs.mixin",
+  "injectors": {
+    "defaultRequire": 1,
+    "namespace": "THRKBS",
+    "injectionPoints": [ "io.github.crazysmc.thrkbs.injector.BeforeIntIfEqual" ]
+  },
+  "client": [
+    "InputConstantsMixin",
+    "KeyMappingAccessor",
+    "KeyMappingMixin"
+  ]
+}

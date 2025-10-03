@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<Configuration>
+  <Loggers>
+    <Logger name="io.github.crazysmc.thrkbs" level="${sys:fabric.log.debug.level:-debug}" additivity="false">
+      <AppenderRef ref="DebugFile" level="${sys:fabric.log.debug.level:-debug}"/>
+      <AppenderRef ref="SysOut" level="${sys:fabric.log.debug.level:-debug}"/>
+      <AppenderRef ref="LatestFile" level="${sys:fabric.log.level:-info}"/>
+      <AppenderRef ref="ServerGuiConsole" level="${sys:fabric.log.level:-info}"/>
+    </Logger>
+  </Loggers>
+</Configuration>
