@@ -1,5 +1,7 @@
 package io.github.crazysmc.thrkbs.keyboardhandler.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.gui.components.ChatComponent;
@@ -24,7 +26,7 @@ public abstract class KeyboardHandlerMixin
     return -1;
   }
 
-  @Redirect(
+  @WrapOperation(
       method = "handleDebugKeys",
       at = @At(
           value = "INVOKE",
@@ -32,9 +34,9 @@ public abstract class KeyboardHandlerMixin
               "addMessage(Lnet/minecraft/network/chat/Component;)V"
       )
   )
-  private void replaceDebugHelpListText(ChatComponent instance, Component component)
+  private void replaceDebugHelpListText(ChatComponent instance, Component component, Operation<Void> original)
   {
-    instance.addMessage(CHAT_COMPONENTS.literal(DYNAMIC_TEXT_REPLACER.debugHelpList(component.getString())));
+    original.call(instance, CHAT_COMPONENTS.literal(DYNAMIC_TEXT_REPLACER.debugHelpList(component.getString())));
   }
 
   @ModifyIntIfEqual(method = "keyPress", constant = @Constant)

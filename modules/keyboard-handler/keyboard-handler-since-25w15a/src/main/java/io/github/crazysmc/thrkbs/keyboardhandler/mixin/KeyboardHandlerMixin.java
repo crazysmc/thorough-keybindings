@@ -1,10 +1,11 @@
 package io.github.crazysmc.thrkbs.keyboardhandler.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import io.github.crazysmc.thrkbs.injector.ModifyIntIfEqual;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 
 import static io.github.crazysmc.thrkbs.core.HardcodedMapping.DEBUG_KEYS;
@@ -15,8 +16,6 @@ import static io.github.crazysmc.thrkbs.core.ThoroughKeybindings.DYNAMIC_TEXT_RE
 @Mixin(KeyboardHandler.class)
 public abstract class KeyboardHandlerMixin
 {
-  @Shadow protected abstract void showDebugChat(Component par1);
-
   @ModifyVariable(method = "handleDebugKeys", at = @At("LOAD"), argsOnly = true)
   private int remapDebugKeySwitch(int keyCode)
   {
@@ -26,7 +25,7 @@ public abstract class KeyboardHandlerMixin
     return -1;
   }
 
-  @Redirect(
+  @WrapOperation(
       method = "handleDebugKeys",
       at = @At(
           value = "INVOKE",
@@ -34,9 +33,9 @@ public abstract class KeyboardHandlerMixin
               "showDebugChat(Lnet/minecraft/network/chat/Component;)V"
       )
   )
-  private void replaceDebugHelpListText(KeyboardHandler instance, Component component)
+  private void replaceDebugHelpListText(KeyboardHandler instance, Component component, Operation<Void> original)
   {
-    showDebugChat(CHAT_COMPONENTS.literal(DYNAMIC_TEXT_REPLACER.debugHelpList(component.getString())));
+    original.call(instance, CHAT_COMPONENTS.literal(DYNAMIC_TEXT_REPLACER.debugHelpList(component.getString())));
   }
 
   @ModifyIntIfEqual(method = "keyPress", constant = @Constant)
