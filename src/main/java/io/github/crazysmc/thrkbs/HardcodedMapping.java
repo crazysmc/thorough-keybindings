@@ -5,9 +5,9 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public enum HardcodedMapping
 {
-  GAME_MENU(MISC, GLFW_KEY_ESCAPE, "key.gameMenu", false),
-  TOGGLE_HUD(MISC, GLFW_KEY_F1, "key.toggleHUD", false),
-  DEBUG_INFO(MISC, GLFW_KEY_F3, "key.debugInfo", false),
+  GAME_MENU(MISC, GLFW_KEY_ESCAPE, "key.gameMenu"),
+  TOGGLE_HUD(MISC, GLFW_KEY_F1, "key.toggleHUD"),
+  DEBUG_INFO(MISC, GLFW_KEY_F3, "key.debugInfo"),
   DISABLE_SHADER(MISC, GLFW_KEY_F4, "key.disableShader"),
 
   CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "key.debug.charts.profiler"),
@@ -37,27 +37,21 @@ public enum HardcodedMapping
   ALT_2(MODIFIER, GLFW_KEY_RIGHT_ALT, "key.mod.alt.2"),
   ;
 
-  private final String category;
+  private final MappingCategory category;
   private final int keyCode;
   private final String name;
-  private final boolean heldDown; // XXX no that is not it…
+  public Object object;
 
-  HardcodedMapping(String category, int keyCode, String name)
-  {
-    this(category, keyCode, name, true);
-  }
-
-  HardcodedMapping(String category, int keyCode, String name, boolean heldDown)
+  HardcodedMapping(MappingCategory category, int keyCode, String name)
   {
     this.category = category;
     this.keyCode = keyCode;
     this.name = name;
-    this.heldDown = heldDown;
   }
 
-  public String getName()
+  public MappingCategory getCategory()
   {
-    return name;
+    return category;
   }
 
   public int getKeyCode()
@@ -65,13 +59,8 @@ public enum HardcodedMapping
     return keyCode;
   }
 
-  public String getCategory()
+  public String getName()
   {
-    return category;
-  }
-
-  public boolean isHeldDown()
-  {
-    return heldDown;
+    return name;
   }
 }

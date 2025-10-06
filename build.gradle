@@ -31,11 +31,6 @@ allprojects {
     modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
     modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
     annotationProcessor implementation(project(path: ':ap', configuration: 'namedElements'))
-
-    if (project == rootProject)
-      return
-
-    implementation project(path: ':', configuration: 'namedElements')
   }
 
   loom {

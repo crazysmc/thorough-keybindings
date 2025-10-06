@@ -1,16 +1,35 @@
 package io.github.crazysmc.thrkbs;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.KeyMapping;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
 
 public class InitVersion implements ClientModInitializer
 {
   private static final Logger LOGGER = LogManager.getLogger();
+  private static final HardcodedMapping[] knownMappings = {
+      GAME_MENU, TOGGLE_HUD, DEBUG_INFO, DISABLE_SHADER,
+
+      RELOAD_CHUNKS, SHOW_HITBOXES, COPY_LOCATION, CLEAR_CHAT, CYCLE_RENDERDISTANCE, CHUNK_BOUNDARIES,
+      ADVANCED_TOOLTIPS, INSPECT, CREATIVE_SPECTATOR, PAUSE_FOCUS, HELP, RELOAD_RESOURCEPACKS,
+
+      SHIFT_1, SHIFT_2, CTRL_1, CTRL_2, ALT_1, ALT_2,
+  };
+
+  private static KeyMapping getKeyMapping(HardcodedMapping mapping)
+  {
+    return new KeyMapping(mapping.getName(), mapping.getKeyCode(), mapping.getCategory().getId());
+  }
 
   @Override
   public void onInitializeClient()
   {
-    LOGGER.debug("client entrypoint v1.14 ({})", ThoroughKeybindings.class.getName());
+    for (HardcodedMapping mapping : knownMappings)
+      mapping.object = KeyBindingHelper.registerKeyBinding(getKeyMapping(mapping));
+    LOGGER.debug("registered {} keybindings", knownMappings.length);
   }
 }

@@ -1,0 +1,10 @@
+subprojects {
+  dependencies {
+    implementation project(path: ':', configuration: 'namedElements')
+  }
+
+  sourceSets.main {
+    java.srcDirs += project.file '../src/main/java'
+    resources.srcDirs += project.file '../src/main/resources'
+  }
+}

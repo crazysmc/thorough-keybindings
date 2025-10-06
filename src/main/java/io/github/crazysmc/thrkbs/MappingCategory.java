@@ -1,8 +1,26 @@
 package io.github.crazysmc.thrkbs;
 
-public interface MappingCategory
+public enum MappingCategory
 {
-  String MISC = "key.categories.misc";
-  String DEBUG = "key.categories.debug";
-  String MODIFIER = "key.categories.modifier";
+  MISC("misc"),
+  DEBUG("debug"),
+  MODIFIER("modifier");
+
+  private final String type;
+  public Object object;
+
+  MappingCategory(String type)
+  {
+    this.type = type;
+  }
+
+  public String getType()
+  {
+    return type;
+  }
+
+  public String getId()
+  {
+    return String.format("key.categories.%s", type);
+  }
 }

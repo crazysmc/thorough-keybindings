@@ -12,15 +12,15 @@ import static io.github.crazysmc.thrkbs.MappingCategory.MODIFIER;
 @Mixin(KeyMapping.class)
 public abstract class KeyMappingMixin
 {
-  @Shadow
-  @Final
-  private String category;
-
-  @Inject(method = "same", at = @At("HEAD"), cancellable = true)
-  private void separateDebugCombos(KeyMapping keyMapping, CallbackInfoReturnable<Boolean> cir)
-  {
-    if (DEBUG.equals(category) != DEBUG.equals(keyMapping.getCategory()) ||
-        MODIFIER.equals(category) != MODIFIER.equals(keyMapping.getCategory()))
-      cir.setReturnValue(false);
-  }
+//  @Shadow
+//  @Final
+//  private String category;
+//
+//  @Inject(method = "same", at = @At("HEAD"), cancellable = true)
+//  private void separateDebugCombos(KeyMapping keyMapping, CallbackInfoReturnable<Boolean> cir)
+//  {
+//    if (DEBUG.equals(category) != DEBUG.equals(keyMapping.getCategory()) ||
+//        MODIFIER.equals(category) != MODIFIER.equals(keyMapping.getCategory()))
+//      cir.setReturnValue(false);
+//  }
 }
