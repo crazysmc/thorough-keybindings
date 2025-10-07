@@ -7,6 +7,7 @@ allprojects {
     return
 
   apply plugin: libs.plugins.loom.get().pluginId
+  apply plugin: 'idea'
 
   version = mod_version
   group = maven_group
@@ -47,13 +48,12 @@ allprojects {
   }
 
   processResources {
-    def f = file 'gradle.properties'
-    if (f.exists())
-      inputs.file f
-    filesMatching 'fabric.mod.json', {
-      expand project.properties
-    }
+    def stringProperties = project.properties.findAll { it.value instanceof String }
+    inputs.properties stringProperties
+    filesMatching 'fabric.mod.json', { expand stringProperties }
   }
+
+  idea.module.resourceDirs = [ project.processResources.destinationDir ]
 
   tasks.withType Jar configureEach {
     from rootProject.file('LICENSE')

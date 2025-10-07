@@ -6,12 +6,13 @@ import net.minecraft.client.KeyMapping;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static io.github.crazysmc.thrkbs.Constants.INIT_DEBUG_MSG;
 import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
 
 public class InitVersion implements ClientModInitializer
 {
   private static final Logger LOGGER = LogManager.getLogger();
-  private static final HardcodedMapping[] knownMappings = {
+  private static final HardcodedMapping[] KNOWN_MAPPINGS = {
       GAME_MENU, TOGGLE_HUD, DEBUG_INFO, DISABLE_SHADER,
 
       RELOAD_CHUNKS, SHOW_HITBOXES, COPY_LOCATION, CLEAR_CHAT, CYCLE_RENDERDISTANCE, CHUNK_BOUNDARIES,
@@ -28,8 +29,8 @@ public class InitVersion implements ClientModInitializer
   @Override
   public void onInitializeClient()
   {
-    for (HardcodedMapping mapping : knownMappings)
+    for (HardcodedMapping mapping : KNOWN_MAPPINGS)
       mapping.object = KeyBindingHelper.registerKeyBinding(getKeyMapping(mapping));
-    LOGGER.debug("registered {} keybindings", knownMappings.length);
+    LOGGER.debug(INIT_DEBUG_MSG, KNOWN_MAPPINGS.length);
   }
 }

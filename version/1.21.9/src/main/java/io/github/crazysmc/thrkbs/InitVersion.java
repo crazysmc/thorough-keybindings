@@ -7,9 +7,13 @@ import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static io.github.crazysmc.thrkbs.Constants.INIT_DEBUG_MSG;
+
 public class InitVersion implements ClientModInitializer
 {
   private static final Logger LOGGER = LogManager.getLogger();
+  private static final MappingCategory[] KNOWN_CATEGORIES = MappingCategory.values();
+  private static final HardcodedMapping[] KNOWN_MAPPINGS = HardcodedMapping.values();
 
   private static KeyMapping.Category getCategory(MappingCategory category)
   {
@@ -28,10 +32,10 @@ public class InitVersion implements ClientModInitializer
   @Override
   public void onInitializeClient()
   {
-    for (MappingCategory category : MappingCategory.values())
+    for (MappingCategory category : KNOWN_CATEGORIES)
       category.object = getCategory(category);
-    for (HardcodedMapping mapping : HardcodedMapping.values())
+    for (HardcodedMapping mapping : KNOWN_MAPPINGS)
       mapping.object = KeyBindingHelper.registerKeyBinding(getKeyMapping(mapping));
-    LOGGER.debug("client entrypoint v1.21.9 ({})", ThoroughKeybindings.class.getName());
+    LOGGER.debug(INIT_DEBUG_MSG, KNOWN_MAPPINGS.length);
   }
 }
