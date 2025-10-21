@@ -35,6 +35,17 @@ public enum HardcodedMapping
   CTRL_2(MODIFIER, GLFW_KEY_RIGHT_CONTROL, "key.mod.ctrl.2"),
   ALT_1(MODIFIER, GLFW_KEY_LEFT_ALT, "key.mod.alt.1"),
   ALT_2(MODIFIER, GLFW_KEY_RIGHT_ALT, "key.mod.alt.2"),
+
+  PROFILER_0(PROFILER, GLFW_KEY_0, "key.profiler.up"),
+  PROFILER_1(PROFILER, GLFW_KEY_1, "key.profiler.1"),
+  PROFILER_2(PROFILER, GLFW_KEY_2, "key.profiler.2"),
+  PROFILER_3(PROFILER, GLFW_KEY_3, "key.profiler.3"),
+  PROFILER_4(PROFILER, GLFW_KEY_4, "key.profiler.4"),
+  PROFILER_5(PROFILER, GLFW_KEY_5, "key.profiler.5"),
+  PROFILER_6(PROFILER, GLFW_KEY_6, "key.profiler.6"),
+  PROFILER_7(PROFILER, GLFW_KEY_7, "key.profiler.7"),
+  PROFILER_8(PROFILER, GLFW_KEY_8, "key.profiler.8"),
+  PROFILER_9(PROFILER, GLFW_KEY_9, "key.profiler.9"),
   ;
 
   private final MappingCategory category;

@@ -4,7 +4,9 @@ public enum MappingCategory
 {
   MISC("misc"),
   DEBUG("debug"),
-  MODIFIER("modifier");
+  MODIFIER("modifier"),
+  PROFILER("profiler"),
+  ;
 
   private final String type;
   public Object object;
