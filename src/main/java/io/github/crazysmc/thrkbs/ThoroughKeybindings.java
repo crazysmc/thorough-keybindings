@@ -11,6 +11,6 @@ public class ThoroughKeybindings implements ClientModInitializer
   @Override
   public void onInitializeClient()
   {
-    LOGGER.debug("client entrypoint");
+    LOGGER.debug("client entrypoint");//TODO remove class
   }
 }

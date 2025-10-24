@@ -25,7 +25,7 @@ dependencyResolutionManagement {
 
 rootProject.name = 'thrkbs'
 
-include ':ap'
+//include ':ap'
 
 include ':version:1.14'
 include ':version:1.21.9'

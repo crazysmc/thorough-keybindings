@@ -2,6 +2,7 @@
   "parent": "thrkbs.mixins.json",
   "package": "io.github.crazysmc.thrkbs.mixin",
   "client": [
+    "InputConstantsMixin",
     "KeyboardHandlerMixin"
   ]
 }

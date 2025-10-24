@@ -26,7 +26,7 @@ public class InitVersion implements ClientModInitializer
 
   private static KeyMapping getKeyMapping(HardcodedMapping mapping)
   {
-    return new KeyMapping(mapping.getName(), mapping.getKeyCode(), (KeyMapping.Category) mapping.getCategory().object);
+    return new KeyMapping(mapping.getId(), mapping.getKeyCode(), (KeyMapping.Category) mapping.getCategory().object);
   }
 
   @Override

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 import java.util.Map;
 
 @Mixin(KeyMapping.class)
-public interface KeyMappingAccessor // TODO unused?
+public interface KeyMappingAccessor
 {
   @Accessor("ALL")
   static Map<String, KeyMapping> getAll()
