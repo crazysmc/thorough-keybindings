@@ -51,6 +51,11 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 
 ## Some History
 
+Before 1.21.9 Minecraft only supported one action per key and if multiple bindings were mapped to the same key, only a
+random single one of these would fire.
+This mod backports the functionality that duplicate bindings activate all bound keys, such that for example `A` can be
+bound to Strafe left as well as `debug.reload_chunks` if `debugInfo` (`F3`) is held down.
+
 | Key        | Version                                  |
 |------------|------------------------------------------|
 | F3 + F4    | 1.16                                     |
@@ -59,3 +64,4 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 | F3 + S     | 1.19.4 reintroduced since removal in 1.9 |
 | F3 + 1/2/3 | 1.20.2                                   |
 | F3 + V     | 1.21.6                                   |
+| F3 + F6    | 1.21.9                                   |

@@ -5,8 +5,5 @@
   "package": "io.github.crazysmc.thrkbs.mixin",
   "injectors": { "defaultRequire": 1 },
   "client": [
-    "InputConstantsMixin",
-    "KeyMappingAccessor",
-    "KeyMappingMixin"
   ]
 }

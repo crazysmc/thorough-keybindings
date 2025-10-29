@@ -9,7 +9,6 @@ public enum MappingCategory
   ;
 
   private final String type;
-  public Object object;
 
   MappingCategory(String type)
   {

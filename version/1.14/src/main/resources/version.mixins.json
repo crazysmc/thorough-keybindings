@@ -1,8 +1,10 @@
 {
   "parent": "thrkbs.mixins.json",
-  "package": "io.github.crazysmc.thrkbs.mixin",
+  "mixinextras": { "minVersion": "0.5.0" },
+  "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
-    "InputConstantsMixin",
-    "KeyboardHandlerMixin"
+    "KeyboardHandlerMixin",
+    "KeyMappingMixin",
+    "ScreenMixin"
   ]
 }

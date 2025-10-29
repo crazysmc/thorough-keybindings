@@ -26,12 +26,8 @@ allprojects {
     testImplementation libs.mockito
     testImplementation libs.mojang.logging
 
-//    if (project.path == ':ap')
-//      return
-
     modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
     modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
-//    annotationProcessor implementation(project(path: ':ap', configuration: 'namedElements'))
   }
 
   loom {
@@ -50,7 +46,9 @@ allprojects {
   processResources {
     def stringProperties = project.properties.findAll { it.value instanceof String }
     inputs.properties stringProperties
-    filesMatching 'fabric.mod.json', { expand stringProperties }
+    filesMatching 'fabric.mod.json', {
+      expand stringProperties, { escapeBackslash = false }
+    }
   }
 
   idea.module.resourceDirs = [ project.processResources.destinationDir ]

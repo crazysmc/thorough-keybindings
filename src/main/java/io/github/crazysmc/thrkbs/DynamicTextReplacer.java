@@ -28,9 +28,9 @@ public class DynamicTextReplacer
   public static String debugHelpMessage(String text, String f3, String key)
   {
     boolean f3Letter = f3.length() == 1;
+    boolean keyLetter = key.length() == 1;
     if (f3Letter)
       f3 = f3.toUpperCase(Locale.ROOT);
-    boolean keyLetter = key.length() == 1;
     if (keyLetter)
       key = key.toUpperCase(Locale.ROOT);
     Matcher matcher = F3_PLUS_KEY.matcher(text);
@@ -40,15 +40,9 @@ public class DynamicTextReplacer
     if (matcherUd.find())
     {
       if (f3Letter)
-      {
-        char f3Char = f3.charAt(0);
-        f3 = String.valueOf(CHAR_MAP_UD.getOrDefault(f3Char, f3Char));
-      }
+        f3 = upsideDown(f3);
       if (keyLetter)
-      {
-        char keyChar = key.charAt(0);
-        key = String.valueOf(CHAR_MAP_UD.getOrDefault(keyChar, keyChar));
-      }
+        key = upsideDown(key);
       return matcherUd.replaceAll(String.format("%s + %s", key, f3));
     }
     Matcher matcherCn = F3_PLUS_KEY_CN.matcher(text);
@@ -60,14 +54,7 @@ public class DynamicTextReplacer
 
   private static String upsideDown(String string)
   {
-    int length = string.length();
-    StringBuilder sb = new StringBuilder(length);
-    for (int i = length - 1; i >= 0; i--)
-    {
-      char c = string.charAt(i);
-      sb.append(CHAR_MAP_UD.getOrDefault(c, c));
-    }
-    LOGGER.debug("translated '{}' to '{}'", string, sb.toString());
-    return sb.toString();
+    char c = string.charAt(0);
+    return String.valueOf(CHAR_MAP_UD.getOrDefault(c, c));
   }
 }

@@ -6,11 +6,11 @@ import org.apache.logging.log4j.Logger;
 
 public class ThoroughKeybindings implements ClientModInitializer
 {
-  private static final Logger LOGGER = LogManager.getLogger();
+  public static final Logger LOGGER = LogManager.getLogger();
 
   @Override
   public void onInitializeClient()
   {
-    LOGGER.debug("client entrypoint");//TODO remove class
+    LOGGER.debug("client entrypoint");//TODO remove (?)
   }
 }

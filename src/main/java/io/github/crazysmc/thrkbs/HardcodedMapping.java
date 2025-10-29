@@ -1,13 +1,14 @@
 package io.github.crazysmc.thrkbs;
 
+import static io.github.crazysmc.thrkbs.Constants.ON_OSX;
 import static io.github.crazysmc.thrkbs.MappingCategory.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public enum HardcodedMapping
 {
-  GAME_MENU(MISC, GLFW_KEY_ESCAPE, "gameMenu"),
+  GAME_MENU(MISC, GLFW_KEY_ESCAPE, "gameMenu", "debug.pause"),
   TOGGLE_HUD(MISC, GLFW_KEY_F1, "toggleHUD"),
-  DEBUG_INFO(MISC, GLFW_KEY_F3, "debugInfo", true),
+  DEBUG_INFO(MISC, GLFW_KEY_F3, "debugInfo"),
   DISABLE_SHADER(MISC, GLFW_KEY_F4, "disableShader"),
   GAME_MODE(MISC, GLFW_KEY_F4, "gameMode_disableShader"),
 
@@ -16,7 +17,7 @@ public enum HardcodedMapping
   CHARTS_NETWORK(DEBUG, GLFW_KEY_3, "debug.charts.network"),
   RELOAD_CHUNKS(DEBUG, GLFW_KEY_A, "debug.reload_chunks"),
   SHOW_HITBOXES(DEBUG, GLFW_KEY_B, "debug.show_hitboxes"),
-  COPY_LOCATION(DEBUG, GLFW_KEY_C, "debug.copy_location", true),
+  COPY_LOCATION(DEBUG, GLFW_KEY_C, "debug.copy_location"),
   CLEAR_CHAT(DEBUG, GLFW_KEY_D, "debug.clear_chat"),
   CYCLE_RENDERDISTANCE(DEBUG, GLFW_KEY_F, "debug.cycle_renderdistance"),
   CHUNK_BOUNDARIES(DEBUG, GLFW_KEY_G, "debug.chunk_boundaries"),
@@ -30,12 +31,12 @@ public enum HardcodedMapping
   RELOAD_RESOURCEPACKS(DEBUG, GLFW_KEY_T, "debug.reload_resourcepacks"),
   CLIENT_VERSION(DEBUG, GLFW_KEY_V, "debug.client_version"),
 
-  SHIFT_1(MODIFIER, GLFW_KEY_LEFT_SHIFT, "mod.shift.1", true),
-  SHIFT_2(MODIFIER, GLFW_KEY_RIGHT_SHIFT, "mod.shift.2", true),
-  CTRL_1(MODIFIER, GLFW_KEY_LEFT_CONTROL, "mod.ctrl.1", true),
-  CTRL_2(MODIFIER, GLFW_KEY_RIGHT_CONTROL, "mod.ctrl.2", true),
-  ALT_1(MODIFIER, GLFW_KEY_LEFT_ALT, "mod.alt.1", true),
-  ALT_2(MODIFIER, GLFW_KEY_RIGHT_ALT, "mod.alt.2", true),
+  SHIFT_1(MODIFIER, GLFW_KEY_LEFT_SHIFT, "mod.shift.1"),
+  SHIFT_2(MODIFIER, GLFW_KEY_RIGHT_SHIFT, "mod.shift.2"),
+  CTRL_1(MODIFIER, ON_OSX ? GLFW_KEY_LEFT_SUPER : GLFW_KEY_LEFT_CONTROL, "mod.ctrl.1"),
+  CTRL_2(MODIFIER, ON_OSX ? GLFW_KEY_RIGHT_SUPER : GLFW_KEY_RIGHT_CONTROL, "mod.ctrl.2"),
+  ALT_1(MODIFIER, GLFW_KEY_LEFT_ALT, "mod.alt.1"),
+  ALT_2(MODIFIER, GLFW_KEY_RIGHT_ALT, "mod.alt.2"),
 
   PROFILER_0(PROFILER, GLFW_KEY_0, "profiler.up"),
   PROFILER_1(PROFILER, GLFW_KEY_1, "profiler.1"),
@@ -52,20 +53,19 @@ public enum HardcodedMapping
   private final MappingCategory category;
   private final int keyCode;
   private final String name;
-  private final boolean requireToken;
-  public Object object;
+  private final String debugHelp;
 
   HardcodedMapping(MappingCategory category, int keyCode, String name)
   {
-    this(category, keyCode, name, false);
+    this(category, keyCode, name, null);
   }
 
-  HardcodedMapping(MappingCategory category, int keyCode, String name, boolean requireToken)
+  HardcodedMapping(MappingCategory category, int keyCode, String name, String debugHelp)
   {
     this.category = category;
     this.keyCode = keyCode;
     this.name = name;
-    this.requireToken = requireToken;
+    this.debugHelp = category == DEBUG ? name : debugHelp;
   }
 
   public MappingCategory getCategory()
@@ -83,16 +83,13 @@ public enum HardcodedMapping
     return name;
   }
 
-  /**
-   * if true, disallow scancode-only bindings and require a key token for use in glfwGetKey
-   */
-  public boolean requiresToken()
-  {
-    return requireToken;
-  }
-
   public String getId()
   {
     return String.format("key.%s", name);
+  }
+
+  public String getDebugHelpId()
+  {
+    return debugHelp == null ? null : String.format("%s.help", debugHelp);
   }
 }

@@ -3,18 +3,5 @@ subprojects {
     implementation project(path: ':', configuration: 'namedElements')
   }
 
-  /* copy the sources because intellij breaks on duplicate content roots */
-  def processJava = tasks.register('processJava', Sync) {
-    from parent.layout.projectDirectory.dir('src/main/java')
-    into layout.buildDirectory.dir('generated/sources/shared')
-  }
-
-  sourceSets.main {
-    java.srcDirs += processJava.map { it.outputs }
-    resources.srcDirs += project.file '../src/main/resources'
-  }
-
-  idea.module.generatedSourceDirs += processJava.map { it.outputs.files }
+  sourceSets.main.resources.srcDirs += project.file '../src/main/resources'
 }
-
-idea.module.sourceDirs += project.file 'src/main/java'
