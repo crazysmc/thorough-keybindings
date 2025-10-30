@@ -1,7 +1,12 @@
 package io.github.crazysmc.thrkbs;
 
-import static io.github.crazysmc.thrkbs.Constants.ON_OSX;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 import static io.github.crazysmc.thrkbs.MappingCategory.*;
+import static io.github.crazysmc.thrkbs.ThoroughKeybindings.MC_VERSION;
+import static io.github.crazysmc.thrkbs.ThoroughKeybindings.ON_OSX;
+import static io.github.crazysmc.thrkbs.Versions.V20W20A;
 import static org.lwjgl.glfw.GLFW.*;
 
 public enum HardcodedMapping
@@ -9,12 +14,12 @@ public enum HardcodedMapping
   GAME_MENU(MISC, GLFW_KEY_ESCAPE, "gameMenu", "debug.pause"),
   TOGGLE_HUD(MISC, GLFW_KEY_F1, "toggleHUD"),
   DEBUG_INFO(MISC, GLFW_KEY_F3, "debugInfo"),
-  DISABLE_SHADER(MISC, GLFW_KEY_F4, "disableShader"),
-  GAME_MODE(MISC, GLFW_KEY_F4, "gameMode_disableShader"),
+  DISABLE_SHADER(MISC, GLFW_KEY_F4, "disableShader", MC_VERSION.compareTo(V20W20A) < 0),
+  GAME_MODE(MISC, GLFW_KEY_F4, "gameMode_disableShader", MC_VERSION.compareTo(V20W20A) >= 0),
 
-  CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "debug.charts.profiler"),
-  CHARTS_FPS(DEBUG, GLFW_KEY_2, "debug.charts.fps"),
-  CHARTS_NETWORK(DEBUG, GLFW_KEY_3, "debug.charts.network"),
+  CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "debug.charts.profiler", false),
+  CHARTS_FPS(DEBUG, GLFW_KEY_2, "debug.charts.fps", false),
+  CHARTS_NETWORK(DEBUG, GLFW_KEY_3, "debug.charts.network", false),
   RELOAD_CHUNKS(DEBUG, GLFW_KEY_A, "debug.reload_chunks"),
   SHOW_HITBOXES(DEBUG, GLFW_KEY_B, "debug.show_hitboxes"),
   COPY_LOCATION(DEBUG, GLFW_KEY_C, "debug.copy_location"),
@@ -23,13 +28,13 @@ public enum HardcodedMapping
   CHUNK_BOUNDARIES(DEBUG, GLFW_KEY_G, "debug.chunk_boundaries"),
   ADVANCED_TOOLTIPS(DEBUG, GLFW_KEY_H, "debug.advanced_tooltips"),
   INSPECT(DEBUG, GLFW_KEY_I, "debug.inspect"),
-  PROFILING(DEBUG, GLFW_KEY_L, "debug.profiling"),
+  PROFILING(DEBUG, GLFW_KEY_L, "debug.profiling", false),
   CREATIVE_SPECTATOR(DEBUG, GLFW_KEY_N, "debug.creative_spectator"),
   PAUSE_FOCUS(DEBUG, GLFW_KEY_P, "debug.pause_focus"),
   HELP(DEBUG, GLFW_KEY_Q, "debug.help"),
-  DUMP_DYNAMIC_TEXTURES(DEBUG, GLFW_KEY_S, "debug.dump_dynamic_textures"),
+  DUMP_DYNAMIC_TEXTURES(DEBUG, GLFW_KEY_S, "debug.dump_dynamic_textures", false),
   RELOAD_RESOURCEPACKS(DEBUG, GLFW_KEY_T, "debug.reload_resourcepacks"),
-  CLIENT_VERSION(DEBUG, GLFW_KEY_V, "debug.client_version"),
+  CLIENT_VERSION(DEBUG, GLFW_KEY_V, "debug.client_version", false),
 
   SHIFT_1(MODIFIER, GLFW_KEY_LEFT_SHIFT, "mod.shift.1"),
   SHIFT_2(MODIFIER, GLFW_KEY_RIGHT_SHIFT, "mod.shift.2"),
@@ -54,18 +59,35 @@ public enum HardcodedMapping
   private final int keyCode;
   private final String name;
   private final String debugHelp;
+  private final boolean exists;
 
   HardcodedMapping(MappingCategory category, int keyCode, String name)
   {
-    this(category, keyCode, name, null);
+    this(category, keyCode, name, null, true);
   }
 
   HardcodedMapping(MappingCategory category, int keyCode, String name, String debugHelp)
+  {
+    this(category, keyCode, name, debugHelp, true);
+  }
+
+  HardcodedMapping(MappingCategory category, int keyCode, String name, boolean exists)
+  {
+    this(category, keyCode, name, null, exists);
+  }
+
+  HardcodedMapping(MappingCategory category, int keyCode, String name, String debugHelp, boolean exists)
   {
     this.category = category;
     this.keyCode = keyCode;
     this.name = name;
     this.debugHelp = category == DEBUG ? name : debugHelp;
+    this.exists = exists;
+  }
+
+  public static Stream<HardcodedMapping> getExisting()
+  {
+    return Arrays.stream(values()).filter(mapping -> mapping.exists);
   }
 
   public MappingCategory getCategory()
@@ -76,11 +98,6 @@ public enum HardcodedMapping
   public int getKeyCode()
   {
     return keyCode;
-  }
-
-  public String getName()
-  {
-    return name;
   }
 
   public String getId()

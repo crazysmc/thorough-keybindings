@@ -1,16 +1,31 @@
 package io.github.crazysmc.thrkbs;
 
-import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.Version;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ThoroughKeybindings implements ClientModInitializer
-{
-  public static final Logger LOGGER = LogManager.getLogger();
+import java.util.Locale;
 
-  @Override
-  public void onInitializeClient()
-  {
-    LOGGER.debug("client entrypoint");//TODO remove (?)
-  }
+public interface ThoroughKeybindings
+{
+  Logger LOGGER = LogManager.getLogger();
+
+  Version MC_VERSION = FabricLoader.getInstance()
+      .getModContainer("minecraft")
+      .orElseThrow(() -> new IllegalStateException("could not find minecraft"))
+      .getMetadata()
+      .getVersion();
+
+  String INIT_DEBUG_MSG = "registered {} keybindings";
+
+  /**
+   * same as Minecraft.ON_OSX
+   */
+  boolean ON_OSX = System.getProperty("os.name").toLowerCase(Locale.ROOT).contains("mac");
+
+  /**
+   * number of key mapping categories from minecraft and this mod
+   */
+  int CATEGORY_SIZE = 8;
 }

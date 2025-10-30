@@ -52,6 +52,7 @@ allprojects {
   }
 
   idea.module.resourceDirs = [ project.processResources.destinationDir ]
+  idea.module.generatedSourceDirs += project.processResources.destinationDir
 
   tasks.withType Jar configureEach {
     from rootProject.file('LICENSE')

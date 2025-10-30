@@ -25,37 +25,7 @@ dependencyResolutionManagement {
 
 rootProject.name = 'thrkbs'
 
-//include ':ap'
-
 include ':version:1.14'
+include ':version:1.16-20w10a'
+include ':version:1.16'
 include ':version:1.21.9'
-
-//include ':core'
-
-//include ':modules:chat-components:chat-components-before-20w17a'
-//include ':modules:chat-components:chat-components-before-22w16a'
-//include ':modules:chat-components:chat-components-since-22w16a'
-//
-//include ':modules:debug-screen:debug-screen-before-1.15-pre4'
-//include ':modules:debug-screen:debug-screen-before-1.15-pre7'
-//include ':modules:debug-screen:debug-screen-before-20w17a'
-//include ':modules:debug-screen:debug-screen-before-23w16a'
-//include ':modules:debug-screen:debug-screen-since-23w16a'
-//
-//include ':modules:game-mode-switcher:game-mode-switcher-before-20w20a'
-//include ':modules:game-mode-switcher:game-mode-switcher-before-1.16-pre1'
-//include ':modules:game-mode-switcher:game-mode-switcher-before-23w16a'
-//include ':modules:game-mode-switcher:game-mode-switcher-since-23w16a'
-//
-//include ':modules:key-display:key-display-before-20w17a'
-//include ':modules:key-display:key-display-since-20w17a'
-//
-//include ':modules:keyboard-handler:keyboard-handler-before-25w15a'
-//include ':modules:keyboard-handler:keyboard-handler-since-25w15a'
-//
-//include ':modules:remap-escape:remap-escape-before-19w41a'
-//include ':modules:remap-escape:remap-escape-before-21w20a'
-//include ':modules:remap-escape:remap-escape-before-21w37a'
-//include ':modules:remap-escape:remap-escape-before-22w46a'
-//include ':modules:remap-escape:remap-escape-before-1.21.2-pre1'
-//include ':modules:remap-escape:remap-escape-since-1.21.2-pre1'

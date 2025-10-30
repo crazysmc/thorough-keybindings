@@ -11,7 +11,7 @@ import static io.github.crazysmc.thrkbs.ThoroughKeybindings.LOGGER;
 public class Initializer implements ClientModInitializer
 {
   private static final HardcodedMapping[] KNOWN_MAPPINGS = {
-      GAME_MENU, TOGGLE_HUD, DEBUG_INFO, DISABLE_SHADER,
+      GAME_MENU, TOGGLE_HUD, DEBUG_INFO, GAME_MODE,
 
       RELOAD_CHUNKS, SHOW_HITBOXES, COPY_LOCATION, CLEAR_CHAT, CYCLE_RENDERDISTANCE, CHUNK_BOUNDARIES,
       ADVANCED_TOOLTIPS, INSPECT, CREATIVE_SPECTATOR, PAUSE_FOCUS, HELP, RELOAD_RESOURCEPACKS,

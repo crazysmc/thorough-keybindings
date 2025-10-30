@@ -14,14 +14,10 @@
   "license": "MIT",
   "environment": "client",
   "depends": {
-    "fabricloader": "*",
+    "fabricloader": ">=0.17.0",
     "fabric-key-binding-api-v1": "*"
   },
   "recommends": {
     "fabric-resource-loader-v0": "*"
-  },
-  "entrypoints": {
-    "client": [ "io.github.crazysmc.thrkbs.ThoroughKeybindings" ]
-  },
-  "mixins": [ "thrkbs.mixins.json" ]
+  }
 }

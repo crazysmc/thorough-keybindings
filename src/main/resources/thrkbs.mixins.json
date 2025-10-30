@@ -1,9 +1,0 @@
-{
-  "required": true,
-  "minVersion": "0.8",
-  "compatibilityLevel": "JAVA_8",
-  "package": "io.github.crazysmc.thrkbs.mixin",
-  "injectors": { "defaultRequire": 1 },
-  "client": [
-  ]
-}

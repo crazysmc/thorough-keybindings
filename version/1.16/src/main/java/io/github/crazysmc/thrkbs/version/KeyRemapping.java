@@ -11,7 +11,6 @@ import static java.util.Collections.unmodifiableCollection;
 
 public class KeyRemapping extends KeyMapping
 {
-  // TODO move common code to an interface (java 8 problem?)
   private static final int CAPACITY = HardcodedMapping.values().length;
   private static final EnumMap<HardcodedMapping, KeyRemapping> BY_MAPPING = new EnumMap<>(HardcodedMapping.class);
   private static final Int2ObjectMap<KeyRemapping> BY_DEFAULT_KEY_CODE = new Int2ObjectOpenHashMap<>(CAPACITY);

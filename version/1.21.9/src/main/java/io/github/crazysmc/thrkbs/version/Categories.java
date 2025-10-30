@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.github.crazysmc.thrkbs.Constants.CATEGORY_SIZE;
+import static io.github.crazysmc.thrkbs.ThoroughKeybindings.CATEGORY_SIZE;
 import static io.github.crazysmc.thrkbs.ThoroughKeybindings.LOGGER;
 import static java.lang.reflect.AccessFlag.STATIC;
 
