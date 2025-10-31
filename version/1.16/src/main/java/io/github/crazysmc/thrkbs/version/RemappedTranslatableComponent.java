@@ -1,26 +1,41 @@
 package io.github.crazysmc.thrkbs.version;
 
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
+
+import java.util.Optional;
+
+import static io.github.crazysmc.thrkbs.DynamicTextReplacer.debugHelpMessage;
+import static io.github.crazysmc.thrkbs.HardcodedMapping.DEBUG_INFO;
+import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 
 public class RemappedTranslatableComponent extends TranslatableComponent
 {
   private final KeyRemapping remapping;
 
-  public RemappedTranslatableComponent(KeyRemapping remapping, String key, Object... args)
+  public RemappedTranslatableComponent(KeyRemapping remapping, String key)
   {
-    super(key, args);
+    super(key);
     this.remapping = remapping;
   }
 
-  //FIXME
-//  @Override
-//  protected void decomposeTemplate(String string)
-//  {
-//    super.decomposeTemplate(string);
-//    if (decomposedParts.isEmpty())
-//      return;
-//    String f3 = KeyRemapping.get(DEBUG_INFO).getTranslatedKeyMessage();
-//    String key = remapping.getTranslatedKeyMessage();
-//    decomposedParts.set(0, new TextComponent(debugHelpMessage(decomposedParts.get(0).getContents(), f3, key)));
-//  }
+  @Override
+  public <T> Optional<T> visitSelf(StyledContentConsumer<T> consumer, Style style)
+  {
+    return super.visitSelf((s, string) -> consumer.accept(s, translate(string)), style);
+  }
+
+  @Override
+  public <T> Optional<T> visitSelf(ContentConsumer<T> consumer)
+  {
+    return super.visitSelf(string -> consumer.accept(translate(string)));
+  }
+
+  @SuppressWarnings("OptionalGetWithoutIsPresent")
+  private String translate(String text)
+  {
+    String f3 = REGISTRY.get(DEBUG_INFO).getTranslatedKeyMessage().visitSelf(Optional::of).get();
+    String key = remapping.getTranslatedKeyMessage().visitSelf(Optional::of).get();
+    return debugHelpMessage(text, f3, key);
+  }
 }

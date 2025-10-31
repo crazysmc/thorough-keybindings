@@ -26,7 +26,8 @@ allprojects {
     testImplementation libs.mockito
     testImplementation libs.mojang.logging
 
-    modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
+    if (!project.hasProperty('no_fabric_resource_loader'))
+      modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
     modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
   }
 

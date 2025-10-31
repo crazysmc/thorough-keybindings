@@ -22,6 +22,7 @@ import java.util.EnumSet;
 
 import static com.mojang.blaze3d.platform.InputConstants.getKey;
 import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
+import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 import static org.lwjgl.glfw.GLFW.*;
 
 @Mixin(KeyboardHandler.class)
@@ -69,7 +70,7 @@ public abstract class KeyboardHandlerMixin
   )
   private boolean keyPress_isKeyDown(long window, int constant, Operation<Boolean> original)
   {
-    return KeyRemapping.getByDefault(constant).isDown();
+    return REGISTRY.getByDefault(constant).isDown();
   }
 
   @Definition(id = "key", local = @Local(type = int.class, argsOnly = true, ordinal = 0))
@@ -77,19 +78,16 @@ public abstract class KeyboardHandlerMixin
   @ModifyExpressionValue(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"))
   private int keyPress_intEqConst(int constant, long window, int key, int scancode)
   {
-    return KeyRemapping.getByDefault(constant).matches(key, scancode) ? key : GLFW_KEY_UNKNOWN;
+    return REGISTRY.getByDefault(constant).matches(key, scancode) ? key : GLFW_KEY_UNKNOWN;
   }
 
-  /*
-   * profiler switches from loop to range check in 20w06a
-   */
   @Definition(id = "key", local = @Local(type = int.class, argsOnly = true, ordinal = 0))
   @Expression("@(key) >= '0'")
-  @ModifyVariable(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"), argsOnly = true, ordinal = 0, require = 0)
+  @ModifyVariable(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"), argsOnly = true, ordinal = 0)
   private int keyPress_intDigit(int key, long window, int _key, int scancode)
   {
     for (HardcodedMapping mapping : EnumSet.range(PROFILER_0, PROFILER_9))
-      if (KeyRemapping.get(mapping).matches(key, scancode))
+      if (REGISTRY.get(mapping).matches(key, scancode))
         return mapping.getKeyCode();
     return GLFW_KEY_UNKNOWN;
   }
@@ -104,7 +102,7 @@ public abstract class KeyboardHandlerMixin
   )
   private int keyPress_lambda_keyPressed(int key, int scancode, int mods)
   {
-    return KeyRemapping.get(GAME_MENU).matches(key, scancode) ? GLFW_KEY_ESCAPE : key;
+    return REGISTRY.get(GAME_MENU).matches(key, scancode) ? GLFW_KEY_ESCAPE : key;
   }
 
   @WrapOperation(
@@ -114,22 +112,37 @@ public abstract class KeyboardHandlerMixin
   private boolean keyPress_handleDebugKeys(KeyboardHandler instance, int key, Operation<Boolean> original,
                                            long window, int _key, int scancode)
   {
-    for (KeyRemapping mapping : KeyRemapping.getDebugKeys())
+    for (KeyRemapping mapping : REGISTRY.getDebugKeys())
       if (mapping.matches(key, scancode))
         return original.call(instance, mapping.getDefaultKey().getValue());
-    return original.call(instance, -1);
+    return original.call(instance, GLFW_KEY_UNKNOWN);
   }
 
   @WrapOperation(
       method = "handleDebugKeys",
       at = @At(
           value = "NEW",
+          target = "(Ljava/lang/String;)Lnet/minecraft/network/chat/TranslatableComponent;"
+      )
+  )
+  private TranslatableComponent handleDebugKeys_newTranslatableComponent(String key,
+                                                                         Operation<TranslatableComponent> original)
+  {
+    return new RemappedTranslatableComponent(REGISTRY.getByDebugHelp(key), key);
+  }
+
+  @WrapOperation(
+      method = "debugFeedbackTranslated",
+      at = @At(
+          value = "NEW",
           target = "(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/network/chat/TranslatableComponent;"
       )
   )
-  private TranslatableComponent handleDebugKeys_newTranslatableComponent(String key, Object[] args,
-                                                                         Operation<TranslatableComponent> original)
+  private TranslatableComponent debugFeedbackTranslated_newTranslatableComponent(
+      String key, Object[] args, Operation<TranslatableComponent> original)
   {
-    return new RemappedTranslatableComponent(KeyRemapping.getByDebugHelp(key), key, args);
+    return "debug.crash.message".equals(key)
+        ? new RemappedTranslatableComponent(REGISTRY.get(COPY_LOCATION), key)
+        : original.call(key, args);
   }
 }

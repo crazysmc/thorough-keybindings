@@ -4,10 +4,12 @@
   "compatibilityLevel": "JAVA_8",
   "injectors": { "defaultRequire": 1 },
   "mixinextras": { "minVersion": "0.5.0" },
+  "plugin": "io.github.crazysmc.thrkbs.version.MixinPlugin",
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
     "DebugScreenOverlayMixin",
     "KeyboardHandlerMixin",
+    "KeyboardHandlerMixin_20w06a",
     "KeyMappingMixin",
     "ScreenMixin"
   ]

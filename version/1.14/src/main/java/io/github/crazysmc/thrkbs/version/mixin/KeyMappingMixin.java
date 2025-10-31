@@ -3,11 +3,13 @@ package io.github.crazysmc.thrkbs.version.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.platform.InputConstants;
+import io.github.crazysmc.thrkbs.version.KeyRemapping;
 import net.minecraft.client.KeyMapping;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
 
@@ -63,15 +65,10 @@ public abstract class KeyMappingMixin
     return null;
   }
 
-//  @Shadow
-//  @Final
-//  private String category;
-//
-//  @Inject(method = "same", at = @At("HEAD"), cancellable = true)
-//  private void separateDebugCombos(KeyMapping keyMapping, CallbackInfoReturnable<Boolean> cir)
-//  {
-//    if (DEBUG.equals(category) != DEBUG.equals(keyMapping.getCategory()) ||
-//        MODIFIER.equals(category) != MODIFIER.equals(keyMapping.getCategory()))
-//      cir.setReturnValue(false);
-//  }
+  @Inject(method = "same", at = @At("HEAD"), cancellable = true)
+  private void same(KeyMapping keyMapping, CallbackInfoReturnable<Boolean> cir)
+  {
+    if ((Object) this instanceof KeyRemapping != keyMapping instanceof KeyRemapping)
+      cir.setReturnValue(false);
+  }
 }

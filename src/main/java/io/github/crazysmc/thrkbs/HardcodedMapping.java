@@ -15,7 +15,7 @@ public enum HardcodedMapping
   TOGGLE_HUD(MISC, GLFW_KEY_F1, "toggleHUD"),
   DEBUG_INFO(MISC, GLFW_KEY_F3, "debugInfo"),
   DISABLE_SHADER(MISC, GLFW_KEY_F4, "disableShader", MC_VERSION.compareTo(V20W20A) < 0),
-  GAME_MODE(MISC, GLFW_KEY_F4, "gameMode_disableShader", MC_VERSION.compareTo(V20W20A) >= 0),
+  GAME_MODE(MISC, GLFW_KEY_F4, "gameMode_disableShader", "debug.gamemodes", MC_VERSION.compareTo(V20W20A) >= 0),
 
   CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "debug.charts.profiler", false),
   CHARTS_FPS(DEBUG, GLFW_KEY_2, "debug.charts.fps", false),

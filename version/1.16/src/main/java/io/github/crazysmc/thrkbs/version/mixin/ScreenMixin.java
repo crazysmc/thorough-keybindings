@@ -2,10 +2,11 @@ package io.github.crazysmc.thrkbs.version.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import io.github.crazysmc.thrkbs.version.KeyRemapping;
 import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+
+import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 
 @Mixin(Screen.class)
 public abstract class ScreenMixin
@@ -16,6 +17,6 @@ public abstract class ScreenMixin
   )
   private static boolean hasModifierDown_isKeyDown(long window, int constant, Operation<Boolean> original)
   {
-    return KeyRemapping.getByDefault(constant).isDown();
+    return REGISTRY.getByDefault(constant).isDown();
   }
 }
