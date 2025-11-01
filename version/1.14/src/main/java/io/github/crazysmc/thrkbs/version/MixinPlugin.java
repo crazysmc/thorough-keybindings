@@ -15,7 +15,8 @@ public class MixinPlugin implements IMixinConfigPlugin
 {
   @SuppressWarnings("ReferenceToMixin")
   private final Map<String, Boolean> map = ImmutableMap.of(
-      KeyboardHandlerMixin_20w06a.class.getCanonicalName(), MC_VERSION.compareTo(V20W06A) >= 0);
+      KeyboardHandlerMixin_20w06a.class.getCanonicalName(), MC_VERSION.compareTo(V20W06A) >= 0
+  );
 
   @Override
   public void onLoad(String mixinPackage)

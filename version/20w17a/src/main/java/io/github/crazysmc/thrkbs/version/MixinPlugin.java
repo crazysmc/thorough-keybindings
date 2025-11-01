@@ -1,8 +1,7 @@
 package io.github.crazysmc.thrkbs.version;
 
 import com.google.common.collect.ImmutableMap;
-import io.github.crazysmc.thrkbs.version.mixin.GameModeSwitcherScreenMixinNew;
-import io.github.crazysmc.thrkbs.version.mixin.GameModeSwitcherScreenMixinOld;
+import io.github.crazysmc.thrkbs.version.mixin.GameModeSwitcherScreenMixin;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -10,14 +9,13 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.*;
 
 import static io.github.crazysmc.thrkbs.ThoroughKeybindings.MC_VERSION;
-import static io.github.crazysmc.thrkbs.Versions.V116PRE1;
+import static io.github.crazysmc.thrkbs.Versions.V20W20A;
 
 public class MixinPlugin implements IMixinConfigPlugin
 {
   @SuppressWarnings("ReferenceToMixin")
   private final Map<String, Boolean> map = ImmutableMap.of(
-      GameModeSwitcherScreenMixinOld.class.getCanonicalName(), MC_VERSION.compareTo(V116PRE1) < 0,
-      GameModeSwitcherScreenMixinNew.class.getCanonicalName(), MC_VERSION.compareTo(V116PRE1) >= 0
+      GameModeSwitcherScreenMixin.class.getCanonicalName(), MC_VERSION.compareTo(V20W20A) >= 0
   );
 
   @Override

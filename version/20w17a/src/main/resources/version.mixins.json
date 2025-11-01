@@ -9,8 +9,6 @@
   "client": [
     "DebugScreenOverlayMixin",
     "GameModeSwitcherScreenMixin",
-    "GameModeSwitcherScreenMixinNew",
-    "GameModeSwitcherScreenMixinOld",
     "KeyboardHandlerMixin",
     "shared.KeyboardHandlerMixin",
     "shared.KeyboardHandlerMixin_20w06a",

@@ -25,6 +25,13 @@ public class DynamicTextReplacer
       'p', 'ǝ', 'ɟ', 'ᵷ', 'ɥ', 'ᴉ', 'ɾ', 'ʞ', 'ꞁ', 'ɯ', 'u', 'd', 'b', 'ɹ', 'ʇ', 'n', 'ʌ', 'ʍ', 'ʎ', '}', '{',
   });
 
+  public static String keyBinding(String key)
+  {
+    if (key.length() == 1)
+      key = key.toUpperCase(Locale.ROOT);
+    return key;
+  }
+
   public static String debugHelpMessage(String text, String f3, String key)
   {
     boolean f3Letter = f3.length() == 1;
