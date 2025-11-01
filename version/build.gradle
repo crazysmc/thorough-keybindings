@@ -3,5 +3,8 @@ subprojects {
     implementation project(path: ':', configuration: 'namedElements')
   }
 
-  sourceSets.main.resources.srcDirs += project.file '../src/main/resources'
+  sourceSets.main {
+    java.srcDirs += project.file '../src/main/java'
+    resources.srcDirs += project.file '../src/main/resources'
+  }
 }

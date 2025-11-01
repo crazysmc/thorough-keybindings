@@ -56,14 +56,6 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 | modifier | LEFT\_ALT      | mod.alt.1                                      |
 | modifier | RIGHT\_ALT     | mod.alt.2                                      |
 
-## Some History
-
-| Key        | Version                                  |
-|------------|------------------------------------------|
-| F3 + F4    | 1.16                                     |
-| F3 + L     | 1.17                                     |
-| F3 + F     | removed in 1.19                          |
-| F3 + S     | 1.19.4 reintroduced since removal in 1.9 |
-| F3 + 1/2/3 | 1.20.2                                   |
-| F3 + V     | 1.21.6                                   |
-| F3 + F6    | 1.21.9                                   |
+Check out the
+[history on debug hotkeys](https://minecraft.wiki/w/Debug_hotkey#History)
+in the Minecraft Wiki.

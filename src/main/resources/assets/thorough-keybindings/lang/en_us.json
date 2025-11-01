@@ -1,4 +1,5 @@
 {
+  "debug.gamemodes.press_key": "[ %s ]",
   "key.categories.debug": "Debug Combinations",
   "key.categories.modifier": "Modifiers",
   "key.categories.profiler": "Profiler Chart",

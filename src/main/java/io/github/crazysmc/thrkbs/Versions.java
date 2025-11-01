@@ -6,6 +6,10 @@ public class Versions
 {
   public static final Version V20W06A = semver("1.16-alpha.20.06.a");
   public static final Version V20W20A = semver("1.16-alpha.20.20.a");
+  public static final Version V21W11A = semver("1.17-alpha.21.11.a");
+  public static final Version V22W12A = semver("1.19-alpha.22.12.a");
+  public static final Version V11904PRE3 = semver("1.19.4-pre.3");
+  public static final Version V23W33A = semver("1.20.2-alpha.23.33.a");
 
   private static Version semver(String version)
   {

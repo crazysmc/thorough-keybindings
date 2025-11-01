@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.version.mixin;
+package io.github.crazysmc.thrkbs.version.mixin.shared;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

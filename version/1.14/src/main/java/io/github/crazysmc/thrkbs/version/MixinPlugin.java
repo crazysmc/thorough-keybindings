@@ -1,7 +1,7 @@
 package io.github.crazysmc.thrkbs.version;
 
 import com.google.common.collect.ImmutableMap;
-import io.github.crazysmc.thrkbs.version.mixin.KeyboardHandlerMixin_20w06a;
+import io.github.crazysmc.thrkbs.version.mixin.shared.KeyboardHandlerMixin_20w06a;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;

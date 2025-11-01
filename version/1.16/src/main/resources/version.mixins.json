@@ -8,9 +8,12 @@
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
     "DebugScreenOverlayMixin",
-    "GameModeSwitcherScreenMixin_20w20a",
+    "GameModeSwitcherScreenMixin",
     "KeyboardHandlerMixin",
-    "KeyMappingMixin",
-    "ScreenMixin"
+    "shared.KeyboardHandlerMixin",
+    "shared.KeyboardHandlerMixin_20w06a",
+    "shared.KeyMappingAccessor",
+    "shared.KeyMappingMixin",
+    "shared.ScreenMixin"
   ]
 }

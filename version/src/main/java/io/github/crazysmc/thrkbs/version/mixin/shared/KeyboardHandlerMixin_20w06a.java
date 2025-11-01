@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.version.mixin;
+package io.github.crazysmc.thrkbs.version.mixin.shared;
 
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;

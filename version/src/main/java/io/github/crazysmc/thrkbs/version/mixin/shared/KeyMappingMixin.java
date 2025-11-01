@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.version.mixin;
+package io.github.crazysmc.thrkbs.version.mixin.shared;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -34,8 +34,8 @@ public abstract class KeyMappingMixin
   {
     List<KeyMapping> list = MAP.get(key);
     if (list != null)
-      for (KeyMapping keyMapping : list)
-        ((KeyMappingMixin) (Object) keyMapping).clickCount++;
+      for (KeyMapping mapping : list)
+        ((KeyMappingMixin) (Object) mapping).clickCount++;
     ci.cancel();
   }
 
@@ -44,8 +44,8 @@ public abstract class KeyMappingMixin
   {
     List<KeyMapping> list = MAP.get(key);
     if (list != null)
-      for (KeyMapping keyMapping : list)
-        ((KeyMappingMixin) (Object) keyMapping).isDown = isDown;
+      for (KeyMapping mapping : list)
+        ((KeyMappingMixin) (Object) mapping).isDown = isDown;
     ci.cancel();
   }
 

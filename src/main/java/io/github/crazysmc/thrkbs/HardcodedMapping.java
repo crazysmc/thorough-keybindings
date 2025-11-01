@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import static io.github.crazysmc.thrkbs.MappingCategory.*;
 import static io.github.crazysmc.thrkbs.ThoroughKeybindings.MC_VERSION;
 import static io.github.crazysmc.thrkbs.ThoroughKeybindings.ON_OSX;
-import static io.github.crazysmc.thrkbs.Versions.V20W20A;
+import static io.github.crazysmc.thrkbs.Versions.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public enum HardcodedMapping
@@ -17,22 +17,22 @@ public enum HardcodedMapping
   DISABLE_SHADER(MISC, GLFW_KEY_F4, "disableShader", MC_VERSION.compareTo(V20W20A) < 0),
   GAME_MODE(MISC, GLFW_KEY_F4, "gameMode_disableShader", "debug.gamemodes", MC_VERSION.compareTo(V20W20A) >= 0),
 
-  CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "debug.charts.profiler", false),
-  CHARTS_FPS(DEBUG, GLFW_KEY_2, "debug.charts.fps", false),
-  CHARTS_NETWORK(DEBUG, GLFW_KEY_3, "debug.charts.network", false),
+  CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "debug.charts.profiler", MC_VERSION.compareTo(V23W33A) >= 0),
+  CHARTS_FPS(DEBUG, GLFW_KEY_2, "debug.charts.fps", MC_VERSION.compareTo(V23W33A) >= 0),
+  CHARTS_NETWORK(DEBUG, GLFW_KEY_3, "debug.charts.network", MC_VERSION.compareTo(V23W33A) >= 0),
   RELOAD_CHUNKS(DEBUG, GLFW_KEY_A, "debug.reload_chunks"),
   SHOW_HITBOXES(DEBUG, GLFW_KEY_B, "debug.show_hitboxes"),
   COPY_LOCATION(DEBUG, GLFW_KEY_C, "debug.copy_location"),
   CLEAR_CHAT(DEBUG, GLFW_KEY_D, "debug.clear_chat"),
-  CYCLE_RENDERDISTANCE(DEBUG, GLFW_KEY_F, "debug.cycle_renderdistance"),
+  CYCLE_RENDERDISTANCE(DEBUG, GLFW_KEY_F, "debug.cycle_renderdistance", MC_VERSION.compareTo(V22W12A) < 0),
   CHUNK_BOUNDARIES(DEBUG, GLFW_KEY_G, "debug.chunk_boundaries"),
   ADVANCED_TOOLTIPS(DEBUG, GLFW_KEY_H, "debug.advanced_tooltips"),
   INSPECT(DEBUG, GLFW_KEY_I, "debug.inspect"),
-  PROFILING(DEBUG, GLFW_KEY_L, "debug.profiling", false),
+  PROFILING(DEBUG, GLFW_KEY_L, "debug.profiling", MC_VERSION.compareTo(V21W11A) >= 0),
   CREATIVE_SPECTATOR(DEBUG, GLFW_KEY_N, "debug.creative_spectator"),
   PAUSE_FOCUS(DEBUG, GLFW_KEY_P, "debug.pause_focus"),
   HELP(DEBUG, GLFW_KEY_Q, "debug.help"),
-  DUMP_DYNAMIC_TEXTURES(DEBUG, GLFW_KEY_S, "debug.dump_dynamic_textures", false),
+  DUMP_DYNAMIC_TEXTURES(DEBUG, GLFW_KEY_S, "debug.dump_dynamic_textures", MC_VERSION.compareTo(V11904PRE3) >= 0),
   RELOAD_RESOURCEPACKS(DEBUG, GLFW_KEY_T, "debug.reload_resourcepacks"),
   CLIENT_VERSION(DEBUG, GLFW_KEY_V, "debug.client_version", false),
 

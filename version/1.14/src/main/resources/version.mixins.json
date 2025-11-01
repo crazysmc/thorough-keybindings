@@ -9,8 +9,10 @@
   "client": [
     "DebugScreenOverlayMixin",
     "KeyboardHandlerMixin",
-    "KeyboardHandlerMixin_20w06a",
-    "KeyMappingMixin",
-    "ScreenMixin"
+    "shared.KeyboardHandlerMixin",
+    "shared.KeyboardHandlerMixin_20w06a",
+    "shared.KeyMappingAccessor",
+    "shared.KeyMappingMixin",
+    "shared.ScreenMixin"
   ]
 }
