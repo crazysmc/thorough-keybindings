@@ -2,6 +2,7 @@ package io.github.crazysmc.thrkbs.version.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
 import net.minecraft.network.chat.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,13 +25,10 @@ public abstract class GameModeSwitcherScreenMixinNew
           opcode = GETSTATIC
       )
   )
-  private Component render(Operation<Component> original)
+  private Component render_selectKey(Operation<Component> original)
   {
-    TranslatableComponent selectKey = (TranslatableComponent) original.call();
-    Object[] args = selectKey.getArgs();
-    Style style = ((Component) args[0]).getStyle();
     String f4 = REGISTRY.get(GAME_MODE).getTranslatedKeyText();
-    args[0] = new TranslatableComponent("debug.gamemodes.press_key", keyBinding(f4)).withStyle(style);
-    return selectKey;
+    MutableComponent component = new TranslatableComponent("debug.gamemodes.press_key", keyBinding(f4));
+    return new TranslatableComponent("debug.gamemodes.select_next", component.withStyle(ChatFormatting.AQUA));
   }
 }

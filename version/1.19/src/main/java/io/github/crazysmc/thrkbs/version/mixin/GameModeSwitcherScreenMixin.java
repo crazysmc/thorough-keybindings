@@ -8,7 +8,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -50,7 +51,7 @@ public abstract class GameModeSwitcherScreenMixin
   private Component render_selectKey(Operation<Component> original)
   {
     String f4 = REGISTRY.get(GAME_MODE).getTranslatedKeyText();
-    MutableComponent component = new TranslatableComponent("debug.gamemodes.press_key", keyBinding(f4));
-    return new TranslatableComponent("debug.gamemodes.select_next", component.withStyle(ChatFormatting.AQUA));
+    MutableComponent component = Component.translatable("debug.gamemodes.press_key", keyBinding(f4));
+    return Component.translatable("debug.gamemodes.select_next", component.withStyle(ChatFormatting.AQUA));
   }
 }
