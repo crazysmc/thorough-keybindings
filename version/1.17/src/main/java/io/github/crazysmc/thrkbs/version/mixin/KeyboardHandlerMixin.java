@@ -18,11 +18,8 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 public abstract class KeyboardHandlerMixin
 {
   @ModifyArg(
-      method = "lambda$keyPress$4",
-      at = @At(
-          value = "INVOKE",
-          target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"
-      ),
+      method = "*",
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;keyPressed(III)Z"),
       index = 0
   )
   private int keyPress_lambda_keyPressed(int key, int scancode, int mods)
@@ -34,13 +31,13 @@ public abstract class KeyboardHandlerMixin
       method = "handleDebugKeys",
       at = @At(
           value = "NEW",
-          target = "(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/network/chat/TranslatableComponent;"
+          target = "(Ljava/lang/String;)Lnet/minecraft/network/chat/TranslatableComponent;"
       )
   )
-  private TranslatableComponent handleDebugKeys_newTranslatableComponent(String key, Object[] args,
+  private TranslatableComponent handleDebugKeys_newTranslatableComponent(String key,
                                                                          Operation<TranslatableComponent> original)
   {
-    return new RemappedTranslatableComponent(REGISTRY.getByDebugHelp(key), key, args);
+    return new RemappedTranslatableComponent(REGISTRY.getByDebugHelp(key), key);
   }
 
   @WrapOperation(
@@ -54,7 +51,7 @@ public abstract class KeyboardHandlerMixin
       String key, Object[] args, Operation<TranslatableComponent> original)
   {
     return "debug.crash.message".equals(key)
-        ? new RemappedTranslatableComponent(REGISTRY.get(COPY_LOCATION), key, args)
+        ? new RemappedTranslatableComponent(REGISTRY.get(COPY_LOCATION), key)
         : original.call(key, args);
   }
 }

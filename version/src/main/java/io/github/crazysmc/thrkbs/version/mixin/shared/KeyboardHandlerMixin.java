@@ -47,19 +47,6 @@ public abstract class KeyboardHandlerMixin
     return REGISTRY.getByDefault(constant).matches(key, scancode) ? key : GLFW_KEY_UNKNOWN;
   }
 
-  @ModifyArg(
-      method = "lambda$keyPress$4",
-      at = @At(
-          value = "INVOKE",
-          target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"
-      ),
-      index = 0
-  )
-  private int keyPress_lambda_keyPressed(int key, int scancode, int mods)
-  {
-    return REGISTRY.get(GAME_MENU).matches(key, scancode) ? GLFW_KEY_ESCAPE : key;
-  }
-
   @WrapOperation(
       method = "keyPress",
       at = @At(value = "INVOKE", target = "Lnet/minecraft/client/KeyboardHandler;handleDebugKeys(I)Z")

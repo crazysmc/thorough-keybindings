@@ -7,13 +7,29 @@ import net.minecraft.client.KeyboardHandler;
 import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 import static io.github.crazysmc.thrkbs.HardcodedMapping.COPY_LOCATION;
+import static io.github.crazysmc.thrkbs.HardcodedMapping.GAME_MENU;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 @Mixin(KeyboardHandler.class)
 public abstract class KeyboardHandlerMixin
 {
+  @ModifyArg(
+      method = "lambda$keyPress$4",
+      at = @At(
+          value = "INVOKE",
+          target = "Lnet/minecraft/client/gui/components/events/ContainerEventHandler;keyPressed(III)Z"
+      ),
+      index = 0
+  )
+  private int keyPress_lambda_keyPressed(int key, int scancode, int mods)
+  {
+    return REGISTRY.get(GAME_MENU).matches(key, scancode) ? GLFW_KEY_ESCAPE : key;
+  }
+
   @WrapOperation(
       method = "handleDebugKeys",
       at = @At(
