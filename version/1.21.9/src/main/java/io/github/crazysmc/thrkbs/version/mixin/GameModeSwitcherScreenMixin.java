@@ -1,13 +1,13 @@
 package io.github.crazysmc.thrkbs.version.mixin;
 
-import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.debug.GameModeSwitcherScreen;
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import static io.github.crazysmc.thrkbs.DynamicTextReplacer.keyBinding;
 import static io.github.crazysmc.thrkbs.HardcodedMapping.GAME_MODE;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 import static org.objectweb.asm.Opcodes.GETSTATIC;
 
 @Mixin(GameModeSwitcherScreen.class)
@@ -24,19 +23,21 @@ public abstract class GameModeSwitcherScreenMixin
 {
   @WrapOperation(
       method = "checkToClose",
-      at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z")
+      at = @At(
+          value = "INVOKE",
+          target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(Lcom/mojang/blaze3d/platform/Window;I)Z"
+      )
   )
-  private boolean checkToClose_isKeyDown(long window, int constant, Operation<Boolean> original)
+  private boolean checkToClose_isKeyDown(Window window, int constant, Operation<Boolean> original)
   {
     return REGISTRY.getByDefault(constant).isDown();
   }
 
-  @Definition(id = "key", local = @Local(type = int.class, argsOnly = true, ordinal = 0))
-  @Expression("key == @(293)")
+  @Expression("? == 293")
   @ModifyExpressionValue(method = "keyPressed", at = @At("MIXINEXTRAS:EXPRESSION"))
-  private int keyPressed_intEqConst(int constant, int key, int scancode)
+  private boolean keyPressed_intEqConst(boolean original, KeyEvent keyEvent)
   {
-    return REGISTRY.get(GAME_MODE).matches(key, scancode) ? key : GLFW_KEY_UNKNOWN;
+    return REGISTRY.get(GAME_MODE).matches(keyEvent);
   }
 
   @WrapOperation(

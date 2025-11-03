@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.version.mixin;
+package io.github.crazysmc.thrkbs.version.mixin.shared;
 
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import static io.github.crazysmc.thrkbs.DynamicTextReplacer.keyBinding;
 import static io.github.crazysmc.thrkbs.HardcodedMapping.GAME_MODE;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 import static org.objectweb.asm.Opcodes.GETSTATIC;
 
 @Mixin(GameModeSwitcherScreen.class)
@@ -32,11 +31,11 @@ public abstract class GameModeSwitcherScreenMixin
   }
 
   @Definition(id = "key", local = @Local(type = int.class, argsOnly = true, ordinal = 0))
-  @Expression("key == @(293)")
+  @Expression("key == 293")
   @ModifyExpressionValue(method = "keyPressed", at = @At("MIXINEXTRAS:EXPRESSION"))
-  private int keyPressed_intEqConst(int constant, int key, int scancode)
+  private boolean keyPressed_intEqConst(boolean original, int key, int scancode)
   {
-    return REGISTRY.get(GAME_MODE).matches(key, scancode) ? key : GLFW_KEY_UNKNOWN;
+    return REGISTRY.get(GAME_MODE).matches(key, scancode);
   }
 
   @WrapOperation(

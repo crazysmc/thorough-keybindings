@@ -1,42 +1,46 @@
 package io.github.crazysmc.thrkbs.version;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import io.github.crazysmc.thrkbs.HardcodedMapping;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import io.github.crazysmc.thrkbs.RemapRegistry;
+import io.github.crazysmc.thrkbs.version.mixin.shared.KeyMappingAccessor;
 import net.minecraft.client.KeyMapping;
 
-import java.util.*;
-
-import static java.util.Collections.unmodifiableCollection;
+import java.util.List;
+import java.util.Optional;
 
 public class KeyRemapping extends KeyMapping
 {
-  private static final int CAPACITY = HardcodedMapping.values().length;
-  private static final Int2ObjectMap<KeyRemapping> BY_DEFAULT_KEY_CODE = new Int2ObjectOpenHashMap<>(CAPACITY);
-  private static final Map<String, KeyRemapping> BY_DEBUG_HELP = new HashMap<>(CAPACITY);
+  public static final RemapRegistry<KeyRemapping> REGISTRY = new RemapRegistry<>();
 
-  public KeyRemapping(HardcodedMapping mapping, Category category)
+  private static final Categories CATEGORIES = new Categories();
+
+  private boolean down;
+
+  public KeyRemapping(HardcodedMapping mapping)
   {
-    super(mapping.getId(), mapping.getKeyCode(), category);
-    int keyCode = mapping.getKeyCode();
-    BY_DEFAULT_KEY_CODE.put(keyCode, this);
-    String debugHelp = mapping.getDebugHelpId();
-    if (debugHelp != null)
-      BY_DEBUG_HELP.put(debugHelp, this);
+    super(mapping.getId(), mapping.getKeyCode(), CATEGORIES.getCategory(mapping.getCategory().getType()));
+    REGISTRY.register(mapping, this);
   }
 
-  public static KeyRemapping getByDefault(int keyCode)
+  public static void setDown(InputConstants.Key key, boolean down)
   {
-    return BY_DEFAULT_KEY_CODE.get(keyCode);
+    List<KeyMapping> list = KeyMappingAccessor.getMap().get(key);
+    if (list == null)
+      return;
+    for (KeyMapping mapping : list)
+      if (mapping instanceof KeyRemapping)
+        ((KeyRemapping) mapping).down = down;
   }
 
-  public static KeyRemapping getByDebugHelp(String debugHelp)
+  public String getTranslatedKeyText()
   {
-    return BY_DEBUG_HELP.get(debugHelp);
+    return getTranslatedKeyMessage().visit(Optional::of).orElseThrow();
   }
 
-  public static Collection<KeyRemapping> getDebugKeys()
+  @Override
+  public boolean isDown()
   {
-    return unmodifiableCollection(BY_DEBUG_HELP.values());
+    return down;
   }
 }

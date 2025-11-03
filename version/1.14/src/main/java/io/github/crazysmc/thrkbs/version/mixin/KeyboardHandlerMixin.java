@@ -40,7 +40,7 @@ public abstract class KeyboardHandlerMixin
   private TranslatableComponent handleDebugKeys_newTranslatableComponent(String key, Object[] args,
                                                                          Operation<TranslatableComponent> original)
   {
-    return new RemappedTranslatableComponent(REGISTRY.getByDebugHelp(key), key, args);
+    return new RemappedTranslatableComponent(REGISTRY.getByDebugHelp(key), key);
   }
 
   @WrapOperation(
@@ -54,7 +54,7 @@ public abstract class KeyboardHandlerMixin
       String key, Object[] args, Operation<TranslatableComponent> original)
   {
     return "debug.crash.message".equals(key)
-        ? new RemappedTranslatableComponent(REGISTRY.get(COPY_LOCATION), key, args)
+        ? new RemappedTranslatableComponent(REGISTRY.get(COPY_LOCATION), key)
         : original.call(key, args);
   }
 }

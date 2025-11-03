@@ -1,6 +1,14 @@
 {
-  "parent": "thrkbs.mixins.json",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_8",
+  "injectors": { "defaultRequire": 1 },
+  "mixinextras": { "minVersion": "0.5.0" },
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
+    "DebugScreenOverlayMixin",
+    "GameModeSwitcherScreenMixin",
+    "KeyboardHandlerMixin",
+    "shared.KeyMappingAccessor"
   ]
 }

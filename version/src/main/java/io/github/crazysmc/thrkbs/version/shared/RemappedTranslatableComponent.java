@@ -1,5 +1,6 @@
-package io.github.crazysmc.thrkbs.version;
+package io.github.crazysmc.thrkbs.version.shared;
 
+import io.github.crazysmc.thrkbs.version.KeyRemapping;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TranslatableComponent;
 

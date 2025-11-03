@@ -1,27 +1,28 @@
 package io.github.crazysmc.thrkbs.version;
 
-import net.minecraft.client.KeyMapping;
+import net.minecraft.client.KeyMapping.Category;
 import net.minecraft.resources.ResourceLocation;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-import static io.github.crazysmc.thrkbs.ThoroughKeybindings.CATEGORY_SIZE;
 import static io.github.crazysmc.thrkbs.ThoroughKeybindings.LOGGER;
 import static java.lang.reflect.AccessFlag.STATIC;
 
 public class Categories
 {
-  private final Map<String, KeyMapping.Category> map = new HashMap<>(CATEGORY_SIZE);
+  private final Map<String, Category> map;
 
   public Categories()
   {
-    for (Field field : KeyMapping.Category.class.getDeclaredFields())
+    Field[] declaredFields = Category.class.getDeclaredFields();
+    map = new HashMap<>(declaredFields.length);
+    for (Field field : declaredFields)
       if (field.accessFlags().contains(STATIC) && field.canAccess(null))
         try
         {
-          if (field.get(null) instanceof KeyMapping.Category category)
+          if (field.get(null) instanceof Category category)
             map.put(category.id().getPath(), category);
         }
         catch (IllegalAccessException e)
@@ -30,9 +31,8 @@ public class Categories
         }
   }
 
-  public KeyMapping.Category getCategory(String path)
+  public Category getCategory(String path)
   {
-    return map.computeIfAbsent(path, string -> KeyMapping.Category.register(
-        ResourceLocation.withDefaultNamespace(string)));
+    return map.computeIfAbsent(path, string -> Category.register(ResourceLocation.withDefaultNamespace(string)));
   }
 }

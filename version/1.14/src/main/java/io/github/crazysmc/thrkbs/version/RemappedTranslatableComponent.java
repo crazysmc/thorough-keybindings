@@ -11,9 +11,9 @@ public class RemappedTranslatableComponent extends TranslatableComponent
 {
   private final KeyRemapping remapping;
 
-  public RemappedTranslatableComponent(KeyRemapping remapping, String key, Object... args)
+  public RemappedTranslatableComponent(KeyRemapping remapping, String key)
   {
-    super(key, args);
+    super(key);
     this.remapping = remapping;
   }
 
@@ -26,11 +26,5 @@ public class RemappedTranslatableComponent extends TranslatableComponent
     String f3 = REGISTRY.get(DEBUG_INFO).getTranslatedKeyMessage();
     String key = remapping.getTranslatedKeyMessage();
     decomposedParts.set(0, new TextComponent(debugHelpMessage(decomposedParts.get(0).getContents(), f3, key)));
-  }
-
-  @Override
-  public RemappedTranslatableComponent copy()
-  {
-    return new RemappedTranslatableComponent(remapping, getKey(), super.copy().getArgs());
   }
 }

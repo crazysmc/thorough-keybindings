@@ -1,5 +1,6 @@
-package io.github.crazysmc.thrkbs.version;
+package io.github.crazysmc.thrkbs.version.shared;
 
+import io.github.crazysmc.thrkbs.version.KeyRemapping;
 import net.minecraft.network.chat.FormattedText.ContentConsumer;
 import net.minecraft.network.chat.FormattedText.StyledContentConsumer;
 import net.minecraft.network.chat.Style;

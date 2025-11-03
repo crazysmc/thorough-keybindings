@@ -2,7 +2,7 @@ package io.github.crazysmc.thrkbs.version.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import io.github.crazysmc.thrkbs.version.RemappedTranslatableContents;
+import io.github.crazysmc.thrkbs.version.shared.RemappedTranslatableContents;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Mixin;

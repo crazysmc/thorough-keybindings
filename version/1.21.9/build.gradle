@@ -1,0 +1,4 @@
+sourceSets.main.java {
+  include '**/mixin/shared/KeyMappingAccessor.java'
+  include '**/shared/RemappedTranslatableContents.java'
+}

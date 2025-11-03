@@ -12,7 +12,7 @@ import java.util.Map;
 public interface KeyMappingAccessor
 {
   /*
-   * type as of KeyMappingMixin
+   * type as of KeyMappingMixin and since 25w36a
    */
   @Accessor("MAP")
   static Map<InputConstants.Key, List<KeyMapping>> getMap()

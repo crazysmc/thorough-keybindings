@@ -12,6 +12,8 @@ public class Versions
   public static final Version V11904PRE3 = semver("1.19.4-pre.3");
   public static final Version V23W33A = semver("1.20.2-alpha.23.33.a");
   public static final Version V25W15A = semver("1.20.2-alpha.25.15.a");
+  public static final Version V25W31A = semver("1.21.9-alpha.25.31.a");
+  public static final Version V12109PRE4 = semver("1.21.9-beta.4");
 
   private static Version semver(String version)
   {

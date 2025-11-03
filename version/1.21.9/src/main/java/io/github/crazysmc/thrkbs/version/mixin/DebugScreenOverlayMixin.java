@@ -16,10 +16,10 @@ import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 public abstract class DebugScreenOverlayMixin
 {
   @WrapOperation(
-      method = "drawGameInformation",
+      method = "render",
       at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z")
   )
-  private boolean drawGameInformation_add(List<String> instance, Object o, Operation<Boolean> original)
+  private boolean render_drawGameInformation_add(List<String> instance, Object o, Operation<Boolean> original)
   {
     String text = (String) o;
     if (!text.startsWith("Debug charts: [F3+1] Profiler "))
@@ -29,5 +29,8 @@ public abstract class DebugScreenOverlayMixin
     String chart2 = REGISTRY.get(CHARTS_FPS).getTranslatedKeyText();
     String chart3 = REGISTRY.get(CHARTS_NETWORK).getTranslatedKeyText();
     return original.call(instance, debugCharts(text, f3, chart1, chart2, chart3));
+    // TODO
+    // "To edit: press F3 + F6. For help: press F3 + Q"
+    // "To edit: press F3 + F6"
   }
 }

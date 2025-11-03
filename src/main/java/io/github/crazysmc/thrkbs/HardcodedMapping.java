@@ -16,6 +16,8 @@ public enum HardcodedMapping
   DEBUG_INFO(MISC, GLFW_KEY_F3, "debugInfo"),
   DISABLE_SHADER(MISC, GLFW_KEY_F4, "disableShader", MC_VERSION.compareTo(V20W20A) < 0),
   GAME_MODE(MISC, GLFW_KEY_F4, "gameMode_disableShader", "debug.gamemodes", MC_VERSION.compareTo(V20W20A) >= 0),
+  DEBUG_OPTIONS(MISC, MC_VERSION.compareTo(V12109PRE4) < 0 ? GLFW_KEY_F5 : GLFW_KEY_F6,
+                "debugOptions", "debug.options", MC_VERSION.compareTo(V25W31A) >= 0),
 
   CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "debug.charts.profiler", MC_VERSION.compareTo(V23W33A) >= 0),
   CHARTS_FPS(DEBUG, GLFW_KEY_2, "debug.charts.fps", MC_VERSION.compareTo(V23W33A) >= 0),

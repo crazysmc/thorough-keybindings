@@ -4,7 +4,12 @@ subprojects {
   }
 
   sourceSets.main {
-    java.srcDirs += project.file '../src/main/java'
+    java {
+      srcDirs += project.file '../src/main/java'
+      include '**/version/mixin/*.java'
+      include '**/version/*.java'
+      include '**/shared/Initializer.java'
+    }
     resources.srcDirs += project.file '../src/main/resources'
   }
 

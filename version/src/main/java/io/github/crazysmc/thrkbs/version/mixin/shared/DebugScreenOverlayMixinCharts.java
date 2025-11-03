@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.version.mixin;
+package io.github.crazysmc.thrkbs.version.mixin.shared;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -13,7 +13,7 @@ import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 
 @Mixin(DebugScreenOverlay.class)
-public abstract class DebugScreenOverlayMixin
+public abstract class DebugScreenOverlayMixinCharts
 {
   @WrapOperation(
       method = "drawGameInformation",
