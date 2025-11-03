@@ -7,4 +7,9 @@ subprojects {
     java.srcDirs += project.file '../src/main/java'
     resources.srcDirs += project.file '../src/main/resources'
   }
+
+  sourceSets.test {
+    java.srcDirs += project.file '../src/test/java'
+    resources.srcDirs += project.file '../src/test/resources'
+  }
 }
