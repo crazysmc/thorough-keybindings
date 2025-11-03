@@ -34,7 +34,7 @@ public enum HardcodedMapping
   HELP(DEBUG, GLFW_KEY_Q, "debug.help"),
   DUMP_DYNAMIC_TEXTURES(DEBUG, GLFW_KEY_S, "debug.dump_dynamic_textures", MC_VERSION.compareTo(V11904PRE3) >= 0),
   RELOAD_RESOURCEPACKS(DEBUG, GLFW_KEY_T, "debug.reload_resourcepacks"),
-  CLIENT_VERSION(DEBUG, GLFW_KEY_V, "debug.client_version", false),
+  VERSION(DEBUG, GLFW_KEY_V, "debug.version", MC_VERSION.compareTo(V25W15A) >= 0),
 
   SHIFT_1(MODIFIER, GLFW_KEY_LEFT_SHIFT, "mod.shift.1"),
   SHIFT_2(MODIFIER, GLFW_KEY_RIGHT_SHIFT, "mod.shift.2"),
