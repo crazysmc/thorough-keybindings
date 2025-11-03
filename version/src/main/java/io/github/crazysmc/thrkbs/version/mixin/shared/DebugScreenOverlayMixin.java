@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.version.mixin;
+package io.github.crazysmc.thrkbs.version.mixin.shared;
 
 import net.minecraft.client.gui.components.DebugScreenOverlay;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,10 +14,10 @@ import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 public abstract class DebugScreenOverlayMixin
 {
   @ModifyConstant(method = "drawGameInformation", constant = @Constant(stringValue = "For help: press F3 + Q"))
-  private String drawGameInformation(String constant)
+  private String drawGameInformation_helpString(String constant)
   {
-    String f3 = REGISTRY.get(DEBUG_INFO).getTranslatedKeyMessage();
-    String key = REGISTRY.get(HELP).getTranslatedKeyMessage();
+    String f3 = REGISTRY.get(DEBUG_INFO).getTranslatedKeyText();
+    String key = REGISTRY.get(HELP).getTranslatedKeyText();
     return debugHelpMessage(constant, f3, key);
   }
 }

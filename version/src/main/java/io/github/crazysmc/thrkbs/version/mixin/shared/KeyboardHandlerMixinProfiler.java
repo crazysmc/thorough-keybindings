@@ -17,7 +17,7 @@ import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 
 @Mixin(KeyboardHandler.class)
-public abstract class KeyboardHandlerMixin_20w06a
+public abstract class KeyboardHandlerMixinProfiler
 {
   /*
    * profiler switches change from a loop to a range check in 20w06a

@@ -22,7 +22,7 @@
     "thorough-keybindings": "*"
   },
   "entrypoints": {
-    "client": [ "io.github.crazysmc.thrkbs.version.Initializer" ]
+    "client": [ "io.github.crazysmc.thrkbs.version.shared.Initializer" ]
   },
   "mixins": [ "version.mixins.json" ]
 }

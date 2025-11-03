@@ -6,8 +6,7 @@ import io.github.crazysmc.thrkbs.RemapRegistry;
 import io.github.crazysmc.thrkbs.version.mixin.shared.KeyMappingAccessor;
 import net.minecraft.client.KeyMapping;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class KeyRemapping extends KeyMapping
 {
@@ -33,9 +32,7 @@ public class KeyRemapping extends KeyMapping
 
   public String getTranslatedKeyText()
   {
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
-    String string = getTranslatedKeyMessage().visitSelf(Optional::of).get();
-    return string;
+    return getTranslatedKeyMessage().visit(Optional::of).orElseThrow(NoSuchElementException::new);
   }
 
   @Override

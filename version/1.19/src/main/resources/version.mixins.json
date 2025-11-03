@@ -6,11 +6,11 @@
   "mixinextras": { "minVersion": "0.5.0" },
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
-    "DebugScreenOverlayMixin",
     "GameModeSwitcherScreenMixin",
     "KeyboardHandlerMixin",
+    "shared.DebugScreenOverlayMixin",
     "shared.KeyboardHandlerMixin",
-    "shared.KeyboardHandlerMixin_20w06a",
+    "shared.KeyboardHandlerMixinProfiler",
     "shared.KeyMappingAccessor",
     "shared.KeyMappingMixin",
     "shared.ScreenMixin"

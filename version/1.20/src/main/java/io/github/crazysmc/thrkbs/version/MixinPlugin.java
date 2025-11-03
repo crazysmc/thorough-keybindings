@@ -1,7 +1,7 @@
 package io.github.crazysmc.thrkbs.version;
 
 import com.google.common.collect.ImmutableMap;
-import io.github.crazysmc.thrkbs.version.mixin.shared.KeyboardHandlerMixinProfiler;
+import io.github.crazysmc.thrkbs.version.mixin.DebugScreenOverlayMixin;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.*;
 
 import static io.github.crazysmc.thrkbs.ThoroughKeybindings.MC_VERSION;
-import static io.github.crazysmc.thrkbs.Versions.V20W06A;
+import static io.github.crazysmc.thrkbs.Versions.V23W33A;
 
 public class MixinPlugin implements IMixinConfigPlugin
 {
   @SuppressWarnings("ReferenceToMixin")
   private final Map<String, Boolean> map = ImmutableMap.of(
-      KeyboardHandlerMixinProfiler.class.getCanonicalName(), MC_VERSION.compareTo(V20W06A) >= 0
+      DebugScreenOverlayMixin.class.getCanonicalName(), MC_VERSION.compareTo(V23W33A) >= 0
   );
 
   @Override

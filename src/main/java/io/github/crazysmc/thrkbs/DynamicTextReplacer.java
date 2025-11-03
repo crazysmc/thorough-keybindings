@@ -59,6 +59,15 @@ public class DynamicTextReplacer
     return text;
   }
 
+  public static String debugCharts(String text, String f3, String chart1, String chart2, String chart3)
+  {
+    f3 = keyBinding(f3).replace(" ", "");
+    return text
+        .replace("[F3+1]", String.format("[%s+%s]", f3, keyBinding(chart1).replace(" ", "")))
+        .replace("[F3+2]", String.format("[%s+%s]", f3, keyBinding(chart2).replace(" ", "")))
+        .replace("[F3+3]", String.format("[%s+%s]", f3, keyBinding(chart3).replace(" ", "")));
+  }
+
   private static String upsideDown(String string)
   {
     char c = string.charAt(0);

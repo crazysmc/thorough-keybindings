@@ -33,9 +33,7 @@ public class KeyRemapping extends KeyMapping
 
   public String getTranslatedKeyText()
   {
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
-    String string = getTranslatedKeyMessage().visit(Optional::of).get();
-    return string;
+    return getTranslatedKeyMessage().visit(Optional::of).orElseThrow();
   }
 
   @Override

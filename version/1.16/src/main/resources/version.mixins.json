@@ -7,13 +7,13 @@
   "plugin": "io.github.crazysmc.thrkbs.version.MixinPlugin",
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
-    "DebugScreenOverlayMixin",
     "GameModeSwitcherScreenMixin",
     "GameModeSwitcherScreenMixinNew",
     "GameModeSwitcherScreenMixinOld",
     "KeyboardHandlerMixin",
+    "shared.DebugScreenOverlayMixin",
     "shared.KeyboardHandlerMixin",
-    "shared.KeyboardHandlerMixin_20w06a",
+    "shared.KeyboardHandlerMixinProfiler",
     "shared.KeyMappingAccessor",
     "shared.KeyMappingMixin",
     "shared.ScreenMixin"
