@@ -1,6 +1,9 @@
 {
   "debug.gamemodes.press_key": "[ %s ]",
   "key.categories.debug": "Debug Combinations",
+  "key.categories.minecraft.debug": "Debug Combinations",
+  "key.categories.minecraft.modifier": "Modifiers",
+  "key.categories.minecraft.profiler": "Profiler Chart",
   "key.categories.modifier": "Modifiers",
   "key.categories.profiler": "Profiler Chart",
   "key.debug.advanced_tooltips": "Advanced Item Tooltips",
@@ -22,6 +25,7 @@
   "key.debug.show_hitboxes": "Show Hitboxes (+ Ctrl: Narrator)",
   "key.debug.version": "Client Version Information",
   "key.debugInfo": "Debug Info",
+  "key.debugOptions": "Debug Options",
   "key.disableShader": "Disable Shader",
   "key.gameMenu": "Game Menu",
   "key.gameMode_disableShader": "Switch Game Mode/Disable Shader",

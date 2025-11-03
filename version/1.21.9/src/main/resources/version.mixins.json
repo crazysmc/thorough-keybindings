@@ -9,6 +9,8 @@
     "DebugScreenOverlayMixin",
     "GameModeSwitcherScreenMixin",
     "KeyboardHandlerMixin",
+    "KeyEventMixin",
+    "KeyMappingMixin",
     "shared.KeyMappingAccessor"
   ]
 }

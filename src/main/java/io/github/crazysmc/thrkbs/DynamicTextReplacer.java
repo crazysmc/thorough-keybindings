@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class DynamicTextReplacer
 {
   private static final Logger LOGGER = LogManager.getLogger();
-  private static final Pattern F3_PLUS_KEY = Pattern.compile("F(?:3| III) \\+ (?:Esc|F4|[A-ZΒ])");
+  private static final Pattern F3_PLUS_KEY = Pattern.compile("F(?:3| III) \\+ (?:Esc|F[4-6]|[A-ZΒ])");
   private static final Pattern F3_PLUS_KEY_CN = Pattern.compile("【F3並[^】]+】");
   private static final Pattern F3_PLUS_KEY_UD = Pattern.compile("[^ ]+ \\+ ƐℲ?");
   private static final Char2CharMap CHAR_MAP_UD = new Char2CharOpenHashMap(new char[] {
