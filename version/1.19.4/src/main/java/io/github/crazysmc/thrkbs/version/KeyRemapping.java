@@ -1,0 +1,1 @@
+../../../../../../../../../1.17/src/main/java/io/github/crazysmc/thrkbs/version/KeyRemapping.java

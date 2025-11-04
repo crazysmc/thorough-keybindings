@@ -1,7 +1,6 @@
 package io.github.crazysmc.thrkbs.version;
 
 import com.google.common.collect.ImmutableMap;
-import io.github.crazysmc.thrkbs.version.mixin.shared.DebugScreenOverlayMixinCharts;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -13,9 +12,8 @@ import static io.github.crazysmc.thrkbs.Versions.V23W33A;
 
 public class MixinPlugin implements IMixinConfigPlugin
 {
-  @SuppressWarnings("ReferenceToMixin")
   private final Map<String, Boolean> map = ImmutableMap.of(
-      DebugScreenOverlayMixinCharts.class.getCanonicalName(), MC_VERSION.compareTo(V23W33A) >= 0
+      "io.github.crazysmc.thrkbs.version.mixin.shared.DebugScreenOverlayMixinCharts", MC_VERSION.compareTo(V23W33A) >= 0
   );
 
   @Override

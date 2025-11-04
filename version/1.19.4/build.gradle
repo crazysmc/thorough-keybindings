@@ -1,0 +1,10 @@
+sourceSets.main.java {
+  include '**/mixin/shared/DebugScreenOverlayMixin.java'
+  include '**/mixin/shared/GameModeSwitcherScreenMixin.java'
+  include '**/mixin/shared/KeyboardHandlerMixin.java'
+  include '**/mixin/shared/KeyboardHandlerMixinProfiler.java'
+  include '**/mixin/shared/KeyMappingAccessor.java'
+  include '**/mixin/shared/KeyMappingMixin.java'
+  include '**/mixin/shared/ScreenMixin.java'
+  include '**/shared/RemappedTranslatableContents.java'
+}

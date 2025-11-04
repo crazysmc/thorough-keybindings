@@ -11,9 +11,7 @@ import io.github.crazysmc.thrkbs.version.KeyRemapping;
 import net.minecraft.client.KeyboardHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-import static io.github.crazysmc.thrkbs.HardcodedMapping.GAME_MENU;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -44,7 +42,14 @@ public abstract class KeyboardHandlerMixin
   @ModifyExpressionValue(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"))
   private int keyPress_intEqConst(int constant, long window, int key, int scancode)
   {
-    return REGISTRY.getByDefault(constant).matches(key, scancode) ? key : GLFW_KEY_UNKNOWN;
+    if (constant == GLFW_KEY_TAB || constant >= GLFW_KEY_RIGHT && constant <= GLFW_KEY_UP)
+      return constant;
+    KeyRemapping remapping = REGISTRY.getByDefault(constant);
+    if (remapping.matches(key, scancode))
+      return key;
+    if (constant == GLFW_KEY_ESCAPE && remapping.isUnbound())
+      return GLFW_KEY_ESCAPE; /* make sure we can open the game menu */
+    return GLFW_KEY_UNKNOWN;
   }
 
   @WrapOperation(

@@ -21,8 +21,7 @@ import java.util.EnumSet;
 
 import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
-import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
+import static org.lwjgl.glfw.GLFW.*;
 
 @Mixin(KeyboardHandler.class)
 public abstract class KeyboardHandlerMixin
@@ -55,7 +54,14 @@ public abstract class KeyboardHandlerMixin
   @ModifyExpressionValue(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"))
   private int keyPress_intEqConst(int constant, long window, int action, KeyEvent keyEvent)
   {
-    return REGISTRY.getByDefault(constant).matches(keyEvent) ? keyEvent.key() : GLFW_KEY_UNKNOWN;
+    if (constant == GLFW_KEY_TAB || constant >= GLFW_KEY_RIGHT && constant <= GLFW_KEY_UP)
+      return constant;
+    KeyRemapping remapping = REGISTRY.getByDefault(constant);
+    if (remapping.matches(keyEvent))
+      return keyEvent.key();
+    if (constant == GLFW_KEY_ESCAPE && remapping.isUnbound())
+      return GLFW_KEY_ESCAPE; /* make sure we can open the game menu */
+    return GLFW_KEY_UNKNOWN;
   }
 
   @WrapOperation(
