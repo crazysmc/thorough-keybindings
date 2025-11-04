@@ -20,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.EnumSet;
 
 import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
-import static io.github.crazysmc.thrkbs.HardcodedMapping.PROFILER_0;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UNKNOWN;
 import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;

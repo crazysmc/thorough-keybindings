@@ -1,0 +1,1 @@
+../../../../../../../../../../1.21.9/src/main/java/io/github/crazysmc/thrkbs/version/mixin/DebugScreenOverlayMixin.java
