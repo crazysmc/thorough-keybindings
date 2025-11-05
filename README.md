@@ -24,38 +24,10 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 
 ## List of Keybindings
 
-| Category | Default        | Keybinding                                     |
-|----------|----------------|------------------------------------------------|
-| misc     | ESCAPE         | gameMenu                                       |
-| misc     | F1             | toggleHUD                                      |
-| misc     | F3             | debugInfo                                      |
-| misc     | F4             | gameMode\_disableShader                        |
-| misc     | F6 (F5)        | debugOptionsScreen                             |
-| debug    | 1              | debug.charts.profiler                          |
-| debug    | 2              | debug.charts.fps                               |
-| debug    | 3              | debug.charts.network                           |
-| debug    | A              | debug.reload\_chunks                           |
-| debug    | B              | debug.show\_hitboxes (+ ctrl: toggle narrator) |
-| debug    | C              | debug.copy\_location                           |
-| debug    | D              | debug.clear\_chat                              |
-| debug    | F              | debug.cycle\_renderdistance                    |
-| debug    | G              | debug.chunk\_boundaries                        |
-| debug    | H              | debug.advanced\_tooltips                       |
-| debug    | I              | debug.inspect                                  |
-| debug    | L              | debug.profiling                                |
-| debug    | N              | debug.creative\_spectator                      |
-| debug    | P              | debug.pause\_focus                             |
-| debug    | Q              | debug.help                                     |
-| debug    | S              | debug.dump\_dynamic\_textures                  |
-| debug    | T              | debug.reload\_resourcepacks                    |
-| debug    | V              | debug.client\_version                          |
-| modifier | LEFT\_SHIFT    | mod.shift.1                                    |
-| modifier | RIGHT\_SHIFT   | mod.shift.2                                    |
-| modifier | LEFT\_CONTROL  | mod.ctrl.1                                     |
-| modifier | RIGHT\_CONTROL | mod.ctrl.2                                     |
-| modifier | LEFT\_ALT      | mod.alt.1                                      |
-| modifier | RIGHT\_ALT     | mod.alt.2                                      |
-
 Check out the
+[Mappings](src/main/java/io/github/crazysmc/thrkbs/HardcodedMapping.java)
+definitions in the source.
+
+The
 [history on debug hotkeys](https://minecraft.wiki/w/Debug_hotkey#History)
-in the Minecraft Wiki.
+in the Minecraft Wiki provides more details about F3 combinations.

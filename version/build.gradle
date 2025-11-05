@@ -3,18 +3,19 @@ subprojects {
     implementation project(path: ':', configuration: 'namedElements')
   }
 
-  sourceSets.main {
-    java {
-      srcDirs += project.file '../src/main/java'
-      include '**/version/mixin/*.java'
-      include '**/version/*.java'
-      include '**/shared/Initializer.java'
+  sourceSets {
+    main {
+      java {
+        srcDirs += project.file '../src/main/java'
+        include '**/version/mixin/*.java'
+        include '**/version/*.java'
+        include '**/shared/Initializer.java'
+      }
+      resources.srcDirs += project.file '../src/main/resources'
     }
-    resources.srcDirs += project.file '../src/main/resources'
-  }
-
-  sourceSets.test {
-    java.srcDirs += project.file '../src/test/java'
-    resources.srcDirs += project.file '../src/test/resources'
+    test {
+      java.srcDirs += project.file '../src/test/java'
+      resources.srcDirs += project.file '../src/test/resources'
+    }
   }
 }

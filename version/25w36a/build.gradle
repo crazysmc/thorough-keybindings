@@ -1,4 +1,12 @@
 sourceSets.main.java {
+  srcDirs += file '../1.21.9/src/main/java'
+  exclude {
+    it.file in [
+        file('../1.21.9/src/main/java/io/github/crazysmc/thrkbs/version/Categories.java'),
+        file('../1.21.9/src/main/java/io/github/crazysmc/thrkbs/version/KeyRemapping.java'),
+    ]
+  }
+
   include '**/mixin/shared/KeyMappingAccessor.java'
   include '**/shared/RemappedTranslatableContents.java'
 }
