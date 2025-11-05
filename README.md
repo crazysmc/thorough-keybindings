@@ -27,6 +27,8 @@ This mod uses [Fabric](https://fabricmc.net/) and requires the
 Check out the
 [Mappings](src/main/java/io/github/crazysmc/thrkbs/HardcodedMapping.java)
 definitions in the source.
+Wherever possible we use the names of mappings later added to the base game,
+thus users who upgrade their game can keep their keybindings.
 
 The
 [history on debug hotkeys](https://minecraft.wiki/w/Debug_hotkey#History)

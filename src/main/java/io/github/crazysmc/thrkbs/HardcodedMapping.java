@@ -4,44 +4,49 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static io.github.crazysmc.thrkbs.MappingCategory.*;
-import static io.github.crazysmc.thrkbs.ThoroughKeybindings.MC_VERSION;
-import static io.github.crazysmc.thrkbs.ThoroughKeybindings.ON_OSX;
+import static io.github.crazysmc.thrkbs.ThoroughKeybindings.*;
 import static io.github.crazysmc.thrkbs.Versions.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 public enum HardcodedMapping
 {
-  GAME_MENU(MISC, GLFW_KEY_ESCAPE, "gameMenu", "debug.pause"),
-  TOGGLE_HUD(MISC, GLFW_KEY_F1, "toggleHUD"),
-  DEBUG_INFO(MISC, GLFW_KEY_F3, "debugInfo"),
-  DISABLE_SHADER(MISC, GLFW_KEY_F4, "disableShader", MC_VERSION.compareTo(V20W20A) < 0),
-  GAME_MODE(MISC, GLFW_KEY_F4, "gameMode_disableShader", "debug.gamemodes", MC_VERSION.compareTo(V20W20A) >= 0),
-  DEBUG_OPTIONS(MISC, MC_VERSION.compareTo(V12109PRE4) < 0 ? GLFW_KEY_F5 : GLFW_KEY_F6,
-                "debugOptions", "debug.options", MC_VERSION.compareTo(V25W31A) >= 0),
+  GAME_MENU(MISC, GLFW_KEY_ESCAPE, "gameMenu", "pause", true),
+  TOGGLE_GUI(MISC, GLFW_KEY_F1, "toggleGui", NO_DEBUG_BINDS),
+  DEBUG_INFO(MISC, GLFW_KEY_F3, "debug.modifier", NO_DEBUG_BINDS),
+  TOGGLE_SHADER(MISC, GLFW_KEY_F4, "toggleSpectatorShaderEffects", MC_VERSION.compareTo(V20W20A) < 0),
+  GAME_MODE(MISC, GLFW_KEY_F4, "switchGameMode", "gamemodes", MC_VERSION.compareTo(V20W20A) >= 0 && NO_DEBUG_BINDS),
+  DEBUG_OPTIONS(MISC, MC_VERSION.compareTo(V12109PRE4) < 0 ? GLFW_KEY_F5 : GLFW_KEY_F6, "debug.debugOptions", "options",
+                MC_VERSION.compareTo(V25W31A) >= 0 && NO_DEBUG_BINDS),
+  NARRATOR(MISC, GLFW_KEY_B, "narrator", !NO_DEBUG_BINDS),
 
-  CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "debug.charts.profiler", MC_VERSION.compareTo(V23W33A) >= 0),
-  CHARTS_FPS(DEBUG, GLFW_KEY_2, "debug.charts.fps", MC_VERSION.compareTo(V23W33A) >= 0),
-  CHARTS_NETWORK(DEBUG, GLFW_KEY_3, "debug.charts.network", MC_VERSION.compareTo(V23W33A) >= 0),
-  RELOAD_CHUNKS(DEBUG, GLFW_KEY_A, "debug.reload_chunks"),
-  SHOW_HITBOXES(DEBUG, GLFW_KEY_B, "debug.show_hitboxes"),
-  COPY_LOCATION(DEBUG, GLFW_KEY_C, "debug.copy_location"),
-  CLEAR_CHAT(DEBUG, GLFW_KEY_D, "debug.clear_chat"),
-  CYCLE_RENDERDISTANCE(DEBUG, GLFW_KEY_F, "debug.cycle_renderdistance", MC_VERSION.compareTo(V22W12A) < 0),
-  CHUNK_BOUNDARIES(DEBUG, GLFW_KEY_G, "debug.chunk_boundaries"),
-  ADVANCED_TOOLTIPS(DEBUG, GLFW_KEY_H, "debug.advanced_tooltips"),
-  INSPECT(DEBUG, GLFW_KEY_I, "debug.inspect"),
-  PROFILING(DEBUG, GLFW_KEY_L, "debug.profiling", MC_VERSION.compareTo(V21W11A) >= 0),
-  CREATIVE_SPECTATOR(DEBUG, GLFW_KEY_N, "debug.creative_spectator"),
-  PAUSE_FOCUS(DEBUG, GLFW_KEY_P, "debug.pause_focus"),
-  HELP(DEBUG, GLFW_KEY_Q, "debug.help"),
-  DUMP_DYNAMIC_TEXTURES(DEBUG, GLFW_KEY_S, "debug.dump_dynamic_textures", MC_VERSION.compareTo(V11904PRE3) >= 0),
-  RELOAD_RESOURCEPACKS(DEBUG, GLFW_KEY_T, "debug.reload_resourcepacks"),
-  VERSION(DEBUG, GLFW_KEY_V, "debug.version", MC_VERSION.compareTo(V25W15A) >= 0),
+  CHARTS_PROFILER(DEBUG, GLFW_KEY_1, "profilingChart", "charts.profiler",
+                  MC_VERSION.compareTo(V23W33A) >= 0 && NO_DEBUG_BINDS),
+  CHARTS_FPS(DEBUG, GLFW_KEY_2, "fpsCharts", "charts.fps",
+             MC_VERSION.compareTo(V23W33A) >= 0 && NO_DEBUG_BINDS),
+  CHARTS_NETWORK(DEBUG, GLFW_KEY_3, "networkCharts", "charts.network",
+                 MC_VERSION.compareTo(V23W33A) >= 0 && NO_DEBUG_BINDS),
+
+  RELOAD_CHUNKS(DEBUG, GLFW_KEY_A, "reloadChunk", "reload_chunks", NO_DEBUG_BINDS),
+  SHOW_HITBOXES(DEBUG, GLFW_KEY_B, "showHitboxes", "show_hitboxes", NO_DEBUG_BINDS),
+  COPY_LOCATION(DEBUG, GLFW_KEY_C, "copyLocation", "copy_location", NO_DEBUG_BINDS),
+  CLEAR_CHAT(DEBUG, GLFW_KEY_D, "clearChat", "clear_chat", NO_DEBUG_BINDS),
+  RENDER_DISTANCE(DEBUG, GLFW_KEY_F, "cycleRenderDistance", "cycle_renderdistance", MC_VERSION.compareTo(V22W12A) < 0),
+  CHUNK_BOUNDARIES(DEBUG, GLFW_KEY_G, "showChunkBorders", "chunk_boundaries", NO_DEBUG_BINDS),
+  ADVANCED_TOOLTIPS(DEBUG, GLFW_KEY_H, "showAdvancedTooltips", "advanced_tooltips", NO_DEBUG_BINDS),
+  INSPECT(DEBUG, GLFW_KEY_I, "copyRecreateCommand", "inspect", NO_DEBUG_BINDS),
+  PROFILING(DEBUG, GLFW_KEY_L, "profiling", "profiling", MC_VERSION.compareTo(V21W11A) >= 0 && NO_DEBUG_BINDS),
+  SPECTATE(DEBUG, GLFW_KEY_N, "spectate", "creative_spectator", NO_DEBUG_BINDS),
+  FOCUS_PAUSE(DEBUG, GLFW_KEY_P, "focusPause", "pause_focus", NO_DEBUG_BINDS),
+  HELP(DEBUG, GLFW_KEY_Q, "help", "help", NO_DEBUG_BINDS),
+  DUMP_DYN_TEX(DEBUG, GLFW_KEY_S, "dumpDynamicTextures", "dump_dynamic_textures",
+               MC_VERSION.compareTo(V11904PRE3) >= 0 && NO_DEBUG_BINDS),
+  RELOAD_RESOURCE_PACKS(DEBUG, GLFW_KEY_T, "reloadResourcePacks", "reload_resourcepacks", NO_DEBUG_BINDS),
+  DUMP_VERSION(DEBUG, GLFW_KEY_V, "dumpVersion", "version", MC_VERSION.compareTo(V25W15A) >= 0 && NO_DEBUG_BINDS),
 
   SHIFT_1(MODIFIER, GLFW_KEY_LEFT_SHIFT, "mod.shift.1"),
   SHIFT_2(MODIFIER, GLFW_KEY_RIGHT_SHIFT, "mod.shift.2"),
-  CTRL_1(MODIFIER, ON_OSX ? GLFW_KEY_LEFT_SUPER : GLFW_KEY_LEFT_CONTROL, "mod.ctrl.1"),
-  CTRL_2(MODIFIER, ON_OSX ? GLFW_KEY_RIGHT_SUPER : GLFW_KEY_RIGHT_CONTROL, "mod.ctrl.2"),
+  CTRL_1(MODIFIER, ON_OSX && NO_DEBUG_BINDS ? GLFW_KEY_LEFT_SUPER : GLFW_KEY_LEFT_CONTROL, "mod.ctrl.1"),
+  CTRL_2(MODIFIER, ON_OSX && NO_DEBUG_BINDS ? GLFW_KEY_RIGHT_SUPER : GLFW_KEY_RIGHT_CONTROL, "mod.ctrl.2"),
   ALT_1(MODIFIER, GLFW_KEY_LEFT_ALT, "mod.alt.1"),
   ALT_2(MODIFIER, GLFW_KEY_RIGHT_ALT, "mod.alt.2"),
 
@@ -68,11 +73,6 @@ public enum HardcodedMapping
     this(category, keyCode, name, null, true);
   }
 
-  HardcodedMapping(MappingCategory category, int keyCode, String name, String debugHelp)
-  {
-    this(category, keyCode, name, debugHelp, true);
-  }
-
   HardcodedMapping(MappingCategory category, int keyCode, String name, boolean exists)
   {
     this(category, keyCode, name, null, exists);
@@ -82,8 +82,8 @@ public enum HardcodedMapping
   {
     this.category = category;
     this.keyCode = keyCode;
-    this.name = name;
-    this.debugHelp = category == DEBUG ? name : debugHelp;
+    this.name = category == DEBUG ? String.format("debug.%s", name) : name;
+    this.debugHelp = debugHelp;
     this.exists = exists;
   }
 
@@ -109,6 +109,6 @@ public enum HardcodedMapping
 
   public String getDebugHelpId()
   {
-    return debugHelp == null ? null : String.format("%s.help", debugHelp);
+    return debugHelp == null ? null : String.format("debug.%s.help", debugHelp);
   }
 }

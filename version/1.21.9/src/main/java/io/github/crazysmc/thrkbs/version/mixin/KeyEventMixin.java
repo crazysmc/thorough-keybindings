@@ -1,5 +1,6 @@
 package io.github.crazysmc.thrkbs.version.mixin;
 
+import io.github.crazysmc.thrkbs.version.KeyRemapping;
 import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.input.KeyEvent;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +14,8 @@ public abstract class KeyEventMixin implements InputWithModifiers
   @Override
   public boolean isEscape()
   {
-    return REGISTRY.get(GAME_MENU).matches((KeyEvent) (Object) this);
+    KeyRemapping remapping = REGISTRY.get(GAME_MENU); /* make sure we can open the game menu */
+    return remapping.isUnbound() ? InputWithModifiers.super.isEscape() : remapping.matches((KeyEvent) (Object) this);
   }
 
   @Override
