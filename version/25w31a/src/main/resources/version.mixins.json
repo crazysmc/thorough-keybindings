@@ -6,8 +6,8 @@
   "mixinextras": { "minVersion": "0.5.0" },
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
-    "DebugScreenOverlayMixin",
     "KeyboardHandlerMixin",
+    "shared.DebugScreenOverlayMixinEdit",
     "shared.GameModeSwitcherScreenMixin",
     "shared.KeyboardHandlerMixin",
     "shared.KeyboardHandlerMixinProfiler",

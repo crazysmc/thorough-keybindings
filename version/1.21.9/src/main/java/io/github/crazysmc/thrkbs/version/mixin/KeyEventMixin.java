@@ -19,21 +19,18 @@ public abstract class KeyEventMixin implements InputWithModifiers
   @Override
   public boolean hasAltDown()
   {
-    return REGISTRY.get(ALT_1).matches((KeyEvent) (Object) this) ||
-        REGISTRY.get(ALT_2).matches((KeyEvent) (Object) this);
+    return REGISTRY.get(ALT_1).isDown() || REGISTRY.get(ALT_2).isDown();
   }
 
   @Override
   public boolean hasShiftDown()
   {
-    return REGISTRY.get(SHIFT_1).matches((KeyEvent) (Object) this) ||
-        REGISTRY.get(SHIFT_2).matches((KeyEvent) (Object) this);
+    return REGISTRY.get(SHIFT_1).isDown() || REGISTRY.get(SHIFT_2).isDown();
   }
 
   @Override
   public boolean hasControlDown()
   {
-    return REGISTRY.get(CTRL_1).matches((KeyEvent) (Object) this) ||
-        REGISTRY.get(CTRL_2).matches((KeyEvent) (Object) this);
+    return REGISTRY.get(CTRL_1).isDown() || REGISTRY.get(CTRL_2).isDown();
   }
 }

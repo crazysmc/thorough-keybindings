@@ -48,8 +48,7 @@ public abstract class KeyboardHandlerMixin
               "Lnet/minecraft/network/chat/MutableComponent;"
       )
   )
-  private MutableComponent debugFeedbackTranslated_translatable(
-      String key, Operation<MutableComponent> original)
+  private MutableComponent debugFeedbackTranslated_translatable(String key, Operation<MutableComponent> original)
   {
     return "debug.crash.message".equals(key)
         ? MutableComponent.create(new RemappedTranslatableContents(REGISTRY.get(COPY_LOCATION), key))

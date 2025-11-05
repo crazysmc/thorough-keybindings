@@ -1,6 +1,7 @@
 sourceSets.main.java {
   srcDirs += file '../src/1.17-1.21/java/'
 
+  include '**/mixin/shared/DebugScreenOverlayMixinEdit.java'
   include '**/mixin/shared/GameModeSwitcherScreenMixin.java'
   include '**/mixin/shared/KeyboardHandlerMixin.java'
   include '**/mixin/shared/KeyboardHandlerMixinProfiler.java'

@@ -2,16 +2,11 @@ sourceSets.main {
   java {
     srcDirs -= file 'src/main/java'
     srcDirs += file '../1.14/src/main/java'
-
-    include '**/mixin/shared/DebugScreenOverlayMixin.java'
-    include '**/mixin/shared/KeyboardHandlerMixin.java'
-    include '**/mixin/shared/KeyboardHandlerMixinProfiler.java'
-    include '**/mixin/shared/KeyMappingAccessor.java'
-    include '**/mixin/shared/KeyMappingMixin.java'
-    include '**/mixin/shared/ScreenMixin.java'
   }
   resources {
     srcDirs -= file 'src/main/resources'
     srcDirs += file '../1.14/src/main/resources'
   }
 }
+
+apply from: '../1.14/build.gradle'

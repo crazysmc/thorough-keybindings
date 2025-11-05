@@ -7,11 +7,11 @@
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
     "CategoryMixin",
-    "DebugScreenOverlayMixin",
     "GameModeSwitcherScreenMixin",
     "KeyboardHandlerMixin",
     "KeyEventMixin",
     "KeyMappingMixin",
+    "shared.DebugScreenOverlayMixinEdit",
     "shared.KeyMappingAccessor"
   ]
 }

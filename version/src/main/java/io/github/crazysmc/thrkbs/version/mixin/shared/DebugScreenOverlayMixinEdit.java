@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.version.mixin;
+package io.github.crazysmc.thrkbs.version.mixin.shared;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -15,7 +15,7 @@ import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 
 @Mixin(DebugScreenOverlay.class)
-public abstract class DebugScreenOverlayMixin
+public abstract class DebugScreenOverlayMixinEdit
 {
   @WrapOperation(
       method = "render",
@@ -40,6 +40,7 @@ public abstract class DebugScreenOverlayMixin
       String f6 = REGISTRY.get(DEBUG_OPTIONS).getTranslatedKeyText();
       switch (text)
       {
+        case "For help: press F3 + Q. To edit: press F3 + F5":
         case "To edit: press F3 + F5. For help: press F3 + Q":
         case "To edit: press F3 + F6. For help: press F3 + Q":
           String q = REGISTRY.get(HELP).getTranslatedKeyText();
