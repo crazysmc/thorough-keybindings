@@ -14,7 +14,7 @@ public abstract class KeyEventMixin implements InputWithModifiers
   @Override
   public boolean isEscape()
   {
-    KeyRemapping remapping = REGISTRY.get(GAME_MENU); /* make sure we can open the game menu */
+    KeyRemapping remapping = REGISTRY.get(GAME_MENU);
     return remapping.isUnbound() ? InputWithModifiers.super.isEscape() : remapping.matches((KeyEvent) (Object) this);
   }
 

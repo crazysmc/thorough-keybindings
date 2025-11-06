@@ -8,8 +8,10 @@
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
     "KeyboardHandlerMixin",
+    "shared.ControlsScreenMixin",
     "shared.DebugScreenOverlayMixin",
     "shared.KeyboardHandlerMixin",
+    "shared.KeyboardHandlerMixinControls",
     "shared.KeyboardHandlerMixinProfiler",
     "shared.KeyMappingAccessor",
     "shared.KeyMappingMixin",

@@ -21,7 +21,7 @@ public abstract class KeyboardHandlerMixin
   @Definition(id = "window", local = @Local(type = long.class, argsOnly = true))
   @Expression("window == ?")
   @ModifyExpressionValue(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"))
-  private boolean keyPress_longEq(boolean original, long window, int key, int scancode, int action)
+  private boolean keyPress_windowEq(boolean original, long window, int key, int scancode, int action)
   {
     if (original)
       KeyRemapping.setDown(InputConstants.getKey(key, scancode), action != GLFW_RELEASE);
@@ -40,16 +40,14 @@ public abstract class KeyboardHandlerMixin
   @Definition(id = "key", local = @Local(type = int.class, argsOnly = true, ordinal = 0))
   @Expression("key == @(?)")
   @ModifyExpressionValue(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"))
-  private int keyPress_intEqConst(int constant, long window, int key, int scancode)
+  private int keyPress_keyEqConst(int constant, long window, int key, int scancode)
   {
     if (constant == GLFW_KEY_TAB || constant >= GLFW_KEY_RIGHT && constant <= GLFW_KEY_UP)
       return constant;
     KeyRemapping remapping = REGISTRY.getByDefault(constant);
-    if (remapping.matches(key, scancode))
-      return key;
     if (constant == GLFW_KEY_ESCAPE && remapping.isUnbound())
-      return GLFW_KEY_ESCAPE; /* make sure we can open the game menu */
-    return GLFW_KEY_UNKNOWN;
+      return constant;
+    return remapping.matches(key, scancode) ? key : key + 1;
   }
 
   @WrapOperation(

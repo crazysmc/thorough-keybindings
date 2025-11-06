@@ -12,6 +12,7 @@
     "KeyEventMixin",
     "KeyMappingMixin",
     "shared.DebugScreenOverlayMixinEdit",
+    "shared.KeyboardHandlerMixinComponent",
     "shared.KeyMappingAccessor"
   ]
 }

@@ -10,16 +10,15 @@ import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
 import io.github.crazysmc.thrkbs.HardcodedMapping;
 import io.github.crazysmc.thrkbs.version.KeyRemapping;
-import io.github.crazysmc.thrkbs.version.shared.RemappedTranslatableContents;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.input.KeyEvent;
-import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.EnumSet;
 
-import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
+import static io.github.crazysmc.thrkbs.HardcodedMapping.PROFILER_0;
+import static io.github.crazysmc.thrkbs.HardcodedMapping.PROFILER_9;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -29,7 +28,7 @@ public abstract class KeyboardHandlerMixin
   @Definition(id = "window", local = @Local(type = long.class, argsOnly = true))
   @Expression("window == ?")
   @ModifyExpressionValue(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"))
-  private boolean keyPress_longEq(boolean original, long window, int action, KeyEvent keyEvent)
+  private boolean keyPress_windowEq(boolean original, long window, int action, KeyEvent keyEvent)
   {
     if (original)
       KeyRemapping.setDown(InputConstants.getKey(keyEvent), action != GLFW_RELEASE);
@@ -57,11 +56,9 @@ public abstract class KeyboardHandlerMixin
     if (constant == GLFW_KEY_TAB || constant >= GLFW_KEY_RIGHT && constant <= GLFW_KEY_UP)
       return constant;
     KeyRemapping remapping = REGISTRY.getByDefault(constant);
-    if (remapping.matches(keyEvent))
-      return keyEvent.key();
     if (constant == GLFW_KEY_ESCAPE && remapping.isUnbound())
-      return GLFW_KEY_ESCAPE; /* make sure we can open the game menu */
-    return GLFW_KEY_UNKNOWN;
+      return constant;
+    return remapping.matches(keyEvent) ? keyEvent.key() : keyEvent.key() + 1;
   }
 
   @WrapOperation(
@@ -86,33 +83,5 @@ public abstract class KeyboardHandlerMixin
       if (REGISTRY.get(mapping).matches(instance))
         return mapping.ordinal() - PROFILER_0.ordinal();
     return -1;
-  }
-
-  @WrapOperation(
-      method = "handleDebugKeys",
-      at = @At(
-          value = "INVOKE",
-          target = "Lnet/minecraft/network/chat/Component;translatable(Ljava/lang/String;)" +
-              "Lnet/minecraft/network/chat/MutableComponent;"
-      )
-  )
-  private MutableComponent handleDebugKeys_translatable(String key, Operation<MutableComponent> original)
-  {
-    return MutableComponent.create(new RemappedTranslatableContents(REGISTRY.getByDebugHelp(key), key));
-  }
-
-  @WrapOperation(
-      method = "debugFeedbackTranslated",
-      at = @At(
-          value = "INVOKE",
-          target = "Lnet/minecraft/network/chat/Component;translatable(Ljava/lang/String;)" +
-              "Lnet/minecraft/network/chat/MutableComponent;"
-      )
-  )
-  private MutableComponent debugFeedbackTranslated_translatable(String key, Operation<MutableComponent> original)
-  {
-    return "debug.crash.message".equals(key)
-        ? MutableComponent.create(new RemappedTranslatableContents(REGISTRY.get(COPY_LOCATION), key))
-        : original.call(key);
   }
 }

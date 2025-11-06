@@ -1,10 +1,13 @@
 sourceSets.main.java {
-  srcDirs += file '../src/1.17-1.21/java/'
+  srcDirs += file '../src/1.16-1.21/java/'
 
+  include '**/mixin/shared/KeyBindsScreenMixinOpt.java'
   include '**/mixin/shared/DebugScreenOverlayMixin.java'
   include '**/mixin/shared/DebugScreenOverlayMixinCharts.java'
   include '**/mixin/shared/GameModeSwitcherScreenMixin.java'
   include '**/mixin/shared/KeyboardHandlerMixin.java'
+  include '**/mixin/shared/KeyboardHandlerMixinComponent.java'
+  include '**/mixin/shared/KeyboardHandlerMixinKeyBindsOpt.java'
   include '**/mixin/shared/KeyboardHandlerMixinProfiler.java'
   include '**/mixin/shared/KeyMappingAccessor.java'
   include '**/mixin/shared/KeyMappingMixin.java'
