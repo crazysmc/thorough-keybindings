@@ -4,7 +4,6 @@ import net.fabricmc.loader.api.*;
 
 public class Versions
 {
-  public static final Version V20W06A = semver("1.16-alpha.20.6.a");
   public static final Version V20W20A = semver("1.16-alpha.20.20.a");
   public static final Version V116PRE1 = semver("1.16-rc.1");
   public static final Version V21W11A = semver("1.17-alpha.21.11.a");

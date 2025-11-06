@@ -6,7 +6,6 @@ sourceSets.main.java {
   include '**/mixin/shared/KeyboardHandlerMixin.java'
   include '**/mixin/shared/KeyboardHandlerMixinConstructor.java'
   include '**/mixin/shared/KeyboardHandlerMixinControls.java'
-  include '**/mixin/shared/KeyboardHandlerMixinProfiler.java'
   include '**/mixin/shared/KeyMappingAccessor.java'
   include '**/mixin/shared/KeyMappingMixin.java'
   include '**/mixin/shared/ScreenMixin.java'

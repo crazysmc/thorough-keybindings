@@ -5,8 +5,10 @@ usually fixed mappings rebindable.
 This project branch supports releases 1.14 through 1.21.
 Check out the Ornithe version for legacy support!
 
-For example, this lets you remap F3 or Esc in-game, without external software.
-Also adds rebinding options for debug key combinations like F3 + Q.
+For example, this lets you remap Escape and F3 in-game, even in versions before
+F3 was made rebindable.
+Also adds rebinding options for Shift, Control, Alt as well as the digits to
+navigate the profiling pie chart.
 
 Before 1.21.9, Minecraft only supported one action per key and if multiple
 bindings were mapped to the same key, only a random single one of these would

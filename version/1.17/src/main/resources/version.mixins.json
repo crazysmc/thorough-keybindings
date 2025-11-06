@@ -12,7 +12,6 @@
     "shared.KeyboardHandlerMixin",
     "shared.KeyboardHandlerMixinConstructor",
     "shared.KeyboardHandlerMixinControls",
-    "shared.KeyboardHandlerMixinProfiler",
     "shared.KeyMappingAccessor",
     "shared.KeyMappingMixin",
     "shared.ScreenMixin"
