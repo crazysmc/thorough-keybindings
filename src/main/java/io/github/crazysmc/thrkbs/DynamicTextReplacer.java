@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 public class DynamicTextReplacer
 {
   private static final Logger LOGGER = LogManager.getLogger();
-  private static final Pattern F3_PLUS_KEY = Pattern.compile("F(?:3| III) \\+ (?:Esc|Fuga|F[4-6]|[A-ZΒ])");
-  private static final Pattern F3_PLUS_KEY_CN = Pattern.compile("【?F3並(?:Esc|F[4-6]|[A-Z])】?");
+  private static final Pattern F3_PLUS_KEY = Pattern.compile("F(?:3| III) \\+ (?:F IV|F VI?|É?\\w+)");
+  private static final Pattern F3_PLUS_KEY_CN = Pattern.compile("F3並\\w+");
   private static final Pattern F3_PLUS_KEY_UD = Pattern.compile("[^ ]+ \\+ ƐℲ?");
   private static final Char2CharMap CHAR_MAP_UD = new Char2CharOpenHashMap(new char[] {
       '!', '"', '&', '\'', '(', ')', ',', '.', '1', '2', '3', '4', '5', '6', '7', '9', ';', '<', '>', '?', 'A', 'B',
@@ -54,7 +54,7 @@ public class DynamicTextReplacer
     }
     Matcher matcherCn = F3_PLUS_KEY_CN.matcher(text);
     if (matcherCn.find())
-      return matcherCn.replaceAll(String.format("【%s並%s】", f3, key));
+      return matcherCn.replaceAll(String.format("%s並%s", f3, key));
     LOGGER.warn("could not find F3 key combination in '{}'", text);
     return text;
   }
