@@ -3,58 +3,58 @@ plugins {
 }
 
 allprojects {
-  if (project.path.startsWith(':modules') && project.path.count(':') < 3)
+  if (project.path == ':version')
     return
 
   apply plugin: libs.plugins.loom.get().pluginId
+  apply plugin: 'idea'
 
   version = mod_version
   group = maven_group
   base.archivesName = "$rootProject.name-$name"
 
   dependencies {
-    minecraft group: 'com.mojang', name: 'minecraft', version: minecraft_version
     println "Minecraft: $minecraft_version"
+    minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered {
       officialMojangMappings { nameSyntheticMembers = true }
     }
     modImplementation libs.loader
-
-    if (project == rootProject)
-      return
 
     testImplementation libs.junit
     testImplementation libs.loader.junit
     testImplementation libs.mockito
     testImplementation libs.mojang.logging
 
-    if (project.path == ':ap')
-      return
-
-    modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
+    if (!project.hasProperty('no_fabric_resource_loader'))
+      modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
     modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
-    annotationProcessor implementation(project(path: ':ap', configuration: 'namedElements'))
+  }
 
-    if (project.path == ':core')
-      return
-
-    implementation project(path: ':core', configuration: 'namedElements')
+  loom {
+    log4jConfigs.from project.rootProject.file('src/test/resources/log4j.xml')
+    runs {
+      client.ideConfigGenerated = false
+      remove server
+    }
   }
 
   java {
-    toolchain.languageVersion = JavaLanguageVersion.of java_version
     println "Java: $java_version"
+    toolchain.languageVersion = JavaLanguageVersion.of java_version
     withSourcesJar()
   }
 
   processResources {
-    def f = file 'gradle.properties'
-    if (f.exists())
-      inputs.file f
+    def stringProperties = project.properties.findAll { it.value instanceof String }
+    inputs.properties stringProperties
     filesMatching 'fabric.mod.json', {
-      expand project.properties
+      expand stringProperties, { escapeBackslash = false }
     }
   }
+
+  idea.module.resourceDirs = [ project.processResources.destinationDir ]
+  idea.module.generatedSourceDirs += project.processResources.destinationDir
 
   tasks.withType Jar configureEach {
     from rootProject.file('LICENSE')

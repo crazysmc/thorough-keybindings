@@ -5,57 +5,33 @@ usually fixed mappings rebindable.
 This project branch supports releases 1.14 through 1.21.
 Check out the Ornithe version for legacy support!
 
-For example, this lets you remap F3 or Esc in-game, without external software.
-Also adds rebinding options for debug key combinations like F3 + Q.
+For example, this lets you remap Escape and F3 in-game, even in versions
+before F3 was made rebindable.
+Also adds rebinding options for Shift, Control, Alt as well as the digits to
+navigate the profiling pie chart.
+
+Before 1.21.9, Minecraft only supported one action per key and if multiple
+bindings were mapped to the same key, only a random single one of these would
+fire.
+This mod backports the functionality that duplicate bindings activate all
+bound keys.
 
 ## Usage
 
-The latest release can also be found
-on [Modrinth](https://modrinth.com/mod/thorough-keybindings).
+The latest release can also be found on
+[Modrinth](https://modrinth.com/mod/thorough-keybindings).
 
 This mod uses [Fabric](https://fabricmc.net/) and requires the
 [Fabric API](https://modrinth.com/mod/fabric-api) to run.
 
 ## List of Keybindings
 
-| Category | Default       | Keybinding                                         |
-|----------|---------------|----------------------------------------------------|
-| misc     | ESCAPE        | gameMenu                                           |
-| misc     | F1            | toggleHUD                                          |
-| misc     | F3            | debugInfo                                          |
-| misc     | F4            | disableShader (with debugInfo: game mode switcher) |
-| debug    | 1             | debug.charts.profiler                              |
-| debug    | 2             | debug.charts.fps                                   |
-| debug    | 3             | debug.charts.network                               |
-| debug    | A             | debug.reload_chunks                                |
-| debug    | B             | debug.show_hitboxes (with ctrl: toggle narrator)   |
-| debug    | C             | debug.copy_location                                |
-| debug    | D             | debug.clear_chat                                   |
-| debug    | F             | debug.cycle_renderdistance                         |
-| debug    | G             | debug.chunk_boundaries                             |
-| debug    | H             | debug.advanced_tooltips                            |
-| debug    | I             | debug.inspect                                      |
-| debug    | L             | debug.profiling                                    |
-| debug    | N             | debug.creative_spectator                           |
-| debug    | P             | debug.pause_focus                                  |
-| debug    | Q             | debug.help                                         |
-| debug    | S             | debug.dump_dynamic_textures                        |
-| debug    | T             | debug.reload_resourcepacks                         |
-| debug    | V             | debug.client_version                               |
-| modifier | LEFT_SHIFT    | mod.shift.1                                        |
-| modifier | RIGHT_SHIFT   | mod.shift.2                                        |
-| modifier | LEFT_CONTROL  | mod.ctrl.1                                         |
-| modifier | RIGHT_CONTROL | mod.ctrl.2                                         |
-| modifier | LEFT_ALT      | mod.alt.1                                          |
-| modifier | RIGHT_ALT     | mod.alt.2                                          |
+Check out the
+[Mappings](src/main/java/io/github/crazysmc/thrkbs/HardcodedMapping.java)
+definitions in the source.
+Wherever possible we use the names of mappings later added to the base game,
+thus users who upgrade their game can keep their keybindings.
 
-## Some History
-
-| Key        | Version                                  |
-|------------|------------------------------------------|
-| F3 + F4    | 1.16                                     |
-| F3 + L     | 1.17                                     |
-| F3 + F     | removed in 1.19                          |
-| F3 + S     | 1.19.4 reintroduced since removal in 1.9 |
-| F3 + 1/2/3 | 1.20.2                                   |
-| F3 + V     | 1.21.6                                   |
+The
+[history on debug hotkeys](https://minecraft.wiki/w/Debug_hotkey#History)
+in the Minecraft Wiki provides more details about F3 combinations.

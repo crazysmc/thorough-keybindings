@@ -4,9 +4,7 @@
   "version": "${version}",
   "name": "Thorough Keybindings",
   "description": "Make all keybindings configurable",
-  "authors": [
-    "crazysmc"
-  ],
+  "authors": [ "crazysmc" ],
   "contact": {
     "homepage": "https://github.com/crazysmc/thorough-keybindings",
     "sources": "https://github.com/crazysmc/thorough-keybindings",
@@ -16,7 +14,7 @@
   "license": "MIT",
   "environment": "client",
   "depends": {
-    "fabricloader": ">=0.15.9",
+    "fabricloader": ">=0.17.0",
     "fabric-key-binding-api-v1": "*"
   },
   "recommends": {
