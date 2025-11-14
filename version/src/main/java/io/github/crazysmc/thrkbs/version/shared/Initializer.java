@@ -1,19 +1,25 @@
 package io.github.crazysmc.thrkbs.version.shared;
 
 import io.github.crazysmc.thrkbs.HardcodedMapping;
-import io.github.crazysmc.thrkbs.version.KeyRemapping;
+import io.github.crazysmc.thrkbs.version.KeyRebinding;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.ornithemc.osl.keybinds.api.KeyBindingRegistry;
 
 import static io.github.crazysmc.thrkbs.ThoroughKeybindings.LOGGER;
-import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
+import static io.github.crazysmc.thrkbs.version.KeyRebinding.REGISTRY;
+import static net.ornithemc.osl.keybinds.api.KeyBindingEvents.REGISTER_KEYBINDS;
 
 public class Initializer implements ClientModInitializer
 {
   @Override
   public void onInitializeClient()
   {
-    HardcodedMapping.getExisting().forEach(mapping -> KeyBindingHelper.registerKeyBinding(new KeyRemapping(mapping)));
+    REGISTER_KEYBINDS.register(this::registerKeybindings);
+  }
+
+  private void registerKeybindings(KeyBindingRegistry registry)
+  {
+    HardcodedMapping.getExisting().forEach(mapping -> registry.register(new KeyRebinding(mapping)));
     LOGGER.debug("registered {} keybindings", REGISTRY::size);
   }
 }

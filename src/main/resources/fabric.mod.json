@@ -15,9 +15,9 @@
   "environment": "client",
   "depends": {
     "fabricloader": ">=0.17.0",
-    "fabric-key-binding-api-v1": "*"
+    "osl-keybinds": "*"
   },
   "recommends": {
-    "fabric-resource-loader-v0": "*"
+    "osl-resource-loader": "*"
   }
 }

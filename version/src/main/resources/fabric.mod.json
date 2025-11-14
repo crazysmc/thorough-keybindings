@@ -20,7 +20,7 @@
   "depends": {
     "minecraft": "${minecraft_range}",
     "fabricloader": ">=0.17.0",
-    "fabric-key-binding-api-v1": "*",
+    "osl-keybinds": "*",
     "thorough-keybindings": "*"
   },
   "entrypoints": {

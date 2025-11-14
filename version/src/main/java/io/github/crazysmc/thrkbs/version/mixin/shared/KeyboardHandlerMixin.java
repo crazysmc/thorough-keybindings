@@ -7,40 +7,42 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.platform.InputConstants;
-import io.github.crazysmc.thrkbs.HardcodedMapping;
-import io.github.crazysmc.thrkbs.version.KeyRemapping;
+import io.github.crazysmc.thrkbs.version.KeyRebinding;
 import net.minecraft.client.KeyboardHandler;
-import org.spongepowered.asm.mixin.Mixin;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.options.ControlsOptionsScreen;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Slice;
 
-import java.util.EnumSet;
-
-import static io.github.crazysmc.thrkbs.HardcodedMapping.PROFILER_0;
-import static io.github.crazysmc.thrkbs.HardcodedMapping.PROFILER_9;
-import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
+import static io.github.crazysmc.thrkbs.HardcodedMapping.GAME_MENU;
+import static io.github.crazysmc.thrkbs.version.KeyRebinding.REGISTRY;
 import static org.lwjgl.glfw.GLFW.*;
 
 @Mixin(KeyboardHandler.class)
 public abstract class KeyboardHandlerMixin
 {
+  @Shadow
+  @Final
+  private Minecraft minecraft;
+
   @Definition(id = "window", local = @Local(type = long.class, argsOnly = true))
   @Expression("window == ?")
   @ModifyExpressionValue(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"))
   private boolean keyPress_windowEq(boolean original, long window, int key, int scancode, int action)
   {
     if (original)
-      KeyRemapping.setDown(InputConstants.getKey(key, scancode), action != GLFW_RELEASE);
+      KeyRebinding.setPressed(InputConstants.getKey(key, scancode), action != GLFW_RELEASE);
     return original;
   }
 
   @WrapOperation(
       method = "keyPress",
-      at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z")
+      at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/InputConstants;getKey(JI)Z")
   )
-  private boolean keyPress_isKeyDown(long window, int constant, Operation<Boolean> original)
+  private boolean keyPress_getKey(long window, int constant, Operation<Boolean> original)
   {
-    return REGISTRY.getByDefault(constant).isDown();
+    return REGISTRY.getByDefault(constant).isPressed();
   }
 
   @Definition(id = "key", local = @Local(type = int.class, argsOnly = true, ordinal = 0))
@@ -50,10 +52,10 @@ public abstract class KeyboardHandlerMixin
   {
     if (constant == GLFW_KEY_TAB || constant >= GLFW_KEY_RIGHT && constant <= GLFW_KEY_UP)
       return constant;
-    KeyRemapping remapping = REGISTRY.getByDefault(constant);
-    if (constant == GLFW_KEY_ESCAPE && remapping.isUnbound())
+    KeyRebinding rebinding = REGISTRY.getByDefault(constant);
+    if (constant == GLFW_KEY_ESCAPE && rebinding.isUnbound())
       return constant;
-    return remapping.matches(key, scancode) ? key : key + 1;
+    return rebinding.matches(key, scancode) ? key : key + 1;
   }
 
   @WrapOperation(
@@ -63,21 +65,31 @@ public abstract class KeyboardHandlerMixin
   private boolean keyPress_handleDebugKeys(KeyboardHandler instance, int key, Operation<Boolean> original,
                                            long window, int _key, int scancode)
   {
-    for (KeyRemapping mapping : REGISTRY.getDebugKeys())
-      if (mapping.matches(key, scancode))
-        return original.call(instance, mapping.getDefaultKey().getValue());
+    for (KeyRebinding binding : REGISTRY.getDebugKeys())
+      if (binding.matches(key, scancode))
+        return original.call(instance, binding.getDefaultKey().getValue());
     return original.call(instance, GLFW_KEY_UNKNOWN);
   }
 
-  /* profiler controls change from a loop to a range check in 20w06a */
-  @Definition(id = "key", local = @Local(type = int.class, argsOnly = true, ordinal = 0))
-  @Expression("@(key) >= '0'")
-  @ModifyVariable(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"), argsOnly = true, ordinal = 0, require = 0)
-  private int keyPress_intDigit(int key, long window, int _key, int scancode)
+  @Definition(id = "key", local = @Local(type = int.class, ordinal = 0, argsOnly = true))
+  @Definition(id = "keyHandled", local = @Local(type = boolean[].class))
+  @Definition(id = "boolean", type = boolean.class)
+  @Expression(id = "load", value = "key")
+  @Expression(id = "from", value = "keyHandled = @(new boolean[] { false })")
+  @Expression(id = "to", value = "keyHandled[0]")
+  @ModifyExpressionValue(
+      method = "keyPress",
+      at = @At(id = "load", value = "MIXINEXTRAS:EXPRESSION"),
+      slice = @Slice(
+          from = @At(id = "from", value = "MIXINEXTRAS:EXPRESSION:ONE"),
+          to = @At(id = "to", value = "MIXINEXTRAS:EXPRESSION:ONE")
+      ),
+      allow = 1
+  )
+  private int keyPress_withBooleanArray_key(int key, long window, int _key, int scancode)
   {
-    for (HardcodedMapping mapping : EnumSet.range(PROFILER_0, PROFILER_9))
-      if (REGISTRY.get(mapping).matches(key, scancode))
-        return mapping.getKeyCode();
-    return GLFW_KEY_UNKNOWN;
+    return !(minecraft.screen instanceof ControlsOptionsScreen) && REGISTRY.get(GAME_MENU).matches(key, scancode)
+        ? GLFW_KEY_ESCAPE
+        : key;
   }
 }

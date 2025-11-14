@@ -1,6 +1,0 @@
-sourceSets.main.java {
-  include '**/mixin/shared/DebugScreenOverlayMixinEdit.java'
-  include '**/mixin/shared/KeyboardHandlerMixinComponent.java'
-  include '**/mixin/shared/KeyMappingAccessor.java'
-  include '**/shared/RemappedTranslatableContents.java'
-}

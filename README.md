@@ -2,13 +2,12 @@
 
 For as many Minecraft versions as possible, this mod makes the keybindings of
 usually fixed mappings rebindable.
-This project branch supports releases 1.14 through 1.21.
-Check out the Ornithe version for legacy support!
+This project branch supports releases 1.14 and earlier.
+Check out the Fabric version for latest game support!
 
-For example, this lets you remap Escape and F3 in-game, even in versions
-before F3 was made rebindable.
-Also adds rebinding options for Shift, Control, Alt as well as the digits to
-navigate the profiling pie chart.
+For example, this lets you remap Escape and F3 in-game, as well as F5 and
+hotbar slot keys, where applicable.
+Also adds rebinding options for Shift, Control and Alt.
 
 Before 1.21.9, Minecraft only supported one action per key and if multiple
 bindings were mapped to the same key, only a random single one of these would
@@ -21,8 +20,8 @@ bound keys.
 The latest release can also be found on
 [Modrinth](https://modrinth.com/mod/thorough-keybindings).
 
-This mod uses [Fabric](https://fabricmc.net/) and requires the
-[Fabric API](https://modrinth.com/mod/fabric-api) to run.
+This mod uses [Ornithe](https://ornithemc.net/) and requires the
+[Ornithe Standard Libraries](https://modrinth.com/mod/osl) to run.
 
 ## List of Keybindings
 

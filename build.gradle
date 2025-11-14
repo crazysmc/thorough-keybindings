@@ -1,5 +1,6 @@
 plugins {
   alias libs.plugins.loom apply false
+  alias libs.plugins.ploceus apply false
 }
 
 allprojects {
@@ -7,28 +8,31 @@ allprojects {
     return
 
   apply plugin: libs.plugins.loom.get().pluginId
+  apply plugin: libs.plugins.ploceus.get().pluginId
   apply plugin: 'idea'
 
   version = mod_version
   group = maven_group
   base.archivesName = "$rootProject.name-$name"
 
+  //gen2//ploceus.intermediaryGeneration = 2
+
   dependencies {
     println "Minecraft: $minecraft_version"
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.layered {
-      officialMojangMappings { nameSyntheticMembers = true }
-    }
+    mappings ploceus.featherMappings(feather_build)
+
+    if (project.hasProperty('sparrow_build'))
+      signatures ploceus.sparrow(sparrow_build)
+
     modImplementation libs.loader
+
+    ploceus.dependOsl libs.versions.osl.get()
 
     testImplementation libs.junit
     testImplementation libs.loader.junit
     testImplementation libs.mockito
     testImplementation libs.mojang.logging
-
-    if (!project.hasProperty('no_fabric_resource_loader'))
-      modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
-    modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
   }
 
   loom {
@@ -40,8 +44,7 @@ allprojects {
   }
 
   java {
-    println "Java: $java_version"
-    toolchain.languageVersion = JavaLanguageVersion.of java_version
+    toolchain.languageVersion = JavaLanguageVersion.of 8
     withSourcesJar()
   }
 

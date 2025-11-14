@@ -4,6 +4,14 @@ pluginManagement {
       name = 'Fabric'
       url = 'https://maven.fabricmc.net/'
     }
+    maven {
+      name = 'Ornithe Releases'
+      url = 'https://maven.ornithemc.net/releases'
+    }
+    maven {
+      name = 'Ornithe Snapshots'
+      url = 'https://maven.ornithemc.net/snapshots'
+    }
     gradlePluginPortal()
   }
 }
@@ -13,8 +21,10 @@ dependencyResolutionManagement {
     libs {
       version 'loom', '1.13-SNAPSHOT'
       plugin 'loom', 'fabric-loom' versionRef 'loom'
+      plugin 'ploceus', 'ploceus' versionRef 'loom'
       version 'loader', '0.18.0'
       library 'loader', 'net.fabricmc', 'fabric-loader' versionRef 'loader'
+      version 'osl', '0.16.3'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
       library 'loader-junit', 'net.fabricmc', 'fabric-loader-junit' versionRef 'loader'
       library 'mockito', 'org.mockito', 'mockito-junit-jupiter' version '3.+'
@@ -33,17 +43,3 @@ rootProject.name = 'thrkbs'
  *     each build
  */
 include ':version:1.14'
-include ':version:20w10a'
-include ':version:20w17a'
-include ':version:1.16'
-include ':version:1.17'
-include ':version:1.18'
-include ':version:1.19'
-include ':version:1.19.4'
-include ':version:1.20'
-include ':version:1.21'
-include ':version:1.21.2'
-include ':version:1.21.6'
-include ':version:25w31a'
-include ':version:25w36a'
-include ':version:1.21.9'
