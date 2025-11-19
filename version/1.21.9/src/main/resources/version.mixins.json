@@ -7,9 +7,10 @@
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
     "GameModeSwitcherScreenMixin",
+    "InputWithModifiersMixin",
     "KeyboardHandlerMixin",
-    "KeyEventMixin",
     "KeyMappingMixin",
+    "MinecraftMixin",
     "shared.DebugScreenOverlayMixinEdit",
     "shared.KeyboardHandlerMixinComponent",
     "shared.KeyMappingAccessor"

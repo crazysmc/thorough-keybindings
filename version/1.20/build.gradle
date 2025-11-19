@@ -1,6 +1,7 @@
 sourceSets.main.java {
   srcDirs += file '../src/1.16-1.21/java/'
 
+  include '**/mixin/shared/AbstractContainerScreenMixin.java'
   include '**/mixin/shared/KeyBindsScreenMixin.java'
   include '**/mixin/shared/DebugScreenOverlayMixin.java'
   include '**/mixin/shared/DebugScreenOverlayMixinCharts.java'

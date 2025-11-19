@@ -10,6 +10,7 @@
     "GameModeSwitcherScreenMixin",
     "GameModeSwitcherScreenMixinNew",
     "GameModeSwitcherScreenMixinOld",
+    "shared.AbstractContainerScreenMixin",
     "shared.ControlsScreenMixin",
     "shared.DebugScreenOverlayMixin",
     "shared.KeyboardHandlerMixin",

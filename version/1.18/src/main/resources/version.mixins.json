@@ -6,6 +6,7 @@
   "mixinextras": { "minVersion": "0.5.0" },
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
+    "shared.AbstractContainerScreenMixin",
     "shared.DebugScreenOverlayMixin",
     "shared.GameModeSwitcherScreenMixinOld",
     "shared.KeyBindsScreenMixin",

@@ -8,6 +8,7 @@
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
     "GameModeSwitcherScreenMixin",
+    "shared.AbstractContainerScreenMixin",
     "shared.ControlsScreenMixin",
     "shared.DebugScreenOverlayMixin",
     "shared.KeyboardHandlerMixin",

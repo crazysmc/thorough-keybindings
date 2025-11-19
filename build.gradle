@@ -39,6 +39,17 @@ allprojects {
     }
   }
 
+  tasks.named 'runClient', {
+    doFirst {
+      def run = layout.projectDirectory.dir 'run'
+      if (!run.file('options.txt').asFile.exists())
+        copy {
+          from project.rootProject.file('src/test/resources/options.txt')
+          into run
+        }
+    }
+  }
+
   java {
     println "Java: $java_version"
     toolchain.languageVersion = JavaLanguageVersion.of java_version

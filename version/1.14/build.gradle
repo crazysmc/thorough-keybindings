@@ -1,4 +1,5 @@
 sourceSets.main.java {
+  include '**/mixin/shared/AbstractContainerScreenMixin.java'
   include '**/mixin/shared/ControlsScreenMixin.java'
   include '**/mixin/shared/DebugScreenOverlayMixin.java'
   include '**/mixin/shared/KeyboardHandlerMixin.java'
