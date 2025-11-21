@@ -43,3 +43,5 @@ rootProject.name = 'thrkbs'
  *     each build
  */
 include ':version:1.14'
+include ':version:18w44a'
+include ':version:1.13'

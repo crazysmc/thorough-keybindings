@@ -8,13 +8,15 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.platform.InputConstants;
 import io.github.crazysmc.thrkbs.version.KeyRebinding;
+import io.github.crazysmc.thrkbs.version.shared.RemappedTranslatableText;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.options.ControlsOptionsScreen;
+import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.*;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.*;
 
+import static io.github.crazysmc.thrkbs.HardcodedMapping.COPY_LOCATION;
 import static io.github.crazysmc.thrkbs.HardcodedMapping.GAME_MENU;
 import static io.github.crazysmc.thrkbs.version.KeyRebinding.REGISTRY;
 import static org.lwjgl.glfw.GLFW.*;
@@ -36,11 +38,22 @@ public abstract class KeyboardHandlerMixin
     return original;
   }
 
+  @Group(name = "getKey")
   @WrapOperation(
       method = "keyPress",
       at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/InputConstants;getKey(JI)Z")
   )
   private boolean keyPress_getKey(long window, int constant, Operation<Boolean> original)
+  {
+    return REGISTRY.getByDefault(constant).isPressed();
+  }
+
+  @Group(name = "getKey")
+  @WrapOperation(
+      method = "keyPress",
+      at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/InputConstants;getKey(I)Z")
+  )
+  private boolean keyPress_getKey(int constant, Operation<Boolean> original)
   {
     return REGISTRY.getByDefault(constant).isPressed();
   }
@@ -91,5 +104,33 @@ public abstract class KeyboardHandlerMixin
     return !(minecraft.screen instanceof ControlsOptionsScreen) && REGISTRY.get(GAME_MENU).matches(key, scancode)
         ? GLFW_KEY_ESCAPE
         : key;
+  }
+
+  @WrapOperation(
+      method = "handleDebugKeys",
+      at = @At(
+          value = "NEW",
+          target = "(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/text/TranslatableText;"
+      )
+  )
+  private TranslatableText handleDebugKeys_newTranslatableText(String key, Object[] args,
+                                                               Operation<TranslatableText> original)
+  {
+    return new RemappedTranslatableText(REGISTRY.getByDebugHelp(key), key);
+  }
+
+  @WrapOperation(
+      method = "sendDebugInfo",
+      at = @At(
+          value = "NEW",
+          target = "(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/text/TranslatableText;"
+      )
+  )
+  private TranslatableText sendDebugInfo_newTranslatableText(String key, Object[] args,
+                                                             Operation<TranslatableText> original)
+  {
+    return "debug.crash.message".equals(key)
+        ? new RemappedTranslatableText(REGISTRY.get(COPY_LOCATION), key)
+        : original.call(key, args);
   }
 }
