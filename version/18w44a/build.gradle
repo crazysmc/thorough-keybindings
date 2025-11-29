@@ -1,10 +1,1 @@
-sourceSets.main.java {
-  include '**/mixin/shared/ControlsOptionsScreenMixin.java'
-  include '**/mixin/shared/DebugOverlayMixin.java'
-  include '**/mixin/shared/InventoryMenuScreenMixin.java'
-  include '**/mixin/shared/KeyboardHandlerMixin.java'
-  include '**/mixin/shared/KeyBindingAccessor.java'
-  include '**/mixin/shared/KeyBindingMixin.java'
-  include '**/mixin/shared/TranslatableTextMixin.java'
-  include '**/shared/RemappedTranslatableText.java'
-}
+apply from: '../1.14/build.gradle'

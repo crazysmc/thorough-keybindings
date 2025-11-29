@@ -1,12 +1,15 @@
 package io.github.crazysmc.thrkbs.version;
 
-import com.mojang.blaze3d.platform.InputConstants;
 import io.github.crazysmc.thrkbs.HardcodedMapping;
 import io.github.crazysmc.thrkbs.RemapRegistry;
-import io.github.crazysmc.thrkbs.version.mixin.shared.KeyBindingAccessor;
+import io.github.crazysmc.thrkbs.version.mixin.KeyBindingAccessor;
+import net.minecraft.client.options.GameOptions;
 import net.minecraft.client.options.KeyBinding;
+import org.lwjgl.input.Keyboard;
 
 import java.util.List;
+
+import static org.lwjgl.input.Keyboard.KEY_NONE;
 
 public class KeyRebinding extends KeyBinding
 {
@@ -20,9 +23,9 @@ public class KeyRebinding extends KeyBinding
     REGISTRY.register(mapping, this);
   }
 
-  public static void setPressed(InputConstants.Key key, boolean pressed)
+  public static void setPressed(int keyCode, boolean pressed)
   {
-    List<KeyBinding> list = KeyBindingAccessor.getMap().get(key);
+    List<KeyBinding> list = KeyBindingAccessor.getMap().get(keyCode);
     if (list == null)
       return;
     for (KeyBinding binding : list)
@@ -32,12 +35,23 @@ public class KeyRebinding extends KeyBinding
 
   public String getTranslatedKeyText()
   {
-    return getDisplayName();
+    return GameOptions.getKeyName(getKeyCode());
   }
 
   @Override
   public boolean isPressed()
   {
     return pressed;
+  }
+
+  public boolean isUnbound()
+  {
+    return getKeyCode() != KEY_NONE;
+  }
+
+  public boolean matches(char chr, int key)
+  {
+    int keyCode = getKeyCode();
+    return keyCode == key || keyCode == chr + Keyboard.KEYBOARD_SIZE;
   }
 }

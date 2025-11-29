@@ -1,10 +1,13 @@
-sourceSets.main.java {
-  include '**/mixin/shared/ControlsOptionsScreenMixin.java'
-  include '**/mixin/shared/DebugOverlayMixin.java'
-  include '**/mixin/shared/InventoryMenuScreenMixin.java'
-  include '**/mixin/shared/KeyboardHandlerMixin.java'
-  include '**/mixin/shared/KeyBindingAccessor.java'
-  include '**/mixin/shared/KeyBindingMixin.java'
-  include '**/mixin/shared/TranslatableTextMixin.java'
-  include '**/shared/RemappedTranslatableText.java'
+sourceSets.main {
+  java {
+    srcDirs += file '../src/1.13-1.14/java/'
+
+    include '**/mixin/shared/ControlsOptionsScreenMixinGLFW.java'
+    include '**/mixin/shared/DebugOverlayMixin.java'
+    include '**/mixin/shared/InventoryMenuScreenMixinGLFW.java'
+    include '**/mixin/shared/KeyBindingMixinGLFW.java'
+    include '**/mixin/shared/KeyboardHandlerMixin.java'
+    include '**/shared/RemappedTranslatableText.java'
+  }
+  resources.srcDirs += file '../src/1.13-1.14/resources/'
 }

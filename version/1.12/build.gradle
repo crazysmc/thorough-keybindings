@@ -1,0 +1,9 @@
+sourceSets.main.java {
+  include '**/mixin/shared/ControlsOptionsScreenMixin.java'
+  include '**/mixin/shared/DebugOverlayMixin.java'
+  include '**/mixin/shared/InventoryMenuScreenMixin.java'
+  include '**/mixin/shared/KeyBindingEntryMixin.java'
+  include '**/mixin/shared/KeyBindingMixin.java'
+  include '**/mixin/shared/MinecraftMixin.java'
+  include '**/shared/RemappedTranslatableText.java'
+}

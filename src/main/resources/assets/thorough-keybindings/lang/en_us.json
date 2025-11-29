@@ -5,6 +5,7 @@
   "key.debug.clearChat": "Clear Chat",
   "key.debug.copyLocation": "Copy Location/Debug Crash",
   "key.debug.copyRecreateCommand": "Copy Data",
+  "key.debug.crash": "Force Crash",
   "key.debug.cycleRenderDistance": "Cycle Render Distance",
   "key.debug.focusPause": "Toggle Lost Focus Pause",
   "key.debug.help": "List Debug Combinations",

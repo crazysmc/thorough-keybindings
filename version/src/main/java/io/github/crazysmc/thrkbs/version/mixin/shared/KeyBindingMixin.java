@@ -2,16 +2,15 @@ package io.github.crazysmc.thrkbs.version.mixin.shared;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.mojang.blaze3d.platform.InputConstants;
-import io.github.crazysmc.thrkbs.version.KeyRebinding;
 import net.minecraft.client.options.KeyBinding;
+import net.minecraft.util.Int2ObjectHashMap;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(KeyBinding.class)
 public abstract class KeyBindingMixin
@@ -21,7 +20,7 @@ public abstract class KeyBindingMixin
    */
   @Shadow
   @Final
-  private static Map<InputConstants.Key, List<KeyBinding>> BY_KEY;
+  private static Int2ObjectHashMap<List<KeyBinding>> BY_KEY_CODE;
 
   @Shadow
   private int clickCount;
@@ -30,9 +29,9 @@ public abstract class KeyBindingMixin
   private boolean pressed;
 
   @Inject(method = "click", at = @At("HEAD"), cancellable = true)
-  private static void click(InputConstants.Key key, CallbackInfo ci)
+  private static void click(int keyCode, CallbackInfo ci)
   {
-    List<KeyBinding> list = BY_KEY.get(key);
+    List<KeyBinding> list = BY_KEY_CODE.get(keyCode);
     if (list != null)
       for (KeyBinding binding : list)
         ((KeyBindingMixin) (Object) binding).clickCount++;
@@ -40,9 +39,9 @@ public abstract class KeyBindingMixin
   }
 
   @Inject(method = "set", at = @At("HEAD"), cancellable = true)
-  private static void set(InputConstants.Key key, boolean pressed, CallbackInfo ci)
+  private static void set(int keyCode, boolean pressed, CallbackInfo ci)
   {
-    List<KeyBinding> list = BY_KEY.get(key);
+    List<KeyBinding> list = BY_KEY_CODE.get(keyCode);
     if (list != null)
       for (KeyBinding binding : list)
         ((KeyBindingMixin) (Object) binding).pressed = pressed;
@@ -50,25 +49,20 @@ public abstract class KeyBindingMixin
   }
 
   @WrapOperation(
-      method = {
-          "resetMapping",
-          "<init>(Ljava/lang/String;Lcom/mojang/blaze3d/platform/InputConstants$Type;ILjava/lang/String;)V"
-      },
-      at = @At(value = "INVOKE", target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;")
+      method = { "resetMapping", "<init>" },
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Int2ObjectHashMap;put(ILjava/lang/Object;)V")
   )
-  private static Object resetMapping_put(Map<InputConstants.Key, List<KeyBinding>> map, Object key, Object value,
-                                         Operation<Object> original)
+  private static void resetMapping_put(Int2ObjectHashMap<List<KeyBinding>> map, int key, Object value,
+                                       Operation<Object> original)
   {
-    if (map != BY_KEY)
-      return original.call(map, key, value);
-    BY_KEY.computeIfAbsent(((InputConstants.Key) key), k -> new ArrayList<>()).add((KeyBinding) value);
-    return null;
-  }
-
-  @Inject(method = "same", at = @At("HEAD"), cancellable = true)
-  private void same(KeyBinding keyBinding, CallbackInfoReturnable<Boolean> cir)
-  {
-    if ((Object) this instanceof KeyRebinding != keyBinding instanceof KeyRebinding)
-      cir.setReturnValue(false);
+    if (map != BY_KEY_CODE)
+    {
+      original.call(map, key, value);
+      return;
+    }
+    List<KeyBinding> list = BY_KEY_CODE.get(key);
+    if (list == null)
+      BY_KEY_CODE.put(key, list = new ArrayList<>());
+    list.add((KeyBinding) value);
   }
 }

@@ -3,7 +3,7 @@ package io.github.crazysmc.thrkbs.version;
 import com.mojang.blaze3d.platform.InputConstants;
 import io.github.crazysmc.thrkbs.HardcodedMapping;
 import io.github.crazysmc.thrkbs.RemapRegistry;
-import io.github.crazysmc.thrkbs.version.mixin.shared.KeyBindingAccessor;
+import io.github.crazysmc.thrkbs.version.mixin.KeyBindingAccessor;
 import net.minecraft.client.options.KeyBinding;
 
 import java.util.List;

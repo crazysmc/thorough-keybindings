@@ -11,25 +11,25 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import static io.github.crazysmc.thrkbs.HardcodedMapping.GAME_MENU;
 import static io.github.crazysmc.thrkbs.version.KeyRebinding.REGISTRY;
-import static org.lwjgl.input.Keyboard.KEY_ESCAPE;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_ESCAPE;
 
 @Mixin(ControlsOptionsScreen.class)
-public abstract class ControlsOptionsScreenMixin
+public abstract class ControlsOptionsScreenMixinGLFW
 {
   @Definition(id = "key", local = @Local(type = int.class, ordinal = 0, argsOnly = true))
-  @Expression("key == 1")
-  @ModifyExpressionValue(method = "keyPressed", at = @At("MIXINEXTRAS:EXPRESSION"))
-  private boolean keyPressed_keyEqEscape(boolean original, char chr, int key)
+  @Expression("key == 256")
+  @ModifyExpressionValue(method = { "keyPressed", "m_6815938" }, at = @At("MIXINEXTRAS:EXPRESSION"))
+  private boolean keyPressed_keyEqEscape(boolean original, int key, int scancode)
   {
     KeyRebinding rebinding = REGISTRY.get(GAME_MENU);
-    return rebinding.isUnbound() ? rebinding.matches(chr, key) : original;
+    return !rebinding.isUnbound() ? rebinding.matches(key, scancode) : original;
   }
 
   @Definition(id = "key", local = @Local(type = int.class, ordinal = 0, argsOnly = true))
-  @Expression("super.?(?, @(key))")
-  @ModifyExpressionValue(method = "keyPressed", at = @At("MIXINEXTRAS:EXPRESSION"))
-  private int keyPressed_super(int key, char chr)
+  @Expression("super.?(@(key), ?, ?)")
+  @ModifyExpressionValue(method = { "keyPressed", "m_6815938" }, at = @At("MIXINEXTRAS:EXPRESSION"))
+  private int keyPressed_super(int key, int scancode, int action)
   {
-    return REGISTRY.get(GAME_MENU).matches(chr, key) ? KEY_ESCAPE : key;
+    return REGISTRY.get(GAME_MENU).matches(key, scancode) ? GLFW_KEY_ESCAPE : key;
   }
 }

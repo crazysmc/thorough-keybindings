@@ -1,4 +1,4 @@
-package io.github.crazysmc.thrkbs.version.mixin.shared;
+package io.github.crazysmc.thrkbs.version.mixin;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.options.KeyBinding;
@@ -12,7 +12,7 @@ import java.util.Map;
 public interface KeyBindingAccessor
 {
   /*
-   * type as of KeyBindingMixin
+   * type as of KeyBindingMixinGLFW
    */
   @Accessor("BY_KEY")
   static Map<InputConstants.Key, List<KeyBinding>> getMap()

@@ -6,12 +6,12 @@
   "mixinextras": { "minVersion": "0.5.0" },
   "package": "io.github.crazysmc.thrkbs.version.mixin",
   "client": [
+    "KeyBindingAccessor",
     "ScreenMixin",
-    "shared.ControlsOptionsScreenMixin",
+    "shared.ControlsOptionsScreenMixinGLFW",
     "shared.DebugOverlayMixin",
-    "shared.InventoryMenuScreenMixin",
-    "shared.KeyBindingAccessor",
-    "shared.KeyBindingMixin",
+    "shared.InventoryMenuScreenMixinGLFW",
+    "shared.KeyBindingMixinGLFW",
     "shared.KeyboardHandlerMixin"
   ]
 }
