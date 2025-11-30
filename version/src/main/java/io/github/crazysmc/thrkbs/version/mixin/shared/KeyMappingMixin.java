@@ -45,7 +45,7 @@ public abstract class KeyMappingMixin
     List<KeyMapping> list = MAP.get(key);
     if (list != null)
       for (KeyMapping mapping : list)
-        ((KeyMappingMixin) (Object) mapping).isDown = isDown;
+        ((KeyMappingMixin) (Object) mapping).method_23481(isDown);
     ci.cancel();
   }
 
@@ -63,6 +63,12 @@ public abstract class KeyMappingMixin
       return original.call(map, key, value);
     MAP.computeIfAbsent(((InputConstants.Key) key), k -> new ArrayList<>()).add((KeyMapping) value);
     return null;
+  }
+
+  @Unique(silent = true) /* setDown available since 19w41a */
+  public void method_23481(boolean isDown)
+  {
+    this.isDown = isDown;
   }
 
   @Inject(method = "same", at = @At("HEAD"), cancellable = true)

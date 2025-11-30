@@ -3,6 +3,7 @@ autoJump:false
 enableVsync:false
 showSubtitles:true
 bobView:false
+toggleSprint:true
 mouseSensitivity:0.34375
 fov:0.5
 gamma:5.0
