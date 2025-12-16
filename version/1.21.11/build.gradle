@@ -1,0 +1,5 @@
+sourceSets.main.java {
+  srcDirs += file '../src/1.21+/java/'
+
+  include '**/mixin/shared/KeyMappingAccessor.java'
+}

@@ -14,6 +14,7 @@
     "shared.KeyboardHandlerMixinControls",
     "shared.KeyMappingAccessor",
     "shared.KeyMappingMixin",
-    "shared.ScreenMixin"
+    "shared.MinecraftMixin",
+    "shared.RecipeBookComponentMixin"
   ]
 }

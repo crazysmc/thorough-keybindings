@@ -11,6 +11,7 @@ sourceSets.main.java {
   include '**/mixin/shared/KeyboardHandlerMixinKeyBindsOpt.java'
   include '**/mixin/shared/KeyMappingAccessor.java'
   include '**/mixin/shared/KeyMappingMixin.java'
-  include '**/mixin/shared/ScreenMixin.java'
+  include '**/mixin/shared/MinecraftMixin.java'
+  include '**/mixin/shared/RecipeBookComponentMixin.java'
   include '**/shared/RemappedTranslatableContents.java'
 }

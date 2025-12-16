@@ -32,6 +32,27 @@ definitions in the source.
 Wherever possible we use the names of mappings later added to the base game,
 thus users who upgrade their game can keep their keybindings.
 
+The modifiers Shift, Control, Alt only apply to in-game actions like
+shift-clicking item stacks and not to text editing, e.g. `Ctrl+A/X/C/V`, nor
+menuing, e.g. `Shift+Tab`.
+
+<details><summary>Modifier Keys</summary>
+
+| Modifier | Applies to                       |
+|----------|----------------------------------|
+| Alt      | Alt + F3 (before 23w33a)         |
+| Control  | Ctrl + F3 (before 23w33a)        |
+| Control  | Ctrl + B (Narrator)              |
+| Control  | Ctrl + Drop                      |
+| Control  | Ctrl + Pick Block                |
+| Control  | Ctrl + F3 + C (Segfault Crash)   |
+| Shift    | Shift + F3 (before 23w33a)       |
+| Shift    | Shift + Click (Quick-Move Stack) |
+| Shift    | Shift + F3 + F (before 22w12a)   |
+| Shift    | Shift + F3 + I                   |
+
+</details>
+
 The
 [history on debug hotkeys](https://minecraft.wiki/w/Debug_hotkey#History)
 in the Minecraft Wiki provides more details about F3 combinations.

@@ -16,8 +16,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.EnumSet;
 
-import static io.github.crazysmc.thrkbs.HardcodedMapping.PROFILER_0;
-import static io.github.crazysmc.thrkbs.HardcodedMapping.PROFILER_9;
+import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -54,6 +53,35 @@ public abstract class KeyboardHandlerMixin
     if (constant == GLFW_KEY_ESCAPE && remapping.isUnbound())
       return constant;
     return remapping.matches(key, scancode) ? key : key + 1;
+  }
+
+  @WrapOperation(
+      method = { "keyPress", "tick" },
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z")
+  )
+  private boolean keyPressTick_hasControlDown(Operation<Boolean> original)
+  {
+    return REGISTRY.get(CTRL_1).isDown() || REGISTRY.get(CTRL_2).isDown();
+  }
+
+  @WrapOperation(
+      method = { "keyPress", "handleDebugKeys" },
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasShiftDown()Z")
+  )
+  private boolean keyPressDebugKeys_hasShiftDown(Operation<Boolean> original)
+  {
+    return REGISTRY.get(SHIFT_1).isDown() || REGISTRY.get(SHIFT_2).isDown();
+  }
+
+  /* removed since 23w33a */
+  @WrapOperation(
+      method = "keyPress",
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasAltDown()Z"),
+      require = 0
+  )
+  private boolean keyPress_hasAltDown(Operation<Boolean> original)
+  {
+    return REGISTRY.get(ALT_1).isDown() || REGISTRY.get(ALT_2).isDown();
   }
 
   @WrapOperation(

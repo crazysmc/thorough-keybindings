@@ -24,22 +24,4 @@ public interface InputWithModifiersMixin
     if (!remapping.isUnbound())
       cir.setReturnValue(remapping.matches((KeyEvent) instance));
   }
-
-  @Inject(method = "hasAltDown", at = @At("HEAD"), cancellable = true)
-  default void hasAltDown(CallbackInfoReturnable<Boolean> cir)
-  {
-    cir.setReturnValue(REGISTRY.get(ALT_1).isDown() || REGISTRY.get(ALT_2).isDown());
-  }
-
-  @Inject(method = "hasShiftDown", at = @At("HEAD"), cancellable = true)
-  default void hasShiftDown(CallbackInfoReturnable<Boolean> cir)
-  {
-    cir.setReturnValue(REGISTRY.get(SHIFT_1).isDown() || REGISTRY.get(SHIFT_2).isDown());
-  }
-
-  @Inject(method = "hasControlDown", at = @At("HEAD"), cancellable = true)
-  default void hasControlDown(CallbackInfoReturnable<Boolean> cir)
-  {
-    cir.setReturnValue(REGISTRY.get(CTRL_1).isDown() || REGISTRY.get(CTRL_2).isDown());
-  }
 }

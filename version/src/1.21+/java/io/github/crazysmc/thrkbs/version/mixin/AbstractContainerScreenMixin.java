@@ -1,8 +1,10 @@
-package io.github.crazysmc.thrkbs.version.mixin.shared;
+package io.github.crazysmc.thrkbs.version.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.input.KeyEvent;
+import net.minecraft.client.input.MouseButtonEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -14,21 +16,12 @@ public abstract class AbstractContainerScreenMixin
 {
   @WrapOperation(
       method = { "mouseClicked", "mouseReleased" },
-      at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(JI)Z")
-  )
-  private boolean mouseAction_isKeyDown(long window, int constant, Operation<Boolean> original)
-  {
-    return REGISTRY.getByDefault(constant).isDown();
-  }
-
-  @WrapOperation(
-      method = "mouseReleased",
       at = @At(
           value = "INVOKE",
-          target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;hasShiftDown()Z"
+          target = "Lnet/minecraft/client/input/MouseButtonEvent;hasShiftDown()Z"
       )
   )
-  private boolean mouseReleased_hasShiftDown(Operation<Boolean> original)
+  private boolean mouseAction_hasShiftDown(MouseButtonEvent instance, Operation<Boolean> original)
   {
     return REGISTRY.get(SHIFT_1).isDown() || REGISTRY.get(SHIFT_2).isDown();
   }
@@ -37,10 +30,10 @@ public abstract class AbstractContainerScreenMixin
       method = "keyPressed",
       at = @At(
           value = "INVOKE",
-          target = "Lnet/minecraft/client/gui/screens/inventory/AbstractContainerScreen;hasControlDown()Z"
+          target = "Lnet/minecraft/client/input/KeyEvent;hasControlDown()Z"
       )
   )
-  private boolean keyPressed_hasControlDown(Operation<Boolean> original)
+  private boolean keyPressed_hasControlDown(KeyEvent instance, Operation<Boolean> original)
   {
     return REGISTRY.get(CTRL_1).isDown() || REGISTRY.get(CTRL_2).isDown();
   }

@@ -2,25 +2,23 @@ package io.github.crazysmc.thrkbs.version.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
+import static io.github.crazysmc.thrkbs.HardcodedMapping.CTRL_1;
+import static io.github.crazysmc.thrkbs.HardcodedMapping.CTRL_2;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin
 {
   @WrapOperation(
-      method = { "hasControlDown", "hasShiftDown", "hasAltDown" },
-      at = @At(
-          value = "INVOKE",
-          target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(Lcom/mojang/blaze3d/platform/Window;I)Z"
-      )
+      method = { "handleKeybinds", "pickBlock" },
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z")
   )
-  private static boolean hasModifierDown_isKeyDown(Window window, int constant, Operation<Boolean> original)
+  private boolean handleKeybindsPickBlock_hasControlDown(Minecraft instance, Operation<Boolean> original)
   {
-    return REGISTRY.getByDefault(constant).isDown();
+    return REGISTRY.get(CTRL_1).isDown() || REGISTRY.get(CTRL_2).isDown();
   }
 }

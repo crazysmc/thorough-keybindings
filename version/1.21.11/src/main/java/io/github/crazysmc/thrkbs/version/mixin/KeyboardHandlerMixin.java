@@ -7,7 +7,6 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.platform.InputConstants;
-import com.mojang.blaze3d.platform.Window;
 import io.github.crazysmc.thrkbs.HardcodedMapping;
 import io.github.crazysmc.thrkbs.version.KeyRemapping;
 import net.minecraft.client.KeyboardHandler;
@@ -20,7 +19,7 @@ import java.util.EnumSet;
 
 import static io.github.crazysmc.thrkbs.HardcodedMapping.*;
 import static io.github.crazysmc.thrkbs.version.KeyRemapping.REGISTRY;
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.GLFW_RELEASE;
 
 @Mixin(KeyboardHandler.class)
 public abstract class KeyboardHandlerMixin
@@ -35,34 +34,20 @@ public abstract class KeyboardHandlerMixin
     return original;
   }
 
-  @WrapOperation(
-      method = "keyPress",
-      at = @At(
-          value = "INVOKE",
-          target = "Lcom/mojang/blaze3d/platform/InputConstants;isKeyDown(Lcom/mojang/blaze3d/platform/Window;I)Z"
-      )
-  )
-  private boolean keyPress_isKeyDown(Window window, int constant, Operation<Boolean> original)
-  {
-    return REGISTRY.getByDefault(constant).isDown();
-  }
-
   @Definition(id = "keyEvent", local = @Local(type = KeyEvent.class, argsOnly = true))
   @Definition(id = "key", method = "Lnet/minecraft/client/input/KeyEvent;key()I")
-  @Expression("keyEvent.key() == @(?)")
+  @Expression("keyEvent.key() == 66")
   @ModifyExpressionValue(method = "keyPress", at = @At("MIXINEXTRAS:EXPRESSION"))
-  private int keyPress_intEqConst(int constant, long window, int action, KeyEvent keyEvent)
+  private boolean keyPress_keyEqB(boolean original, long window, int action, KeyEvent keyEvent)
   {
-    if (constant == GLFW_KEY_TAB || constant >= GLFW_KEY_RIGHT && constant <= GLFW_KEY_UP)
-      return constant;
-    return REGISTRY.getByDefault(constant).matches(keyEvent) ? keyEvent.key() : keyEvent.key() + 1;
+    return REGISTRY.get(NARRATOR).matches(keyEvent);
   }
 
   @WrapOperation(
       method = "keyPress",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/input/KeyEvent;hasControlDown()Z")
+      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/input/KeyEvent;hasControlDownWithQuirk()Z")
   )
-  private boolean keyPress_hasControlDown(KeyEvent instance, Operation<Boolean> original)
+  private boolean keyPress_hasControlDownWithQuirk(KeyEvent instance, Operation<Boolean> original)
   {
     return REGISTRY.get(CTRL_1).isDown() || REGISTRY.get(CTRL_2).isDown();
   }
@@ -83,18 +68,6 @@ public abstract class KeyboardHandlerMixin
   private boolean handleDebugKeys_hasShiftDown(KeyEvent instance, Operation<Boolean> original)
   {
     return REGISTRY.get(SHIFT_1).isDown() || REGISTRY.get(SHIFT_2).isDown();
-  }
-
-  @WrapOperation(
-      method = "handleDebugKeys",
-      at = @At(value = "INVOKE", target = "Lnet/minecraft/client/input/KeyEvent;key()I")
-  )
-  private int handleDebugKeys_key(KeyEvent instance, Operation<Integer> original)
-  {
-    for (KeyRemapping mapping : REGISTRY.getDebugKeys())
-      if (mapping.matches(instance))
-        return mapping.getDefaultKey().getValue();
-    return GLFW_KEY_UNKNOWN;
   }
 
   @WrapOperation(

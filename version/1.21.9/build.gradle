@@ -1,4 +1,6 @@
 sourceSets.main.java {
+  srcDirs += file '../src/1.21+/java/'
+
   include '**/mixin/shared/DebugScreenOverlayMixinEdit.java'
   include '**/mixin/shared/KeyboardHandlerMixinComponent.java'
   include '**/mixin/shared/KeyMappingAccessor.java'
