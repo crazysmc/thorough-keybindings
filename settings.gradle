@@ -19,10 +19,10 @@ pluginManagement {
 dependencyResolutionManagement {
   versionCatalogs {
     libs {
-      version 'loom', '1.13-SNAPSHOT'
+      version 'loom', '1.14-SNAPSHOT'
       plugin 'loom', 'fabric-loom' versionRef 'loom'
       plugin 'ploceus', 'ploceus' versionRef 'loom'
-      version 'loader', '0.18.0'
+      version 'loader', '0.18.2'
       library 'loader', 'net.fabricmc', 'fabric-loader' versionRef 'loader'
       version 'osl', '0.16.3'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'

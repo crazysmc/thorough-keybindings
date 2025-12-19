@@ -4,7 +4,6 @@ sourceSets.main {
 
     include '**/mixin/shared/ControlsOptionsScreenMixinGLFW.java'
     include '**/mixin/shared/DebugOverlayMixin.java'
-    include '**/mixin/shared/InventoryMenuScreenMixinGLFW.java'
     include '**/mixin/shared/KeyBindingMixinGLFW.java'
     include '**/mixin/shared/KeyboardHandlerMixin.java'
     include '**/shared/RemappedTranslatableText.java'

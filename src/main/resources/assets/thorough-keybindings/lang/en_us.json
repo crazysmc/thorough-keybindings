@@ -14,7 +14,7 @@
   "key.debug.reloadResourcePacks": "Reload Resource Packs",
   "key.debug.showAdvancedTooltips": "Show Advanced Tooltips",
   "key.debug.showChunkBorders": "Show Chunk Boundaries",
-  "key.debug.showHitboxes": "Show Hitboxes (Ctrl + Key: Narrator)",
+  "key.debug.showHitboxes": "Show Hitboxes (Ctrl: Narrator)",
   "key.debug.spectate": "Cycle Spectator",
   "key.gameMenu": "Game Menu",
   "key.mod.alt.1": "Alt 1",
