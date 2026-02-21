@@ -3,10 +3,11 @@ package io.github.crazysmc.thrkbs.version;
 import com.mojang.blaze3d.platform.InputConstants;
 import io.github.crazysmc.thrkbs.HardcodedMapping;
 import io.github.crazysmc.thrkbs.RemapRegistry;
-import io.github.crazysmc.thrkbs.version.mixin.shared.KeyMappingAccessor;
 import net.minecraft.client.KeyMapping;
 
 import java.util.*;
+
+import static io.github.crazysmc.thrkbs.ThoroughKeybindings.MULTIMAP;
 
 public class KeyRemapping extends KeyMapping
 {
@@ -22,7 +23,7 @@ public class KeyRemapping extends KeyMapping
 
   public static void setDown(InputConstants.Key key, boolean down)
   {
-    List<KeyMapping> list = KeyMappingAccessor.getMap().get(key);
+    List<KeyMapping> list = MULTIMAP.get(key);
     if (list == null)
       return;
     for (KeyMapping mapping : list)

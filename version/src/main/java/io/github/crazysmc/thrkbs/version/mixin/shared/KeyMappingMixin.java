@@ -13,15 +13,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
 
+import static io.github.crazysmc.thrkbs.ThoroughKeybindings.MULTIMAP;
+
 @Mixin(KeyMapping.class)
 public abstract class KeyMappingMixin
 {
   /**
-   * changing the map into a multimap (map to list of values) to support duplicate bindings
+   * Replacing this map with a multimap (map to list of values) to support duplicate bindings.
    */
   @Shadow
   @Final
-  private static Map<InputConstants.Key, List<KeyMapping>> MAP;
+  private static Map<InputConstants.Key, KeyMapping> MAP;
 
   @Shadow
   private int clickCount;
@@ -32,7 +34,7 @@ public abstract class KeyMappingMixin
   @Inject(method = "click", at = @At("HEAD"), cancellable = true)
   private static void click(InputConstants.Key key, CallbackInfo ci)
   {
-    List<KeyMapping> list = MAP.get(key);
+    List<KeyMapping> list = MULTIMAP.get(key);
     if (list != null)
       for (KeyMapping mapping : list)
         ((KeyMappingMixin) (Object) mapping).clickCount++;
@@ -42,11 +44,17 @@ public abstract class KeyMappingMixin
   @Inject(method = "set", at = @At("HEAD"), cancellable = true)
   private static void set(InputConstants.Key key, boolean isDown, CallbackInfo ci)
   {
-    List<KeyMapping> list = MAP.get(key);
+    List<KeyMapping> list = MULTIMAP.get(key);
     if (list != null)
       for (KeyMapping mapping : list)
         ((KeyMappingMixin) (Object) mapping).method_23481(isDown);
     ci.cancel();
+  }
+
+  @Inject(method = "resetMapping", at = @At(value = "HEAD"))
+  private static void resetMapping(CallbackInfo ci)
+  {
+    MULTIMAP.clear();
   }
 
   @WrapOperation(
@@ -56,12 +64,12 @@ public abstract class KeyMappingMixin
       },
       at = @At(value = "INVOKE", target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;")
   )
-  private static Object resetMapping_put(Map<InputConstants.Key, List<KeyMapping>> map, Object key, Object value,
+  private static Object resetMapping_put(Map<InputConstants.Key, KeyMapping> map, Object key, Object value,
                                          Operation<Object> original)
   {
     if (map != MAP)
       return original.call(map, key, value);
-    MAP.computeIfAbsent(((InputConstants.Key) key), k -> new ArrayList<>()).add((KeyMapping) value);
+    MULTIMAP.computeIfAbsent(((InputConstants.Key) key), k -> new ArrayList<>()).add((KeyMapping) value);
     return null;
   }
 
