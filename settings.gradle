@@ -11,9 +11,9 @@ pluginManagement {
 dependencyResolutionManagement {
   versionCatalogs {
     libs {
-      version 'loom', '1.15-SNAPSHOT'
-      plugin 'loom', 'fabric-loom' versionRef 'loom'
-      version 'loader', '0.18.4'
+      version 'loom', '1.16-SNAPSHOT'
+      plugin 'loom', 'net.fabricmc.fabric-loom-remap' versionRef 'loom'
+      version 'loader', '0.19.3'
       library 'loader', 'net.fabricmc', 'fabric-loader' versionRef 'loader'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
       library 'loader-junit', 'net.fabricmc', 'fabric-loader-junit' versionRef 'loader'

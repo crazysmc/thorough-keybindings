@@ -1,7 +1,6 @@
-package io.github.crazysmc.thrkbs.version.shared;
+package io.github.crazysmc.thrkbs.version;
 
 import io.github.crazysmc.thrkbs.HardcodedMapping;
-import io.github.crazysmc.thrkbs.version.KeyRemapping;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 

@@ -3,7 +3,10 @@
 For as many Minecraft versions as possible, this mod makes the keybindings of
 usually fixed mappings rebindable.
 This project branch supports releases 1.14 through 1.21.
-Check out the Ornithe version for legacy support!
+Check out
+the [Ornithe version](https://github.com/crazysmc/thorough-keybindings/tree/ornithe) for legacy and
+the [unobfuscated Fabric version](https://github.com/crazysmc/thorough-keybindings/tree/fabric-unobf) for recent
+Minecraft support!
 
 For example, this lets you remap Escape and F3 in-game, even in versions
 before F3 was made rebindable.

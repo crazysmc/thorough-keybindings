@@ -26,6 +26,8 @@ allprojects {
     testImplementation libs.mockito
     testImplementation libs.mojang.logging
 
+    if (project == rootProject)
+      return
     if (!project.hasProperty('no_fabric_resource_loader'))
       modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
     modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
@@ -84,3 +86,12 @@ allprojects {
 }
 
 base.archivesName = mod_id
+
+test {
+  doFirst {
+    copy {
+      from file('src/test/resources/fabric_loader_dependencies.json')
+      into file("$workingDir/config")
+    }
+  }
+}

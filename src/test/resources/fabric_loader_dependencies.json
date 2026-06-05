@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "overrides": {
+    "thorough-keybindings": {
+      "-depends": {
+        "thorough-keybindings-version": ""
+      }
+    }
+  }
+}

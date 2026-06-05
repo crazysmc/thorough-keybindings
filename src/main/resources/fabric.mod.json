@@ -14,8 +14,9 @@
   "license": "MIT",
   "environment": "client",
   "depends": {
+    "minecraft": "${minecraft_range}",
     "fabricloader": ">=0.17.0",
-    "fabric-key-binding-api-v1": "*"
+    "thorough-keybindings-version": "*"
   },
   "recommends": {
     "fabric-resource-loader-v0": "*"

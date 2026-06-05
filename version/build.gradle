@@ -6,16 +6,15 @@ subprojects {
   sourceSets {
     main {
       java {
-        srcDirs += project.file '../src/main/java'
+        srcDirs += file '../src/main/java'
         include '**/version/mixin/*.java'
         include '**/version/*.java'
-        include '**/shared/Initializer.java'
       }
-      resources.srcDirs += project.file '../src/main/resources'
+      resources.srcDirs += file '../src/main/resources'
     }
     test {
-      java.srcDirs += project.file '../src/test/java'
-      resources.srcDirs += project.file '../src/test/resources'
+      java.srcDirs += file '../src/test/java'
+      resources.srcDirs += file '../src/test/resources'
     }
   }
 }
