@@ -1,97 +1,63 @@
 plugins {
-  alias libs.plugins.loom apply false
+  alias libs.plugins.loom
 }
 
-allprojects {
-  if (project.path == ':version')
-    return
-
-  apply plugin: libs.plugins.loom.get().pluginId
-  apply plugin: 'idea'
-
-  version = mod_version
-  group = maven_group
-  base.archivesName = "$rootProject.name-$name"
-
-  dependencies {
-    println "Minecraft: $minecraft_version"
-    minecraft "com.mojang:minecraft:${minecraft_version}"
-    mappings loom.layered {
-      officialMojangMappings { nameSyntheticMembers = true }
-    }
-    modImplementation libs.loader
-
-    testImplementation libs.junit
-    testImplementation libs.loader.junit
-    testImplementation libs.mockito
-    testImplementation libs.mojang.logging
-
-    if (project == rootProject)
-      return
-    if (!project.hasProperty('no_fabric_resource_loader'))
-      modImplementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
-    modImplementation fabricApi.module('fabric-key-binding-api-v1', fabric_api_version)
-  }
-
-  loom {
-    log4jConfigs.from project.rootProject.file('src/test/resources/log4j.xml')
-    runs {
-      client.ideConfigGenerated = false
-      remove server
-    }
-  }
-
-  tasks.named 'runClient', {
-    doFirst {
-      def run = layout.projectDirectory.dir 'run'
-      if (!run.file('options.txt').asFile.exists())
-        copy {
-          from project.rootProject.file('src/test/resources/options.txt')
-          into run
-        }
-    }
-  }
-
-  java {
-    println "Java: $java_version"
-    toolchain.languageVersion = JavaLanguageVersion.of java_version
-    withSourcesJar()
-  }
-
-  processResources {
-    def stringProperties = project.properties.findAll { it.value instanceof String }
-    inputs.properties stringProperties
-    filesMatching 'fabric.mod.json', {
-      expand stringProperties, { escapeBackslash = false }
-    }
-  }
-
-  idea.module.resourceDirs = [ project.processResources.destinationDir ]
-  idea.module.generatedSourceDirs += project.processResources.destinationDir
-
-  tasks.withType Jar configureEach {
-    from rootProject.file('LICENSE')
-  }
-
-  test {
-    useJUnitPlatform()
-    workingDir = rootProject.layout.buildDirectory.file 'test-run'
-    workingDir.mkdir()
-  }
-
-  if (project != rootProject)
-    rootProject.dependencies {
-      include project
-    }
-}
-
+version = mod_version
+group = maven_group
 base.archivesName = mod_id
 
-test {
-  doFirst {
-    copy {
-      from file('src/test/resources/fabric_loader_dependencies.json')
-      into file("$workingDir/config")
-    }
+dependencies {
+  println "Minecraft: $minecraft_version"
+  minecraft "com.mojang:minecraft:${minecraft_version}"
+  implementation libs.loader
+
+  testImplementation libs.junit
+  testImplementation libs.loader.junit
+  testImplementation libs.mockito
+
+  implementation fabricApi.module('fabric-resource-loader-v0', fabric_api_version)
+  implementation fabricApi.module('fabric-key-mapping-api-v1', fabric_api_version)
+}
+
+loom {
+  log4jConfigs.from rootProject.file('src/test/resources/log4j.xml')
+  runs {
+    client.ideConfigGenerated = false
+    remove server
   }
+}
+
+tasks.named 'runClient', {
+  doFirst {
+    def run = layout.projectDirectory.dir 'run'
+    if (!run.file('options.txt').asFile.exists())
+      copy {
+        from project.rootProject.file('src/test/resources/options.txt')
+        into run
+      }
+  }
+}
+
+java {
+  println "Java: $java_version"
+  toolchain.languageVersion = JavaLanguageVersion.of java_version
+  withSourcesJar()
+}
+
+processResources {
+  def stringProperties = project.properties.findAll { it.value instanceof String }
+  inputs.properties stringProperties
+  filesMatching 'fabric.mod.json', {
+    expand stringProperties, { escapeBackslash = false }
+  }
+}
+
+tasks.withType Jar configureEach {
+  from rootProject.file('LICENSE')
+}
+
+test {
+  useJUnitPlatform()
+  workingDir = rootProject.layout.buildDirectory.file 'test-run'
+  workingDir.mkdir()
 }

@@ -16,9 +16,13 @@
   "depends": {
     "minecraft": "${minecraft_range}",
     "fabricloader": ">=0.17.0",
-    "thorough-keybindings-version": "*"
+    "fabric-key-mapping-api-v1": "*"
   },
   "recommends": {
     "fabric-resource-loader-v0": "*"
-  }
+  },
+  "entrypoints": {
+    "client": [ "io.github.crazysmc.thrkbs.version.Initializer" ]
+  },
+  "mixins": [ "version.mixins.json" ]
 }

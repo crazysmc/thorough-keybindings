@@ -12,39 +12,14 @@ dependencyResolutionManagement {
   versionCatalogs {
     libs {
       version 'loom', '1.16-SNAPSHOT'
-      plugin 'loom', 'net.fabricmc.fabric-loom-remap' versionRef 'loom'
+      plugin 'loom', 'net.fabricmc.fabric-loom' versionRef 'loom'
       version 'loader', '0.19.3'
       library 'loader', 'net.fabricmc', 'fabric-loader' versionRef 'loader'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
       library 'loader-junit', 'net.fabricmc', 'fabric-loader-junit' versionRef 'loader'
       library 'mockito', 'org.mockito', 'mockito-junit-jupiter' version '3.+'
-      library 'mojang-logging', 'com.mojang', 'logging' version '1.0.0' // work around FabricMC/fabric-loader#817
     }
   }
 }
 
 rootProject.name = 'thrkbs'
-
-/*
- * common code is shared between subprojects
- *   - for better intellij highlighting temporarily comment out all except a
- *     single include
- *   - follow the build.gradle files to see which shared files are included in
- *     each build
- */
-include ':version:1.14'
-include ':version:20w10a'
-include ':version:20w17a'
-include ':version:1.16'
-include ':version:1.17'
-include ':version:1.18'
-include ':version:1.19'
-include ':version:1.19.4'
-include ':version:1.20'
-include ':version:1.21'
-include ':version:1.21.2'
-include ':version:1.21.6'
-include ':version:25w31a'
-include ':version:25w36a'
-include ':version:1.21.9'
-include ':version:1.21.11'

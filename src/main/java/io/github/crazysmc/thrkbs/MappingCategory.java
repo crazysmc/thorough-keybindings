@@ -3,7 +3,6 @@ package io.github.crazysmc.thrkbs;
 public enum MappingCategory
 {
   MISC("misc"),
-  DEBUG("debug"),
   MODIFIER("modifier"),
   PROFILER("profiler"),
   ;
@@ -18,10 +17,5 @@ public enum MappingCategory
   public String getType()
   {
     return type;
-  }
-
-  public String getId()
-  {
-    return String.format("key.categories.%s", type);
   }
 }
