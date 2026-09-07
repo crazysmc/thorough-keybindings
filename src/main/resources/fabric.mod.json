@@ -5,6 +5,9 @@
   "name": "Thorough Keybindings",
   "description": "Make all keybindings configurable",
   "authors": [ "crazysmc" ],
+  "contributors": [
+    "permail"
+  ],
   "contact": {
     "homepage": "https://github.com/crazysmc/thorough-keybindings",
     "sources": "https://github.com/crazysmc/thorough-keybindings",
