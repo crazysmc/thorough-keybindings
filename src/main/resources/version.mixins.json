@@ -8,10 +8,12 @@
   "client": [
     "AbstractContainerScreenMixin",
     "InputWithModifiersMixin",
+    "KeyBindsScreenMixin",
     "KeyboardHandlerMixin",
     "KeyMappingAccessor",
     "KeyMappingMixin",
     "MinecraftMixin",
+    "MouseHandlerMixin",
     "RecipeBookComponentMixin"
   ]
 }
