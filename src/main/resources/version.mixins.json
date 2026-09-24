@@ -5,6 +5,7 @@
   "injectors": { "defaultRequire": 1 },
   "mixinextras": { "minVersion": "0.5.0" },
   "package": "io.github.crazysmc.thrkbs.version.mixin",
+  "plugin": "net.ornithemc.conditionalmixin.mixin.ConditionalMixinPlugin",
   "client": [
     "AbstractContainerScreenMixin",
     "InputWithModifiersMixin",

@@ -11,10 +11,11 @@ pluginManagement {
 dependencyResolutionManagement {
   versionCatalogs {
     libs {
-      version 'loom', '1.16-SNAPSHOT'
+      version 'loom', '1.18-SNAPSHOT'
       plugin 'loom', 'net.fabricmc.fabric-loom' versionRef 'loom'
-      version 'loader', '0.19.3'
+      version 'loader', '0.19.5'
       library 'loader', 'net.fabricmc', 'fabric-loader' versionRef 'loader'
+      library 'conditional', 'net.ornithemc', 'conditional-mixin' version '1.0.0-beta.3'
       library 'junit', 'org.junit.jupiter', 'junit-jupiter' version '5.10.2'
       library 'loader-junit', 'net.fabricmc', 'fabric-loader-junit' versionRef 'loader'
       library 'mockito', 'org.mockito', 'mockito-junit-jupiter' version '3.+'
